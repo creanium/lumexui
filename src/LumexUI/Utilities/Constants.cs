@@ -18,7 +18,6 @@ public partial class Constants
 		public const string Invalid = "lumex-invalid";
 		public const string Loading = "lumex-loading";
 		public const string Selected = "lumex-selected";
-		public const string Sticky = "lumex-sticky";
 		public const string Shown = "lumex-shown";
 		public const string Showing = "lumex-showing";
 		public const string Valid = "lumex-valid";
