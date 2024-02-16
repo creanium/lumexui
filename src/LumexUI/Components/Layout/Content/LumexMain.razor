@@ -1,0 +1,18 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<main @attributes="@AdditionalAttributes" class="@RootClass" style="@RootStyle">
+	@ChildContent
+</main>
+
+@code {
+	/// <summary>
+	/// Defines the content to be rendered inside the main block.
+	/// </summary>
+	[Parameter] public RenderFragment? ChildContent { get; set; }
+
+	protected override string RootClass =>
+		new CssBuilder( "lumex-main" )
+			.AddClass( base.RootClass )
+		.Build();
+}

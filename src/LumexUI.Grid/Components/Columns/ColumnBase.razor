@@ -1,0 +1,59 @@
+﻿@namespace LumexUI.Grid
+@typeparam TGridItem
+
+@{
+	Grid.AddColumn( this );
+	SetColumnId();
+}
+
+@code {
+	internal void RenderCell( RenderTreeBuilder __builder, TGridItem item )
+	{
+		CellBase<TGridItem> cell = CreateCell( item );
+
+		<LumexGridCell TGridItem="TGridItem" Instance="@cell" @key="@this">
+			@((RenderFragment)( __builder => RenderCellContent( __builder, cell ) ))
+		</LumexGridCell>
+	}
+
+	internal void RenderPlaceholderCell( RenderTreeBuilder __builder, PlaceholderContext context )
+	{
+		<td class="@ColumnPlaceholderCssClass" @key="@this">
+			@if( PlaceholderTemplate is not null )
+			{
+				@PlaceholderTemplate(context)
+			}
+			else
+			{
+				<span class="lumex-skeleton"></span>
+			}
+		</td>
+	}
+
+	/// <summary>
+	/// Overridden by derived components to provide rendering logic for the column's header cell.
+	/// </summary>
+	/// <param name="__builder">The current <see cref="RenderTreeBuilder" />.</param>
+	protected abstract void RenderHeaderCellContent( RenderTreeBuilder __builder );
+
+	/// <summary>
+	/// Overridden by derived components to provide rendering logic for the column's body cells content.
+	/// </summary>
+	/// <param name="__builder">The current <see cref="RenderTreeBuilder" />.</param>
+	/// <param name="cell">The current <see cref="CellBase{TGridITem}" />.</param>
+	protected abstract void RenderCellContent( RenderTreeBuilder __builder, CellBase<TGridItem> cell );
+
+	private void RenderHeaderCell( RenderTreeBuilder __builder )
+	{
+		<th class="@ColumnHeaderCssClass" scope="col" aria-sort="@AriaSortValue(this)" @key="@this">
+			@if( HeaderTemplate is not null )
+			{
+				@HeaderTemplate(this)
+			}
+			else
+			{
+				RenderHeaderCellContent( __builder );
+			}
+		</th>
+	}
+}

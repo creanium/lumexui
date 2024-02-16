@@ -1,0 +1,182 @@
+@namespace LumexUI.Grid
+@inherits LumexComponentBase
+@typeparam TGridItem
+
+<CascadingValue TValue="InternalGridContext<TGridItem>" Value="@_internalGridContext" IsFixed="@true">
+	<CascadingValue TValue="string" Value="@_internalGridContext.ColumnsCollectionId">
+		@{
+			StartCollectingColumns();
+		}
+
+		@Columns
+
+		<Defer>
+			@{
+				FinishCollectingColumns();
+			}
+			<ColumnsCollectedNotifier TGridItem="TGridItem" />
+
+			<div @attributes="@AdditionalAttributes" class="@RootClass" style="@RootStyle">
+				@_renderToolbarTemplate
+
+				<div class="@GridContainerCssClass" style="@GridContainerCssStyle">
+					<table class="@GridCssClass" @ref="@_gridReference" @onclickoutside="@GridEditContext.StopEditingItem">
+
+						@_renderColumnGroups
+
+						<thead>
+							@_renderColumnHeaders
+						</thead>
+
+						<tbody>
+							@if( State == GridState.Loading )
+							{
+								@_renderLoaderTemplate
+							}
+							else
+							{
+								if( ( Data is not null && Data.Any() ) || DataSource is not null )
+								{
+									if( Virtualized )
+									{
+										<Virtualize @ref="@_virtualizeComponent"
+										TItem="(int RowIndex, TGridItem Data)"
+										ItemSize=@ItemSize
+										ItemsProvider="@ProvideVirtualizedData"
+										ItemContent="@(item => builder => RenderRow(builder, item.Data, item.RowIndex))"
+										Placeholder="@(context => builder => RenderPlaceholderRow(builder, context))" />
+									}
+									else
+									{
+										@_renderNonVirtualizedRows
+									}
+								}
+								else
+								{
+									@_renderNoRecordsTemplate
+								}
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</Defer>
+	</CascadingValue>
+</CascadingValue>
+
+@code
+{
+	private void RenderNonVirtualizedRows( RenderTreeBuilder __builder )
+	{
+		var initialRowIndex = 2; // aria-rowindex is 1-based, plus the first row is the header
+		var rowIndex = initialRowIndex;
+
+		foreach( var item in _currentNonVirtualizedViewItems )
+		{
+			RenderRow( __builder, item, rowIndex++ );
+
+			if( DetailRowContent is not null )
+			{
+				rowIndex++;
+			}
+		}
+	}
+
+	private void RenderRow( RenderTreeBuilder __builder, TGridItem item, int rowIndex )
+	{
+		<LumexGridRow TGridItem="TGridItem" Item="@item" Index="@rowIndex" Expandable="@(DetailRowContent is not null)" @key="@item">
+			@foreach( var column in RenderedColumns )
+			{
+				OnColumnRender?.Invoke();
+				@((RenderFragment)(__builder => column.RenderCell( __builder, item )))
+			}
+		</LumexGridRow>
+	}
+
+	private void RenderPlaceholderRow( RenderTreeBuilder __builder, PlaceholderContext context )
+	{
+		<tr class="lumex-grid-row lumex-grid-row-placeholder" aria-rowindex="@(context.Index + 1)">
+			@foreach( var column in RenderedColumns )
+			{
+				column.RenderPlaceholderCell(__builder, context);
+			}
+		</tr>
+	}
+
+	private void RenderColumnHeaders( RenderTreeBuilder __builder )
+	{
+		<tr class="lumex-grid-row">
+			@foreach( var column in RenderedColumns )
+			{
+				@column.HeaderCell
+			}
+		</tr>
+	}
+
+	private void RenderColumnGroups( RenderTreeBuilder __builder )
+	{
+		<colgroup>
+			@foreach( var column in RenderedColumns )
+			{
+				<col width="@(column.Width ?? "100%")" @key="@column">
+			}
+		</colgroup>
+	}
+
+	private void RenderLoaderTemplate( RenderTreeBuilder __builder )
+	{
+		<tr class="lumex-grid-row lumex-grid-row-loader">
+			<td colspan="@(RenderedColumns.Count)">
+				@if( LoaderTemplate is not null )
+				{
+					@LoaderTemplate
+				}
+				else
+				{
+					<text>Loading...</text>
+				}
+			</td>
+		</tr>
+	}
+
+	private void RenderNoRecordsTemplate( RenderTreeBuilder __builder )
+	{
+		<tr class="lumex-grid-row lumex-grid-row-norecords">
+			<td colspan="@(RenderedColumns.Count)">
+				@if( NoRecordsTemplate is not null )
+				{
+					@NoRecordsTemplate
+				}
+				else
+				{
+					<text>No records available.</text>
+				}
+			</td>
+		</tr>
+	}
+
+	private void RenderToolbarTemplate( RenderTreeBuilder __builder )
+	{
+		@if( ToolbarTemplate is not null )
+		{
+			<LumexToolbar>
+				@ToolbarTemplate
+
+				@if( Filterable )
+				{
+					<LumexTextBox Label="Search" LabelPlaceholder="@true" Instant="@true" Class="filterbox w-1/4" ValueChanged="@FilterDataAsync" />
+				}
+			</LumexToolbar>
+		}
+		else
+		{
+			if( Filterable )
+			{
+				<LumexToolbar>
+					<LumexTextBox Label="Search" LabelPlaceholder="@true" Instant="@true" Class="filterbox w-1/4" ValueChanged="@FilterDataAsync" />
+				</LumexToolbar>
+			}
+		}
+	}
+}

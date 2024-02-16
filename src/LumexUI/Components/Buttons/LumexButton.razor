@@ -1,0 +1,23 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<button @attributes="@AdditionalAttributes"
+        @onclick="@HandleClickAsync"
+        @onclick:stopPropagation
+        class="@RootClass"
+        style="@RootStyle"
+        type="@Type.ToLowerInvariant()"
+        disabled="@Disabled">
+
+    <span class="lumex-btn-content">
+        <span class="lumex-btn-label">@ChildContent</span>
+
+        @if (!string.IsNullOrEmpty(Icon) || IconTemplate is not null)
+        {
+            <span class="@IconCssClass">
+                <LumexIcon Icon="@Icon" IconTemplate="@IconTemplate" Class="@IconClass" Size="@Size" />
+            </span>
+        }
+    </span>
+
+</button>

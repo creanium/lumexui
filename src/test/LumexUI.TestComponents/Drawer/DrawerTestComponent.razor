@@ -1,0 +1,18 @@
+﻿@namespace LumexUI.TestComponents.Drawer
+
+<LumexDrawer Id="test" ShowHeader="@ShowHeader">
+    <HeaderContent>
+        Header Content
+    </HeaderContent>
+    <BodyContent>
+        Body Content
+    </BodyContent>
+</LumexDrawer>
+
+<LumexButton OnClick="@(() => DrawerService.Toggle("test"))">Toggle</LumexButton>
+
+@code {
+    [Parameter] public bool ShowHeader { get; set; }
+
+    [Inject] private IDrawerService DrawerService { get; set; } = default!;
+}

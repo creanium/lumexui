@@ -1,0 +1,48 @@
+﻿@namespace LumexUI.Docs.Components
+
+<div class="ad-example-snippet">
+    <div class="ad-example-snippet-content">
+        <div class="absolute inset-0"></div>
+        <span class="z-10">@ChildContent</span>
+    </div>
+
+    <LumexToolbar Class="@ToolbarCssClass">
+        <div class="ms-auto">
+            <LumexButton Size="@Size.Small" OnClick="@CollapseCode">@ButtonLabel</LumexButton>
+            <LumexIconButton Icon="@Icons.Rounded.ContentCopy" Size="@Size.Small" />
+        </div>
+    </LumexToolbar>
+
+    <LumexExpander Expanded="@_expanded" OnTransitionEnd="@HandleTransitionEnd">
+        <CodeSnippet Code="@Code" />
+    </LumexExpander>
+</div>
+
+    @code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string? Code { get; set; }
+
+    private string ToolbarCssClass => 
+        new CssBuilder()
+            .AddClass( "p-1" )
+            .AddClass( "border-t" )
+            .AddClass( "border-b", when: _expanded )
+            .AddClass( "rounded-b-xl", when: !_expanded && _animationEnded )
+        .Build();
+
+    private string ButtonLabel => _expanded ? "Collapse code" : "Expand code";
+
+    private bool _animationEnded;
+    private bool _expanded = true;
+
+    private void CollapseCode()
+    {
+        _animationEnded = false;
+        _expanded = !_expanded;
+    }
+
+    private void HandleTransitionEnd( bool ended )
+    {
+        _animationEnded = ended;
+    }
+}

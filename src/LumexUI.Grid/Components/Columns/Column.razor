@@ -1,0 +1,25 @@
+﻿@namespace LumexUI.Grid
+@typeparam TGridItem
+@typeparam TProp
+@inherits TemplateColumn<TGridItem>
+
+@{
+	base.BuildRenderTree( __builder );
+}
+
+@code {
+	protected override void RenderCellContent( RenderTreeBuilder __builder, CellBase<TGridItem> cell )
+	{
+		if( cell is PropertyCell<TGridItem, TProp> propCell )
+		{
+			if( Template is null )
+			{
+				@propCell.DisplayValue
+			}
+			else
+			{
+				base.RenderCellContent(__builder, cell);
+			}
+		}
+	}
+}

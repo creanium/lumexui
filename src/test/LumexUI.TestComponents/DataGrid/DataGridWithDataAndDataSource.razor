@@ -1,0 +1,20 @@
+﻿@namespace LumexUI.TestComponents.DataGrid
+
+<LumexGrid Data="@_data" DataSource="@_dataSource">
+    <Columns>
+        <Column Property="@(t => t.Name)" />
+        <Column Property="@(t => t.Price)" />
+    </Columns>
+</LumexGrid>
+
+@code {
+    private IQueryable<TestModel> _data = new List<TestModel>().AsQueryable();
+
+    private DataSource<TestModel> _dataSource = new DataSource<TestModel>(
+        async _ =>
+        {
+            return DataSourceResult.From(new List<TestModel>(), 0);
+        });
+
+    public record TestModel( string Name, double Price );
+}

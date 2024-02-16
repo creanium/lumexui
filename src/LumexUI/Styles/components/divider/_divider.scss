@@ -1,0 +1,12 @@
+@import '../../essentials/variables';
+@import '../../essentials/mixins/mixins';
+
+// Divider
+
+
+.lumex-divider {
+	&--vertical {
+		height: calc(1em * var(--lumex-body-line-height));
+		border-right-width: var(--lumex-border-width);
+	}
+}

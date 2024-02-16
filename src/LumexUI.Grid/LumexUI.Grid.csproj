@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<!-- Package References -->
+	<ItemGroup>
+		<PackageReference Include="AspNetCore.SassCompiler" Version="1.70.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.2" />
+	</ItemGroup>
+
+	<!-- Project References -->
+	<ItemGroup>
+		<ProjectReference Include="..\LumexUI\LumexUI.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="LumexUI.Tests" />
+	</ItemGroup>
+
+	<!-- Excluded Files -->
+	<ItemGroup>
+		<Content Remove="sasscompiler.json" />
+	</ItemGroup>
+
+</Project>

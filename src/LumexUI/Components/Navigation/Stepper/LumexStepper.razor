@@ -1,0 +1,35 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<CascadingValue TValue="LumexStepper" Value="@this" IsFixed="@true">
+    @{
+        StartCollectingSteps();
+    }
+
+    @ChildContent
+
+    <Defer>
+        @{
+            FinishCollectingSteps();
+        }
+
+        <ol class="@RootClass" style="@RootStyle" @attributes="@AdditionalAttributes">
+            @_renderSteps
+        </ol>
+    </Defer>
+</CascadingValue>
+
+@code {
+    private void RenderSteps( RenderTreeBuilder __builder )
+    {
+        foreach( LumexStep step in _renderedSteps )
+        {
+            step.RenderStep( __builder );
+
+            if( step != _renderedSteps[^1] )
+            {
+                step.RenderStepConnector( __builder );
+            }
+        }
+    }
+}

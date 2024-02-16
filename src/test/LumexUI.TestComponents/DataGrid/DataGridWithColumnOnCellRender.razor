@@ -1,0 +1,38 @@
+﻿@namespace LumexUI.TestComponents.DataGrid
+
+<LumexGrid Data="@_data">
+	<Columns>
+		<Column Property="@(t => t.Name)" OnCellRender="@(args => OnCellRenderHandler(args))" />
+		@*		<TemplateColumn OnCellRender="@(args => OnCellRenderHandler(args))">
+		<Template>
+		@context.Name
+		</Template>
+		</TemplateColumn>*@
+		<Column Property="@(t => t.Price)" />
+	</Columns>
+</LumexGrid>
+
+<style>
+	.custom-css { color: red; }
+</style>
+
+@code {
+	private IQueryable<TestModel> _data = new List<TestModel>()
+	 {
+		 new TestModel("Apple", 0.75),
+		 new TestModel("Banana", 1.0),
+		 new TestModel("Kiwi", 1.33)
+	 }.AsQueryable();
+
+	public record TestModel( string Name, double Price );
+
+	private void OnCellRenderHandler( GridCellRenderArgs<TestModel> args )
+	{
+		var cellValue = (string?)args.Value;
+
+		if( !cellValue!.Contains( "a" ) )
+		{
+			args.Class = "custom-css";
+		}
+	}
+}

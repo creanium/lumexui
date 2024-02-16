@@ -1,0 +1,14 @@
+comment:
+  require_changes: true
+coverage:
+  range: 60..90
+  round: nearest
+  status:
+    project:
+      default:
+        target: 90%    # the required coverage value
+        threshold: 1%  # the leniency in hitting the target
+    patch:
+      default:
+        target: 100%
+        threshold: 10%

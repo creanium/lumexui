@@ -1,0 +1,44 @@
+﻿@namespace LumexUI.Grid
+@typeparam TGridItem
+@typeparam TProp
+@inherits Column<TGridItem, TProp>
+
+@{
+	base.BuildRenderTree( __builder );
+}
+
+@code {
+	protected override void RenderCellContent( RenderTreeBuilder __builder, CellBase<TGridItem> cell )
+	{
+		if( cell is EditableCell<TGridItem, TProp> editCell )
+		{
+			if( editCell.IsEditing && Editable )
+			{
+				RenderDefaultEditTemplate( __builder, editCell );
+			}
+			else
+			{
+				base.RenderCellContent( __builder, editCell );
+			}
+		}
+	}
+
+	private void RenderDefaultEditTemplate( RenderTreeBuilder __builder, EditableCell<TGridItem, TProp> cell )
+	{
+		if( EditTemplate is not null )
+		{
+			@EditTemplate( cell.Item )
+		}
+		else
+		{
+			if( IsStringType )
+			{
+				<LumexTextBox @ref="@_textBoxRef" Value="@cell.TextValue" ValueChanged="@cell.UpdateValueAsync" Size="@Size.Small" Autofocus="@true" OnKeyDown="@HandleKeyDownAsync" />
+			}
+			else if( IsNumericType )
+			{
+				<LumexNumBox @ref="@_numBoxRef" TValue="double?" Value="@cell.NumericValue" ValueChanged="@cell.UpdateValueAsync" Size="@Size.Small" Autofocus="@true" ShowArrows="@ShowArrows" OnKeyDown="@HandleKeyDownAsync" />
+			}
+		}
+	}
+}

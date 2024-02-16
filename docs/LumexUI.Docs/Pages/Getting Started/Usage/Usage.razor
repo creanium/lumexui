@@ -1,0 +1,37 @@
+﻿@page "/docs/getting-started/usage"
+@namespace LumexUI.Docs.Pages
+
+@using LumexUI.Docs.Pages.Getting_Started.Usage.Examples
+
+<DocsPage>
+    <DocsPageIntro Title="Usage Guide" Category="Getting Started">
+        <Description>
+            <p>Here, you will learn the basics of working with LumexUI components within your applications.</p>
+        </Description>
+    </DocsPageIntro>
+
+    <DocsPageContent>
+        <DocsPageSection Title="Quickstart">
+            <p>
+                After <LumexLink Route="/docs/getting-started/installation">installation</LumexLink>,
+                you can start using LumexUI components in your application.
+            </p>
+            <p>For example, quickly integrate the <LumexLink Route="#">LumexButton</LumexLink> component into your code:</p>
+
+            <ExampleSnippet Code="UsageQuickstartButton">
+                <UsageQuickstartButton />
+            </ExampleSnippet>
+        </DocsPageSection>
+
+        <DocsPageSection Title="Ready to Dive In?">
+            <p>
+                This Usage Guide shows how easy it is to use LumexUI components,
+                but remember there's a spectrum of components waiting to simplify your development.
+            </p>
+            <p>
+                Explore the <LumexLink Route="#">docs</LumexLink> for detailed usage.
+                Whether you're a beginner or an experienced developer, there's a lot more to discover and experiment with in our library!
+            </p>
+        </DocsPageSection>
+    </DocsPageContent>
+</DocsPage>

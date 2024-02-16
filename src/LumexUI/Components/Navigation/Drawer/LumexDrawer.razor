@@ -1,0 +1,27 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<div id="@Id" class="@RootClass" style="@RootStyle" @attributes="@AdditionalAttributes" @ontransitionend="@HandleTransitionEnd">
+    @if( _state is DrawerState.Shown )
+    {
+        <LumexIconButton Icon="@Icons.Outlined.Close" Class="lumex-drawer-btn-close" OnClick="@Toggle" />
+    }
+
+    @if( HeaderContent is not null )
+    {
+        <div class="@HeaderCssClass">
+            @HeaderContent
+        </div>
+
+        <LumexDivider Class="@DividerCssClass" />
+    }
+
+    <div class="lumex-drawer-body">
+        @BodyContent
+    </div>
+</div>
+
+@if( _state is DrawerState.Shown or DrawerState.Showing )
+{
+    <LumexOverlay Dark="@true" OnClick="@Toggle" />
+}

@@ -1,0 +1,32 @@
+﻿@import '../core/base';
+
+// Callout
+
+
+.ad-callout {
+	display: flex;
+	padding: 1.25rem;
+	margin-block: 1.25rem;
+	gap: .75rem;
+	color: var(--ad-callout-color);
+	background-color: var(--ad-callout-bg);
+	border-width: 1px;
+	border-color: var(--ad-callout-border);
+	border-radius: var(--lumex-border-xl);
+
+	& > p {
+		margin-block: 0;
+	}
+
+	& > svg {
+		flex-shrink: 0;
+	}
+}
+
+@each $variant in $callout-variants {
+	.ad-callout--#{$variant} {
+		--ad-callout-color: rgb(var(--lumex-#{$variant}-50));
+		--ad-callout-bg: rgb(var(--lumex-#{$variant}-950), .15);
+		--ad-callout-border: rgb(var(--lumex-#{$variant}-100), .15);
+	}
+}

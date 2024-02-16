@@ -1,0 +1,56 @@
+﻿@namespace LumexUI
+@inherits LumexInputBase<string>
+
+<div class="@RootClass" style="@RootStyle" @onclick="@(() => Element.FocusAsync())">
+
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <label class="@LabelCssClass">@Label</label>
+    }
+
+    <div class="lumex-input-field-control-container">
+        @if (ContentStart is not null)
+        {
+            <span class="lumex-input-field-control-content">
+                @ContentStart
+            </span>
+        }
+
+        <input @ref="@Element"
+               @attributes="@AdditionalAttributes"
+               @oninput="@OnInputAsync"
+               @onchange="@OnChangeAsync"
+               @onblur="@InvokeOnBlurAsync"
+               @onkeyup="@InvokeKeyUpAsync"
+               @onkeydown="@InvokeKeyDownAsync"
+               @onclick:stopPropagation
+               type="@Type.ToLowerInvariant()"
+               inputmode="@Mode.ToLowerInvariant()"
+               class="@InputCssClass"
+               value="@CurrentValueText"
+               pattern="@Pattern"
+               disabled=@Disabled
+               readonly="@ReadOnly"
+               required="@Required"
+               placeholder="@Placeholder" />
+
+        @InputContent
+
+        @if (ContentEnd is not null)
+        {
+            <span class="lumex-input-field-control-content">
+                @ContentEnd
+            </span>
+        }
+    </div>
+
+    @if( Required || !string.IsNullOrEmpty(Hint) )
+    {
+        <div class="lumex-input-field-caption-container">
+            @if( !string.IsNullOrEmpty( Hint ) )
+            {
+                <span class="lumex-input-field-hint">@Hint</span>
+            }
+        </div>      
+    }
+</div>

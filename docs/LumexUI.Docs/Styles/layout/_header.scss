@@ -1,0 +1,13 @@
+// Header
+
+
+.ad-header {
+	border-bottom: 1px solid var(--lumex-border-color);
+	overflow-x: hidden;
+	backdrop-filter: blur(8px);
+
+	& .lumex-nav-menu {
+		--lumex-nav-link-padding-x: 1rem;
+		--lumex-nav-link-font-weight: 500;
+	}
+}

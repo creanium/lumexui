@@ -1,0 +1,75 @@
+﻿@page "/docs/getting-started/installation"
+@namespace LumexUI.Docs.Pages
+
+<DocsPage>
+    <DocsPageIntro Title="Get started with LumexUI" Category="Getting Started">
+        <Description>
+            <p>
+                LumexUI is your go-to resource for Blazor components.
+                This guide will swiftly get you started, whether you're new to Blazor or a seasoned developer.
+            </p>
+            <p>Harness the power of our components in your applications effortlessly.</p>
+        </Description>
+    </DocsPageIntro>
+
+    <DocsPageContent>
+        <DocsPageSection Title="Installation">
+            <p>
+                To get started with LumexUI, you'll need to install the NuGet package.
+                You can do this using the .NET CLI or the Visual Studio NuGet Package Manager.
+            </p>
+
+            <InstallationSteps Steps="@_steps" />
+        </DocsPageSection>
+    </DocsPageContent>
+</DocsPage>
+
+@code {
+    private Step[] _steps = new Step[]
+    {
+        new Step()
+        {
+            Title = "Install LumexUI",
+            CodeFile = "InstallationPackage",
+            FileName = "Terminal",
+            Body = @<text>
+                        <p>Open your terminal or package manager and enter the following command.</p>
+                        <p>Alternatively, you can search for <strong>LumexUI</strong> in the NuGet Package Manager and install it from there.</p>
+                    </text>
+        },
+        new Step()
+        {
+            Title = "Configure your startup file",
+            CodeFile = "InstallationServices",
+            FileName = "Program.cs",
+            Body = @<p>Inject the vital LumexUI services in your <code>`Startup.cs`</code> to enable seamless integration.</p>
+        },
+        new Step()
+        {
+            Title = "Include required CSS and JS",
+            CodeFile = "InstallationFiles",
+            FileName = "index.html / _Layout.cshtml",
+            Body = @<p>Add the mandatory files into the <code>@("`<head>`")</code> and the <code>@("`<body>`")</code> respectively to ensure correct functionality.</p>
+        },
+        new Step()
+        {
+            Title = "Import library's namespace",
+            CodeFile = "InstallationImport",
+            FileName = "_Imports.razor",
+            Body = @<p>Import the LumexUI namespace in your <code>`_Imports.razor`</code> file to easily access components throughout your app.</p>
+        },
+        new Step()
+        {
+            Title = "Add the theme provider",
+            CodeFile = "InstallationThemeProvider",
+            FileName = "MainLayout.razor",
+            Body = @<p>Integrate the <LumexLink Route="#">LumexThemeProvider</LumexLink> component into your <code>`MainLayout.razor`</code> file to enable theming.</p>
+        },
+        new Step()
+        {
+            Title = "Start using LumexUI in your app",
+            CodeFile = "InstallationUsage",
+            Body = @<p>Add the simple <LumexLink Route="#">LumexButton</LumexLink> component in your code.</p>
+        }
+    };
+}

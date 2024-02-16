@@ -1,0 +1,49 @@
+﻿@namespace LumexUI.Docs.Components
+
+<div class="ad-code-snippet text-6">
+    @if( !string.IsNullOrEmpty( TabTitle ) )
+    {
+        <LumexToolbar Class="ad-code-snippet-toolbar">
+            <div class="flex flex-fill pe-2">
+                <span class="px-4 py-2 text-xs lumex-active">@TabTitle</span>
+                <LumexIconButton Icon="@Icons.Rounded.ContentCopy" Size="@Size.Small" Class="ms-auto" />
+            </div>
+        </LumexToolbar>
+    }
+
+    @_renderCodeBlock
+</div>
+
+@code {
+    [Parameter] public string? TabTitle { get; set; }
+    [Parameter] public string? Code { get; set; }
+
+    private RenderFragment _renderCodeBlock;
+
+    public CodeSnippet()
+    {
+        _renderCodeBlock = RenderCodeBlock;
+    }
+
+    private void RenderCodeBlock( RenderTreeBuilder __builder )
+    {
+        string? resourceName = typeof( CodeSnippet ).Assembly
+            .GetManifestResourceNames()
+            .FirstOrDefault( x => x.Contains( $"{Code}.html" ) );
+
+        if( string.IsNullOrEmpty( resourceName ) )
+        {
+            return;
+        }
+
+        using var resourceStream = typeof( CodeSnippet ).Assembly
+            .GetManifestResourceStream( resourceName );
+
+        if( resourceStream is not null )
+        {
+            using var reader = new StreamReader( resourceStream );
+            var read = reader.ReadToEnd();
+            __builder.AddMarkupContent( 0, read );
+        }
+    }
+}

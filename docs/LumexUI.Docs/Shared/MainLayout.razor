@@ -1,0 +1,33 @@
+﻿@inherits LayoutComponentBase
+
+<LumexThemeProvider Theme="@_theme" />
+
+<LumexLayout Class="ad-layout">
+    <Header />
+
+    <LumexToolbar Class="xl:hidden py-1 border-b">
+        <LumexContainer Breakpoint="@Breakpoint.Xl">
+            <LumexIconButton Icon="@Icons.Rounded.Menu" Class="ms-n2" OnClick="@(() => DrawerService.Toggle("navMenu"))" />
+        </LumexContainer>
+    </LumexToolbar>
+
+    <LumexContainer Breakpoint="@Breakpoint.Xxl" Class="ad-container">
+        <NavMenu />
+
+        <LumexMain Class="ad-main pt-10">
+            @Body
+        </LumexMain>
+    </LumexContainer>
+</LumexLayout>
+
+@code {
+    [Inject] private IJSRuntime JS { get; set; } = default!;
+    [Inject] private IDrawerService DrawerService { get; set; } = default!;
+
+    private readonly Theme _theme = new();
+
+    protected override async Task OnAfterRenderAsync( bool firstRender )
+    {
+        await JS.InvokeVoidAsync( "Prism.highlightAll" );
+    }
+}

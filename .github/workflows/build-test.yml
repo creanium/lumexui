@@ -1,0 +1,40 @@
+name: Build & Test LumexUI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-test:
+    name: Build & Test LumexUI
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+ 
+      - name: Setup .NET Core environment
+        uses: actions/setup-dotnet@v4
+
+      - name: Setup NodeJS environment
+        uses: actions/setup-node@v4
+      
+      - name: Restore .NET dependencies
+        run: dotnet restore
+
+      - name: Install NPM dependencies
+        run: npm install
+        working-directory: 'src/LumexUI'
+
+      - name: Build
+        run: dotnet build --no-restore
+
+      - name: Test
+        run: dotnet test --no-build --no-restore --verbosity normal --collect:"XPlat Code Coverage"
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4
+        env: 
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

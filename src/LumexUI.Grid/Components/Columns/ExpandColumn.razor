@@ -1,0 +1,25 @@
+﻿@namespace LumexUI.Grid
+@typeparam TGridItem
+@inherits ColumnBase<TGridItem>
+
+@{
+    base.BuildRenderTree( __builder );
+}
+
+@code {
+
+    protected override void RenderHeaderCellContent( RenderTreeBuilder __builder )
+    {
+        <span class="column-header">
+            @Title
+        </span>
+    }
+
+    protected override void RenderCellContent( RenderTreeBuilder __builder, CellBase<TGridItem> cell )
+    {
+        if( cell is ExpandCell<TGridItem> expandCell )
+        {
+            <LumexIconButton OnClick="@expandCell.ExpandRow" Icon="@(expandCell.Expanded ? _closeIcon : _openIcon)" />
+        }
+    }
+}

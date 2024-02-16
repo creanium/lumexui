@@ -1,0 +1,135 @@
+@import '../../essentials/variables';
+@import '../../essentials/mixins/mixins';
+
+// Buttons
+
+
+.lumex-btn {
+    --lumex-btn-padding-y: #{$btn-padding-y};
+    --lumex-btn-padding-x: #{$btn-padding-x};
+    --lumex-btn-font-size: #{$btn-font-size};
+    --lumex-btn-color: #{$btn-color};
+    --lumex-btn-color-disabled: #{$btn-color-disabled};
+    --lumex-btn-bg: transparent;
+    --lumex-btn-bg-disabled: var(--lumex-disabled);
+    --lumex-btn-border-color: transparent;
+    --lumex-btn-border-color-disabled: transparent;
+    --lumex-btn-border-radius: #{$btn-border-radius};
+    --lumex-btn-box-shadow-focus: #{$btn-box-shadow-focus};
+}
+
+.lumex-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--lumex-btn-padding-y) var(--lumex-btn-padding-x);
+
+    font-size: var(--lumex-btn-font-size);
+    color: var(--lumex-btn-color);
+    text-decoration: none;
+    vertical-align: middle;
+
+    border: none;
+    border-radius: var(--lumex-btn-border-radius);
+    background-color: var(--lumex-btn-bg);
+
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    transition: $btn-transition;
+
+    &:hover {
+        color: var(--lumex-btn-color-hover, var(--lumex-btn-color));
+        background-color: var(--lumex-btn-bg-hover);
+    }
+
+    &:focus-visible {
+        color: var(--lumex-btn-color-hover, var(--lumex-btn-color));
+        border-color: var(--lumex-btn-border-color);
+        background-color: var(--lumex-btn-bg-hover);
+        box-shadow: var(--lumex-btn-box-shadow-focus);
+        outline: none;
+    }
+
+    &:active {
+        color: var(--lumex-btn-color-active, var(--lumex-btn-color));
+        background-color: var(--lumex-btn-bg-active);
+    }
+
+    &:disabled {
+        color: var(--lumex-btn-color-disabled);
+        border-color: var(--lumex-btn-border-color-disabled);
+        background-color: var(--lumex-btn-bg-disabled);
+        cursor: not-allowed;
+    }
+
+    &-content {
+        @include flex-center();
+        gap: map-get($spacers, 2);
+    }
+
+    &-label {
+        order: 2;
+    }
+
+    &--sm {
+        @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-border-radius-sm);
+    }
+
+    &--lg {
+        @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-border-radius-lg);
+    }
+}
+
+@each $color in $theme-colors {
+    .lumex-btn--#{$color} {
+        --lumex-btn-color: var(--lumex-#{$color}-contrast);
+        --lumex-btn-color-hover: var(--lumex-#{$color}-contrast);
+        --lumex-btn-color-active: var(--lumex-#{$color}-contrast);
+        --lumex-btn-bg: var(--lumex-#{$color});
+        --lumex-btn-bg-hover: var(--lumex-#{$color}-hover);
+        --lumex-btn-bg-active: var(--lumex-#{$color}-active);
+        --lumex-btn-box-shadow-rgb: var(--lumex-#{$color}-rgb);
+    }
+}
+
+@each $color in $theme-colors {
+    .lumex-btn--outline-#{$color} {
+        --lumex-btn-color: var(--lumex-#{$color});
+        --lumex-btn-color-hover: var(--lumex-#{$color}-contrast);
+        --lumex-btn-color-active: var(--lumex-#{$color}-contrast);
+        --lumex-btn-bg-hover: var(--lumex-#{$color}-hover);
+        --lumex-btn-bg-active: var(--lumex-#{$color}-active);
+        --lumex-btn-border-color: var(--lumex-#{$color});
+        --lumex-btn-box-shadow-rgb: var(--lumex-#{$color}-rgb);
+
+        border: 1px solid var(--lumex-btn-border-color);
+    }
+}
+
+@each $color in $theme-colors {
+    .lumex-btn--smooth-#{$color} {
+        --lumex-btn-color: var(--lumex-#{$color});
+        --lumex-btn-color-hover: var(--lumex-#{$color});
+        --lumex-btn-color-active: var(--lumex-#{$color});
+        --lumex-btn-bg: var(--lumex-#{$color}-subtle);
+        --lumex-btn-bg-hover: var(--lumex-#{$color}-subtle-hover);
+        --lumex-btn-bg-active: var(--lumex-#{$color}-subtle-active);
+        --lumex-btn-box-shadow-rgb: var(--lumex-#{$color}-rgb);
+
+        font-weight: 500;
+    }
+}
+
+.lumex-btn-icon {
+    @include flex-center();
+
+    &--start {
+        order: 1;
+    }
+
+    &--end {
+        order: 3;
+    }
+}

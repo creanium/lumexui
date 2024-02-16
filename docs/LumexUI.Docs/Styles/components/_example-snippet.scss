@@ -1,0 +1,38 @@
+﻿// Example snippet
+
+
+.ad-example-snippet {
+	display: flex;
+	flex-direction: column;
+	border-width: 1px;
+	border-radius: var(--lumex-border-xl);
+
+	&-content {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1.25rem;
+		background-color: rgb(var(--lumex-body-bg-rgb), .75);
+		border-top-left-radius: var(--lumex-border-xl);
+		border-top-right-radius: var(--lumex-border-xl);
+
+		& > div {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='1' fill='rgb(255, 255, 255, .1)' /%3E%3C/svg%3E");
+			mask-image: radial-gradient(#000 0%,transparent 100%);
+		}
+	}
+
+	& .lumex-toolbar {
+		background-color: var(--ad-pre-bg);
+
+		& + .lumex-expander > .ad-code-snippet {
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+		}
+	}
+
+	& .ad-code-snippet {
+		border: none;
+	}
+}

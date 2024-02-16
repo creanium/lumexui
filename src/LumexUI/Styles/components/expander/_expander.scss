@@ -1,0 +1,18 @@
+@import '../../essentials/variables';
+@import '../../essentials/mixins/mixins';
+
+// Expander
+
+
+.lumex-expander {
+	&:not(.lumex-expanded, .lumex-expanding, .lumex-collapsing) {
+		display: none;
+	}
+}
+
+.lumex-collapsing,
+.lumex-expanding {
+	height: 0;
+	overflow: hidden;
+	transition: height var(--lumex-transition-duration) var(--lumex-transition-timing);
+}

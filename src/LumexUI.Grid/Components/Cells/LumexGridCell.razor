@@ -1,0 +1,18 @@
+﻿@namespace LumexUI.Grid
+@typeparam TGridItem
+
+<td class="@Instance.Class"
+	title="@Title"
+	aria-colindex="@(Instance.ColumnIndex + 1)"
+	tabindex="@TabIndex"
+	@onclick="@HandleClickAsync"
+	@onpaste="@HandlePasteAsync"
+	@onkeyup="@HandleKeyUpAsync"
+	@onclick:stopPropagation="@ClickStopPropagation"
+	@onpaste:preventDefault="@PastePreventDefault">
+
+	<div class="lumex-grid-cell-content">
+		@ChildContent
+	</div>
+
+</td>

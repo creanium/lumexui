@@ -1,0 +1,46 @@
+﻿@implements IAsyncDisposable
+
+<LumexAppBar Class="ad-header" Sticky="@true">
+    <LumexContainer Breakpoint="@Breakpoint.Xxl">
+        <img src="_content/LumexUI.Docs/assets/images/logo_light.svg" width="160" />
+
+        <LumexDrawer Id="header" Anchor="@Anchor.End" Breakpoint="@Breakpoint.Lg">
+            <BodyContent>
+                <LumexNavMenu Orientation="@( LgBreakpoint.Matched ? Orientation.Horizontal : Orientation.Vertical)">
+                    <LumexNavLink Route="docs/overview">Docs</LumexNavLink>
+                    <LumexNavLink Route="docs/getting-started">Getting Started</LumexNavLink>
+                    <LumexNavLink Route="about">About Us</LumexNavLink>
+                </LumexNavMenu>
+
+                <LumexDivider Orientation="@( LgBreakpoint.Matched ? Orientation.Vertical : Orientation.Horizontal)" Class="lg:block my-2 mx-4" />
+
+                <div class="flex align-center g-2 ms-2">
+                    <LumexIconButton Icon="@Icons.Rounded.LightMode" Class="text-inherit" />
+                    <LumexLink Route="https://github.com/LumexUI/lumexui" Class="text-inherit">
+                        <LumexIcon Icon="@Icons.Brands.GitHub" ViewBox="0 0 100 100" />
+                    </LumexLink>
+                </div>
+            </BodyContent>
+        </LumexDrawer>
+
+        <LumexIconButton Icon="@Icons.Rounded.MoreVert" OnClick="@(() => DrawerService.Toggle("header"))" Class="lg:hidden" />
+    </LumexContainer>
+</LumexAppBar>
+
+@code {
+    [Inject] private IDrawerService DrawerService { get; set; } = default!;
+    [Inject] private IMediaQueryListener LgBreakpoint { get; set; } = default!;
+
+    protected override async Task OnAfterRenderAsync( bool firstRender )
+    {
+        if(firstRender)
+        {
+            await LgBreakpoint.MatchAsync( Breakpoints.LargeUp, StateHasChanged );
+        }
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        await LgBreakpoint.DisposeAsync();
+    }
+}

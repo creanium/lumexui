@@ -396,3 +396,8 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Automatically generated assets
+/src/LumexUI/wwwroot/*
+/src/LumexUI.Grid/wwwroot/*
+/docs/LumexUI.Docs/wwwroot/css/*

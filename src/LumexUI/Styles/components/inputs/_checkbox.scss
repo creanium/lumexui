@@ -1,0 +1,14 @@
+﻿.lumex-checkbox {
+	display: inline-flex;
+	align-items: center;
+	vertical-align: middle;
+	cursor: pointer;
+
+	&-input {
+		width: 1em;
+		height: 1em;
+		border-radius: 0.25em;
+		border: 1px solid #ccc;
+		//appearance: none;
+	}
+}

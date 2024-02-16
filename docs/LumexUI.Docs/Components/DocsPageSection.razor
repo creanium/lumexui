@@ -1,0 +1,46 @@
+﻿@namespace LumexUI.Docs.Components
+
+@inject NavigationManager NavigationManager
+
+<h2 id="@_id" class="ad-section-title">
+    @Title
+
+    <LumexLink Route="@SectionLink">
+        <LumexIcon Icon="@Icons.Rounded.Tag" />
+    </LumexLink>
+</h2>
+
+@ChildContent
+
+@code {
+    [CascadingParameter] private DocsPage Page { get; set; } = default!;
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string? Title { get; set; }
+
+    private string SectionLink => $"{_pageRelativePath}#{_id}";
+
+    private string? _id;
+    private string? _pageRelativePath;
+
+    protected override void OnInitialized()
+    {
+        _pageRelativePath = NavigationManager.GetPageRelativePath();
+        AddSelfToParent();
+    }
+
+    private void AddSelfToParent()
+    {
+        if( !string.IsNullOrEmpty( Title ) )
+        {
+            _id = BuildIdAttributeValue( Title );
+            Page.AddSection( new PageSectionInfo( Title, SectionLink ) );
+        }
+    }
+
+    private string BuildIdAttributeValue( string title )
+    {
+        var words = title.Split( ' ' );
+        return string.Join( "-", words ).ToLowerInvariant();
+    }
+}

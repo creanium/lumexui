@@ -1,0 +1,6 @@
+@mixin input-size($padding-y, $padding-x, $font-size, $border-radius) {
+    --lumex-input-padding-y: #{$padding-y};
+    --lumex-input-padding-x: #{$padding-x};
+    --lumex-input-font-size: #{$font-size};
+    --lumex-input-border-radius: #{$border-radius};
+}

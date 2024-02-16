@@ -1,0 +1,20 @@
+﻿@namespace LumexUI
+@inherits LumexInputBase<bool>
+
+<div @onclick:stopPropagation class="@RootClass" tabindex="0">
+	<input @attributes="@AdditionalAttributes"
+		   @onchange="@OnChange"
+		   id="@Id"
+		   type="checkbox"
+		   class="@CheckboxCssClass"
+		   value="@CurrentValue"
+		   checked="@CurrentValue"
+		   disabled="@Disabled"
+		   aria-checked="@CurrentValue"
+		   aria-disabled="@Disabled"
+		   tabindex="-1" />
+	@if (!string.IsNullOrEmpty(Label))
+	{
+		<label for="@Id" class="lumex-checkbox-label">@Label</label>
+	}
+</div>

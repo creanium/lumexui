@@ -1,0 +1,5 @@
+{
+  "Source": "Styles/LumexGrid.scss",
+  "Target": "wwwroot/LumexGrid.min.css",
+  "Arguments": "--style=compressed"
+}

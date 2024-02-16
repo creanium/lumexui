@@ -1,0 +1,77 @@
+﻿@namespace LumexUI.Docs.Components
+
+@implements IDisposable
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
+<div class="ad-toc ms-n4 lg:ms-0">
+    <h5 class="ms-5 mb-3 text-6 text-medium lh-6">
+        On this page
+    </h5>
+
+    <LumexNavMenu Orientation="@Orientation.Vertical" Class="lh-6">
+        @_renderTableOfContents
+    </LumexNavMenu>
+</div>
+
+@code {
+    [Parameter] public IEnumerable<PageSectionInfo> Sections { get; set; }
+
+    private readonly RenderFragment _renderTableOfContents;
+
+    public DocsPageTableOfContents()
+    {
+        _renderTableOfContents = RenderTableOfContents;
+
+        Sections = new List<PageSectionInfo>();
+    }
+
+    protected override void OnInitialized()
+    {
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync( bool firstRender )
+    {
+        if( firstRender )
+        {
+            await ScrollToSection();
+        }
+    }
+
+    private async void OnLocationChanged( object? sender, LocationChangedEventArgs e )
+    {
+        await ScrollToSection();
+    }
+
+    private async Task ScrollToSection()
+    {
+        var uri = new Uri( NavigationManager.Uri, UriKind.Absolute );
+        var fragment = uri.Fragment;
+
+        if( fragment.StartsWith( '#' ) )
+        {
+            var elementId = fragment.Substring( 1 );
+
+            await JSRuntime.InvokeVoidAsync( "LumexDocs.scrollIntoView", elementId );
+        }
+    }
+
+    private void RenderTableOfContents( RenderTreeBuilder __builder )
+    {
+        foreach( var section in Sections )
+        {
+            <LumexNavLink Route="@(section.Link)" @key="@(section.Link)">
+                <span class="h-6 me-1">
+                    <LumexIcon Icon="@Icons.Rounded.ChevronRight" Size="@Size.Small" />
+                </span>
+                @(section.Title)
+            </LumexNavLink>
+        }
+    }
+
+    void IDisposable.Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+}

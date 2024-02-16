@@ -1,0 +1,14 @@
+@page
+
+<p>Choose a hosting model:</p>
+
+<ul>
+    <li><a href="/server">Blazor Server</a></li>
+    @{ #if ENABLE_WASM_HOSTING }
+    <li><a href="/webassembly">Blazor WebAssembly</a></li>
+    @{ #endif }
+</ul>
+
+@{ #if !ENABLE_WASM_HOSTING }
+<p><strong>Note: To enable WebAssembly hosting, edit the project file and change EnableWebAssemblyHosting to true.</strong></p>
+@{ #endif }

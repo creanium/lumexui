@@ -1,0 +1,33 @@
+﻿<div class="@ClassToRender">
+    @if( !string.IsNullOrEmpty( _icon ) )
+    {
+        <LumexIcon Icon="@_icon" Class="mt-1" />
+    }
+
+    <p>@ChildContent</p>
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public CalloutVariant Variant { get; set; }
+
+    private string ClassToRender =>
+        new CssBuilder( "ad-callout" )
+            .AddClass( $"ad-callout--{Variant.ToDescription()}" )
+        .Build();
+
+    private string? _icon;
+
+    protected override void OnInitialized()
+    {
+        _icon = Variant switch
+        {
+            CalloutVariant.Info => Icons.Rounded.Info,
+            CalloutVariant.Warning => Icons.Rounded.Warning,
+            CalloutVariant.Danger => Icons.Rounded.Dangerous,
+            CalloutVariant.Success => Icons.Rounded.CheckCircle,
+            CalloutVariant.Tip => Icons.Rounded.Lightbulb,
+            _ => throw new NotImplementedException()
+        };
+    }
+}

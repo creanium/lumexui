@@ -1,0 +1,9 @@
+﻿@namespace LumexUI.Docs.Components
+
+<article class="ad-content prose">
+	@ChildContent
+</article>
+
+@code {
+	[Parameter] public RenderFragment? ChildContent { get; set; }
+}

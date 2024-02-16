@@ -1,0 +1,16 @@
+﻿<LumexButton Size="@Size.Medium"
+              Color="@ThemeColor.Primary"
+              Variant="@ButtonVariant.Smooth"
+              OnClick="@HandleClick">
+    Hello World @(CounterLabel)
+</LumexButton>
+
+@code {
+    private int _counter;
+    private string? CounterLabel => _counter > 0 ? $"x {_counter}" : default;
+
+    private void HandleClick()
+    {
+        _counter++;
+    }
+}

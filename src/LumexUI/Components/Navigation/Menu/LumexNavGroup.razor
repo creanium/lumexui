@@ -1,0 +1,19 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<li @attributes="@AdditionalAttributes" class="@RootClass" style="@RootStyle">
+    <a href="#" class="lumex-nav-group-link" @onclick="@ToggleGroupExpansion" @onclick:preventDefault>
+        @Title
+
+        @if( Expandable )
+        {
+            <LumexIcon Icon="@Icons.Rounded.ExpandMore" Size="@Size.Small" Class="lumex-nav-group-icon" />
+        }
+    </a>
+
+    <LumexExpander Expanded="@(Expandable ? _expanded : true)">
+        <LumexList Class="@ContentCssClass">
+            @ChildContent
+        </LumexList>
+    </LumexExpander>
+</li>

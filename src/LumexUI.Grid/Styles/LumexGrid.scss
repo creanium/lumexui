@@ -1,0 +1,172 @@
+// Table Grid
+
+
+.lumex-grid {
+    --lumex-grid-color: var(--lumex-body-color);
+    --lumex-grid-color-hover: var(--lumex-body-color);
+    --lumex-grid-color-striped: var(--lumex-body-color);
+    --lumex-grid-color-invalid: var(--lumex-danger);
+    --lumex-grid-color-state: transparent;
+    --lumex-grid-bg: var(--lumex-body-bg);
+    --lumex-grid-bg-hover: rgba(0 0 0 / .06);
+    --lumex-grid-bg-striped: rgba(0 0 0 / .04);
+    --lumex-grid-bg-state: transparent;
+    --lumex-grid-border-color: var(--lumex-border-color);
+    --lumex-grid-cell-lines: 2;
+    --lumex-grid-cell-box-shadow: initial;
+}
+
+.lumex-datagrid {
+    border-radius: var(--lumex-border-lg);
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+
+    & > .lumex-toolbar {
+        padding: 1rem;
+    }
+}
+
+.lumex-grid {
+    width: 100%;
+    border-color: var(--lumex-grid-border-color);
+    table-layout: fixed;
+
+    th {
+        &[aria-sort] .lumex-icon-btn {
+            transition: opacity 300ms cubic-bezier(.4,0,.2,1) 0ms, transform 200ms cubic-bezier(.4,0,.2,1) 0ms, color 200ms ease-in-out, background-color 200ms ease-in-out, border-color 200ms ease-in-out, box-shadow 200ms ease-in-out;
+        }
+
+        &[aria-sort="none"] .lumex-icon-btn {
+            opacity: 0;
+        }
+
+        &[aria-sort="none"]:hover .lumex-icon-btn {
+            opacity: .6;
+        }
+
+        &[aria-sort="ascending"] .lumex-icon-btn {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+
+        &[aria-sort="descending"] .lumex-icon-btn {
+            opacity: 1;
+            transform: rotate(180deg);
+        }
+
+        & .column-header {
+            display: block;
+            width: 100%;
+
+            &--sortable {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                cursor: pointer;
+            }
+        }
+    }
+
+    & > * > *:not(.lumex-grid-row-detail) > * {
+        --lumex-grid-cell-box-shadow: inset 0 0 0 9999px var(--lumex-grid-bg-state);
+        padding-inline: .75rem;
+        border-bottom-width: 1px;
+        background-color: var(--lumex-grid-bg);
+        box-shadow: var(--lumex-grid-cell-box-shadow);
+    }
+
+    &--bordered {
+        & > tbody > *:not(.lumex-grid-row-detail) > *:not(:last-child) {
+            border-right-width: var(--lumex-border-width);
+        }
+    }
+
+    &--borderless {
+        & > * > *:not(.lumex-grid-row-detail) > * {
+            border-bottom-width: 0;
+        }
+    }
+
+    &--striped {
+        & > tbody > tr:not(.lumex-grid-row--expandable):nth-of-type(odd) > * {
+            --lumex-grid-bg-state: var(--lumex-grid-bg-striped);
+        }
+
+        & > tbody > tr.lumex-grid-row--expandable:nth-of-type(4n+1) > * {
+            --lumex-grid-bg-state: var(--lumex-grid-bg-striped);
+        }
+    }
+
+    &--hover {
+        & > tbody > tr:not(.lumex-grid-row--expandable):hover > * {
+            --lumex-grid-bg-state: var(--lumex-grid-bg-hover);
+        }
+
+        & > tbody > tr.lumex-grid-row--expandable:hover > * {
+            --lumex-grid-bg-state: var(--lumex-grid-bg-hover);
+        }
+    }
+
+    &--sticky-header {
+        & > thead > *.lumex-grid-row > * {
+            --lumex-grid-cell-box-shadow: 8px 0 6px 0 rgba(0 0 0 / .1);
+            position: sticky;
+            top: 0;
+        }
+    }
+}
+
+.lumex-grid-container {
+    width: 100%;
+    overflow-y: auto;
+
+    &--responsive {
+        overflow-x: auto;
+    }
+}
+
+.lumex-grid-row {
+    height: 64px;
+
+    .lumex-grid-cell {
+        &-content {
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-line-clamp: var(--lumex-grid-cell-lines);
+            -webkit-box-orient: vertical;
+        }
+
+        &.lumex-invalid {
+            color: var(--lumex-grid-color-invalid);
+        }
+    }
+}
+
+.lumex-grid-row-detail {
+    height: 0;
+
+    & .lumex-grid-cell-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        transition: height 150ms;
+
+        &-inner {
+            padding: 1rem;
+        }
+    }
+
+    &.lumex-expanded {
+        td {
+            border-bottom-width: 1px;
+        }
+    }
+}
+
+.lumex-grid-cell {
+    &:focus-visible {
+        outline: none;
+    }
+}

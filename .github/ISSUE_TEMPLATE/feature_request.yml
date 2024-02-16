@@ -1,0 +1,43 @@
+name: ✨ Feature Request
+description: File a feature request
+title: "[Feature]: "
+labels: ["enhancement"]
+assignees:
+  - desmondinho
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this feature request!
+  - type: dropdown
+    id: enhancement-type
+    attributes:
+      label: Feature request type
+      options:
+        - New component
+        - Enhance component
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: component
+    attributes:
+      label: Component name
+      description: If the request is related to a component, provide its name.
+      placeholder: e.g. LumexButton
+  - type: textarea
+    id: expectations
+    attributes:
+      label: What should be done?
+      description: Provide a description of your request in a straightforward and brief manner.
+      placeholder: Hey folks, what if we added a feature that...
+    validations:
+      required: true
+  - type: checkboxes
+    id: pr
+    attributes:
+      label: Pull Request
+      description: Are you interested in implementing the feature via a Pull Request?
+      options:
+        - label: I would like to do a Pull Request
+

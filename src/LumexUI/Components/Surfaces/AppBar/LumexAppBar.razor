@@ -1,0 +1,25 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<header class="@RootClass" style="@RootStyle" @attributes="@AdditionalAttributes">
+    @ChildContent
+</header>
+
+@code {
+    /// <summary>
+    /// Defines the content to be rendered inside the appbar.
+    /// </summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Indicates whether the appbar will be sticked to top of the page.
+    /// </summary>
+    /// <remarks>Default value is <see langword="false"/></remarks>
+    [Parameter] public bool Sticky { get; set; }
+
+    protected override string RootClass =>
+        new CssBuilder( "lumex-appbar" )
+            .AddClass( Constants.ComponentStates.Sticky, when: Sticky )
+            .AddClass( base.RootClass )
+        .Build();
+}

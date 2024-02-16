@@ -1,0 +1,10 @@
+@import '../variables';
+
+// Position
+
+
+@mixin sticky-top {
+	position: sticky;
+	top: 0;
+	z-index: $zindex-sticky;
+}

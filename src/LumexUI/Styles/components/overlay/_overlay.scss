@@ -1,0 +1,22 @@
+﻿@import '../../essentials/variables';
+@import '../../essentials/mixins/mixins';
+
+// Overlay
+
+
+.lumex-overlay {
+	--lumex-overlay-zindex: #{$zindex-overlay};
+	--lumex-overlay-bg: transparent;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: var(--lumex-overlay-bg);
+	z-index: var(--lumex-overlay-zindex);
+
+	&--dark {
+		--lumex-overlay-bg: #{$overlay-bg-dark};
+	}
+}

@@ -1,0 +1,420 @@
+﻿@import '../essentials/mixins/mixins';
+@import '../essentials/functions/functions';
+
+// Utilities
+
+
+$utilities: (
+	// Position & Display
+	"position": (
+		property: position,
+		values: static relative absolute fixed sticky
+    ),
+	"z-index": (
+		property: z-index,
+		class: z,
+		values: $zindex-levels
+	),
+	"top": (
+		property: top,
+		class: top,
+		values: $spacers
+	),
+	"bottom": (
+		property: bottom,
+		class: bottom,
+		values: $spacers
+	),
+	"start": (
+		property: left,
+		class: start,
+		values: $spacers
+	),
+	"end": (
+		property: right,
+		class: end,
+		values: $spacers
+	),
+	"inset": (
+		property: inset,
+		class: inset,
+		values: $spacers
+	),
+	"display": (
+		responsive: true,
+		property: display,
+		custom-class: hidden,
+		values: none inline inline-block block grid table table-row table-cell flex inline-flex
+	),	
+	"overflow": (
+		property: overflow,
+		class: overflow,
+		values: auto hidden visible scroll
+	),
+	"overflow-x": (
+		property: overflow-x,
+		class: overflow-x,
+		values: auto hidden visible scroll
+	),
+	"overflow-y": (
+		property: overflow-y,
+		class: overflow-y,
+		values: auto hidden visible scroll
+	),
+
+	// Dimension
+	"height": (
+		property: height,
+		class: h,
+		values: map-merge(
+			$spacers,
+			(
+				1\/4: 25%,
+				1\/3: 33.333%,
+				1\/2: 50%,
+				2\/3: 66.666%,
+				3\/4: 75%,
+				full: 100%,
+				auto: auto
+			)
+		)
+	),
+	"width": (
+		property: width,
+		class: w,
+		values: map-merge(
+			$spacers,
+			(
+				1\/4: 25%,
+				1\/3: 33.333%,
+				1\/2: 50%,
+				2\/3: 66.666%,
+				3\/4: 75%,
+				full: 100%,
+				auto: auto
+			)
+		)
+	),
+
+	// Flex
+	"flex": (
+		responsive: true,
+		property: flex,
+		class: flex,
+		values: (
+			none: none,
+			fill: 1 1 auto
+		)
+	),
+	"flex-grow": (
+		responsive: true,
+		property: flex-grow,
+		class: flex,
+		values: (
+			grow-0: 0,
+			grow: 1
+		)
+	),
+	"flex-shrink": (
+		responsive: true,
+		property: flex-shrink,
+		class: flex,
+		values: (
+			shrink-0: 0,
+			shrink: 1
+		)
+	),
+	"flex-direction": (
+		responsive: true,
+		property: flex-direction,
+		class: flex,
+		values: row column
+	),
+	"align-items": (
+		responsive: true,
+		property: align-items,
+		class: align,
+		values: (
+			start: flex-start,
+			end: flex-end,
+			center: center,
+			baseline: baseline,
+			stretch: stretch
+		)
+	),
+	"justify-content": (
+		responsive: true,
+		property: justify-content,
+		class: justify,
+		values: (
+			start: flex-start,
+			end: flex-end,
+			center: center,
+			between: space-between,
+			around: space-around,
+			evenly: space-evenly
+		)
+	),
+	"gap": (
+		responsive: true,
+		property: gap,
+		class: g,
+		values: $spacers
+	),
+
+	// Border
+	"border": (
+		property: border-width,
+		class: border,
+		values: (
+			null: var(--lumex-border-width)
+		)
+	),
+	"border-top": (
+		property: border-top-width,
+		class: border-t,
+		values: (
+			null: var(--lumex-border-width)
+		)
+	),
+	"border-start": (
+		property: border-left-width,
+		class: border-l,
+		values: (
+			null: var(--lumex-border-width)
+		)
+	),
+	"border-bottom": (
+		property: border-bottom-width,
+		class: border-b,
+		values: (
+			null: var(--lumex-border-width)
+		)
+	),
+	"border-end": (
+		property: border-right-width,
+		class: border-r,
+		values: (
+			null: var(--lumex-border-width)
+		)
+	),
+	"border-radius": (
+		property: border-radius,
+		class: rounded,
+		values: $border-sizes
+	),
+	"border-radius-top": (
+		property: border-top-right-radius border-top-left-radius,
+		class: rounded-t,
+		values: $border-sizes
+	),
+	"border-radius-start": (
+		property: border-bottom-right-radius border-top-left-radius,
+		class: rounded-s,
+		values: $border-sizes
+	),
+	"border-radius-bottom": (
+		property: border-bottom-right-radius border-bottom-left-radius,
+		class: rounded-b,
+		values: $border-sizes
+	),
+	"border-radius-end": (
+		property: border-bottom-right-radius border-top-right-radius,
+		class: rounded-e,
+		values: $border-sizes
+	),
+
+	// Typography
+	"line-height": (
+		property: line-height,
+		class: lh,
+		values: $line-heights
+	),
+	"font-size": (
+		responsive: true,
+		property: font-size,
+		class: text,
+		values: $font-sizes
+	),
+	"font-weight": (
+		property: font-weight,
+		class: text,
+		values: $font-weights
+	),
+	"text-align": (
+		property: text-align,
+		class: text,
+		values: (
+			start: left,
+			end: right,
+			center: center
+		)
+	),
+	"text-decoration-line": (
+		property: text-decoration-line,
+		class: text,
+		custom-class: no-underline,
+		values: none underline overline line-through
+    ),
+    "text-transform": (
+		property: text-transform,
+		class: text,
+		values: lowercase uppercase capitalize
+    ),
+	"text-color": (
+		property: color,
+		class: text,
+		values: (
+			accent: var(--lumex-body-accent-color),
+			secondary: var(--lumex-body-secondary-color),
+			tertiary: var(--lumex-body-tertiary-color),
+			inherit: inherit
+		)
+	),
+
+	// Padding
+	"padding": (
+		responsive: true,
+		property: padding,
+		class: p,
+		values: $spacers
+	),
+	"padding-x": (
+		responsive: true,
+		property: padding-left padding-right,
+		class: px,
+		values: $spacers
+	),
+	"padding-y": (
+		responsive: true,
+		property: padding-top padding-bottom,
+		class: py,
+		values: $spacers
+	),
+	"padding-start": (
+		responsive: true,
+		property: padding-left,
+		class: ps,
+		values: $spacers
+	),
+	"padding-end": (
+		responsive: true,
+		property: padding-right,
+		class: pe,
+		values: $spacers
+	),
+	"padding-top": (
+		responsive: true,
+		property: padding-top,
+		class: pt,
+		values: $spacers
+	),
+	"padding-bottom": (
+		responsive: true,
+		property: padding-bottom,
+		class: pb,
+		values: $spacers
+	),
+
+	// Margin
+	"margin": (
+		responsive: true,
+		property: margin,
+		class: m,
+		values: map-merge($spacers, (auto: auto))
+	),
+	"margin-x": (
+		responsive: true,
+		property: margin-left margin-right,
+		class: mx,
+		values: map-merge($spacers, (auto: auto))
+	),
+	"margin-y": (
+		responsive: true,
+		property: margin-top margin-bottom,
+		class: my,
+		values: map-merge($spacers, (auto: auto))
+	),
+	"margin-start": (
+		responsive: true,
+		property: margin-left,
+		class: ms,
+		values: map-merge($spacers, (auto: auto))
+	),
+	"margin-end": (
+		responsive: true,
+		property: margin-right,
+		class: me,
+		values: map-merge($spacers, (auto: auto))
+	),
+	"margin-top": (
+		responsive: true,
+		property: margin-top,
+		class: mt,
+		values: map-merge($spacers, (auto: auto))
+	),
+	"margin-bottom": (
+		responsive: true,
+		negative: true,
+		property: margin-bottom,
+		class: mb,
+		values: map-merge($spacers, (auto: auto))
+	),
+
+	// Negative margin
+	"negative-margin": (
+		responsive: true,
+		property: margin,
+		class: m,
+		values: inverse-map($spacers)
+	),
+	"negative-margin-x": (
+		responsive: true,
+		property: margin-left margin-right,
+		class: mx,
+		values: inverse-map($spacers)
+	),
+	"negative-margin-y": (
+		responsive: true,
+		property: margin-top margin-bottom,
+		class: my,
+		values: inverse-map($spacers)
+	),
+	"negative-margin-start": (
+		responsive: true,
+		property: margin-left,
+		class: ms,
+		values: inverse-map($spacers)
+	),
+	"negative-margin-end": (
+		responsive: true,
+		property: margin-right,
+		class: me,
+		values: inverse-map($spacers)
+	),
+	"negative-margin-top": (
+		responsive: true,
+		property: margin-top,
+		class: mt,
+		values: inverse-map($spacers)
+	),
+	"negative-margin-bottom": (
+		responsive: true,
+		property: margin-bottom,
+		class: mb,
+		values: inverse-map($spacers)
+	)
+);
+
+// Loop over each breakpoint
+@each $breakpoint in map-keys($breakpoints) {
+	@include media-breakpoint-from($breakpoint) {
+		$prefix: breakpoint-prefix($breakpoint);
+
+		@each $key, $utility in $utilities {
+			@if type-of($utility) == "map" and (map-get($utility, responsive) or $prefix == "") {
+				@include generate-utility($utility, $prefix);
+			}
+		}
+	}
+}

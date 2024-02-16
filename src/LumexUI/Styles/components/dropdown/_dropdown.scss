@@ -1,0 +1,47 @@
+@import '../../essentials/variables';
+@import '../../essentials/mixins/mixins';
+
+// Dropdown
+
+
+.lumex-dropdown {
+    --lumex-dropdown-zindex: #{$zindex-dropdown};
+
+    &-menu,
+    &-submenu {
+        position: absolute;
+        z-index: var(--lumex-dropdown-zindex);
+        min-width: 10rem;
+        padding-block: 0.5rem;
+        background-color: var(--lumex-body-bg);
+        border: 1px solid var(--lumex-border-color);
+        border-radius: var(--lumex-border-md);
+        @include list-unstyled;
+    }
+
+    &-submenu {
+        top: 0;
+        left: 100%;
+    }
+
+    &-item {
+        &:hover {
+            background-color: var(--lumex-disabled);
+            cursor: pointer;
+        }
+
+        & > * {
+            display: block;
+
+            &:not(.lumex-dropdown) {
+                padding: 0.25rem 1rem;
+            }
+        }
+
+        & > .lumex-dropdown {
+            > button {
+                padding: 0.25rem 1rem;
+            }
+        }
+    }
+}

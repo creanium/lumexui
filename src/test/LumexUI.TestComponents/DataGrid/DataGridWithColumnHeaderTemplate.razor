@@ -1,0 +1,30 @@
+﻿@namespace LumexUI.TestComponents.DataGrid
+
+<LumexGrid Data="@_data">
+    <Columns>
+        <TemplateColumn Title="Name">
+            <HeaderTemplate>
+                <h5>This is custom header template @context.Title</h5>
+            </HeaderTemplate>
+            <Template>
+                @context.Name
+            </Template>
+        </TemplateColumn>
+        <Column Property="@(t => t.Price)">
+            <HeaderTemplate>
+                <h5>This is another custom header template @context.Title</h5>
+            </HeaderTemplate>
+        </Column>
+    </Columns>
+</LumexGrid>
+
+@code {
+    private IQueryable<TestModel> _data = new List<TestModel>()
+     {
+         new TestModel("Apple", 0.75),
+         new TestModel("Banana", 1.0),
+         new TestModel("Kiwi", 1.33)
+     }.AsQueryable();
+
+    public record TestModel(string Name, double Price);
+}

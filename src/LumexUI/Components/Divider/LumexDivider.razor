@@ -1,0 +1,18 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<hr @attributes="@AdditionalAttributes" class="@RootClass" style="@RootStyle" />
+
+@code {
+    /// <summary>
+	/// Indicates whether the divider will be displayed vertically.
+	/// </summary>
+	/// <remarks>Default value: <see cref="Orientation.Horizontal"/></remarks>
+    [Parameter] public Orientation Orientation { get; set; }
+
+    protected override string RootClass =>
+        new CssBuilder( "lumex-divider" )
+            .AddClass( "lumex-divider--vertical", when: Orientation is Orientation.Vertical )
+            .AddClass( base.RootClass )
+        .Build();
+}
