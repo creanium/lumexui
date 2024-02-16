@@ -7,19 +7,19 @@
 
 @code {
     /// <summary>
-    /// Defines the content to be rendered inside the appbar.
+    /// Defines the content to be rendered inside the navbar.
     /// </summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Indicates whether the appbar will be sticked to top of the page.
+    /// Indicates whether the navbar will be sticked to top of the page.
     /// </summary>
     /// <remarks>Default value is <see langword="false"/></remarks>
     [Parameter] public bool Sticky { get; set; }
 
     protected override string RootClass =>
-        new CssBuilder( "lumex-appbar" )
-            .AddClass( Constants.ComponentStates.Sticky, when: Sticky )
+        new CssBuilder( $"{ComponentName}-root" )
+            .AddClass( $"{ComponentName}--sticky", when: Sticky )
             .AddClass( base.RootClass )
         .Build();
 }

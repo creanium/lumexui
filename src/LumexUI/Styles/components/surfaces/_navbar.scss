@@ -1,0 +1,46 @@
+﻿@import '../../essentials/variables';
+@import '../../essentials/mixins/mixins';
+
+// Navbar
+
+.LumexNavbar-root {
+	--LumexNavbar-padding-x: #{map-get($spacers, 0)};
+	--LumexNavbar-padding-y: #{map-get($spacers, 3)};
+	--LumexNavbar-color: var(--#{$prefix}-body-accent-color);
+	--LumexNavbar-bg: transparent;
+}
+
+.LumexNavbar {
+	&-root {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: var(--LumexNavbar-padding-y) var(--LumexNavbar-padding-x);
+		background-color: var(--LumexNavbar-bg);
+
+		%container-flex-properties {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		& > .lumex-container {
+			@extend %container-flex-properties;
+		}
+
+		@each $breakpoint in map-keys($breakpoints) {
+			& > .lumex-#{breakpoint-prefix($breakpoint)}container {
+				@extend %container-flex-properties;
+			}
+		}
+	}
+
+	&--sticky {
+		@include sticky-top;
+	}
+
+	& .lumex-nav-menu {
+		--lumex-nav-link-color: var(--LumexNavbar-color);
+	}
+}

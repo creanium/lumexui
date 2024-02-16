@@ -1,6 +1,6 @@
 ﻿@implements IAsyncDisposable
 
-<LumexAppBar Class="ad-header" Sticky="@true">
+<LumexNavbar Class="ad-header" Sticky="@true">
     <LumexContainer Breakpoint="@Breakpoint.Xxl">
         <img src="_content/LumexUI.Docs/assets/images/logo_light.svg" width="160" />
 
@@ -25,7 +25,7 @@
 
         <LumexIconButton Icon="@Icons.Rounded.MoreVert" OnClick="@(() => DrawerService.Toggle("header"))" Class="lg:hidden" />
     </LumexContainer>
-</LumexAppBar>
+</LumexNavbar>
 
 @code {
     [Inject] private IDrawerService DrawerService { get; set; } = default!;
