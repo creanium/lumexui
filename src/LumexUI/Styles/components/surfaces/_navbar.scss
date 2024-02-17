@@ -4,6 +4,7 @@
 // Navbar
 
 .LumexNavbar-root {
+	--LumexNavbar-height: #{map-get($spacers, 16)};
 	--LumexNavbar-padding-x: #{map-get($spacers, 0)};
 	--LumexNavbar-padding-y: #{map-get($spacers, 3)};
 	--LumexNavbar-color: var(--#{$prefix}-body-accent-color);
@@ -14,6 +15,7 @@
 	&-root {
 		position: relative;
 		display: flex;
+		min-height: var(--LumexNavbar-height);
 		align-items: center;
 		justify-content: space-between;
 		padding: var(--LumexNavbar-padding-y) var(--LumexNavbar-padding-x);
@@ -34,6 +36,12 @@
 				@extend %container-flex-properties;
 			}
 		}
+	}
+
+	&-brand {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
 	}
 
 	&--sticky {

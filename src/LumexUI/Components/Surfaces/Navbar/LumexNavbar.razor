@@ -2,24 +2,16 @@
 @inherits LumexComponentBase
 
 <header class="@RootClass" style="@RootStyle" @attributes="@AdditionalAttributes">
-    @ChildContent
+    <LumexContainer Breakpoint="@Breakpoint">
+        @if( BrandContent is not null )
+        {
+            <div class="@BrandClass">
+                @BrandContent
+            </div>
+        }
+
+        <div class="@ContentClass">
+            @ChildContent
+        </div>
+    </LumexContainer>
 </header>
-
-@code {
-    /// <summary>
-    /// Defines the content to be rendered inside the navbar.
-    /// </summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
-    /// Indicates whether the navbar will be sticked to top of the page.
-    /// </summary>
-    /// <remarks>Default value is <see langword="false"/></remarks>
-    [Parameter] public bool Sticky { get; set; }
-
-    protected override string RootClass =>
-        new CssBuilder( $"{ComponentName}-root" )
-            .AddClass( $"{ComponentName}--sticky", when: Sticky )
-            .AddClass( base.RootClass )
-        .Build();
-}

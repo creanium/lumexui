@@ -1,9 +1,10 @@
 ﻿@implements IAsyncDisposable
 
-<LumexNavbar Class="ad-header" Sticky="@true">
-    <LumexContainer Breakpoint="@Breakpoint.Xxl">
+<LumexNavbar Class="ad-header" Breakpoint="@Breakpoint.Xxl" Sticky="@true">
+    <BrandContent>
         <img src="_content/LumexUI.Docs/assets/images/logo_light.svg" width="160" />
-
+    </BrandContent>
+    <ChildContent>
         <LumexDrawer Id="header" Anchor="@Anchor.End" Breakpoint="@Breakpoint.Lg">
             <BodyContent>
                 <LumexNavMenu Orientation="@( LgBreakpoint.Matched ? Orientation.Horizontal : Orientation.Vertical)">
@@ -24,7 +25,7 @@
         </LumexDrawer>
 
         <LumexIconButton Icon="@Icons.Rounded.MoreVert" OnClick="@(() => DrawerService.Toggle("header"))" Class="lg:hidden" />
-    </LumexContainer>
+    </ChildContent>
 </LumexNavbar>
 
 @code {
@@ -33,7 +34,7 @@
 
     protected override async Task OnAfterRenderAsync( bool firstRender )
     {
-        if(firstRender)
+        if( firstRender )
         {
             await LgBreakpoint.MatchAsync( Breakpoints.LargeUp, StateHasChanged );
         }
