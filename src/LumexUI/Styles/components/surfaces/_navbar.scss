@@ -50,6 +50,10 @@
 		@include sticky-top;
 	}
 
+	&--bordered {
+		border-bottom-width: 1px;
+	}
+
 	& .lumex-nav-menu {
 		--lumex-nav-link-color: var(--LumexNavbar-color);
 	}

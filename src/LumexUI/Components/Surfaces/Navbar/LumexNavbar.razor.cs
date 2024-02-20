@@ -22,6 +22,12 @@ public partial class LumexNavbar : LumexComponentBase, ISlotComponent<NavbarSlot
     [Parameter] public bool Sticky { get; set; }
 
     /// <summary>
+    /// Indicates whether the navbar has the border at the bottom.
+    /// </summary>
+    ///<remarks>Default is <see langword="false"/></remarks>
+    [Parameter] public bool Bordered { get; set; }
+
+    /// <summary>
     /// Defines the breakpoint until which the <see cref="LumexNavbar"/> will be full-width.
     /// </summary>
     /// <remarks>Default value is <see cref="Breakpoint.Xs"/></remarks>
@@ -35,6 +41,7 @@ public partial class LumexNavbar : LumexComponentBase, ISlotComponent<NavbarSlot
     protected override string RootClass =>
         new CssBuilder( $"{Name}-root" )
             .AddClass( $"{Name}--sticky", when: Sticky )
+            .AddClass( $"{Name}--bordered", when: Bordered )
             .AddClass( $"{Slots.Root}", when: !string.IsNullOrEmpty( Slots.Root ) )
             .AddClass( base.RootClass )
         .Build();
