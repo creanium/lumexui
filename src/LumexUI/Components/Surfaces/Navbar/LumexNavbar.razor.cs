@@ -38,4 +38,9 @@ public partial class LumexNavbar : LumexComponentBase, ISlotComponent<NavbarSlot
             .AddClass( $"{Slots.Root}", when: !string.IsNullOrEmpty( Slots.Root ) )
             .AddClass( base.RootClass )
         .Build();
+
+    private string WrapperClass =>
+        new CssBuilder( $"{Name}-wrapper" )
+            .AddClass( $"{Slots.Wrapper}", when: !string.IsNullOrEmpty( Slots.Wrapper ) )
+        .Build();
 }

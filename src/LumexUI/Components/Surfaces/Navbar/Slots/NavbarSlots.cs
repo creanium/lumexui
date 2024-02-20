@@ -9,6 +9,7 @@ namespace LumexUI;
 public record NavbarSlots : ISlot
 {
 	public string? Root { get; init; }
+	public string? Wrapper { get; init; }
 	public string? Brand { get; init; }
 	public string? Content { get; init; }
 }
