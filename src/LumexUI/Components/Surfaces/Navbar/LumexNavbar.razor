@@ -3,15 +3,8 @@
 
 <header class="@RootClass" style="@RootStyle" @attributes="@AdditionalAttributes">
     <LumexContainer Breakpoint="@Breakpoint">
-        @if( BrandContent is not null )
-        {
-            <div class="@BrandClass">
-                @BrandContent
-            </div>
-        }
-
-        <div class="@ContentClass">
+        <CascadingValue TValue="LumexNavbar" Value="@this" IsFixed="@true">
             @ChildContent
-        </div>
+        </CascadingValue>
     </LumexContainer>
 </header>

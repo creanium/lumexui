@@ -9,6 +9,7 @@
 	--LumexNavbar-padding-y: #{map-get($spacers, 3)};
 	--LumexNavbar-color: var(--#{$prefix}-body-accent-color);
 	--LumexNavbar-bg: transparent;
+	--LumexNavbar-brand-gap: #{map-get($spacers, 2)};
 }
 
 .LumexNavbar {
@@ -42,6 +43,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;
+		gap: var(--LumexNavbar-brand-gap);
 	}
 
 	&--sticky {
