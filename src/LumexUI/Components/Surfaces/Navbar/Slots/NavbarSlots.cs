@@ -12,4 +12,5 @@ public record NavbarSlots : ISlot
 	public string? Wrapper { get; init; }
 	public string? Brand { get; init; }
 	public string? Content { get; init; }
+	public string? Item { get; init; }
 }

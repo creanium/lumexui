@@ -18,7 +18,7 @@ public partial class LumexNavbar : LumexComponentBase, ISlotComponent<NavbarSlot
     /// <summary>
     /// Indicates whether the navbar will be sticked to top of the page.
     /// </summary>
-    /// <remarks>Default value is <see langword="false"/></remarks>
+    /// <remarks>Default is <see langword="false"/></remarks>
     [Parameter] public bool Sticky { get; set; }
 
     /// <summary>
@@ -30,7 +30,7 @@ public partial class LumexNavbar : LumexComponentBase, ISlotComponent<NavbarSlot
     /// <summary>
     /// Defines the breakpoint until which the <see cref="LumexNavbar"/> will be full-width.
     /// </summary>
-    /// <remarks>Default value is <see cref="Breakpoint.Xs"/></remarks>
+    /// <remarks>Default is <see cref="Breakpoint.Xs"/></remarks>
     [Parameter] public Breakpoint Breakpoint { get; set; }
 
     /// <summary>
