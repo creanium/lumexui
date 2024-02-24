@@ -7,5 +7,4 @@ namespace LumexUI.Common;
 internal interface ISlot
 {
     string? Root { get; init; }
-    string? Content { get; init; }
 }

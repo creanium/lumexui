@@ -6,10 +6,9 @@ using LumexUI.Common;
 
 namespace LumexUI;
 
-public record NavGroupSlots : ISlot
+public record NavSlots : ISlot
 {
 	public string? Root { get; init; }
-	public string? Title { get; init; } 
-	public string? Icon { get; init; }
-	public string? Content { get; init; }
+	public string? Group { get; init; }
+	public string? Item { get; init; }
 }
