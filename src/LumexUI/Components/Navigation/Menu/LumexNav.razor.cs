@@ -17,9 +17,9 @@ public partial class LumexNav : LumexNavBase, ISlotComponent<NavSlots>
 	/// <remarks>Default is <see cref="Orientation.Horizontal"/></remarks>
 	[Parameter] public Orientation Orientation { get; set; }
 
-	/// <summary>
-	/// 
-	/// </summary>
+    /// <summary>
+    /// Defines the CSS classes for slots of the navigation.
+    /// </summary>
 	[Parameter] public NavSlots Slots { get; set; } = new();
 
 	protected override string RootClass =>
