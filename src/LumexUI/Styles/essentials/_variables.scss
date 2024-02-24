@@ -1,6 +1,9 @@
 // Variables
 
 
+$prefix: "lumex";
+
+
 // Theme Colors
 
 $theme-colors: ( 
@@ -151,29 +154,12 @@ $line-heights: (
 //
 // Common paddings, border radius sizes, shadows and more.
 
-// Appbar
-
-$appbar-padding-x:                  $spacer * 0;
-$appbar-padding-y:                  $spacer * .75;
-
-$appbar-color:                      var(--lumex-body-accent-color);
-
 
 // Toolbar
 
 $toolbar-gutter-x:                  $spacer;
 $toolbar-gutter-y:                  $spacer;
 $toolbar-font-size:                 $font-size-sm;
-
-
-// Nav Menu
-
-$nav-item-padding-x:                $spacer * .5;
-$nav-item-padding-y:                $spacer * .5;
-$nav-item-font-size:                $font-size-sm;
-$nav-item-font-weight:              $font-weight-base;
-$nav-item-color:                    var(--lumex-body-color);
-$nav-item-color-active:             var(--lumex-primary);
 
 
 // Icon

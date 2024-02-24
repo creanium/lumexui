@@ -26,6 +26,8 @@ public abstract class LumexComponentBase : ComponentBase
 	/// </summary>
 	[Parameter] public string? Style { get; set; }
 
+	internal string Name => GetType().Name;
+
 	protected virtual string? RootClass =>
 		CssBuilder.Empty()
 			.AddClass( Class )

@@ -1,23 +1,11 @@
 ﻿@namespace LumexUI
 @inherits LumexComponentBase
 
-<a @attributes="@AdditionalAttributes" href="@Route" class="@RootClass" style="@RootStyle">
+<NavLink class="@RootClass"
+         style="@RootStyle"
+         href="@Route"
+         @attributes="@AdditionalAttributes"
+         Match="@Match"
+         ActiveClass="@ActiveClass">
     @ChildContent
-</a>
-
-@code {
-	/// <summary>
-	/// Defines the content to be rendered as the link.
-	/// </summary>
-	[Parameter] public RenderFragment? ChildContent { get; set; }
-
-	/// <summary>
-	/// Specifies a value representing the URL route to be navigated to.
-	/// </summary>
-	[Parameter] public string Route { get; set; } = "#";
-
-	protected override string RootClass =>
-		new CssBuilder( "lumex-link" )
-			.AddClass( base.RootClass )
-		.Build();
-}
+</NavLink>

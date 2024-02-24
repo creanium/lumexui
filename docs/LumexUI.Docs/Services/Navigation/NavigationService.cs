@@ -20,7 +20,7 @@ internal class NavigationService : INavigationService
     private NavigationCategory ComponentsCategory =>
         new NavigationCategory( "Components" )
             .AddGroup( new NavigationCategory( "Surfaces" )
-                .AddItem( typeof( LumexAppBar ) )
+                .AddItem( typeof( LumexNavbar ) )
                 .AddItem( typeof( LumexToolbar ) ) )
             .AddGroup( new NavigationCategory( "Inputs" )
                 .AddItem( typeof( LumexTextBox ) )

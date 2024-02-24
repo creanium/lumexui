@@ -27,27 +27,44 @@ public partial class LumexNavGroup : LumexComponentBase, ISlotComponent<NavGroup
 	/// <remarks>Default value is <see langword="true"/></remarks>
 	[Parameter] public bool Expandable { get; set; } = true;
 
-	/// <summary>
-	///
-	/// </summary>
+    /// <summary>
+    /// Defines the CSS classes for slots of the navigation group.
+    /// </summary>
 	[Parameter] public NavGroupSlots Slots { get; set; } = new();
 
+	[CascadingParameter] private LumexNav Parent { get; set; } = default!;
+
 	protected override string RootClass =>
-		new CssBuilder( "lumex-nav-group" )
-			.AddClass( "lumex-nav-group--expandable", when: Expandable )
+		new CssBuilder( $"{Parent.Name}-group" )
 			.AddClass( Constants.ComponentStates.Expanded, when: _expanded )
 			.AddClass( Slots.Root, when: !string.IsNullOrEmpty( Slots.Root ) )
+			.AddClass( Parent.Slots.Group, when: !string.IsNullOrEmpty( Parent.Slots.Group ) )
 			.AddClass( base.RootClass )
 		.Build();
 
-	private string ContentCssClass =>
-		new CssBuilder( "lumex-nav-group-content" )
-			.AddClass( Slots.Content, when: !string.IsNullOrEmpty( Slots.Content ) )
+    private string LinkCssClass =>
+		new CssBuilder( $"{Parent.Name}-group-link" )
+            .AddClass( Slots.Title, when: !string.IsNullOrEmpty( Slots.Title ) )
+        .Build();
+
+    private string IconCssClass =>
+		new CssBuilder( $"{Parent.Name}-group-icon" )
+			.AddClass( Slots.Icon, when: !string.IsNullOrEmpty( Slots.Icon ) )
+        .Build();
+
+    private string ContentCssClass =>
+		new CssBuilder( $"{Parent.Name}-group-content" )
+            .AddClass( Slots.Content, when: !string.IsNullOrEmpty( Slots.Content ) )
 		.Build();
 
 	private bool _expanded;
 
-	private void ToggleGroupExpansion()
+    protected override void OnInitialized()
+    {
+        ParentComponentNullException.ThrowIfNull( Parent, nameof( LumexNav ) );
+    }
+
+    private void ToggleGroupExpansion()
 	{
 		if( Expandable )
 		{
