@@ -11,11 +11,12 @@
 		--LumexNavbar-color: var(--#{$prefix}-body-accent-color);
 		--LumexNavbar-bg: transparent;
 		--LumexNavbar-brand-gap: #{map-get($spacers, 2)};
+		--LumexNavbar-content-gap: #{map-get($spacers, 4)};
 	}
 
 	&-content {
-		--LumexNavbar-link-padding-x: #{map-get($spacers, 2)};
-		--LumexNavbar-link-padding-y: #{map-get($spacers, 2)};
+		--LumexNavbar-link-padding-x: #{map-get($spacers, 0)};
+		--LumexNavbar-link-padding-y: #{map-get($spacers, 0)};
 		--LumexNavbar-link-font-size: #{map-get($font-sizes, sm)};
 		--LumexNavbar-link-font-weight: #{map-get($font-weights, normal)};
 		--LumexNavbar-link-color: var(--#{$prefix}-body-color);
@@ -25,8 +26,8 @@
 .LumexNavbar {
 	&-root {
 		position: relative;
+		height: var(--LumexNavbar-height);
 		display: flex;
-		min-height: var(--LumexNavbar-height);
 		align-items: center;
 		justify-content: space-between;
 		padding: var(--LumexNavbar-padding-y) var(--LumexNavbar-padding-x);
@@ -59,6 +60,7 @@
 	&-content {
 		display: flex;
 		flex-direction: column;
+		gap: var(--LumexNavbar-content-gap);
 		@include list-unstyled;
 	}
 

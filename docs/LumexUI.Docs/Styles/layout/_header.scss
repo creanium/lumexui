@@ -1,13 +1,18 @@
 // Header
 
 
-.ad-header {
-	border-bottom: 1px solid var(--lumex-border-color);
-	overflow-x: hidden;
-	backdrop-filter: blur(8px);
+.ld-header {
+	& .LumexNavbar {
+		&-content {
+			--LumexNavbar-link-font-weight: 500;
+		}
+	}
 
-	& .lumex-nav-menu {
-		--lumex-nav-link-padding-x: 1rem;
-		--lumex-nav-link-font-weight: 500;
+	&:after {
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		content: "";
+		backdrop-filter: blur(8px) saturate(1.5);
 	}
 }

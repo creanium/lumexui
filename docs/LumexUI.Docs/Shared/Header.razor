@@ -1,31 +1,49 @@
 ﻿@implements IAsyncDisposable
 
-<LumexNavbar Class="ad-header" Breakpoint="@Breakpoint.Xxl" Sticky="@true">
-    <BrandContent>
+<LumexNavbar Sticky="@true"
+             Bordered="@true"
+             Breakpoint="@Breakpoint.Xxl"
+             ExpandBreakpoint="@Breakpoint.Lg"
+             Class="ld-header">
+    <LumexNavbarBrand>
         <img src="_content/LumexUI.Docs/assets/images/logo_light.svg" width="160" />
-    </BrandContent>
-    <ChildContent>
-        <LumexDrawer Id="header" Anchor="@Anchor.End" Breakpoint="@Breakpoint.Lg">
-            <BodyContent>
-                <LumexNavMenu Orientation="@( LgBreakpoint.Matched ? Orientation.Horizontal : Orientation.Vertical)">
-                    <LumexNavLink Route="docs/overview">Docs</LumexNavLink>
-                    <LumexNavLink Route="docs/getting-started">Getting Started</LumexNavLink>
-                    <LumexNavLink Route="about">About Us</LumexNavLink>
-                </LumexNavMenu>
+    </LumexNavbarBrand>
 
-                <LumexDivider Orientation="@( LgBreakpoint.Matched ? Orientation.Vertical : Orientation.Horizontal)" Class="lg:block my-2 mx-4" />
+    <LumexDrawer Id="header" Anchor="@Anchor.End" Breakpoint="@Breakpoint.Lg">
+        <BodyContent>
+            <LumexNavbarContent Class="gap-4 lg:gap-6 lh-6">
+                <LumexNavbarItem>
+                    <LumexLink Route="docs/overview">Docs</LumexLink>
+                </LumexNavbarItem>
+                <LumexNavbarItem>
+                    <LumexLink Route="docs/getting-started">Getting Started</LumexLink>
+                </LumexNavbarItem>
+                <LumexNavbarItem>
+                    <LumexLink Route="about">About Us</LumexLink>
+                </LumexNavbarItem>
+            </LumexNavbarContent>
 
-                <div class="flex align-center g-2 ms-2">
-                    <LumexIconButton Icon="@Icons.Rounded.LightMode" Class="text-inherit" />
-                    <LumexLink Route="https://github.com/LumexUI/lumexui" Class="text-inherit">
+            <LumexNavbarContent>
+                <LumexNavbarItem Class="lg:ms-6">
+                    <LumexDivider Orientation="@( LgBreakpoint.Matched ? Orientation.Vertical : Orientation.Horizontal)" Class="mt-4 lg:mt-0" />
+                </LumexNavbarItem>
+                <LumexNavbarItem>
+                    <LumexIconButton Icon="@Icons.Rounded.LightMode" />
+                </LumexNavbarItem>
+                <LumexNavbarItem>
+                    <LumexLink Route="https://github.com/LumexUI/lumexui">
                         <LumexIcon Icon="@Icons.Brands.GitHub" ViewBox="0 0 100 100" />
                     </LumexLink>
-                </div>
-            </BodyContent>
-        </LumexDrawer>
+                </LumexNavbarItem>
+            </LumexNavbarContent>
+        </BodyContent>
+    </LumexDrawer>
 
-        <LumexIconButton Icon="@Icons.Rounded.MoreVert" OnClick="@(() => DrawerService.Toggle("header"))" Class="lg:hidden" />
-    </ChildContent>
+    <LumexNavbarContent Class="lg:hidden">
+        <LumexNavbarItem>
+            <LumexIconButton Icon="@Icons.Rounded.MoreVert" OnClick="@(() => DrawerService.Toggle("header"))" />
+        </LumexNavbarItem>
+    </LumexNavbarContent>
 </LumexNavbar>
 
 @code {
