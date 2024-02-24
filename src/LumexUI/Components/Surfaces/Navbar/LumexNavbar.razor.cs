@@ -34,6 +34,13 @@ public partial class LumexNavbar : LumexComponentBase, ISlotComponent<NavbarSlot
     [Parameter] public Breakpoint Breakpoint { get; set; }
 
     /// <summary>
+    /// Defines the breakpoint until which the <see cref="LumexNavbar"/>'s content will be collapsed
+    /// if used alongside the <see cref="LumexDrawer"/>.
+    /// </summary>
+    /// <remarks>Default is <see cref="Breakpoint.Xs"/></remarks>
+    [Parameter] public Breakpoint ExpandBreakpoint { get; set; }
+
+    /// <summary>
     /// Defines the slots of the navbar.
     /// </summary>
     [Parameter] public NavbarSlots Slots { get; set; } = new();
@@ -42,6 +49,7 @@ public partial class LumexNavbar : LumexComponentBase, ISlotComponent<NavbarSlot
         new CssBuilder( $"{Name}-root" )
             .AddClass( $"{Name}--sticky", when: Sticky )
             .AddClass( $"{Name}--bordered", when: Bordered )
+            .AddClass( $"{Name}-{ExpandBreakpoint.ToDescription()}", when: ExpandBreakpoint is not Breakpoint.Xs )
             .AddClass( $"{Slots.Root}", when: !string.IsNullOrEmpty( Slots.Root ) )
             .AddClass( base.RootClass )
         .Build();

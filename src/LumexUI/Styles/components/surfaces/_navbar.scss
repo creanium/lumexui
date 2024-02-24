@@ -54,7 +54,14 @@
 		border-bottom-width: 1px;
 	}
 
-	& .lumex-nav-menu {
-		--lumex-nav-link-color: var(--LumexNavbar-color);
+	@each $breakpoint in map-keys($breakpoints) {
+		&-#{$breakpoint} {
+			@include media-breakpoint-from($breakpoint) {
+				.LumexNavbar-content {
+					align-items: center;
+					flex-direction: row;
+				}
+			}
+		}
 	}
 }
