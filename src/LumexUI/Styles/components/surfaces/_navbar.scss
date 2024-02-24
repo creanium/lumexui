@@ -3,13 +3,23 @@
 
 // Navbar
 
-.LumexNavbar-root {
-	--LumexNavbar-height: #{map-get($spacers, 16)};
-	--LumexNavbar-padding-x: #{map-get($spacers, 0)};
-	--LumexNavbar-padding-y: #{map-get($spacers, 3)};
-	--LumexNavbar-color: var(--#{$prefix}-body-accent-color);
-	--LumexNavbar-bg: transparent;
-	--LumexNavbar-brand-gap: #{map-get($spacers, 2)};
+.LumexNavbar {
+	&-root {
+		--LumexNavbar-height: #{map-get($spacers, 16)};
+		--LumexNavbar-padding-x: #{map-get($spacers, 0)};
+		--LumexNavbar-padding-y: #{map-get($spacers, 3)};
+		--LumexNavbar-color: var(--#{$prefix}-body-accent-color);
+		--LumexNavbar-bg: transparent;
+		--LumexNavbar-brand-gap: #{map-get($spacers, 2)};
+	}
+
+	&-content {
+		--LumexNavbar-link-padding-x: #{map-get($spacers, 2)};
+		--LumexNavbar-link-padding-y: #{map-get($spacers, 2)};
+		--LumexNavbar-link-font-size: #{map-get($font-sizes, sm)};
+		--LumexNavbar-link-font-weight: #{map-get($font-weights, normal)};
+		--LumexNavbar-link-color: var(--#{$prefix}-body-color);
+	}
 }
 
 .LumexNavbar {
@@ -44,6 +54,21 @@
 		align-items: center;
 		justify-content: flex-start;
 		gap: var(--LumexNavbar-brand-gap);
+	}
+
+	&-content {
+		display: flex;
+		flex-direction: column;
+		@include list-unstyled;
+	}
+
+	&-link {
+		display: block;
+		padding: var(--LumexNavbar-link-padding-y) var(--LumexNavbar-link-padding-x);
+		font-size: var(--LumexNavbar-link-font-size);
+		font-weight: var(--LumexNavbar-link-font-weight);
+		color: var(--LumexNavbar-link-color);
+		text-decoration: none;
 	}
 
 	&--sticky {

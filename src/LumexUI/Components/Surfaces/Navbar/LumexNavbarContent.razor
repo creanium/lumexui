@@ -1,6 +1,8 @@
 ﻿@namespace LumexUI
 @inherits LumexNavBase
 
-@{
-	base.BuildRenderTree( __builder );
-}
+<ul class="@RootClass" style="@RootStyle" @attributes="@AdditionalAttributes">
+	<CascadingValue TValue="LumexNavbarContent" Value="@this" IsFixed="@true">
+		@ChildContent
+	</CascadingValue>
+</ul>
