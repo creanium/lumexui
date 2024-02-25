@@ -18,22 +18,24 @@
     </LumexExpander>
 </div>
 
-    @code {
+@code {
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public string? Code { get; set; }
 
-    private string ToolbarCssClass => 
+    private string ToolbarCssClass =>
         new CssBuilder()
             .AddClass( "p-1" )
             .AddClass( "border-t" )
             .AddClass( "border-b", when: _expanded )
-            .AddClass( "rounded-b-xl", when: !_expanded && _animationEnded )
+            .AddClass( "rounded-b-xl", when: !_expanded )
         .Build();
 
-    private string ButtonLabel => _expanded ? "Collapse code" : "Expand code";
+    private string ButtonLabel => _expanded
+        ? "Collapse code"
+        : "Expand code";
 
     private bool _animationEnded;
-    private bool _expanded = true;
+    private bool _expanded;
 
     private void CollapseCode()
     {
