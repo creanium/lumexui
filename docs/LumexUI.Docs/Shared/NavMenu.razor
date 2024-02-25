@@ -1,41 +1,19 @@
 ﻿@namespace LumexUI.Docs
 
-<aside class="ad-sidebar xl:pt-10 border-r">
-    <LumexDrawer Id="navMenu" Breakpoint="@Breakpoint.Xl">
+<aside class="ld-sidebar xl:pt-10 border-r">
+    <LumexDrawer Id="sidebar" Breakpoint="@Breakpoint.Xl">
         <HeaderContent>
             <h5 class="text-semibold">Lumex<span class="text-thin">UI</span></h5>
         </HeaderContent>
         <BodyContent>
-            <LumexNavMenu Orientation="@Orientation.Vertical" Class="lh-6">
+            <LumexNav Orientation="@Orientation.Vertical" Class="gap-3 lh-6">
                 @_renderNavigation
-            </LumexNavMenu>
+            </LumexNav>
         </BodyContent>
     </LumexDrawer>
 </aside>
 
 @code {
-    [Inject] private INavigationService NavigationService { get; set; } = default!;
-
-    private readonly RenderFragment _renderNavigation;
-    private DocsNavigation _navigation;
-    private NavGroupSlots _navGroupSlots;
-
-    public NavMenu()
-    {
-        _navigation = new();
-        _renderNavigation = RenderNavigation;
-
-        _navGroupSlots = new()
-        {
-            Content = "mt-1 mb-2"
-        };
-    }
-
-    protected override void OnInitialized()
-    {
-        _navigation = NavigationService.GetNavigation();
-    }
-
     private void RenderNavigation( RenderTreeBuilder __builder )
     {
         foreach( var category in _navigation.Categories )
@@ -60,14 +38,16 @@
             {
                 foreach( var group in category.GroupedItems )
                 {
-                    <li class="ad-sidebar-subgroup">
-                        <h6 class="ad-sidebar-subgroup-title">@group.Key</h6>
-                        <ul class="ad-sidebar-subgroup-content border-l h-list-unstyled">
+                    <li class="ld-sidebar-subgroup">
+                        <h6>@group.Key</h6>
+                        <ul class="flex flex-column gap-2 border-l h-list-unstyled">
                             @foreach( var item in group.Value.Items )
                             {
-                                <LumexNavLink Route="@($"{pathSegment}/{item.Link}")">
-                                    @item.Name
-                                </LumexNavLink>
+                                <LumexNavItem>
+                                    <LumexLink Route="@($"{pathSegment}/{item.Link}")">
+                                        @item.Name
+                                    </LumexLink>
+                                </LumexNavItem>
                             }
                         </ul>
                     </li>
@@ -77,9 +57,11 @@
             {
                 foreach( var item in category.Items )
                 {
-                    <LumexNavLink Route="@($"{pathSegment}/{item.Link}")">
-                        @item.Name
-                    </LumexNavLink>
+                    <LumexNavItem>
+                        <LumexLink Route="@($"{pathSegment}/{item.Link}")">
+                            @item.Name
+                        </LumexLink>
+                    </LumexNavItem>
                 }
             }
         </LumexNavGroup>
@@ -87,19 +69,11 @@
 
     private void RenderLockedCategory( RenderTreeBuilder __builder, NavigationCategory category )
     {
-        <li class="flex align-center text-semibold text-secondary">
-            <a class="text-sm text-inherit text-no-underline">@category.Name</a>
-            <LumexIcon Icon="@Icons.Rounded.Lock" Class="ms-2 text-h6" />
-        </li>
-    }
-
-    private string BuildPathSegment( string name )
-    {
-        if( name == "Components API" )
-        {
-            return "api";
-        }
-
-        return $"docs/{name}".ToLowerInvariant().Replace( " ", "-" );
+        <LumexNavItem>
+            <LumexLink Disabled="@true" Class="flex align-center p-0 text-medium">
+                @category.Name
+                <LumexIcon Icon="@Icons.Rounded.Lock" Class="ms-2 text-base" />
+            </LumexLink>
+        </LumexNavItem>
     }
 }

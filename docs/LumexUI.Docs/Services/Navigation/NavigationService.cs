@@ -27,7 +27,7 @@ internal class NavigationService : INavigationService
                 .AddItem( typeof( LumexNumBox<T> ) ) )
             .AddGroup( new NavigationCategory( "Navigation" )
                 .AddItem( typeof( LumexDrawer ) )
-                .AddItem( typeof( LumexNavMenu ) ) );
+                .AddItem( typeof( LumexNav ) ) );
 
     private NavigationCategory ComponentsApiCategory =>
         new NavigationCategory( "Components API" )
