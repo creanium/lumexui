@@ -11,6 +11,7 @@ public partial class Constants
 		public const string Active = "lumex-active";
 		public const string Collapsing = "lumex-collapsing";
 		public const string Dirty = "lumex-dirty";
+		public const string Disabled = "lumex-disabled";
 		public const string Edit = "lumex-edit";
 		public const string Expanded = "lumex-expanded";
 		public const string Expanding = "lumex-expanding";

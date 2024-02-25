@@ -33,11 +33,17 @@ public partial class LumexLink : LumexComponentBase
     /// </summary>
     [Parameter] public string ActiveClass { get; set; } = Constants.ComponentStates.Active;
 
+    /// <summary>
+    /// Indicates whether the link is disabled.
+    /// </summary>
+    [Parameter] public bool Disabled { get; set; }
+
     [CascadingParameter] private LumexNavBase Parent { get; set; } = default!;
 
     protected override string RootClass =>
         new CssBuilder( $"{Name}-root" )
             .AddClass( $"{GetParentName()}-link", when: Parent is not null )
+            .AddClass( Constants.ComponentStates.Disabled, when: Disabled )
             .AddClass( base.RootClass )
         .Build();
 
