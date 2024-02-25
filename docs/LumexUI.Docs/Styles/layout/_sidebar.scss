@@ -21,6 +21,7 @@
 		&-group {
 			--LumexNav-link-padding-x: 0;
 			--LumexNav-link-font-weight: 600;
+			--LumexNav-link-color: var(--lumex-body-accent-color);
 
 			&-content {
 				&:has(> .LumexNav-item) {

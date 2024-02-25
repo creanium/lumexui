@@ -1,7 +1,7 @@
 ﻿// Docs table of contents
 
 
-.ad-toc {
+.ld-toc {
 	grid-area: toc;
 
 	@media (min-width: 992px) {
@@ -12,23 +12,22 @@
 		overflow-y: auto;
 	}
 
-	& .lumex-nav-menu {
-		--lumex-nav-link-padding-x: 0;
-		--lumex-nav-link-padding-y: .25rem;
-	}
-
-	& .lumex-nav-link {
-		& .lumex-icon {
-			--lumex-icon-font-size: 1rem;
-			opacity: 0;
+	& .LumexNav {
+		&-root {
+			--LumexNav-link-padding-x: 0;
+			--LumexNav-link-padding-y: .25rem;
 		}
 
-		&.lumex-active,
-		&:hover {
-			color: rgb(var(--lumex-primary));
-
+		&-link {
 			& .lumex-icon {
-				opacity: 1;
+				--lumex-icon-font-size: 1rem;
+				opacity: 0;
+			}
+
+			&:hover {
+				& .lumex-icon {
+					opacity: 1;
+				}
 			}
 		}
 	}
