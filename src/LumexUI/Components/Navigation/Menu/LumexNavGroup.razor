@@ -13,7 +13,7 @@
         }
     </a>
 
-    <LumexExpander Expanded="@(Expandable ? _expanded : true)">
+    <LumexExpander Expanded="@(Expandable ? _expanded : true)" Class="@WrapperCssClass">
         <LumexNav Orientation="@Orientation.Vertical" Class="@ContentCssClass">
             @ChildContent
         </LumexNav>

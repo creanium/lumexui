@@ -52,6 +52,11 @@ public partial class LumexNavGroup : LumexComponentBase, ISlotComponent<NavGroup
 			.AddClass( Slots.Icon, when: !string.IsNullOrEmpty( Slots.Icon ) )
         .Build();
 
+    private string WrapperCssClass =>
+		new CssBuilder( $"{Parent.Name}-group-wrapper" )
+			.AddClass( Slots.Wrapper, when: !string.IsNullOrEmpty( Slots.Wrapper ) )
+		.Build();
+
     private string ContentCssClass =>
 		new CssBuilder( $"{Parent.Name}-group-content" )
             .AddClass( Slots.Content, when: !string.IsNullOrEmpty( Slots.Content ) )

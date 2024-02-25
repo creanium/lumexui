@@ -11,5 +11,6 @@ public record NavGroupSlots : ISlot
 	public string? Root { get; init; }
 	public string? Title { get; init; } 
 	public string? Icon { get; init; }
+	public string? Wrapper { get; init; }
 	public string? Content { get; init; }
 }
