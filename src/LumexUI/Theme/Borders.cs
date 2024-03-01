@@ -6,15 +6,19 @@ namespace LumexUI.Theme;
 
 public record Borders
 {
-	public string Color { get; init; } = new Colors.Gray().S100; // TODO: Change?
+	public string Color { get; init; } = new Colors.Gray().S100;
 
-	public string Sm { get; init; } = ".25rem";
+	public string Xs { get; init; } = ".25rem";
 
-	public string Md { get; init; } = ".375rem";
+	public string Sm { get; init; } = ".375rem";
 
-	public string Lg { get; init; } = ".5rem";
+	public string Md { get; init; } = ".5rem";
 
-	public string Xl { get; init; } = ".75rem";
+	public string Lg { get; init; } = ".75rem";
 
-	public string Xxl { get; init; } = "1rem";
+	public string Xl { get; init; } = "1rem";
+
+	public string Xxl { get; init; } = "2rem";
+
+	internal string Full => "50%";
 }
