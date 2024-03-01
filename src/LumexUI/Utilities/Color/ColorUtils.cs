@@ -8,24 +8,14 @@ namespace LumexUI.Utilities;
 
 internal static class ColorUtils
 {
-	internal const string LightColor = Colors.Contrast.White;
-	internal const string DarkColor = Colors.Contrast.Black;
-
-	internal static string SetStateColor( string color, double amount )
-	{
-		return color switch
-		{
-			Colors.Contrast.Dark => Tint( color, amount ),
-			Colors.Contrast.Light => Shade( color, amount ),
-			_ => Contrast( color ) == LightColor ? Shade( color, amount ) : Tint( color, amount ),
-		};
-	}
+	private const string LightColor = Colors.Contrast.White;
+    private const string DarkColor = Colors.Contrast.Black;
 
 	internal static string FromHexToRgbCss( string color, double alpha = 1 )
 	{
 		FromHexToRgb( color, out byte R, out byte G, out byte B );
 
-		return alpha == 1 ? $"rgb({R}, {G}, {B})" : $"rgb({R}, {G}, {B}, {alpha})";
+		return $"rgb({R}, {G}, {B}, {alpha})";
 	}
 
 	internal static string FromHexToRgb( string color )
@@ -57,7 +47,7 @@ internal static class ColorUtils
 		FromHexToRgb( color1, out byte R1, out byte G1, out byte B1 );
 		FromHexToRgb( color2, out byte R2, out byte G2, out byte B2 );
 
-		byte[] RGBs = new[] { R1, R2, G1, G2, B1, B2 };
+		byte[] RGBs = [R1, R2, G1, G2, B1, B2];
 
 		for( int i = 0; i < RGBs.Length; i += 2 )
 		{
