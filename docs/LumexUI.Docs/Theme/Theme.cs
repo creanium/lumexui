@@ -19,15 +19,17 @@ internal record Theme : LumexTheme
     {
         Primary = new Colors.Orange(),
         Secondary = new Colors.Pink(),
-        Tertiary = new Colors.Teal(),
-        Background = new Colors.Gray().S950,
-        Foreground = new Colors.Neutral().S100
+        Background = new Colors.Gray().S900,
+        Foreground = new Colors.Gray().S50
     };
 
     private readonly Typography DocsTypography = new()
     {
-        SansSerif = "Inter var",
-        Monospace = "Fira Code var"
+        FontFamilies = new()
+        {
+            SansSerif = "Inter var",
+            Monospace = "Fira Code var"
+        }
     };
 
     private readonly Borders DocsBorders = new()
