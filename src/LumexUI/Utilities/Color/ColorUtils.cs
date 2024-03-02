@@ -27,7 +27,7 @@ internal static class ColorUtils
 
 	internal static string Contrast( string color )
 	{
-		return Luminance( color ) < .5 ? LightColor : DarkColor;
+		return Luminance( color ) < .3 ? LightColor : DarkColor;
 	}
 
 	internal static string Tint( string color, double weight )
@@ -128,13 +128,13 @@ internal static class ColorUtils
 	{
 		FromHexToRgb( color, out byte R, out byte G, out byte B );
 
-		double[] RGB = { R, G, B };
+		double[] RGB = [R, G, B];
 
 		for( int i = 0; i < RGB.Length; i++ )
 		{
 			RGB[i] /= 255.0;
 
-			RGB[i] = RGB[i] <= 0.03928
+			RGB[i] = RGB[i] <= 0.04045
 				? RGB[i] / 12.92
 				: Math.Pow( ( RGB[i] + 0.055 ) / 1.055, 2.4 );
 		}
