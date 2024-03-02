@@ -6,7 +6,7 @@ namespace LumexUI.Theme;
 
 public record Borders
 {
-	public string Color { get; init; } = new Colors.Gray().S100;
+	public string Color { get; init; } = Colors.Gray.S100;
 
 	public string Xs { get; init; } = ".25rem";
 

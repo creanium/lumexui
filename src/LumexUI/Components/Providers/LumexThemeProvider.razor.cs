@@ -43,7 +43,7 @@ public partial class LumexThemeProvider
 
     private void GenerateThemeCssVars( StringBuilder builder )
     {
-        Dictionary<string, Color> themeColors = new()
+        Dictionary<string, ColorScale> themeColors = new()
         {
             { "primary", Theme.Palette.Primary },
             { "secondary", Theme.Palette.Secondary },
@@ -56,15 +56,15 @@ public partial class LumexThemeProvider
 
         foreach( var color in themeColors )
         {
-            foreach( var (shade, value) in color.Value.GetShades() )
+            foreach( var (name, value) in color.Value.GetScale() )
             {
-                if( string.IsNullOrEmpty( shade ) )
+                if( string.IsNullOrEmpty( name ) )
                 {
                     builder.AppendLine( $"--{Prefix}-{color.Key}: {ColorUtils.FromHexToRgb( value )};" );
                 }
                 else
                 {
-                    builder.AppendLine( $"--{Prefix}-{color.Key}-{shade}: {ColorUtils.FromHexToRgb( value )};" );
+                    builder.AppendLine( $"--{Prefix}-{color.Key}-{name}: {ColorUtils.FromHexToRgb( value )};" );
                 }
             }
         }
