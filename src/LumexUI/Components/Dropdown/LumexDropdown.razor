@@ -2,46 +2,34 @@
 @inherits LumexComponentBase
 
 <div @attributes="@AdditionalAttributes" class="@RootClass" style="@RootStyle">
-	@if( Parent is null )
-	{
-		<LumexButton Variant="@Variant"
-				  Color="@Color"
-				  Size="@Size"
-				  IconPosition="@IconPosition"
-				  OnClick="@(() => ToggleDropdown())">
-			<ChildContent>@Label</ChildContent>
-			<IconTemplate>
-				<span class="material-symbols-outlined">
-					arrow_drop_down
-				</span>
-			</IconTemplate>
-		</LumexButton>
-	}
-	else
-	{
-		<LumexButton IconPosition="@IconPosition"
-				  Class="w-full justify-start"
-				  OnClick="@(() => ToggleDropdown(closeAll: false))">
-			<ChildContent>@Label</ChildContent>
-			<IconTemplate>
-				<span class="material-symbols-outlined">
-					arrow_drop_down
-				</span>
-			</IconTemplate>
-		</LumexButton>
-	}
+    @if( Parent is null )
+    {
+        <LumexButton Variant="@Variant"
+                     Color="@Color"
+                     Size="@Size"
+                     OnClick="@(() => ToggleDropdown())">
+            <ChildContent>@Label</ChildContent>
+        </LumexButton>
+    }
+    else
+    {
+        <LumexButton Class="w-full justify-start"
+                     OnClick="@(() => ToggleDropdown(closeAll: false))">
+            <ChildContent>@Label</ChildContent>
+        </LumexButton>
+    }
 
-	@if( _opened )
-	{
-		<ul class="@(Parent is null ? "lumex-dropdown-menu" : "lumex-dropdown-submenu")">
-			<CascadingValue Value="@this" IsFixed="@true">
-				@ChildContent
-			</CascadingValue>
-		</ul>
-	}
+    @if( _opened )
+    {
+        <ul class="@(Parent is null ? "lumex-dropdown-menu" : "lumex-dropdown-submenu")">
+            <CascadingValue Value="@this" IsFixed="@true">
+                @ChildContent
+            </CascadingValue>
+        </ul>
+    }
 </div>
 
 @if( Parent is null && _opened )
 {
-	<LumexOverlay OnClick="@Close" />
+    <LumexOverlay OnClick="@Close" />
 }

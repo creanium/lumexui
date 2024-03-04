@@ -20,5 +20,5 @@ public record Borders
 
 	public string Xxl { get; init; } = "2rem";
 
-	internal string Full => "50%";
+	internal string Full => "9999rem";
 }

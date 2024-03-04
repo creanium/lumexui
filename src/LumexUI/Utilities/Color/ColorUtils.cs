@@ -22,7 +22,7 @@ internal static class ColorUtils
 	{
 		FromHexToRgb( color, out byte R, out byte G, out byte B );
 
-		return $"{R}, {G}, {B}";
+		return $"{R} {G} {B}";
 	}
 
 	internal static string Contrast( string color )
