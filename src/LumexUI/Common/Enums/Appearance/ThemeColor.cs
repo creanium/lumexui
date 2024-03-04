@@ -8,17 +8,17 @@ namespace LumexUI.Common;
 
 public enum ThemeColor
 {
-	[Description( "none" )]
-	None,
+    [Description( "none" )]
+    None,
 
-	[Description( "primary" )]
+    [Description( "default" )]
+    Default,
+
+    [Description( "primary" )]
 	Primary,
 
 	[Description( "secondary" )]
 	Secondary,
-
-	[Description( "tertiary" )]
-	Tertiary,
 
 	[Description( "success" )]
 	Success,
@@ -30,11 +30,5 @@ public enum ThemeColor
 	Danger,
 
 	[Description( "info" )]
-	Info,
-
-	[Description( "light" )]
-	Light,
-
-	[Description( "dark" )]
-	Dark
+	Info
 }
