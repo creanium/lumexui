@@ -8,12 +8,18 @@ namespace LumexUI.Common;
 
 public enum ButtonVariant
 {
-	[Description( "fill" )]
-	Fill,
+    [Description( "solid" )]
+    Solid,
 
-	[Description( "outline" )]
-	Outline,
+    [Description( "outlined" )]
+    Outlined,
 
-	[Description( "smooth" )]
-	Smooth
+    [Description( "flat" )]
+    Flat,
+
+    [Description( "shadow" )]
+    Shadow,
+
+    [Description("ghost")]
+    Ghost
 }

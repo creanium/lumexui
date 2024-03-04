@@ -76,7 +76,7 @@ $border-sizes: (
 	md: var(--lumex-border-md),
 	lg: var(--lumex-border-lg),
 	xl: var(--lumex-border-xl),
-	2xl: var(--lumex-border-2xl),
+	xxl: var(--lumex-border-xxl),
 	full: var(--lumex-border-full)
 );
 
@@ -198,42 +198,6 @@ $input-border-radius-lg:            var(--lumex-border-lg);
 
 $input-bg-disabled:                 var(--lumex-disabled);
 $input-color-disabled:              var(--lumex-body-tertiary-color);
-
-
-// Buttons
-
-$btn-color:                         var(--lumex-body-color);
-$btn-color-disabled:                var(--lumex-body-tertiary-color);
-
-$btn-padding-y:                     .625rem;
-$btn-padding-x:                     1.25rem;
-$btn-font-size:                     $font-size-base;
-$btn-border-radius:                 var(--lumex-border-md);
-
-$btn-padding-y-sm:                  .375rem;
-$btn-padding-x-sm:                  .75rem;
-$btn-font-size-sm:                  $font-size-sm;
-$btn-border-radius-sm:              var(--lumex-border-sm);
-
-$btn-padding-y-lg:                  .875rem;
-$btn-padding-x-lg:                  1.75rem;
-$btn-font-size-lg:                  $font-size-lg;
-$btn-border-radius-lg:              var(--lumex-border-lg);
-
-$btn-box-shadow-focus:              0 0 0 .1rem var(--lumex-body-bg), 
-                                    0 0 0 .25rem rgba(var(--lumex-btn-box-shadow-rgb), .25);
-$btn-transition:                    color 200ms ease-in-out, background-color 200ms ease-in-out, border-color 200ms ease-in-out, box-shadow 200ms ease-in-out;
-
-
-// Icon Buttons
-
-$icon-btn-color:                    var(--lumex-neutral);
-
-$icon-btn-padding-y:                .5rem;
-$icon-btn-padding-x:                .5rem;
-
-$icon-btn-bg-hover:                 rgba(var(--lumex-neutral-rgb), var(--lumex-hover-amount));
-$icon-btn-bg-active:                rgba(var(--lumex-neutral-rgb), var(--lumex-active-amount));
 
 
 // Stepper

@@ -99,7 +99,7 @@
 
 	&-btn-close {
 		position: absolute;
-		top: calc(var(--lumex-drawer-padding-y) - $icon-btn-padding-y);
-		right: calc(var(--lumex-drawer-padding-x) - $icon-btn-padding-x);
+		top: calc(var(--lumex-drawer-padding-y) /*- $icon-btn-padding-y*/);
+		right: calc(var(--lumex-drawer-padding-x) /*- $icon-btn-padding-x*/);
 	}
 }

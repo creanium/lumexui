@@ -4,132 +4,117 @@
 // Buttons
 
 
-.lumex-btn {
-    --lumex-btn-padding-y: #{$btn-padding-y};
-    --lumex-btn-padding-x: #{$btn-padding-x};
-    --lumex-btn-font-size: #{$btn-font-size};
-    --lumex-btn-color: #{$btn-color};
-    --lumex-btn-color-disabled: #{$btn-color-disabled};
-    --lumex-btn-bg: transparent;
-    --lumex-btn-bg-disabled: var(--lumex-disabled);
-    --lumex-btn-border-color: transparent;
-    --lumex-btn-border-color-disabled: transparent;
-    --lumex-btn-border-radius: #{$btn-border-radius};
-    --lumex-btn-box-shadow-focus: #{$btn-box-shadow-focus};
+.LumexButton-root {
+	--LumexButton-min-width: #{map-get($spacers, 20)};
+	--LumexButton-gap: #{map-get($spacers, 2)};
+	--LumexButton-padding-y: #{map-get($spacers, 1\.5)};
+	--LumexButton-padding-x: #{map-get($spacers, 4)};
+	--LumexButton-font-size: var(--#{$prefix}-font-size-md);
+	--LumexButton-font-weight: var(--#{$prefix}-body-font-weight);
+	--LumexButton-line-height: var(--#{$prefix}-line-height-md);
+	--LumexButton-color: var(--#{$prefix}-body-color);
+	--LumexButton-bg: transparent;
+	--LumexButton-border-width: var(--#{$prefix}-border-width);
+	--LumexButton-border-color: transparent;
+	--LumexButton-border-radius: var(--#{$prefix}-border-md);
+	--LumexButton-hover-opacity: var(--#{$prefix}-hover-opacity);
+	--LumexButton-disabled-opacity: var(--#{$prefix}-disabled-opacity);
 }
 
-.lumex-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--lumex-btn-padding-y) var(--lumex-btn-padding-x);
+.LumexButton {
+	&-root {
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		gap: var(--LumexButton-gap);
+		min-width: var(--LumexButton-min-width);
+		padding: var(--LumexButton-padding-y) var(--LumexButton-padding-x);
+		font-size: var(--LumexButton-font-size);
+		font-weight: var(--LumexButton-font-weight);
+		line-height: var(--LumexButton-line-height);
+		color: var(--LumexButton-color);
+		text-decoration: none;
+		vertical-align: middle;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		user-select: none;
+		border: var(--LumexButton-border-width) solid var(--LumexButton-border-color);
+		border-radius: var(--LumexButton-border-radius);
+		background-color: var(--LumexButton-bg);
+		outline: 2px solid transparent;
+		outline-offset: 2px;
+		transition-property: transform, color, background-color, border-color, opacity;
+		transition-timing-function: var(--#{$prefix}-transition-timing);
+		transition-duration: var(--#{$prefix}-transition-duration);
 
-    font-size: var(--lumex-btn-font-size);
-    color: var(--lumex-btn-color);
-    text-decoration: none;
-    vertical-align: middle;
+		&:hover {
+			opacity: var(--LumexButton-hover-opacity);
+		}
 
-    border: none;
-    border-radius: var(--lumex-btn-border-radius);
-    background-color: var(--lumex-btn-bg);
+		&:focus-visible {
+			outline-color: rgb(var(--#{$prefix}-focus) / 0.7);
+		}
 
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    transition: $btn-transition;
+		&:active {
+			transform: scale(0.97);
+		}
 
-    &:hover {
-        color: var(--lumex-btn-color-hover, var(--lumex-btn-color));
-        background-color: var(--lumex-btn-bg-hover);
-    }
+		&:disabled,
+		&.lumex-disabled {
+			pointer-events: none;
+			opacity: var(--LumexButton-disabled-opacity);
+		}
+	}
 
-    &:focus-visible {
-        color: var(--lumex-btn-color-hover, var(--lumex-btn-color));
-        border-color: var(--lumex-btn-border-color);
-        background-color: var(--lumex-btn-bg-hover);
-        box-shadow: var(--lumex-btn-box-shadow-focus);
-        outline: none;
-    }
+	&--sm {
+		@include button-size( map-get($spacers, 1), map-get($spacers, 3), var(--#{$prefix}-font-size-sm), var(--#{$prefix}-line-height-sm), var(--#{$prefix}-border-sm) );
+	}
 
-    &:active {
-        color: var(--lumex-btn-color-active, var(--lumex-btn-color));
-        background-color: var(--lumex-btn-bg-active);
-    }
+	&--lg {
+		@include button-size( map-get($spacers, 2), map-get($spacers, 6), var(--#{$prefix}-font-size-lg), var(--#{$prefix}-line-height-lg), var(--#{$prefix}-border-md) );
+	}
 
-    &:disabled {
-        color: var(--lumex-btn-color-disabled);
-        border-color: var(--lumex-btn-border-color-disabled);
-        background-color: var(--lumex-btn-bg-disabled);
-        cursor: not-allowed;
-    }
-
-    &-content {
-        @include flex-center();
-        gap: map-get($spacers, 2);
-    }
-
-    &-label {
-        order: 2;
-    }
-
-    &--sm {
-        @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-border-radius-sm);
-    }
-
-    &--lg {
-        @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-border-radius-lg);
-    }
-}
-
-@each $color in $theme-colors {
-    .lumex-btn--#{$color} {
-        --lumex-btn-color: var(--lumex-#{$color}-contrast);
-        --lumex-btn-color-hover: var(--lumex-#{$color}-contrast);
-        --lumex-btn-color-active: var(--lumex-#{$color}-contrast);
-        --lumex-btn-bg: var(--lumex-#{$color});
-        --lumex-btn-bg-hover: var(--lumex-#{$color}-hover);
-        --lumex-btn-bg-active: var(--lumex-#{$color}-active);
-        --lumex-btn-box-shadow-rgb: var(--lumex-#{$color}-rgb);
-    }
+	&--icon {
+		--LumexButton-min-width: 0;
+		--LumexButton-gap: 0;
+		--LumexButton-padding-x: 0;
+		width: calc(var(--LumexButton-line-height) + (var(--LumexButton-padding-y) + var(--LumexButton-border-width)) * 2);
+		height: calc(var(--LumexButton-line-height) + (var(--LumexButton-padding-y) + var(--LumexButton-border-width)) * 2);
+		overflow: hidden;
+	}
 }
 
 @each $color in $theme-colors {
-    .lumex-btn--outline-#{$color} {
-        --lumex-btn-color: var(--lumex-#{$color});
-        --lumex-btn-color-hover: var(--lumex-#{$color}-contrast);
-        --lumex-btn-color-active: var(--lumex-#{$color}-contrast);
-        --lumex-btn-bg-hover: var(--lumex-#{$color}-hover);
-        --lumex-btn-bg-active: var(--lumex-#{$color}-active);
-        --lumex-btn-border-color: var(--lumex-#{$color});
-        --lumex-btn-box-shadow-rgb: var(--lumex-#{$color}-rgb);
+	.LumexButton--solid-#{$color} {
+		--LumexButton-color: rgb(var(--#{$prefix}-#{$color}-contrast));
+		--LumexButton-bg: rgb(var(--#{$prefix}-#{$color}));
+	}
 
-        border: 1px solid var(--lumex-btn-border-color);
-    }
-}
+	.LumexButton--outlined-#{$color} {
+		--LumexButton-color: rgb(var(--#{$prefix}-#{$color}));
+		--LumexButton-border-color: rgb(var(--#{$prefix}-#{$color}));
+	}
 
-@each $color in $theme-colors {
-    .lumex-btn--smooth-#{$color} {
-        --lumex-btn-color: var(--lumex-#{$color});
-        --lumex-btn-color-hover: var(--lumex-#{$color});
-        --lumex-btn-color-active: var(--lumex-#{$color});
-        --lumex-btn-bg: var(--lumex-#{$color}-subtle);
-        --lumex-btn-bg-hover: var(--lumex-#{$color}-subtle-hover);
-        --lumex-btn-bg-active: var(--lumex-#{$color}-subtle-active);
-        --lumex-btn-box-shadow-rgb: var(--lumex-#{$color}-rgb);
+	.LumexButton--flat-#{$color} {
+		--LumexButton-color: rgb(var(--#{$prefix}-#{$color}));
+		--LumexButton-bg: rgb(var(--#{$prefix}-#{$color}-50));
+	}
 
-        font-weight: 500;
-    }
-}
+	.LumexButton--shadow-#{$color} {
+		--LumexButton-color: rgb(var(--#{$prefix}-#{$color}-contrast));
+		--LumexButton-bg: rgb(var(--#{$prefix}-#{$color}));
+		box-shadow: 0 10px 12px -3px rgb(var(--#{$prefix}-#{$color}) / .3), 
+					0 3px 6px -3px rgb(var(--#{$prefix}-#{$color}) / .6);
+	}
 
-.lumex-btn-icon {
-    @include flex-center();
+	.LumexButton--ghost-#{$color} {
+		--LumexButton-color: rgb(var(--#{$prefix}-#{$color}));
+		--LumexButton-border-color: rgb(var(--#{$prefix}-#{$color}));
+		--LumexButton-hover-opacity: 1;
 
-    &--start {
-        order: 1;
-    }
-
-    &--end {
-        order: 3;
-    }
+		&:hover {
+			--LumexButton-color: rgb(var(--#{$prefix}-#{$color}-contrast));
+			--LumexButton-bg: rgb(var(--#{$prefix}-#{$color}));
+		}
+	}
 }
