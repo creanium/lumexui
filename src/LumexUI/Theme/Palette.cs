@@ -56,8 +56,18 @@ public record Palette
     /// </summary>
     public string Focus { get; init; } = Colors.Blue.S500;
 
+    /// <summary>
+    /// Defines a disabled opacity. The disabled opacity is used for the disabled elements.
+    /// </summary>
+    public double DisabledOpacity { get; init; } = 0.6;
+
+    /// <summary>
+    /// Defines a hover opacity. The hover opacity is used for the hovered elements.
+    /// </summary>
+    public double HoverOpacity { get; init; } = 0.9;
+
     public Palette()
     {
-        Default.SetDefault( 300 );
+        Default.SetDefault( 200 );
     }
 }

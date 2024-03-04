@@ -39,6 +39,7 @@ public partial class LumexThemeProvider
         GenerateLinkCssVars( builder );
         GenerateBorderCssVars( builder );
         GenerateTransitionCssVars( builder );
+        GenerateMiscCssVars( builder );
     }
 
     private void GenerateThemeCssVars( StringBuilder builder )
@@ -115,7 +116,7 @@ public partial class LumexThemeProvider
         builder.AppendLine( $"--{Prefix}-border-md: {Theme.Borders.Md};" );
         builder.AppendLine( $"--{Prefix}-border-lg: {Theme.Borders.Lg};" );
         builder.AppendLine( $"--{Prefix}-border-xl: {Theme.Borders.Xl};" );
-        builder.AppendLine( $"--{Prefix}-border-2xl: {Theme.Borders.Xxl};" );
+        builder.AppendLine( $"--{Prefix}-border-xxl: {Theme.Borders.Xxl};" );
         builder.AppendLine( $"--{Prefix}-border-full: {Theme.Borders.Full};" );
     }
 
@@ -123,6 +124,13 @@ public partial class LumexThemeProvider
     {
         builder.AppendLine( $"--{Prefix}-transition-duration: 200ms;" );
         builder.AppendLine( $"--{Prefix}-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);" );
+    }
+
+    private void GenerateMiscCssVars( StringBuilder builder )
+    {
+        builder.AppendLine( $"--{Prefix}-focus: {ColorUtils.FromHexToRgb(Theme.Palette.Focus)};" );
+        builder.AppendLine( $"--{Prefix}-hover-opacity: {Theme.Palette.HoverOpacity};" );
+        builder.AppendLine( $"--{Prefix}-disabled-opacity: {Theme.Palette.DisabledOpacity};" );
     }
 
     private string[] GetTypographyFonts()
