@@ -5,5 +5,9 @@
 @inherits LumexComponentBase
 
 <style>
-    @((MarkupString)BuildTheme())
+    @((MarkupString)BuildTheme(Config.LightTheme))
+</style>
+
+<style>
+    @((MarkupString)BuildTheme(Config.DarkTheme))
 </style>

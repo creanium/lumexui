@@ -4,48 +4,49 @@
 
 using System.Globalization;
 
+using LumexUI.Theme;
+
 namespace LumexUI.Utilities;
 
 internal static class ColorUtils
 {
-	private const string LightColor = Colors.Contrast.White;
-    private const string DarkColor = Colors.Contrast.Black;
-
-	internal static string FromHexToRgbCss( string color, double alpha = 1 )
+	internal static string HexToRgb( string color )
 	{
-		FromHexToRgb( color, out byte R, out byte G, out byte B );
-
-		return $"rgb({R}, {G}, {B}, {alpha})";
-	}
-
-	internal static string FromHexToRgb( string color )
-	{
-		FromHexToRgb( color, out byte R, out byte G, out byte B );
+		HexToRgb( color, out byte R, out byte G, out byte B );
 
 		return $"{R} {G} {B}";
 	}
 
-	internal static string Contrast( string color )
+    internal static string HexToHsl( string color )
+    {
+        HexToHsl( color, out double H, out double S, out double L );
+
+        return $"{H} {S}% {L}%";
+    }
+
+    internal static string? GetReadableColor( string? color )
 	{
-		return Luminance( color ) < .3 ? LightColor : DarkColor;
+		return !string.IsNullOrWhiteSpace( color ) 
+			? Luminance( color ) < .3 ? Colors.White : Colors.Black
+			: null;
 	}
 
-	internal static string Tint( string color, double weight )
+	internal static string Lighten( string color, double weight )
 	{
-		return Mix( LightColor, color, weight );
+		return Mix( Colors.White, color, weight );
 	}
 
-	internal static string Shade( string color, double weight )
+	internal static string Darken( string color, double weight )
 	{
-		return Mix( DarkColor, color, weight );
+		return Mix( Colors.Black, color, weight );
 	}
 
 	private static string Mix( string color1, string color2, double weight )
 	{
 		var result = "#";
 
-		FromHexToRgb( color1, out byte R1, out byte G1, out byte B1 );
-		FromHexToRgb( color2, out byte R2, out byte G2, out byte B2 );
+		HexToRgb( color1, out byte R1, out byte G1, out byte B1 );
+		HexToRgb( color2, out byte R2, out byte G2, out byte B2 );
 
 		byte[] RGBs = [R1, R2, G1, G2, B1, B2];
 
@@ -64,7 +65,7 @@ internal static class ColorUtils
 		return result;
 	}
 
-	private static void FromHexToRgb( string color, out byte R, out byte G, out byte B )
+	private static void HexToRgb( string color, out byte R, out byte G, out byte B )
 	{
 		color = color[1..];
 
@@ -78,9 +79,9 @@ internal static class ColorUtils
 		B = (byte)( decimalValue >> 0 );
 	}
 
-	private static void FromHexToHsl( string color, out double H, out double S, out double L )
+	private static void HexToHsl( string color, out double H, out double S, out double L )
 	{
-		FromHexToRgb( color, out byte R, out byte G, out byte B );
+		HexToRgb( color, out byte R, out byte G, out byte B );
 
 		var _R = R / 255d;
 		var _G = G / 255d;
@@ -114,9 +115,9 @@ internal static class ColorUtils
 			}
 		}
 
-		H = Math.Round( H *= 60d, 2 );
-		S = Math.Round( S *= 100, 2 );
-		L = Math.Round( L *= 100, 2 );
+		H = Math.Round( H *= 60d );
+		S = Math.Round( S *= 100 );
+		L = Math.Round( L *= 100 );
 
 		if( H < 0 )
 		{
@@ -126,7 +127,7 @@ internal static class ColorUtils
 
 	private static double Luminance( string color )
 	{
-		FromHexToRgb( color, out byte R, out byte G, out byte B );
+		HexToRgb( color, out byte R, out byte G, out byte B );
 
 		double[] RGB = [R, G, B];
 

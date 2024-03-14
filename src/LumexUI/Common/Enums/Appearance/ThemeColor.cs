@@ -8,9 +8,6 @@ namespace LumexUI.Common;
 
 public enum ThemeColor
 {
-    [Description( "none" )]
-    None,
-
     [Description( "default" )]
     Default,
 

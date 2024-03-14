@@ -2,7 +2,6 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-using System.Globalization;
 using System.Text;
 
 using LumexUI.Theme;
@@ -10,141 +9,114 @@ using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
 
+using static LumexUI.Utilities.ColorUtils;
+
 namespace LumexUI;
 
 public partial class LumexThemeProvider
 {
-    [Parameter] public LumexTheme Theme { get; set; } = new();
+    [Parameter] public LumexThemeConfig Config { get; set; } = new();
 
     private const string Prefix = "lumex";
 
-    private readonly CultureInfo _culture = CultureInfo.InvariantCulture;
-
-    private string BuildTheme()
+    private string BuildTheme( ThemeConfig theme )
     {
         var builder = new StringBuilder();
+        var themeName = theme.Type.ToDescription();
+        var cssSelector = $@"[data-theme=""{themeName}""]";
 
-        builder.AppendLine( ":root {" );
-        GenerateCssVars( builder );
-        builder.AppendLine( "}" );
-
-        return builder.ToString();
-    }
-
-    private void GenerateCssVars( StringBuilder builder )
-    {
-        GenerateThemeCssVars( builder );
-        GenerateFontCssVars( builder );
-        GenerateBodyCssVars( builder );
-        GenerateLinkCssVars( builder );
-        GenerateBorderCssVars( builder );
-        GenerateTransitionCssVars( builder );
-        GenerateMiscCssVars( builder );
-    }
-
-    private void GenerateThemeCssVars( StringBuilder builder )
-    {
-        Dictionary<string, ColorScale> themeColors = new()
+        if( themeName == Config.DefaultTheme.ToDescription() )
         {
-            { "primary", Theme.Palette.Primary },
-            { "secondary", Theme.Palette.Secondary },
-            { "success", Theme.Palette.Success },
-            { "warning", Theme.Palette.Warning },
-            { "danger", Theme.Palette.Danger },
-            { "info", Theme.Palette.Info },
-            { "default", Theme.Palette.Default }
-        };
+            cssSelector = $":root, {cssSelector}";
+        }
+
+        builder.AppendLine( cssSelector + " {" );
+
+        // Colors
+        var themeColors = FlattenThemeColors( theme.Colors );
 
         foreach( var color in themeColors )
         {
-            foreach( var (name, value) in color.Value.GetScale() )
+            foreach( var scale in color.Value )
             {
-                if( string.IsNullOrEmpty( name ) )
-                {
-                    builder.AppendLine( $"--{Prefix}-{color.Key}: {ColorUtils.FromHexToRgb( value )};" );
-                }
-                else
-                {
-                    builder.AppendLine( $"--{Prefix}-{color.Key}-{name}: {ColorUtils.FromHexToRgb( value )};" );
-                }
+                var scaleKey = scale.Key == "default" ? string.Empty : "-" + scale.Key;
+                var scaleValue = !string.IsNullOrWhiteSpace( scale.Value ) ? HexToHsl( scale.Value ) : null;
+
+                builder.AppendLine( $"--{Prefix}-{color.Key}{scaleKey}: {scaleValue};" );
             }
         }
-    }
 
-    private void GenerateFontCssVars( StringBuilder builder )
-    {
-        string[] fonts = GetTypographyFonts();
+        // Layout
+        var themeLayout = theme.Layout;
 
-        builder.AppendLine( $"--{Prefix}-font-sans-serif: {fonts[0]}" );
-        builder.AppendLine( $"--{Prefix}-font-monospace: {fonts[1]}" );
-        builder.AppendLine( $"--{Prefix}-font-size-xs: {Theme.Typography.FontSizes.Xs};" );
-        builder.AppendLine( $"--{Prefix}-font-size-sm: {Theme.Typography.FontSizes.Sm};" );
-        builder.AppendLine( $"--{Prefix}-font-size-md: {Theme.Typography.FontSizes.Md};" );
-        builder.AppendLine( $"--{Prefix}-font-size-lg: {Theme.Typography.FontSizes.Lg};" );
-        builder.AppendLine( $"--{Prefix}-line-height-xs: {Theme.Typography.LineHeights.Xs};" );
-        builder.AppendLine( $"--{Prefix}-line-height-sm: {Theme.Typography.LineHeights.Sm};" );
-        builder.AppendLine( $"--{Prefix}-line-height-md: {Theme.Typography.LineHeights.Md};" );
-        builder.AppendLine( $"--{Prefix}-line-height-lg: {Theme.Typography.LineHeights.Lg};" );
-    }
-
-    private void GenerateBodyCssVars( StringBuilder builder )
-    {
-        builder.AppendLine( $"--{Prefix}-body-bg: {Theme.Palette.Background};" );
-        builder.AppendLine( $"--{Prefix}-body-bg-rgb: {ColorUtils.FromHexToRgb( Theme.Palette.Background )};" );
-        builder.AppendLine( $"--{Prefix}-body-color: {Theme.Palette.Foreground};" );
-        builder.AppendLine( $"--{Prefix}-body-accent-color: {ColorUtils.Tint( Theme.Palette.Foreground, .65 )};" );
-        builder.AppendLine( $"--{Prefix}-body-secondary-color: {ColorUtils.FromHexToRgbCss( Theme.Palette.Foreground, .75 )};" );
-        builder.AppendLine( $"--{Prefix}-body-tertiary-color: {ColorUtils.FromHexToRgbCss( Theme.Palette.Foreground, .6 )};" );
+        builder.AppendLine( $"--{Prefix}-body-bg: hsl(var(--{Prefix}-background));" );
+        builder.AppendLine( $"--{Prefix}-body-color: hsl(var(--{Prefix}-foreground));" );
         builder.AppendLine( $"--{Prefix}-body-font-family: var(--{Prefix}-font-sans-serif);" );
         builder.AppendLine( $"--{Prefix}-body-font-size: var(--{Prefix}-font-size-md);" );
-        builder.AppendLine( $"--{Prefix}-body-font-weight: {Theme.Typography.FontWeight};" );
+        builder.AppendLine( $"--{Prefix}-body-font-weight: var(--{Prefix}-font-weight);" );
         builder.AppendLine( $"--{Prefix}-body-line-height: var(--{Prefix}-line-height-md);" );
-    }
 
-    private void GenerateLinkCssVars( StringBuilder builder )
-    {
-        builder.AppendLine( $"--{Prefix}-link-color: {Theme.Palette.Primary.Default};" );
-    }
+        builder.AppendLine( $"--{Prefix}-font-sans-serif: {Config.Typography.FontFamilies.SansSerif}, {FontFamily.DefaultSansSerif};" );
+        builder.AppendLine( $"--{Prefix}-font-monospace: {Config.Typography.FontFamilies.Monospace}, {FontFamily.DefaultMonospace};" );
+        builder.AppendLine( $"--{Prefix}-font-weight: {Config.Typography.FontWeight};" );
+        builder.AppendLine( $"--{Prefix}-font-size-xs: {Config.Typography.FontSizes.Xs};" );
+        builder.AppendLine( $"--{Prefix}-font-size-sm: {Config.Typography.FontSizes.Sm};" );
+        builder.AppendLine( $"--{Prefix}-font-size-md: {Config.Typography.FontSizes.Md};" );
+        builder.AppendLine( $"--{Prefix}-font-size-lg: {Config.Typography.FontSizes.Lg};" );
+        builder.AppendLine( $"--{Prefix}-line-height-xs: {Config.Typography.LineHeights.Xs};" );
+        builder.AppendLine( $"--{Prefix}-line-height-sm: {Config.Typography.LineHeights.Sm};" );
+        builder.AppendLine( $"--{Prefix}-line-height-md: {Config.Typography.LineHeights.Md};" );
+        builder.AppendLine( $"--{Prefix}-line-height-lg: {Config.Typography.LineHeights.Lg};" );
 
-    private void GenerateBorderCssVars( StringBuilder builder )
-    {
         builder.AppendLine( $"--{Prefix}-border-width: 1px;" );
         builder.AppendLine( $"--{Prefix}-border-style: solid;" );
-        builder.AppendLine( $"--{Prefix}-border-color: {Theme.Borders.Color};" );
-        builder.AppendLine( $"--{Prefix}-border-xs: {Theme.Borders.Xs};" );
-        builder.AppendLine( $"--{Prefix}-border-sm: {Theme.Borders.Sm};" );
-        builder.AppendLine( $"--{Prefix}-border-md: {Theme.Borders.Md};" );
-        builder.AppendLine( $"--{Prefix}-border-lg: {Theme.Borders.Lg};" );
-        builder.AppendLine( $"--{Prefix}-border-xl: {Theme.Borders.Xl};" );
-        builder.AppendLine( $"--{Prefix}-border-xxl: {Theme.Borders.Xxl};" );
-        builder.AppendLine( $"--{Prefix}-border-full: {Theme.Borders.Full};" );
+        builder.AppendLine( $"--{Prefix}-border-color: {themeLayout.BorderColor};" );
+        builder.AppendLine( $"--{Prefix}-border-xs: {Config.Borders.Xs};" );
+        builder.AppendLine( $"--{Prefix}-border-sm: {Config.Borders.Sm};" );
+        builder.AppendLine( $"--{Prefix}-border-md: {Config.Borders.Md};" );
+        builder.AppendLine( $"--{Prefix}-border-lg: {Config.Borders.Lg};" );
+        builder.AppendLine( $"--{Prefix}-border-xl: {Config.Borders.Xl};" );
+        builder.AppendLine( $"--{Prefix}-border-xxl: {Config.Borders.Xxl};" );
+        builder.AppendLine( $"--{Prefix}-border-full: {Config.Borders.Full};" );
+
+        var emphasisColor = themeColors["foreground"]["900"];
+        var linkColor = themeColors["primary"]["default"];
+
+        builder.AppendLine( $"--{Prefix}-emphasis-color: {(!string.IsNullOrWhiteSpace( emphasisColor ) ? HexToHsl( emphasisColor ) : null)};" );
+        builder.AppendLine( $"--{Prefix}-link-color: {(!string.IsNullOrWhiteSpace( linkColor ) ? HexToHsl( linkColor ) : null)};" );
+        builder.AppendLine( $"--{Prefix}-hover-opacity: {themeLayout.HoverOpacity};" );
+        builder.AppendLine( $"--{Prefix}-disabled-opacity: {themeLayout.DisabledOpacity};" );
+
+        //builder.AppendLine( $"--{Prefix}-shadow-color: 0 0 0 / .1;" );
+        //builder.AppendLine( $"--{Prefix}-shadow-sm: {themeLayout.Shadows?.Sm};" );
+        //builder.AppendLine( $"--{Prefix}-shadow-md: {themeLayout.Shadows?.Md};" );
+        //builder.AppendLine( $"--{Prefix}-shadow-lg: {themeLayout.Shadows?.Lg};" );
+
+        builder.AppendLine( "}" );
+        return builder.ToString();
     }
 
-    private void GenerateTransitionCssVars( StringBuilder builder )
+    //private void GenerateTransitionCssVars( StringBuilder builder )
+    //{
+    //    builder.AppendLine( $"--{Prefix}-transition-duration: 200ms;" );
+    //    builder.AppendLine( $"--{Prefix}-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);" );
+    //}
+
+    private Dictionary<string, ColorScale> FlattenThemeColors( ThemeColors colors )
     {
-        builder.AppendLine( $"--{Prefix}-transition-duration: 200ms;" );
-        builder.AppendLine( $"--{Prefix}-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);" );
-    }
-
-    private void GenerateMiscCssVars( StringBuilder builder )
-    {
-        builder.AppendLine( $"--{Prefix}-focus: {ColorUtils.FromHexToRgb(Theme.Palette.Focus)};" );
-        builder.AppendLine( $"--{Prefix}-hover-opacity: {Theme.Palette.HoverOpacity};" );
-        builder.AppendLine( $"--{Prefix}-disabled-opacity: {Theme.Palette.DisabledOpacity};" );
-    }
-
-    private string[] GetTypographyFonts()
-    {
-        var fontFamilies = Theme.Typography.FontFamilies;
-
-        string sansSerif = !string.IsNullOrEmpty( fontFamilies.SansSerif )
-            ? $"{fontFamilies.SansSerif},{Typography.DefaultSansSerif};"
-            : $"{Typography.DefaultSansSerif};";
-
-        string monospace = !string.IsNullOrEmpty( fontFamilies.Monospace )
-            ? $"{fontFamilies.Monospace},{Typography.DefaultMonospace};"
-            : $"{Typography.DefaultMonospace};";
-
-        return [sansSerif, monospace];
+        return new Dictionary<string, ColorScale>()
+        {
+            ["background"] = colors.Background,
+            ["foreground"] = colors.Foreground,
+            ["overlay"] = colors.Overlay,
+            ["focus"] = colors.Focus,
+            ["default"] = colors.Default,
+            ["primary"] = colors.Primary,
+            ["secondary"] = colors.Secondary,
+            ["success"] = colors.Success,
+            ["warning"] = colors.Warning,
+            ["danger"] = colors.Danger,
+            ["info"] = colors.Info,
+        };
     }
 }
