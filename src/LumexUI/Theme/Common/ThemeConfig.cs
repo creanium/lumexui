@@ -12,3 +12,30 @@ public record ThemeConfig
 	public ThemeColors Colors { get; set; } = new();
 	public ThemeType Type { get; internal set; }
 }
+
+public record LightThemeConfig : ThemeConfig
+{
+    public LightThemeConfig()
+    {
+        Type = ThemeType.Light;
+        Layout = new()
+        {
+            BorderColor = Theme.Colors.Gray["300"]
+        };
+        Colors = SemanticColors.Light;
+    }
+}
+
+public record DarkThemeConfig : ThemeConfig
+{
+    public DarkThemeConfig()
+    {
+        Type = ThemeType.Dark;
+        Layout = new()
+        {
+            BorderColor = Theme.Colors.Gray["700"],
+            HoverOpacity = .9
+        };
+        Colors = SemanticColors.Dark;
+    }
+}

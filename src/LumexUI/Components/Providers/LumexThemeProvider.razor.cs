@@ -82,25 +82,18 @@ public partial class LumexThemeProvider
         var emphasisColor = themeColors["foreground"]["900"];
         var linkColor = themeColors["primary"]["default"];
 
-        builder.AppendLine( $"--{Prefix}-emphasis-color: {(!string.IsNullOrWhiteSpace( emphasisColor ) ? HexToHsl( emphasisColor ) : null)};" );
-        builder.AppendLine( $"--{Prefix}-link-color: {(!string.IsNullOrWhiteSpace( linkColor ) ? HexToHsl( linkColor ) : null)};" );
+        emphasisColor = !string.IsNullOrWhiteSpace( emphasisColor ) ? HexToHsl( emphasisColor ) : null;
+        linkColor = !string.IsNullOrWhiteSpace( linkColor ) ? HexToHsl( linkColor ) : null;
+
+        builder.AppendLine( $"--{Prefix}-emphasis-color: {emphasisColor};" );
+        builder.AppendLine( $"--{Prefix}-link-color: {linkColor};" );
         builder.AppendLine( $"--{Prefix}-hover-opacity: {themeLayout.HoverOpacity};" );
         builder.AppendLine( $"--{Prefix}-disabled-opacity: {themeLayout.DisabledOpacity};" );
-
-        //builder.AppendLine( $"--{Prefix}-shadow-color: 0 0 0 / .1;" );
-        //builder.AppendLine( $"--{Prefix}-shadow-sm: {themeLayout.Shadows?.Sm};" );
-        //builder.AppendLine( $"--{Prefix}-shadow-md: {themeLayout.Shadows?.Md};" );
-        //builder.AppendLine( $"--{Prefix}-shadow-lg: {themeLayout.Shadows?.Lg};" );
+        builder.AppendLine( $"--{Prefix}-shadow-color: 0 0% 0% / .1;" );
 
         builder.AppendLine( "}" );
         return builder.ToString();
     }
-
-    //private void GenerateTransitionCssVars( StringBuilder builder )
-    //{
-    //    builder.AppendLine( $"--{Prefix}-transition-duration: 200ms;" );
-    //    builder.AppendLine( $"--{Prefix}-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);" );
-    //}
 
     private Dictionary<string, ColorScale> FlattenThemeColors( ThemeColors colors )
     {
