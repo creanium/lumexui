@@ -39,8 +39,8 @@ body {
 	font-size: var(--lumex-body-font-size);
 	font-weight: var(--lumex-body-font-weight);
 	line-height: var(--lumex-body-line-height);
-	color: var(--lumex-body-color);
-	background-color: var(--lumex-body-bg); /* 3 */
+	color: hsl(var(--lumex-body-color));
+	background-color: hsl(var(--lumex-body-bg)); /* 3 */
 	-webkit-text-size-adjust: 100%; /* 4 */
 	-webkit-tap-highlight-color: transparent; /* 5 */
 }

@@ -49,8 +49,8 @@ public partial class LumexThemeProvider
         // Layout
         var themeLayout = theme.Layout;
 
-        builder.AppendLine( $"--{Prefix}-body-bg: hsl(var(--{Prefix}-background));" );
-        builder.AppendLine( $"--{Prefix}-body-color: hsl(var(--{Prefix}-foreground));" );
+        builder.AppendLine( $"--{Prefix}-body-bg: var(--{Prefix}-background);" );
+        builder.AppendLine( $"--{Prefix}-body-color: var(--{Prefix}-foreground);" );
         builder.AppendLine( $"--{Prefix}-body-font-family: var(--{Prefix}-font-sans-serif);" );
         builder.AppendLine( $"--{Prefix}-body-font-size: var(--{Prefix}-font-size-md);" );
         builder.AppendLine( $"--{Prefix}-body-font-weight: var(--{Prefix}-font-weight);" );
@@ -79,7 +79,7 @@ public partial class LumexThemeProvider
         builder.AppendLine( $"--{Prefix}-border-xxl: {Config.Borders.Xxl};" );
         builder.AppendLine( $"--{Prefix}-border-full: {Config.Borders.Full};" );
 
-        var emphasisColor = themeColors["foreground"]["900"];
+        var emphasisColor = themeColors["foreground"]["800"];
         var linkColor = themeColors["primary"]["default"];
 
         emphasisColor = !string.IsNullOrWhiteSpace( emphasisColor ) ? HexToHsl( emphasisColor ) : null;
