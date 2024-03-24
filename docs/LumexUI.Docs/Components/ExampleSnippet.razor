@@ -1,15 +1,25 @@
 ﻿@namespace LumexUI.Docs.Components
 
-<div class="ad-example-snippet">
-    <div class="ad-example-snippet-content">
+<div class="ld-example-snippet flex flex-column border rounded-xl">
+    <div class="ld-example-snippet-content">
         <div class="absolute inset-0"></div>
-        <span class="z-10">@ChildContent</span>
+        <span class="z-10">
+            @ChildContent
+        </span>
     </div>
 
     <LumexToolbar Class="@ToolbarCssClass">
         <div class="ms-auto">
-            <LumexButton Size="@Size.Small" OnClick="@CollapseCode">@ButtonLabel</LumexButton>
-            <LumexIconButton Icon="@Icons.Rounded.ContentCopy" Size="@Size.Small" />
+            <LumexButton Color="@ThemeColor.Primary"
+                         Variant="@Variant.Ghost"
+                         Size="@Size.Small"
+                         Class="py-0 px-2 rounded-full text-xs"
+                         OnClick="@CollapseCode">
+                @ButtonLabel
+            </LumexButton>
+            <LumexButton Variant="@Variant.Light" Size="@Size.Small" IconOnly="@true">
+                <LumexIcon Icon="@Icons.Rounded.ContentCopy" Size="@Size.Small" />
+            </LumexButton>
         </div>
     </LumexToolbar>
 

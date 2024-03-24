@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-<LumexThemeProvider Theme="@_theme" />
+<LumexThemeProvider Config="@_theme" />
 
 <LumexLayout Class="ad-layout">
     <Header />
@@ -24,7 +24,7 @@
     [Inject] private IJSRuntime JS { get; set; } = default!;
     [Inject] private IDrawerService DrawerService { get; set; } = default!;
 
-    private readonly Theme _theme = new();
+    private readonly DocsThemeConfig _theme = new();
 
     protected override async Task OnAfterRenderAsync( bool firstRender )
     {

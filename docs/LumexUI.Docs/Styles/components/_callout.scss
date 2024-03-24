@@ -25,8 +25,8 @@
 
 @each $variant in $callout-variants {
 	.ad-callout--#{$variant} {
-		--ad-callout-color: rgb(var(--lumex-#{$variant}-50));
-		--ad-callout-bg: rgb(var(--lumex-#{$variant}-950), .15);
-		--ad-callout-border: rgb(var(--lumex-#{$variant}-100), .15);
+		--ad-callout-color: hsl(var(--lumex-#{$variant}-50));
+		--ad-callout-bg: hsl(var(--lumex-#{$variant}-950), .15);
+		--ad-callout-border: hsl(var(--lumex-#{$variant}-100), .15);
 	}
 }

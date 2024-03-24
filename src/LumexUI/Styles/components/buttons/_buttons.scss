@@ -1,5 +1,6 @@
 @import '../../essentials/variables';
 @import '../../essentials/mixins/mixins';
+@import '../../utilities/variants';
 
 // Buttons
 
@@ -44,15 +45,15 @@
 		outline: 2px solid transparent;
 		outline-offset: 2px;
 		transition-property: transform, color, background-color, border-color, opacity;
-		transition-timing-function: var(--#{$prefix}-transition-timing);
-		transition-duration: var(--#{$prefix}-transition-duration);
+		transition-duration: $transition-duration;
+		transition-timing-function: $transition-timing;
 
 		&:hover {
 			opacity: var(--LumexButton-hover-opacity);
 		}
 
 		&:focus-visible {
-			outline-color: rgb(var(--#{$prefix}-focus) / 0.7);
+			outline-color: hsl(var(--#{$prefix}-focus) / 0.7);
 		}
 
 		&:active {
@@ -84,37 +85,37 @@
 	}
 }
 
-@each $color in $theme-colors {
-	.LumexButton--solid-#{$color} {
-		--LumexButton-color: rgb(var(--#{$prefix}-#{$color}-contrast));
-		--LumexButton-bg: rgb(var(--#{$prefix}-#{$color}));
-	}
+@each $variant, $schemes in $variants {
+	@each $scheme, $props in $schemes {
+		.LumexButton--#{$variant}-#{$scheme} {
+			--LumexButton-color: hsl(#{map-get($props, text)});
 
-	.LumexButton--outlined-#{$color} {
-		--LumexButton-color: rgb(var(--#{$prefix}-#{$color}));
-		--LumexButton-border-color: rgb(var(--#{$prefix}-#{$color}));
-	}
+			@if map-has-key($props, bg) {
+				--LumexButton-bg: hsl(#{map-get($props, bg)});
+			}
 
-	.LumexButton--flat-#{$color} {
-		--LumexButton-color: rgb(var(--#{$prefix}-#{$color}));
-		--LumexButton-bg: rgb(var(--#{$prefix}-#{$color}-50));
-	}
+			@if map-has-key($props, border) {
+				--LumexButton-border-color: hsl(#{map-get($props, border)});
+			}
 
-	.LumexButton--shadow-#{$color} {
-		--LumexButton-color: rgb(var(--#{$prefix}-#{$color}-contrast));
-		--LumexButton-bg: rgb(var(--#{$prefix}-#{$color}));
-		box-shadow: 0 10px 12px -3px rgb(var(--#{$prefix}-#{$color}) / .3), 
-					0 3px 6px -3px rgb(var(--#{$prefix}-#{$color}) / .6);
-	}
+			@if map-has-key($props, shadow) {
+				--lumex-shadow-color: #{map-get($props, shadow)};
+			}
 
-	.LumexButton--ghost-#{$color} {
-		--LumexButton-color: rgb(var(--#{$prefix}-#{$color}));
-		--LumexButton-border-color: rgb(var(--#{$prefix}-#{$color}));
-		--LumexButton-hover-opacity: 1;
+			@if $variant == "ghost" {
+				&:hover {
+					--LumexButton-color: hsl(#{map-get($props, text-hover)});
+					--LumexButton-bg: hsl(#{map-get($props, bg-hover)});
+					--LumexButton-hover-opacity: 1;
+				}
+			}
 
-		&:hover {
-			--LumexButton-color: rgb(var(--#{$prefix}-#{$color}-contrast));
-			--LumexButton-bg: rgb(var(--#{$prefix}-#{$color}));
+			@if $variant == "light" {
+				&:hover {
+					--LumexButton-bg: hsl(var(--#{$prefix}-#{$scheme}-50));
+					--LumexButton-hover-opacity: 1;
+				}
+			}
 		}
 	}
 }

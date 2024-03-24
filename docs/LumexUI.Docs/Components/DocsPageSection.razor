@@ -2,23 +2,33 @@
 
 @inject NavigationManager NavigationManager
 
-<h2 id="@_id" class="ad-section-title">
-    @Title
+<CascadingValue TValue="DocsPageSection" Value="@this" IsFixed="@true">
+    <LumexElement Tag="@(Parent is null ? "h2" : "h3")"
+                  Id="@_id"
+                  Class="flex gap-2 text-">
+        @Title
 
-    <LumexLink Route="@SectionLink">
-        <LumexIcon Icon="@Icons.Rounded.Tag" />
-    </LumexLink>
-</h2>
+        <LumexLink Route="@Link">
+            <LumexIcon Icon="@Icons.Rounded.Tag" />
+        </LumexLink>
+    </LumexElement>
 
-@ChildContent
+    @ChildContent
+</CascadingValue>
 
 @code {
     [CascadingParameter] private DocsPage Page { get; set; } = default!;
+    [CascadingParameter] private DocsPageSection Parent { get; set; } = default!;
 
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public string? Title { get; set; }
 
-    private string SectionLink => $"{_pageRelativePath}#{_id}";
+    internal int Level => (Parent?.Level ?? -1) + 1;
+    private string Link => $"{_pageRelativePath}#{_id}";
+
+    private string TitleCssClass =>
+        new CssBuilder( "flex gap-2" )
+            .Build();
 
     private string? _id;
     private string? _pageRelativePath;
@@ -34,13 +44,13 @@
         if( !string.IsNullOrEmpty( Title ) )
         {
             _id = BuildIdAttributeValue( Title );
-            Page.AddSection( new PageSectionInfo( Title, SectionLink ) );
+            Page.AddSection( new PageSectionInfo( Title, Link, Level ) );
         }
     }
 
     private string BuildIdAttributeValue( string title )
     {
-        var words = title.Split( ' ' );
-        return string.Join( "-", words ).ToLowerInvariant();
+        var titleParts = title.Split( ' ' );
+        return string.Join( "-", titleParts ).ToLowerInvariant();
     }
 }

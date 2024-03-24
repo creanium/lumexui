@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace LumexUI.Common;
 
-public enum ButtonVariant
+public enum Variant
 {
     [Description( "solid" )]
     Solid,
@@ -20,6 +20,9 @@ public enum ButtonVariant
     [Description( "shadow" )]
     Shadow,
 
-    [Description("ghost")]
-    Ghost
+    [Description( "ghost" )]
+    Ghost,
+
+    [Description( "light" )]
+    Light
 }

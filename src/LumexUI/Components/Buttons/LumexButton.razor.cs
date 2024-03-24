@@ -26,14 +26,14 @@ public partial class LumexButton : LumexComponentBase
     /// <summary>
     /// Defines a variant of the button.
     /// </summary>
-    /// <remarks>Default value is <see cref="ButtonVariant.Solid"/></remarks>
-    [Parameter] public ButtonVariant Variant { get; set; }
+    /// <remarks>Default value is <see cref="Variant.Solid"/></remarks>
+    [Parameter] public Variant Variant { get; set; }
 
     /// <summary>
     /// Defines a color of the button.
     /// </summary>
     /// <remarks>Default value is <see cref="ThemeColor.Default"/></remarks>
-    [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
+    [Parameter] public ThemeColor Color { get; set; }
 
     /// <summary>
     /// Defines a size of the button.
@@ -72,7 +72,8 @@ public partial class LumexButton : LumexComponentBase
     new CssBuilder( $"{Name}-root" )
         .AddClass( $"{Name}--icon", when: IconOnly )
         .AddClass( $"{Name}--{Size.ToDescription()}", when: Size is not Size.Medium )
-        .AddClass( $"{Name}--{Variant.ToDescription()}-{Color.ToDescription()}", when: Color is not ThemeColor.None )
+        .AddClass( $"{Name}--{Variant.ToDescription()}-{Color.ToDescription()}" )
+        .AddClass( $"shadow-lg", when: Variant is Variant.Shadow )
         .AddClass( Constants.ComponentStates.Disabled, when: Disabled )
         .AddClass( base.RootClass )
     .Build();

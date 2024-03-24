@@ -4,25 +4,9 @@
 .ad-intro {
 	grid-area: intro;
 
-	&-category {
-		margin-bottom: 1rem;
-		font-size: .875rem;
-		font-weight: 600;
-		color: rgb(var(--lumex-primary));
-	}
-
-	&-title {
-		font-size: 2rem;
-		font-weight: 700;
-		color: var(--lumex-body-accent-color);
-	}
-
 	&-description {
-		font-size: 1.25rem;
-		font-weight: 300;
-
 		& > p {
-			margin-top: 1rem;
+			margin-top: .5rem;
 		}
 	}
 }

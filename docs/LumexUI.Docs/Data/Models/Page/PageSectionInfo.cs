@@ -4,4 +4,4 @@
 
 namespace LumexUI.Docs.Data;
 
-public record PageSectionInfo( string Title, string Link );
+public record PageSectionInfo( string Title, string Link, int Level );

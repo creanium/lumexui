@@ -21,7 +21,7 @@
 		&-group {
 			--LumexNav-link-padding-x: 0;
 			--LumexNav-link-font-weight: 600;
-			--LumexNav-link-color: var(--lumex-body-accent-color);
+			--LumexNav-link-color: hsl(var(--lumex-emphasis-color));
 
 			&-content {
 				&:has(> .LumexNav-item) {
@@ -42,7 +42,7 @@
 			&:hover {
 				margin-left: -1px;
 				border-left-width: 1px;
-				border-color: rgb(var(--lumex-primary));
+				border-color: hsl(var(--lumex-primary));
 			}
 		}
 	}

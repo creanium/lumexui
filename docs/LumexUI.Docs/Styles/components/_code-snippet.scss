@@ -19,8 +19,8 @@
 
 				&.lumex-active {
 					font-weight: 500;
-					color: rgb(var(--lumex-primary));
-					border-bottom-color: rgb(var(--lumex-primary));
+					color: hsl(var(--lumex-primary));
+					border-bottom-color: hsl(var(--lumex-primary));
 				}
 			}
 		}

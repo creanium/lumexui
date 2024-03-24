@@ -65,38 +65,18 @@ hr {
 	font-family: inherit;
 	font-weight: inherit;
 	line-height: 1.2;
-	color: var(--lumex-body-accent-color);
+	color: hsl(var(--lumex-emphasis-color));
 }
 
-h1 {
-	@extend %heading;
-	font-size: $h1-font-size;
-}
-
-h2 {
-	@extend %heading;
-	font-size: $h2-font-size;
-}
-
-h3 {
-	@extend %heading;
-	font-size: $h3-font-size;
-}
-
-h4 {
-	@extend %heading;
-	font-size: $h4-font-size;
-}
-
-h5 {
-	@extend %heading;
-	font-size: $h5-font-size;
-}
-
+h1,
+h2,
+h3,
+h4,
+h5,
 h6 {
 	@extend %heading;
-	font-size: $h6-font-size;
 }
+
 
 
 /*

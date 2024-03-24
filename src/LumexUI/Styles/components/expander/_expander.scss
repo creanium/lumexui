@@ -14,5 +14,5 @@
 .lumex-expanding {
 	height: 0;
 	overflow: hidden;
-	transition: height var(--lumex-transition-duration) var(--lumex-transition-timing);
+	transition: height $transition-duration $transition-timing;
 }

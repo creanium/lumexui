@@ -19,12 +19,13 @@ internal class NavigationService : INavigationService
 
     private NavigationCategory ComponentsCategory =>
         new NavigationCategory( "Components" )
+            .AddGroup( new NavigationCategory( "Inputs" )
+                .AddItem( typeof( LumexButton ) )
+                .AddItem( typeof( LumexTextBox ) )
+                .AddItem( typeof( LumexNumBox<T> ) ) )
             .AddGroup( new NavigationCategory( "Surfaces" )
                 .AddItem( typeof( LumexNavbar ) )
                 .AddItem( typeof( LumexToolbar ) ) )
-            .AddGroup( new NavigationCategory( "Inputs" )
-                .AddItem( typeof( LumexTextBox ) )
-                .AddItem( typeof( LumexNumBox<T> ) ) )
             .AddGroup( new NavigationCategory( "Navigation" )
                 .AddItem( typeof( LumexDrawer ) )
                 .AddItem( typeof( LumexNav ) ) );

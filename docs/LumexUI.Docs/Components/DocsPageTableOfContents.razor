@@ -1,11 +1,11 @@
 ﻿@namespace LumexUI.Docs.Components
 
 <div class="ld-toc -ms-4 lg:ms-0">
-    <h5 class="ms-6 mb-3 text-h6 text-medium lh-6">
+    <h5 class="ms-6 mb-3 text-h6 text-medium lh-md">
         On this page
     </h5>
 
-    <LumexNav Orientation="@Orientation.Vertical" Class="lh-6">
+    <LumexNav Orientation="@Orientation.Vertical" Class="lh-md">
         @_renderTableOfContents
     </LumexNav>
 </div>
@@ -15,7 +15,7 @@
     {
         foreach( var section in Sections )
         {
-            <LumexNavItem>
+            <LumexNavItem Class="@(section.Level == 1 ? "ms-4" : default)">
                 <LumexLink Route="@(section.Link)" Class="flex">
                     <div class="me-2">
                         <LumexIcon Icon="@Icons.Rounded.ChevronRight" Size="@Size.Small" />

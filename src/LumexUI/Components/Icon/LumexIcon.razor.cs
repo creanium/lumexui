@@ -12,12 +12,6 @@ namespace LumexUI;
 public partial class LumexIcon
 {
 	/// <summary>
-	/// Defines an optional template for the <see cref="LumexIcon"/>.
-	/// <para>You should supply either <see cref="Icon"/> or <see cref="IconTemplate"/>, but not both.</para>
-	/// </summary>
-	[Parameter] public RenderFragment? IconTemplate { get; set; }
-
-	/// <summary>
 	/// Specifies the icon to be shown. It accepts an SVG <c>path</c> of the icon.
 	/// <para>You should supply either <see cref="Icon"/> or <see cref="IconTemplate"/>, but not both.</para>
 	/// </summary>
@@ -48,12 +42,4 @@ public partial class LumexIcon
 		.Build();
 
 	private bool IsSvgIcon => !string.IsNullOrEmpty( Icon ) && Icon.StartsWith( "<" );
-
-	protected override void OnParametersSet()
-	{
-		if( Icon is not null && IconTemplate is not null )
-		{
-			throw new InvalidOperationException( $"{nameof( LumexIcon )} requires one of {nameof( Icon )} or {nameof( IconTemplate )}, but both were specified." );
-		}
-	}
 }

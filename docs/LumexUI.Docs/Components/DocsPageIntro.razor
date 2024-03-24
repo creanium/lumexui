@@ -1,32 +1,21 @@
 ﻿@namespace LumexUI.Docs.Components
 
 <header class="ad-intro">
-    <p class="ad-intro-category">@Category</p>
-    <h1 class="ad-intro-title">@Title</h1>
-    <div class="ad-intro-description">
-        @if( Description is not null )
-        {
-            @Description
-        }
-        else
-        {
-            @Subtitle
-        }
+    <p class="mb-2 text-sm text-semibold text-orange-400">
+        @Category
+    </p>
+
+    <h1 class="text-3xl text-extrabold">
+        @Title
+    </h1>
+
+    <div class="ad-intro-description lh-lg text-lg text-light">
+        @Description
     </div>
 </header>
 
 @code {
     [Parameter] public RenderFragment? Description { get; set; }
-    [Parameter] public string? Title { get; set; }
-    [Parameter] public string? Subtitle { get; set; }
     [Parameter] public string? Category { get; set; }
-
-    protected override void OnParametersSet()
-    {
-        if( Description is not null && !string.IsNullOrEmpty( Subtitle ) )
-        {
-            throw new InvalidOperationException(
-                $"{typeof( DocsPageIntro )} requires one of {nameof( Description )} or {nameof( Subtitle )}, but both were specified." );
-        }
-    }
+    [Parameter] public string? Title { get; set; }
 }

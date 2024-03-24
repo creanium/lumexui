@@ -35,6 +35,7 @@ public partial class DocsPageTableOfContents : IDisposable
     {
         if( firstRender )
         {
+            StateHasChanged();
             await ScrollToSection();
         }
     }

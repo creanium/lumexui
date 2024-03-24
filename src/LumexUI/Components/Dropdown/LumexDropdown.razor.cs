@@ -24,7 +24,7 @@ public partial class LumexDropdown : IDisposable
 
 	[Parameter] public Position IconPosition { get; set; } = Position.End;
 
-	[Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Solid;
+	[Parameter] public Variant Variant { get; set; } = Variant.Solid;
 
 	[Inject] private IDropdownService DropdownService { get; set; } = default!;
 

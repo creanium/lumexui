@@ -1,11 +1,11 @@
 ﻿// Example snippet
 
 
-.ad-example-snippet {
-	display: flex;
+.ld-example-snippet {
+/*	display: flex;
 	flex-direction: column;
 	border-width: 1px;
-	border-radius: var(--lumex-border-xl);
+	border-radius: var(--lumex-border-xl);*/
 
 	&-content {
 		position: relative;
@@ -13,7 +13,7 @@
 		align-items: center;
 		justify-content: center;
 		padding: 1.25rem;
-		background-color: rgb(var(--lumex-body-bg-rgb), .75);
+		background-color: hsl(var(--lumex-body-bg-rgb), .75);
 		border-top-left-radius: var(--lumex-border-xl);
 		border-top-right-radius: var(--lumex-border-xl);
 

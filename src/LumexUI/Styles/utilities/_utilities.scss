@@ -3,6 +3,9 @@
 
 // Utilities
 
+$colors: map-merge-multiple($pink, $rose, $red, $orange, $yellow, $green, $teal, $light-blue, $blue, $indigo, $violet, $gray);
+$colors-rgb: map-loop($colors, to-rgb, "$value");
+$utilities-text-colors: map-loop($colors-rgb, rgb-css-var, "$value", "text");
 
 $utilities: (
 	// Position & Display
@@ -167,35 +170,35 @@ $utilities: (
 		property: border-width,
 		class: border,
 		values: (
-			null: var(--lumex-border-width)
+			null: var(--#{$prefix}-border-width)
 		)
 	),
 	"border-top": (
 		property: border-top-width,
 		class: border-t,
 		values: (
-			null: var(--lumex-border-width)
+			null: var(--#{$prefix}-border-width)
 		)
 	),
 	"border-start": (
 		property: border-left-width,
 		class: border-l,
 		values: (
-			null: var(--lumex-border-width)
+			null: var(--#{$prefix}-border-width)
 		)
 	),
 	"border-bottom": (
 		property: border-bottom-width,
 		class: border-b,
 		values: (
-			null: var(--lumex-border-width)
+			null: var(--#{$prefix}-border-width)
 		)
 	),
 	"border-end": (
 		property: border-right-width,
 		class: border-r,
 		values: (
-			null: var(--lumex-border-width)
+			null: var(--#{$prefix}-border-width)
 		)
 	),
 	"border-radius": (
@@ -264,11 +267,11 @@ $utilities: (
 	"text-color": (
 		property: color,
 		class: text,
-		values: (
-			accent: var(--lumex-body-accent-color),
-			secondary: var(--lumex-body-secondary-color),
-			tertiary: var(--lumex-body-tertiary-color),
-			inherit: inherit
+		values: map-merge(
+			$utilities-text-colors,
+			(
+				"inherit": inherit
+			)
 		)
 	),
 
@@ -402,6 +405,26 @@ $utilities: (
 		property: margin-bottom,
 		class: -mb,
 		values: inverse-map($spacers)
+	),
+
+	// Shadows
+	"box-shadow": (
+		property: box-shadow,
+		class: shadow,
+		values: (
+			none: none,
+			sm: ( 
+				0 1px 2px 0 hsl(var(--#{$prefix}-shadow-color))
+			),
+			md: (
+				0 4px 6px -1px hsl(var(--#{$prefix}-shadow-color)), 
+				0 2px 4px -2px hsl(var(--#{$prefix}-shadow-color))
+			),
+			lg: (
+				0 10px 12px -3px hsl(var(--#{$prefix}-shadow-color)), 
+				0 3px 6px -3px hsl(var(--#{$prefix}-shadow-color))
+			),
+		)
 	)
 );
 
