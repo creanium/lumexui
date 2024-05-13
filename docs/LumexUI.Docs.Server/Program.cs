@@ -2,8 +2,6 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-using LumexUI.Docs.Extensions;
-
 var builder = WebApplication.CreateBuilder( args );
 
 // Add services to the container.
@@ -11,7 +9,6 @@ var builder = WebApplication.CreateBuilder( args );
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddLumexDocsServices();
 
 var app = builder.Build();
 

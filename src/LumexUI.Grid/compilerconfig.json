@@ -1,9 +1,0 @@
-﻿[
-  {
-    "outputFile": "wwwroot/LumexGrid.css",
-    "inputFile": "Styles/LumexGrid.scss",
-    "minify": {
-      "enabled": true
-    }
-  }
-]

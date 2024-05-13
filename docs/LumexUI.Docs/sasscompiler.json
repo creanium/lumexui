@@ -1,5 +1,0 @@
-{
-  "Source": "Styles/Docs.scss",
-  "Target": "wwwroot/css/Docs.min.css",
-  "Arguments": "--style=compressed"
-}

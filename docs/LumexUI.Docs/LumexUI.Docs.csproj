@@ -5,41 +5,18 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
-	
+
 	<ItemGroup>
 		<SupportedPlatform Include="browser" />
 	</ItemGroup>
-	
-	<!-- Package References -->
+
 	<ItemGroup>
-		<PackageReference Include="AspNetCore.SassCompiler" Version="1.70.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Components" Version="8.0.2" />
 	</ItemGroup>
 
-	<!-- Project References -->
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\LumexUI\LumexUI.csproj" />
-		<ProjectReference Include="..\..\src\LumexUI.Grid\LumexUI.Grid.csproj" />
 		<ProjectReference Include="..\..\src\LumexUI.Utilities\LumexUI.Utilities.csproj" />
-	</ItemGroup>
-
-	<!-- LumexUI.Docs.Generator Command -->
-	<PropertyGroup>
-		<DocsGeneratorCommand>dotnet run --configuration Release --project "$(SolutionDir)/docs/LumexUI.Docs.Generator/LumexUI.Docs.Generator.csproj"</DocsGeneratorCommand>
-	</PropertyGroup>
-
-	<!-- LumexUI.Docs.Generator Exec -->
-	<Target Name="GenerateDocs" BeforeTargets="BeforeBuild">
-		<Exec Command="$(DocsGeneratorCommand)" />
-	</Target>
-
-	<ItemGroup>
-		<EmbeddedResource Include="Pages\**\*.html" />
-	</ItemGroup>
-
-	<!-- Excluded Files -->
-	<ItemGroup>
-		<Content Remove="sasscompiler.json"></Content>
 	</ItemGroup>
 
 </Project>

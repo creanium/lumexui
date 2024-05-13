@@ -10,26 +10,12 @@
 		<SupportedPlatform Include="browser" />
 	</ItemGroup>
 
-	<!-- Package References -->
 	<ItemGroup>
-		<PackageReference Include="AspNetCore.SassCompiler" Version="1.70.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.2" />
 	</ItemGroup>
 
-	<!-- Project References -->
 	<ItemGroup>
 		<ProjectReference Include="..\LumexUI.Utilities\LumexUI.Utilities.csproj" />
-	</ItemGroup>
-
-	<!-- LumexUI Webpack Exec -->
-	<Target Name="CompileJS" BeforeTargets="BeforeBuild">
-		<Exec Command="npm run build:prod" />
-	</Target>
-
-	<!-- Excluded Files -->
-	<ItemGroup>
-		<Content Remove="*.json" />
-		<None Remove="webpack.config.js" />
 	</ItemGroup>
 
 </Project>

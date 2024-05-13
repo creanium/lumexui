@@ -1,5 +1,0 @@
-{
-  "Source": "Styles/LumexUI.scss",
-  "Target": "wwwroot/LumexUI.min.css",
-  "Arguments": "--style=compressed"
-}

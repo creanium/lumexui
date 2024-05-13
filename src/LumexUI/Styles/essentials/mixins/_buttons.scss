@@ -1,7 +1,0 @@
-@mixin button-size($padding-y, $padding-x, $font-size, $line-height, $border-radius) {
-    --LumexButton-padding-y: #{$padding-y};
-    --LumexButton-padding-x: #{$padding-x};
-    --LumexButton-font-size: #{$font-size};
-    --LumexButton-line-height: #{$line-height};
-    --LumexButton-border-radius: #{$border-radius};
-}
