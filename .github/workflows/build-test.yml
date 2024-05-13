@@ -24,10 +24,6 @@ jobs:
       - name: Restore .NET dependencies
         run: dotnet restore
 
-      - name: Install NPM dependencies
-        run: npm install
-        working-directory: 'src/LumexUI'
-
       - name: Build
         run: dotnet build --no-restore
 
