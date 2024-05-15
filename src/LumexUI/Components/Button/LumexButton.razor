@@ -1,0 +1,24 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<LumexComponent As="button"
+                Class="@RootClass"
+                Style="@RootStyle"
+                type="@Type.ToDescription()"
+                disabled="@Disabled"
+                @attributes="@AdditionalAttributes"
+                @onclick="@OnClickAsync">
+    @if( !string.IsNullOrWhiteSpace( StartIcon ) )
+    {
+        // TODO: Replace with the real icon component
+        <span>@StartIcon</span>
+    }
+
+    @ChildContent
+
+    @if( !string.IsNullOrWhiteSpace( EndIcon ) )
+    {
+        // TODO: Replace with the real icon component
+        <span>@EndIcon</span>
+    }
+</LumexComponent>
