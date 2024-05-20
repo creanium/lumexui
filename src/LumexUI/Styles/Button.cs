@@ -12,30 +12,30 @@ namespace LumexUI.Styles;
 [ExcludeFromCodeCoverage]
 internal readonly record struct Button
 {
-    private readonly static string _base = CssBuilder.Empty()
-        .AddClass( "inline-flex" )
-        .AddClass( "items-center" )
-        .AddClass( "justify-center" )
-        .AddClass( "appearance-none" )
-        .AddClass( "outline-none" )
-        .AddClass( "select-none" )
-        .AddClass( "whitespace-nowrap" )
-        .AddClass( "min-w-max" )
-        .AddClass( "subpixel-antialiased" )
-        .AddClass( "overflow-hidden" )
-        .AddClass( "bg-blue-400" )
-        .AddClass( "text-white" )
-        .AddClass( "hover:opacity-80" )
-        .Build();
+    private readonly static string _base = ElementClass.Empty()
+        .Add( "inline-flex" )
+        .Add( "items-center" )
+        .Add( "justify-center" )
+        .Add( "appearance-none" )
+        .Add( "outline-none" )
+        .Add( "select-none" )
+        .Add( "whitespace-nowrap" )
+        .Add( "min-w-max" )
+        .Add( "subpixel-antialiased" )
+        .Add( "overflow-hidden" )
+        .Add( "bg-blue-400" )
+        .Add( "text-white" )
+        .Add( "hover:opacity-80" )
+        .ToString();
 
-    private readonly static string _disabled = CssBuilder.Empty()
-        .AddClass( "opacity-disabled" )
-        .AddClass( "pointer-events-none" )
-        .Build();
+    private readonly static string _disabled = ElementClass.Empty()
+        .Add( "opacity-disabled" )
+        .Add( "pointer-events-none" )
+        .ToString();
 
-    private readonly static string _fullWidth = CssBuilder.Empty()
-        .AddClass( "w-full" )
-        .Build();
+    private readonly static string _fullWidth = ElementClass.Empty()
+        .Add( "w-full" )
+        .ToString();
 
     private static string GetSizeStyles( Size size ) => size switch
     {
@@ -45,27 +45,27 @@ internal readonly record struct Button
         _ => throw new NotImplementedException()
     };
 
-    private static string GetVariantStyles( Variant variant, ThemeColor color ) => variant switch
-    {
-        Variant.Solid => ColorVariants.Solid[color],
-        Variant.Outlined => ColorVariants.Outlined[color],
-        Variant.Flat => ColorVariants.Flat[color],
-        Variant.Shadow => ColorVariants.Shadow[color],
-        Variant.Ghost => ColorVariants.Ghost[color],
-        Variant.Light => ColorVariants.Light[color],
-        _ => throw new NotImplementedException()
-    };
+	private static string GetVariantStyles( Variant variant, ThemeColor color ) => variant switch
+	{
+		Variant.Solid => ColorVariants.Solid[color],
+		Variant.Outlined => ColorVariants.Outlined[color],
+		Variant.Flat => ColorVariants.Flat[color],
+		Variant.Shadow => ColorVariants.Shadow[color],
+		Variant.Ghost => ColorVariants.Ghost[color],
+		Variant.Light => ColorVariants.Light[color],
+		_ => throw new NotImplementedException()
+	};
 
     public static string GetStyles( LumexButton button )
     {
-        var styles = new CssBuilder()
-            .AddClass( _base )
-            .AddClass( _disabled, when: button.Disabled )
-            .AddClass( _fullWidth, when: button.FullWidth )
-            .AddClass( GetSizeStyles( button.Size ) )
-            .AddClass( GetVariantStyles( button.Variant, button.Color ) )
-            .AddClass( button.Class )
-            .Build();
+        var styles = new ElementClass()
+            .Add( _base )
+            .Add( _disabled, when: button.Disabled )
+            .Add( _fullWidth, when: button.FullWidth )
+            .Add( GetSizeStyles( button.Size ) )
+            .Add( GetVariantStyles( button.Variant, button.Color ) )
+            .Add( button.Class )
+            .ToString();
 
         return styles;
     }

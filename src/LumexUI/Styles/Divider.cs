@@ -12,10 +12,10 @@ namespace LumexUI.Styles;
 [ExcludeFromCodeCoverage]
 internal readonly record struct Divider
 {
-    private readonly static string _base = CssBuilder.Empty()
-        .AddClass( "bg-divider" )
-        .AddClass( "border-none" )
-        .Build();
+    private readonly static string _base = ElementClass.Empty()
+        .Add( "bg-divider" )
+        .Add( "border-none" )
+        .ToString();
 
     private static string GetOrientationStyles( Orientation orientation ) => orientation switch
     {
@@ -26,11 +26,11 @@ internal readonly record struct Divider
 
     public static string GetStyles( LumexDivider divider )
     {
-        var styles = new CssBuilder()
-            .AddClass( _base )
-            .AddClass( GetOrientationStyles( divider.Orientation ) )
-            .AddClass( divider.Class )
-            .Build();
+        var styles = new ElementClass()
+            .Add( _base )
+            .Add( GetOrientationStyles( divider.Orientation ) )
+            .Add( divider.Class )
+            .ToString();
 
         return styles;
     }
