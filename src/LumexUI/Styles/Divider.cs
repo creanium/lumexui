@@ -17,12 +17,12 @@ internal readonly record struct Divider
         .Add( "border-none" )
         .ToString();
 
-    private static string GetOrientationStyles( Orientation orientation ) => orientation switch
+    private static ElementClass GetOrientationStyles( Orientation orientation )
     {
-        Orientation.Horizontal => "w-full h-px",
-        Orientation.Vertical => "h-full w-px",
-        _ => throw new NotImplementedException()
-    };
+        return ElementClass.Empty()
+            .Add( "w-full h-px", when: orientation is Orientation.Horizontal )
+            .Add( "h-full w-px", when: orientation is Orientation.Vertical );
+    }
 
     public static string GetStyles( LumexDivider divider )
     {
