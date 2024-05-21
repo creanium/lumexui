@@ -1,6 +1,6 @@
-name: ✨ Feature Request
-description: File a feature request
-title: "[Feature]: "
+name: Feature request
+description: 💡 Suggest an idea for the LumexUI project, such as proposing a new component or improving an existing one.
+title: "[Feature]: *FEATURE_TITLE*"
 labels: ["enhancement"]
 assignees:
   - desmondinho
