@@ -23,8 +23,6 @@ internal readonly record struct Button
         .Add( "min-w-max" )
         .Add( "subpixel-antialiased" )
         .Add( "overflow-hidden" )
-        .Add( "bg-blue-400" )
-        .Add( "text-white" )
         .Add( "hover:opacity-80" )
         .ToString();
 
@@ -37,24 +35,47 @@ internal readonly record struct Button
         .Add( "w-full" )
         .ToString();
 
-    private static string GetSizeStyles( Size size ) => size switch
+    private static ElementClass GetSizeStyles( Size size )
     {
-        Size.Small => "min-w-16 h-8 px-3 gap-2 text-sm rounded-lg",
-        Size.Medium => "min-w-20 h-10 px-4 gap-2 text-base rounded-xl",
-        Size.Large => "min-w-24 h-12 px-6 gap-2 text-lg rounded-xl",
-        _ => throw new NotImplementedException()
-    };
+        return ElementClass.Empty()
+            .Add( "min-w-16 h-8 px-3 gap-2 text-sm rounded-lg", when: size is Size.Small )
+            .Add( "min-w-20 h-10 px-4 gap-2 text-base rounded-xl", when: size is Size.Medium )
+            .Add( "min-w-24 h-12 px-6 gap-2 text-lg rounded-xl", when: size is Size.Large );
+    }
 
-	private static string GetVariantStyles( Variant variant, ThemeColor color ) => variant switch
-	{
-		Variant.Solid => ColorVariants.Solid[color],
-		Variant.Outlined => ColorVariants.Outlined[color],
-		Variant.Flat => ColorVariants.Flat[color],
-		Variant.Shadow => ColorVariants.Shadow[color],
-		Variant.Ghost => ColorVariants.Ghost[color],
-		Variant.Light => ColorVariants.Light[color],
-		_ => throw new NotImplementedException()
-	};
+    private static ElementClass GetVariantStyles( Variant variant, ThemeColor color )
+    {
+        return ElementClass.Empty()
+            .Add( ColorVariants.Solid[color], when: variant is Variant.Solid )
+            .Add( ColorVariants.Outlined[color], when: variant is Variant.Outlined )
+            .Add( ColorVariants.Flat[color], when: variant is Variant.Flat )
+            .Add( ColorVariants.Shadow[color], when: variant is Variant.Shadow )
+            .Add( ColorVariants.Ghost[color], when: variant is Variant.Ghost )
+            .Add( ColorVariants.Light[color], when: variant is Variant.Light );
+    }
+
+    private static ElementClass GetHoverStyles( Variant variant, ThemeColor color )
+    {
+        var styles = ElementClass.Empty();
+
+        if( variant is Variant.Light )
+        {
+            styles
+                .Add( "hover:bg-default-50", when: color is ThemeColor.Default )
+                .Add( "hover:bg-primary-50", when: color is ThemeColor.Primary )
+                .Add( "hover:bg-secondary-50", when: color is ThemeColor.Secondary )
+                .Add( "hover:bg-sucess-50", when: color is ThemeColor.Success )
+                .Add( "hover:bg-warning-50", when: color is ThemeColor.Warning )
+                .Add( "hover:bg-danger-50", when: color is ThemeColor.Danger )
+                .Add( "hover:bg-info-50", when: color is ThemeColor.Info );
+        }
+        else
+        {
+            styles.Add( "hover:opacity-hover" );
+        }
+
+        return styles;
+    }
 
     public static string GetStyles( LumexButton button )
     {
@@ -64,6 +85,7 @@ internal readonly record struct Button
             .Add( _fullWidth, when: button.FullWidth )
             .Add( GetSizeStyles( button.Size ) )
             .Add( GetVariantStyles( button.Variant, button.Color ) )
+            .Add( GetHoverStyles( button.Variant, button.Color ) )
             .Add( button.Class )
             .ToString();
 
