@@ -18,6 +18,14 @@ public class DividerTests : TestContext
     }
 
     [Fact]
+    public void Divider_ShouldRenderCorrectly()
+    {
+        var action = () => RenderComponent<LumexDivider>();
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
     public void Divider_Horizontal_ShouldRenderAsHr()
     {
         var cut = RenderComponent<LumexDivider>( p => p

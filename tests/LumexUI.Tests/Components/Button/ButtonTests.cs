@@ -18,7 +18,15 @@ public class ButtonTests : TestContext
 		Services.AddSingleton<TwMerge>();
 	}
 
-	[Fact]
+    [Fact]
+    public void Button_ShouldRenderCorrectly()
+    {
+        var action = () => RenderComponent<LumexButton>();
+
+        action.Should().NotThrow();
+    }
+
+    [Fact]
 	public void Button_ChildContent_ShouldRenderCorrectly()
 	{
 		var content = "Button";

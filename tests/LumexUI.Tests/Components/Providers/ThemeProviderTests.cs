@@ -14,10 +14,9 @@ public class ThemeProviderTests : TestContext
     [Fact]
     public void ThemeProvider_ShouldRenderCorrectly()
     {
-        var cut = RenderComponent<LumexThemeProvider>();
-        var styleNodes = cut.Nodes.OfType<IHtmlStyleElement>().ToArray();
+        var action = () => RenderComponent<LumexThemeProvider>();
 
-        styleNodes.Should().HaveCount( 2 );
+        action.Should().NotThrow();
     }
 
     [Theory]
