@@ -28,7 +28,7 @@ public partial class LumexButton : LumexComponentBase
     [Parameter] public ButtonType Type { get; set; }
 
     /// <summary>
-    /// Gets or sets a variant of the button.
+    /// Gets or sets an appearance style of the button.
     /// </summary>
     /// <remarks>
     /// Default value is <see cref="Variant.Solid"/>
