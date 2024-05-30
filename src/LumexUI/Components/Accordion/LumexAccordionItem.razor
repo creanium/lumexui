@@ -1,0 +1,73 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<LumexComponent Class="@RootClass"
+                Style="@RootStyle"
+                @attributes="@AdditionalAttributes"
+                data-slot="root"
+                data-opened="@_expanded">
+    <h2 class="@HeadingClass" data-slot="heading">
+        <button class="@TriggerClass"
+                type="button"
+                disabled="@_disabled"
+                data-slot="trigger"
+                @onclick="@ToggleExpansionAsync">
+            <div class="@TitleWrapperClass" data-slot="title-wrapper">
+                @if( StartContent is not null )
+                {
+                    <div class="@StartContentClass" data-slot="start-content">
+                        @StartContent
+                    </div>
+                }
+                @if( !string.IsNullOrEmpty( Title ) || TitleContent is not null )
+                {
+                    <span class="@TitleClass" data-slot="title">
+                        @if( !string.IsNullOrEmpty( Title ) )
+                        {
+                            @Title
+                        }
+                        else if( TitleContent is not null )
+                        {
+                            @TitleContent
+                        }
+                    </span>
+                }
+                @if( !string.IsNullOrEmpty( Subtitle ) || SubtitleContent is not null )
+                {
+                    <span class="@SubtitleClass" data-slot="subtitle">
+                        @if( !string.IsNullOrEmpty( Subtitle ) )
+                        {
+                            @Subtitle
+                        }
+                        else if( SubtitleContent is not null )
+                        {
+                            @SubtitleContent
+                        }
+                    </span>
+                }
+            </div>
+            @if( Context.Owner.ShowIndicators )
+            {
+                <span class="@IndicatorClass" data-open="@_expanded">
+                    @* TODO: Icon component *@
+                    <svg class="fill-current" width="1.25em" height="1.25em" focusable="false" viewBox="0 -960 960 960">
+                        @((MarkupString)IndicatorIcon)
+                    </svg>
+                </span>
+            }
+        </button>
+    </h2>
+
+    <LumexCollapse As="section" Expanded="@_expanded">
+        <div class="@ContentClass" data-slot="content">
+            @ChildContent
+        </div>
+    </LumexCollapse>
+</LumexComponent>
+
+@if( Context.Owner.ShowDivider &&
+  !Context.IsLastItem( this ) &&
+  Context.Owner.Variant is not AccordionVariant.Splitted )
+{
+    <LumexDivider />
+}
