@@ -84,6 +84,7 @@ public class ButtonTests : TestContext
     public void Button_StartIcon_ShouldRenderWithStartIcon()
     {
         var icon = "start-icon";
+
         var cut = RenderComponent<LumexButton>( p => p
             .Add( p => p.StartIcon, icon )
         );
@@ -95,6 +96,7 @@ public class ButtonTests : TestContext
     public void Button_EndIcon_ShouldRenderWithEndIcon()
     {
         var icon = "end-icon";
+
         var cut = RenderComponent<LumexButton>( p => p
             .Add( p => p.EndIcon, icon )
         );

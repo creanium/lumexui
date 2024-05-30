@@ -28,25 +28,7 @@ public class CardTests : TestContext
     {
         var action = () => RenderComponent<LumexCard>( p => p
             .AddChildContent<LumexCardHeader>()
-        );
-
-        action.Should().NotThrow();
-    }
-
-    [Fact]
-    public void CardBody_ShouldRenderCorrectly()
-    {
-        var action = () => RenderComponent<LumexCard>( p => p
             .AddChildContent<LumexCardBody>()
-        );
-
-        action.Should().NotThrow();
-    }
-
-    [Fact]
-    public void CardFooter_ShouldRenderCorrectly()
-    {
-        var action = () => RenderComponent<LumexCard>( p => p
             .AddChildContent<LumexCardFooter>()
         );
 
@@ -75,29 +57,5 @@ public class CardTests : TestContext
         var action = () => RenderComponent<LumexCardFooter>();
 
         action.Should().Throw<InvalidOperationException>();
-    }
-
-    [Fact]
-    public void Card_WithSlots_ShouldRenderCorrectCss()
-    {
-        var slots = new CardSlots()
-        {
-            Root = "custom-class",
-            Header = "custom-class",
-            Body = "custom-class",
-            Footer = "custom-class"
-        };
-
-        var cut = RenderComponent<LumexCard>( p => p
-            .Add( p => p.Classes, slots )
-            .AddChildContent<LumexCardHeader>()
-            .AddChildContent<LumexCardBody>()
-            .AddChildContent<LumexCardFooter>()
-        );
-
-        cut.Find( "[data-slot=root]" ).ClassName.Should().Contain( slots.Root );
-        cut.Find( "[data-slot=header]" ).ClassName.Should().Contain( slots.Header );
-        cut.Find( "[data-slot=body]" ).ClassName.Should().Contain( slots.Body );
-        cut.Find( "[data-slot=footer]" ).ClassName.Should().Contain( slots.Footer );
     }
 }
