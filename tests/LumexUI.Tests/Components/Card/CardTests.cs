@@ -2,6 +2,8 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using LumexUI.Common;
+
 using Microsoft.Extensions.DependencyInjection;
 
 using TailwindMerge;
@@ -40,7 +42,7 @@ public class CardTests : TestContext
     {
         var action = () => RenderComponent<LumexCardHeader>();
 
-        action.Should().Throw<InvalidOperationException>();
+        action.Should().Throw<ContextNullException>();
     }
 
     [Fact]
@@ -48,7 +50,7 @@ public class CardTests : TestContext
     {
         var action = () => RenderComponent<LumexCardBody>();
 
-        action.Should().Throw<InvalidOperationException>();
+        action.Should().Throw<ContextNullException>();
     }
 
     [Fact]
@@ -56,6 +58,6 @@ public class CardTests : TestContext
     {
         var action = () => RenderComponent<LumexCardFooter>();
 
-        action.Should().Throw<InvalidOperationException>();
+        action.Should().Throw<ContextNullException>();
     }
 }

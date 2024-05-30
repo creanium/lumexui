@@ -2,6 +2,7 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using LumexUI.Common;
 using LumexUI.Styles;
 
 using Microsoft.AspNetCore.Components;
@@ -27,6 +28,6 @@ public partial class LumexCardFooter : LumexComponentBase
 
     protected override void OnInitialized()
     {
-        CardContext.ThrowMissingParentComponentException( Context, nameof( LumexCardFooter ) );
+        ContextNullException.ThrowIfNull( Context, nameof( LumexCardFooter ) );
     }
 }

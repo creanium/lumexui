@@ -123,7 +123,7 @@ public partial class LumexAccordionItem : LumexComponentBase, ISlotComponent<Acc
 
     protected override void OnInitialized()
     {
-        AccordionContext.ThrowMissingParentComponentException( Context, nameof( LumexAccordionItem ) );
+        ContextNullException.ThrowIfNull( Context, nameof( LumexAccordionItem ) );
 
         Context.Register( this );
     }

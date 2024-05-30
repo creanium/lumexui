@@ -330,6 +330,6 @@ public class AccordionTests : TestContext
             .Add( p => p.Id, "1" )
         );
 
-        action.Should().Throw<InvalidOperationException>();
+        action.Should().Throw<ContextNullException>();
     }
 }
