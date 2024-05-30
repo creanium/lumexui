@@ -5,7 +5,7 @@
 using LumexUI.Common;
 using LumexUI.Theme;
 
-namespace LumexUI.Tests.Components;
+namespace LumexUI.Tests.Theme;
 
 public class ThemeTests
 {
