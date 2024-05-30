@@ -1,7 +1,10 @@
-﻿using LumexUI.Common;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using LumexUI.Common;
 
 namespace LumexUI;
 
+[ExcludeFromCodeCoverage]
 public class CardSlots : ISlot
 {
     public string? Root { get; set; }
