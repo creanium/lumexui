@@ -52,7 +52,7 @@ public partial class LumexAccordionItem : LumexComponentBase, ISlotComponent<Acc
     /// <remarks>
     /// The default is <see cref="Icons.Rounded.ChevronLeft"/>
     /// </remarks>
-    [Parameter] public string IndicatorIcon { get; set; } = Icons.Rounded.ChevronLeft;
+    [Parameter] public string Indicator { get; set; } = Icons.Rounded.ChevronLeft;
 
     /// <summary>
     /// Gets or sets a value indicating whether the accordion item is disabled.
