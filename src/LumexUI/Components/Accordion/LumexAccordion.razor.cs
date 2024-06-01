@@ -53,7 +53,7 @@ public partial class LumexAccordion : LumexComponentBase
     /// <remarks>
     /// The default is <see langword="true"/>
     /// </remarks>
-    [Parameter] public bool ShowDivider { get; set; } = true;
+    [Parameter] public bool ShowDividers { get; set; } = true;
 
     /// <summary>
     /// Gets or sets a value indicating whether to display an indicator in each accordion item.
