@@ -23,7 +23,9 @@ internal readonly record struct Button
         .Add( "min-w-max" )
         .Add( "subpixel-antialiased" )
         .Add( "overflow-hidden" )
-        .Add( "hover:opacity-80" )
+        .Add( "active:scale-[0.98]" )
+        .Add( "transition-transform-colors-opacity" )
+        .Add( "motion-reduce:transition-none" )
         .ToString();
 
     private readonly static string _disabled = ElementClass.Empty()
