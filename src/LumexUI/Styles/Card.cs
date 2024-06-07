@@ -78,31 +78,32 @@ internal readonly record struct Card
             .Add( "shadow-large", when: shadow is Shadow.Large );
     }
 
-    private static ElementClass GetRadiusStyles( Radius radius )
+    private static ElementClass GetRadiusStyles( Radius radius, string slot )
     {
-        return ElementClass.Empty()
-            .Add( "rounded-none", when: radius is Radius.None )
-            .Add( "rounded-small", when: radius is Radius.Small )
-            .Add( "rounded-medium", when: radius is Radius.Medium )
-            .Add( "rounded-large", when: radius is Radius.Large );
-    }
-
-    private static ElementClass GetHeaderRadiusStyles( Radius radius )
-    {
-        return ElementClass.Empty()
-            .Add( "rounded-none", when: radius is Radius.None )
-            .Add( "rounded-t-small", when: radius is Radius.Small )
-            .Add( "rounded-t-medium", when: radius is Radius.Medium )
-            .Add( "rounded-t-large", when: radius is Radius.Large );
-    }
-
-    private static ElementClass GetFooterRadiusStyles( Radius radius )
-    {
-        return ElementClass.Empty()
-            .Add( "rounded-none", when: radius is Radius.None )
-            .Add( "rounded-b-small", when: radius is Radius.Small )
-            .Add( "rounded-b-medium", when: radius is Radius.Medium )
-            .Add( "rounded-b-large", when: radius is Radius.Large );
+        if( slot == "root" )
+        {
+            return ElementClass.Empty()
+                .Add( "rounded-none", when: radius is Radius.None )
+                .Add( "rounded-small", when: radius is Radius.Small )
+                .Add( "rounded-medium", when: radius is Radius.Medium )
+                .Add( "rounded-large", when: radius is Radius.Large );
+        }
+        else if( slot == "header" )
+        {
+            return ElementClass.Empty()
+                .Add( "rounded-none", when: radius is Radius.None )
+                .Add( "rounded-t-small", when: radius is Radius.Small )
+                .Add( "rounded-t-medium", when: radius is Radius.Medium )
+                .Add( "rounded-t-large", when: radius is Radius.Large );
+        }
+        else // part == "footer"
+        {
+            return ElementClass.Empty()
+                .Add( "rounded-none", when: radius is Radius.None )
+                .Add( "rounded-b-small", when: radius is Radius.Small )
+                .Add( "rounded-b-medium", when: radius is Radius.Medium )
+                .Add( "rounded-b-large", when: radius is Radius.Large );
+        }
     }
 
     public static string GetStyles( LumexCard card )
@@ -112,7 +113,7 @@ internal readonly record struct Card
             .Add( _blurred, when: card.Blurred )
             .Add( _fullWidth, when: card.FullWidth )
             .Add( GetShadowStyles( card.Shadow ) )
-            .Add( GetRadiusStyles( card.Radius ) )
+            .Add( GetRadiusStyles( card.Radius, slot: "root" ) )
             .Add( card.Classes?.Root )
             .Add( card.Class )
             .ToString();
@@ -124,7 +125,7 @@ internal readonly record struct Card
 
         return ElementClass.Empty()
             .Add( _header )
-            .Add( GetHeaderRadiusStyles( card.Radius ) )
+            .Add( GetRadiusStyles( card.Radius, slot: "header" ) )
             .Add( card.Classes?.Header )
             .Add( cardHeader.Class )
             .ToString();
@@ -148,7 +149,7 @@ internal readonly record struct Card
         return ElementClass.Empty()
             .Add( _footer )
             .Add( _blurredFooter, when: cardFooter.Blurred )
-            .Add( GetFooterRadiusStyles( card.Radius ) )
+            .Add( GetRadiusStyles( card.Radius, slot: "footer" ) )
             .Add( card.Classes?.Footer )
             .Add( cardFooter.Class )
             .ToString();
