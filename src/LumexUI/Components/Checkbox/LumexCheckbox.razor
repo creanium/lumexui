@@ -1,0 +1,58 @@
+﻿@namespace LumexUI
+@inherits LumexInputBase<bool>
+
+<LumexComponent As="label"
+                Class="@RootClass"
+                Style="@RootStyle"
+                data-checked="@Checked"
+                tabindex="1"
+                @attributes="@AdditionalAttributes">
+    <span class="sr-only">
+        <input type="checkbox"
+               value="@true"
+               checked="@Checked"
+               disabled="@Disabled"
+               @ref="@Element"
+               @attributes="@AdditionalAttributes"
+               @onchange="@OnChangeAsync" />
+    </span>
+
+    <span class="@WrapperClass">
+        @if( !string.IsNullOrEmpty( CheckIcon ) )
+        {
+            <LumexIcon Icon="@CheckIcon" Class="@IconClass" />
+        }
+        else
+        {
+            @_renderCheckIcon
+        }
+    </span>
+
+    @if( ChildContent is not null )
+    {
+        <span class="@LabelClass">
+            @ChildContent
+        </span>
+    }
+</LumexComponent>
+
+@code {
+    private void RenderCheckIcon( RenderTreeBuilder __builder )
+    {
+        var style = ElementStyle.Empty()
+            .Add( "transition", "stroke-dashoffset 0.15s linear 0.15s", when: Checked )
+            .ToString();
+
+        <svg class="@IconClass" viewBox="0 0 17 18">
+            <polyline fill="none"
+                      points="1 9 7 14 15 4"
+                      stroke="currentColor"
+                      stroke-dasharray="22"
+                      stroke-dashoffset="@(Checked ? 44 : 66)"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      style="@style" />
+        </svg>
+    }
+}
