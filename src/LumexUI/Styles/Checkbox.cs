@@ -115,16 +115,16 @@ internal readonly record struct Checkbox
             .Add( _radiusLarge, when: radius is Radius.Large );
     }
 
-    private static ElementClass GetSizeStyles( Size size, string part )
+    private static ElementClass GetSizeStyles( Size size, string slot )
     {
-        if( part == "wrapper" )
+        if( slot == "wrapper" )
         {
             return ElementClass.Empty()
                 .Add( $"w-4 h-4 {_radiusSmall}", when: size is Size.Small )
                 .Add( $"w-5 h-5 {_radiusMedium}", when: size is Size.Medium )
                 .Add( $"w-6 h-6 {_radiusLarge}", when: size is Size.Large );
         }
-        else if( part == "icon" )
+        else if( slot == "icon" )
         {
             return ElementClass.Empty()
                 .Add( "w-3 h-2", when: size is Size.Small )
@@ -156,7 +156,7 @@ internal readonly record struct Checkbox
             .Add( _wrapper )
             .Add( GetColorStyles( checkbox.Color ) )
             .Add( GetRadiusStyles( checkbox.Radius ) )
-            .Add( GetSizeStyles( checkbox.Size, part: "wrapper" ) )
+            .Add( GetSizeStyles( checkbox.Size, slot: "wrapper" ) )
             .Add( checkbox.Classes?.Wrapper )
             .ToString();
     }
@@ -165,7 +165,7 @@ internal readonly record struct Checkbox
     {
         return ElementClass.Empty()
             .Add( _icon )
-            .Add( GetSizeStyles( checkbox.Size, part: "icon" ) )
+            .Add( GetSizeStyles( checkbox.Size, slot: "icon" ) )
             .Add( checkbox.Classes?.Icon )
             .ToString();
     }
@@ -174,7 +174,7 @@ internal readonly record struct Checkbox
     {
         return ElementClass.Empty()
             .Add( _label )
-            .Add( GetSizeStyles( checkbox.Size, part: "label" ) )
+            .Add( GetSizeStyles( checkbox.Size, slot: "label" ) )
             .Add( checkbox.Classes?.Label )
             .ToString();
     }
