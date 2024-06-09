@@ -26,6 +26,8 @@ public partial class LumexCheckbox : LumexInputBase<bool>, ISlotComponent<Checkb
     /// </summary>
     [Parameter] public CheckboxSlots? Classes { get; set; }
 
+    [CascadingParameter] internal CheckboxGroupContext? Context { get; set; }
+
     private protected override string? RootClass =>
         TwMerge.Merge( Checkbox.GetStyles( this ) );
 
@@ -40,11 +42,47 @@ public partial class LumexCheckbox : LumexInputBase<bool>, ISlotComponent<Checkb
 
     private readonly RenderFragment _renderCheckIcon;
 
-    private bool Checked => CurrentValue;
+    private bool _checked;
+    private bool _disabled;
+    private bool _readonly;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LumexCheckbox"/>.
+    /// </summary>
     public LumexCheckbox()
     {
         _renderCheckIcon = RenderCheckIcon;
+    }
+
+    /// <inheritdoc />
+    public override async Task SetParametersAsync( ParameterView parameters )
+    {
+        await base.SetParametersAsync( parameters );
+
+        Color = parameters.TryGetValue<ThemeColor>( nameof( Color ), out var color ) 
+            ? color
+            : Context?.Owner.Color ?? ThemeColor.Primary;
+
+        Size = parameters.TryGetValue<Size>( nameof( Size ), out var size )
+            ? size
+            : Context?.Owner.Size ?? Size.Medium;
+
+        if( parameters.TryGetValue<Radius>( nameof( Radius ), out var radius ) )
+        {
+            Radius = radius;
+        }
+        else if( Context is not null )
+        {
+            Radius = Context.Owner.Radius;
+        }
+    }
+
+    /// <inheritdoc />
+    protected override void OnParametersSet()
+    {
+        _checked = CurrentValue;
+        _disabled = Disabled || ( Context?.Owner.Disabled ?? false );
+        _readonly = ReadOnly || ( Context?.Owner.ReadOnly ?? false );
     }
 
     /// <inheritdoc />
@@ -55,9 +93,11 @@ public partial class LumexCheckbox : LumexInputBase<bool>, ISlotComponent<Checkb
             $"Bind to the '{nameof( CurrentValue )}' property, not '{nameof( CurrentValueAsString )}'." );
     }
 
+    internal bool GetDisabledState() => _disabled;
+
     private Task OnChangeAsync( ChangeEventArgs args )
     {
-        if( Disabled || ReadOnly )
+        if( _disabled || _readonly )
         {
             return Task.CompletedTask;
         }
