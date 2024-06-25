@@ -1,25 +1,9 @@
 version: 2
 updates:
   - package-ecosystem: "nuget"
-    directory: "/src/"
+    directory: "/src"
     target-branch: "main"
     schedule:
       interval: "weekly"
     commit-message:
-      prefix: "build(deps)"
-      
-  - package-ecosystem: "nuget"
-    directory: "/tests/"
-    target-branch: "main"
-    schedule:
-      interval: "weekly"
-    commit-message:
-      prefix: "build(deps)"
-      
-  - package-ecosystem: "nuget"
-    directory: "/docs/"
-    target-branch: "main"
-    schedule:
-      interval: "weekly"
-    commit-message:
-      prefix: "build(deps)"
+      prefix: "build(deps)"    
