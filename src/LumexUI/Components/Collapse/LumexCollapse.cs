@@ -31,7 +31,7 @@ public class LumexCollapse : LumexComponentBase
 
     internal CollapseState State { get; set; }
 
-    private protected override string RootClass =>
+    private protected override string? RootClass =>
         TwMerge.Merge( Collapse.GetStyles( this ) );
 
     private protected override string RootStyle =>

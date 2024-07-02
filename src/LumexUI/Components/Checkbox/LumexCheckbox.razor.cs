@@ -31,13 +31,13 @@ public partial class LumexCheckbox : LumexInputBase<bool>, ISlotComponent<Checkb
     private protected override string? RootClass =>
         TwMerge.Merge( Checkbox.GetStyles( this ) );
 
-    private string WrapperClass =>
+    private string? WrapperClass =>
         TwMerge.Merge( Checkbox.GetWrapperStyles( this ) );
 
-    private string IconClass =>
+    private string? IconClass =>
         TwMerge.Merge( Checkbox.GetIconStyles( this ) );
 
-    private string LabelClass =>
+    private string? LabelClass =>
         TwMerge.Merge( Checkbox.GetLabelStyles( this ) );
 
     private readonly RenderFragment _renderCheckIcon;

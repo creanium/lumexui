@@ -70,16 +70,16 @@ public partial class LumexCheckboxGroup : LumexComponentBase, ISlotComponent<Che
     /// </summary>
     [Parameter] public CheckboxSlots? CheckboxClasses { get; set; }
 
-    private protected override string RootClass =>
+    private protected override string? RootClass =>
         TwMerge.Merge( CheckboxGroup.GetStyles( this ) );
 
-    private string LabelClass =>
+    private string? LabelClass =>
         TwMerge.Merge( CheckboxGroup.GetLabelStyles( this ) );
 
-    private string WrapperClass =>
+    private string? WrapperClass =>
         TwMerge.Merge( CheckboxGroup.GetWrapperStyles( this ) );
 
-    private string DescriptionClass =>
+    private string? DescriptionClass =>
         TwMerge.Merge( CheckboxGroup.GetDescriptionStyles( this ) );
 
     private readonly CheckboxGroupContext _context;

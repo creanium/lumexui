@@ -79,28 +79,28 @@ public partial class LumexAccordionItem : LumexComponentBase, ISlotComponent<Acc
     private protected override string? RootClass =>
         TwMerge.Merge( AccordionItem.GetStyles( this ) );
 
-    private string HeadingClass =>
+    private string? HeadingClass =>
         TwMerge.Merge( AccordionItem.GetHeadingStyles( this ) );
 
-    private string TriggerClass =>
+    private string? TriggerClass =>
         TwMerge.Merge( AccordionItem.GetTriggerStyles( this ) );
 
-    private string StartContentClass =>
+    private string? StartContentClass =>
         TwMerge.Merge( AccordionItem.GetStartContentStyles( this ) );
 
-    private string TitleWrapperClass =>
+    private string? TitleWrapperClass =>
         TwMerge.Merge( AccordionItem.GetTitleWrapperStyles( this ) );
 
-    private string TitleClass =>
+    private string? TitleClass =>
         TwMerge.Merge( AccordionItem.GetTitleStyles( this ) );
 
-    private string SubtitleClass =>
+    private string? SubtitleClass =>
         TwMerge.Merge( AccordionItem.GetSubtitleStyles( this ) );
 
-    private string IndicatorClass =>
+    private string? IndicatorClass =>
         TwMerge.Merge( AccordionItem.GetIndicatorStyles( this ) );
 
-    private string ContentClass =>
+    private string? ContentClass =>
         TwMerge.Merge( AccordionItem.GetContentStyles( this ) );
 
     private bool _disposed;
