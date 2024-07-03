@@ -4,6 +4,10 @@ namespace LumexUI.Styles;
 
 internal class Utils
 {
+    public readonly static string VisuallyHidden = ElementClass.Empty()
+        .Add( "sr-only" )
+        .ToString();
+
     public readonly static string GroupFocusVisible = ElementClass.Empty()
         .Add( "outline-none" )
         .Add( "group-focus-visible:z-10" )
