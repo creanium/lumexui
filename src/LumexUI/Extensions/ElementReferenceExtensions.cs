@@ -3,7 +3,7 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
+using System.Runtime.CompilerServices;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -13,8 +13,8 @@ namespace LumexUI.Extensions;
 [ExcludeFromCodeCoverage]
 public static class ElementReferenceExtensions
 {
-    private static readonly PropertyInfo? _jsRuntimeProp = typeof( WebElementReferenceContext )
-        .GetProperty( "JSRuntime", BindingFlags.Instance | BindingFlags.NonPublic );
+    [UnsafeAccessor( UnsafeAccessorKind.Field, Name = "<JSRuntime>k__BackingField" )]
+    private static extern ref IJSRuntime GetJSRuntime( WebElementReferenceContext context );
 
     public static ValueTask<int> GetScrollHeightAsync( this ElementReference elementReference )
     {
@@ -29,7 +29,6 @@ public static class ElementReferenceExtensions
             throw new InvalidOperationException( "ElementReference has not been configured correctly." );
         }
 
-        var jsRuntime = (IJSRuntime?)_jsRuntimeProp?.GetValue( context );
-        return jsRuntime ?? throw new InvalidOperationException( "No JavaScript runtime found." );
+        return GetJSRuntime( context ) ?? throw new InvalidOperationException( "No JavaScript runtime found." );
     }
 }
