@@ -17,9 +17,6 @@ jobs:
  
       - name: Setup .NET Core environment
         uses: actions/setup-dotnet@v4
-
-      - name: Setup NodeJS environment
-        uses: actions/setup-node@v4
       
       - name: Restore .NET dependencies
         run: dotnet restore
