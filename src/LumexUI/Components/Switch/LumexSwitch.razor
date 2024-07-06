@@ -20,13 +20,21 @@
     </span>
 
     <span class="@WrapperClass">
-        @if( !string.IsNullOrEmpty( CheckIcon ) )
+        @if( !string.IsNullOrEmpty( StartIcon ) )
         {
-            <LumexIcon Icon="@CheckIcon" Class="@IconClass" />
+            <LumexIcon Icon="@StartIcon" Size="@(new("100%"))" Class="@StartIconClass" />
         }
-        else
+
+        <span class="@ThumbClass">
+            @if( !string.IsNullOrEmpty( ThumbIcon ) )
+            {
+                <LumexIcon Icon="@ThumbIcon" Size="@(new("100%"))" Class="@ThumbIconClass" />
+            }
+        </span>
+
+        @if( !string.IsNullOrEmpty( EndIcon ) )
         {
-            @_renderCheckIcon
+            <LumexIcon Icon="@EndIcon" Size="@(new("100%"))" Class="@EndIconClass" />
         }
     </span>
 
@@ -37,24 +45,3 @@
         </span>
     }
 </LumexComponent>
-
-@code {
-    private void RenderCheckIcon( RenderTreeBuilder __builder )
-    {
-        var style = ElementStyle.Empty()
-            .Add( "transition", "stroke-dashoffset 0.15s linear 0.15s", when: CurrentValue )
-            .ToString();
-
-        <svg class="@IconClass" viewBox="0 0 17 18">
-            <polyline fill="none"
-                      points="1 9 7 14 15 4"
-                      stroke="currentColor"
-                      stroke-dasharray="22"
-                      stroke-dashoffset="@(CurrentValue ? 44 : 66)"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      style="@style" />
-        </svg>
-    }
-}
