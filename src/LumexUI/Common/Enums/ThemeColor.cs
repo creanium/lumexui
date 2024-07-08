@@ -6,6 +6,8 @@ namespace LumexUI.Common;
 
 public enum ThemeColor
 {
+    None,
+
     Default,
 
 	Primary,
