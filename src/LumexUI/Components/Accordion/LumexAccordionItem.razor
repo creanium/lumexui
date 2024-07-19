@@ -3,12 +3,12 @@
 
 <LumexComponent Class="@RootClass"
                 Style="@RootStyle"
-                @attributes="@AdditionalAttributes"
                 data-slot="root"
-                data-opened="@_expanded">
+                data-opened="@_expanded"
+                @attributes="@AdditionalAttributes">
     <h2 class="@HeadingClass" data-slot="heading">
-        <button class="@TriggerClass"
-                type="button"
+        <button type="button"
+                class="@TriggerClass"
                 disabled="@_disabled"
                 data-slot="trigger"
                 @onclick="@ToggleExpansionAsync">
@@ -66,8 +66,8 @@
 </LumexComponent>
 
 @if( Context.Owner.ShowDividers &&
-  !Context.IsLastItem( this ) &&
-  Context.Owner.Variant is not AccordionVariant.Splitted )
+ !Context.IsLastItem( this ) &&
+ Context.Owner.Variant is not AccordionVariant.Splitted )
 {
     <LumexDivider />
 }
