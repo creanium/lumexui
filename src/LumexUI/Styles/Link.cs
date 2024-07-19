@@ -10,7 +10,7 @@ using LumexUI.Utilities;
 namespace LumexUI.Styles;
 
 [ExcludeFromCodeCoverage]
-internal readonly record struct Link
+internal readonly record struct LinkBase
 {
     private readonly static string _base = ElementClass.Empty()
         .Add( "relative" )
@@ -38,6 +38,20 @@ internal readonly record struct Link
             .Add( "text-info", when: color is ThemeColor.Info );
     }
 
+    public static string GetStyles( LumexLinkBase link )
+    {
+        return ElementClass.Empty()
+            .Add( _base )
+            .Add( _disabled, when: link.Disabled )
+            .Add( GetColorStyles( link.Color ) )
+            .Add( link.Class )
+            .ToString();
+    }
+}
+
+[ExcludeFromCodeCoverage]
+internal readonly record struct Link
+{
     private static ElementClass GetUnderlineStyles( Underline underline )
     {
         return ElementClass.Empty()
@@ -50,11 +64,26 @@ internal readonly record struct Link
     public static string GetStyles( LumexLink link )
     {
         return ElementClass.Empty()
-            .Add( _base )
-            .Add( _disabled, when: link.Disabled )
-            .Add( GetColorStyles( link.Color ) )
+            .Add( LinkBase.GetStyles( link ) )
             .Add( GetUnderlineStyles( link.Underline ) )
             .Add( link.Class )
+            .ToString();
+    }
+}
+
+[ExcludeFromCodeCoverage]
+internal readonly record struct NavLink
+{
+    private readonly static string _active = ElementClass.Empty()
+        .Add( "data-[active=true]:font-semibold" )
+        .ToString();
+
+    public static string GetStyles( LumexNavLink navLink )
+    {
+        return ElementClass.Empty()
+            .Add( LinkBase.GetStyles( navLink ) )
+            .Add( _active )
+            .Add( navLink.Class )
             .ToString();
     }
 }
