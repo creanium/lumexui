@@ -11,9 +11,14 @@ using System.Linq.Expressions;
 using LumexUI.Common;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace LumexUI;
 
+/// <summary>
+/// Represents a base class for input components.
+/// </summary>
+/// <typeparam name="TValue">The type of the input value.</typeparam>
 public abstract class LumexInputBase<TValue> : LumexComponentBase
 {
     /// <summary>
@@ -25,6 +30,16 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     /// Gets or sets a value indicating whether the input is read-only.
     /// </summary>
     [Parameter] public bool ReadOnly { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the input is required.
+    /// </summary>
+    [Parameter] public bool Required { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the input is invalid.
+    /// </summary>
+    [Parameter] public bool Invalid { get; set; }
 
     /// <summary>
     /// Gets or sets a color of the input.
@@ -48,9 +63,19 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     [Parameter] public TValue? Value { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback that updates the bound value.
+    /// Gets or sets a callback that is fired when the value of the input changes.
     /// </summary>
     [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback that is fired when the input receives focus.
+    /// </summary>
+    [Parameter] public EventCallback<FocusEventArgs> OnFocus { get; set; }
+
+    /// <summary>
+    /// Gets or sets a callback that is fired when the input loses focus.
+    /// </summary>
+    [Parameter] public EventCallback<FocusEventArgs> OnBlur { get; set; }
 
     /// <summary>
     /// Gets or sets an expression that identifies the bound value.
@@ -75,10 +100,30 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
         set => _ = SetCurrentValueAsStringAsync( value );
     }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the input is focused.
+    /// </summary>
+    protected bool Focused { get; set; }
+
     private bool _parsingFailed;
     private bool _hasInitializedParameters;
     private string? _incomingValueBeforeParsing;
     private Type? _nullableUnderlyingType;
+
+    /// <summary>
+    /// Gives focus to an input component given its <see cref="ElementReference"/>
+    /// </summary>
+    /// <returns>The <see cref="ValueTask"/> representing the asynchronous focus operation.</returns>
+    public ValueTask FocusAsync()
+    {
+        if( !ElementReference.HasValue )
+        {
+            return ValueTask.CompletedTask;
+        }
+
+        Focused = true;
+        return ElementReference.Value.FocusAsync();
+    }
 
     /// <inheritdoc />
     public override Task SetParametersAsync( ParameterView parameters )
@@ -87,30 +132,12 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
 
         if( !_hasInitializedParameters )
         {
-            // This is the first run
-            // Could put this logic in OnInit, but its nice to avoid forcing people who override OnInit to call base.OnInit()
-            if( ValueExpression is null )
-            {
-                throw new InvalidOperationException(
-                    $"{GetType()} requires a value for the '{nameof( ValueExpression )}' parameter. " +
-                    $"Normally this is provided automatically when using '@bind-Value'." );
-            }
-
             _nullableUnderlyingType = Nullable.GetUnderlyingType( typeof( TValue ) );
             _hasInitializedParameters = true;
         }
 
         return base.SetParametersAsync( ParameterView.Empty );
     }
-
-    /// <summary>
-    /// Parses a string to create an instance of <typeparamref name="TValue"/>.
-    /// Derived classes can override this to change how <see cref="CurrentValueAsString"/> interprets incoming values.
-    /// </summary>
-    /// <param name="value">The string value to be parsed.</param>
-    /// <param name="result">An instance of <typeparamref name="TValue"/>.</param>
-    /// <returns><see langword="true"/> if the value could be parsed; otherwise <see langword="false"/>.</returns>
-    protected abstract bool TryParseValueFromString( string? value, [MaybeNullWhen( false )] out TValue? result );
 
     /// <summary>
     /// Sets the current value of the input.
@@ -138,6 +165,9 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
 
         if( _nullableUnderlyingType is not null && string.IsNullOrEmpty( value ) )
         {
+            // Assume if it's a nullable type, null/empty inputs should correspond to default(T)
+            // Then all subclasses get nullable support almost automatically (they just have to
+            // not reject Nullable<T> based on the type itself).
             _parsingFailed = false;
             CurrentValue = default!;
         }
@@ -153,10 +183,43 @@ public abstract class LumexInputBase<TValue> : LumexComponentBase
     }
 
     /// <summary>
+    /// Handles the focus event asynchronously.
+    /// Derived classes can override this to specify custom behavior when the component receives focus.
+    /// </summary>
+    /// <param name="args">The focus event arguments.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous focus operation.</returns>
+    protected virtual async Task OnFocusAsync( FocusEventArgs args )
+    {
+        await FocusAsync();
+        await OnFocus.InvokeAsync( args );
+    }
+
+    /// <summary>
+    /// Handles the blur event asynchronously.
+    /// Derived classes can override this to specify custom behavior when the component loses focus.
+    /// </summary>
+    /// <param name="args">The blur event arguments.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous blur operation.</returns>
+    protected virtual Task OnBlurAsync( FocusEventArgs args )
+    {
+        Focused = false;
+        return OnBlur.InvokeAsync( args );
+    }
+
+    /// <summary>
     /// Formats the input value as a string.
     /// Derived classes can override this to determine the formatting used for <see cref="CurrentValueAsString"/>.
     /// </summary>
     /// <param name="value">The value to format.</param>
     /// <returns>A string representation of the input value.</returns>
     protected virtual string? FormatValueAsString( TValue? value ) => value?.ToString();
+
+    /// <summary>
+    /// Parses a string to create an instance of <typeparamref name="TValue"/>.
+    /// Derived classes can override this to change how <see cref="CurrentValueAsString"/> interprets incoming values.
+    /// </summary>
+    /// <param name="value">The string value to be parsed.</param>
+    /// <param name="result">An instance of <typeparamref name="TValue"/>.</param>
+    /// <returns><see langword="true"/> if the value could be parsed; otherwise <see langword="false"/>.</returns>
+    protected abstract bool TryParseValueFromString( string? value, [MaybeNullWhen( false )] out TValue? result );
 }
