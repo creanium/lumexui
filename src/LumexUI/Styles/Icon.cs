@@ -13,7 +13,6 @@ namespace LumexUI.Styles;
 internal readonly struct Icon
 {
     private readonly static string _base = ElementClass.Empty()
-        .Add( "inline-block" )
         .Add( "fill-current" )
         .ToString();
 
