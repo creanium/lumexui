@@ -63,6 +63,15 @@ public partial class LumexTextBox : LumexDebouncedInputBase<string?>, ISlotCompo
     [Parameter] public InputVariant Variant { get; set; }
 
     /// <summary>
+    /// Gets or sets the input behavior, specifying when the textbox
+    /// updates its value and triggers validation.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="InputBehavior.OnChange"/>
+    /// </remarks>
+    [Parameter] public InputBehavior Behavior { get; set; }
+
+    /// <summary>
     /// Gets or sets the border radius of the textbox.
     /// </summary>
     [Parameter] public Radius? Radius { get; set; }
@@ -82,15 +91,6 @@ public partial class LumexTextBox : LumexDebouncedInputBase<string?>, ISlotCompo
     /// The default value is <see langword="true"/>
     /// </remarks>
     [Parameter] public bool FullWidth { get; set; } = true;
-
-    /// <summary>
-    /// Gets or sets the input behavior, specifying when the textbox
-    /// updates its value and triggers validation.
-    /// </summary>
-    /// <remarks>
-    /// The default value is <see cref="InputBehavior.OnChange"/>
-    /// </remarks>
-    [Parameter] public InputBehavior Behavior { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the textbox should have a clear button.
