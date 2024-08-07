@@ -2,8 +2,6 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-using System.Runtime.CompilerServices;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
@@ -24,23 +22,4 @@ public partial class LumexNavLink : LumexLinkBase
 
     private protected override string? RootClass =>
         TwMerge.Merge( Styles.NavLink.GetStyles( this ) );
-
-    private NavLink? _navLink;
-    private bool _isActive;
-
-    /// <inheritdoc />
-    protected override void OnAfterRender( bool firstRender )
-    {
-        if( !_isActive )
-        {
-            if( GetActiveState( _navLink! ) )
-            {
-                _isActive = true;
-                StateHasChanged();
-            }
-        }
-    }
-
-    [UnsafeAccessor( UnsafeAccessorKind.Field, Name = "_isActive" )]
-    private static extern ref bool GetActiveState( NavLink navLink );
 }
