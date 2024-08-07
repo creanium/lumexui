@@ -15,6 +15,7 @@ internal readonly record struct Switch
     private readonly static string _base = ElementClass.Empty()
         .Add( "group" )
         .Add( "relative" )
+        .Add( "max-w-fit" )
         .Add( "inline-flex" )
         .Add( "items-center" )
         .Add( "justify-start" )

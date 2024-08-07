@@ -16,6 +16,7 @@ internal readonly record struct Checkbox
         .Add( "p-2" )
         .Add( "-m-2" )
         .Add( "group" )
+        .Add( "max-w-fit" )
         .Add( "inline-flex" )
         .Add( "items-center" )
         .Add( "justify-start" )
