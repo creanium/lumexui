@@ -2,19 +2,28 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+
 using LumexUI.Common;
 using LumexUI.Styles;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 
 namespace LumexUI;
 
 /// <summary>
-/// A component representing an input field for entering/editing <see cref="string"/> values.
+/// Represents a base component for form input field components.
 /// </summary>
-public partial class LumexTextBox : LumexDebouncedInputBase<string?>, ISlotComponent<TextBoxSlots>
+/// <typeparam name="TValue">The type of the input value.</typeparam>
+public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputBase<TValue>, 
+    ISlotComponent<InputFieldSlots>, 
+    IAsyncDisposable
 {
+    private const string JavaScriptFile = "./_content/LumexUI/js/input.js";
+
     /// <summary>
     /// Gets or sets content to be rendered at the start of the textbox.
     /// </summary>
@@ -45,14 +54,6 @@ public partial class LumexTextBox : LumexDebouncedInputBase<string?>, ISlotCompo
     /// This message is displayed only when the textbox is invalid.
     /// </summary>
     [Parameter] public string? ErrorMessage { get; set; }
-
-    /// <summary>
-    /// Gets or sets the input type of the textbox.
-    /// </summary>
-    /// <remarks>
-    /// The default value is <see cref="InputType.Text"/>
-    /// </remarks>
-    [Parameter] public InputType Type { get; set; } = InputType.Text;
 
     /// <summary>
     /// Gets or sets the variant for the textbox.
@@ -105,39 +106,49 @@ public partial class LumexTextBox : LumexDebouncedInputBase<string?>, ISlotCompo
     /// <summary>
     /// Gets or sets the CSS class names for the textbox slots.
     /// </summary>
-    [Parameter] public TextBoxSlots? Classes { get; set; }
+    [Parameter] public InputFieldSlots? Classes { get; set; }
+
+    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary>
+    /// Gets or sets the validation error mesage of the input.
+    /// </summary>
+    protected string? ValidationMessage { get; private set; }
 
     private protected override string? RootClass =>
-        TwMerge.Merge( TextBox.GetStyles( this ) );
+        TwMerge.Merge( InputField.GetStyles( this ) );
 
     private string? LabelClass =>
-        TwMerge.Merge( TextBox.GetLabelStyles( this ) );
+        TwMerge.Merge( InputField.GetLabelStyles( this ) );
 
     private string? MainWrapperClass =>
-        TwMerge.Merge( TextBox.GetMainWrapperStyles( this ) );
+        TwMerge.Merge( InputField.GetMainWrapperStyles( this ) );
 
     private string? InputWrapperClass =>
-        TwMerge.Merge( TextBox.GetInputWrapperStyles( this ) );
+        TwMerge.Merge( InputField.GetInputWrapperStyles( this ) );
 
     private string? InnerWrapperClass =>
-        TwMerge.Merge( TextBox.GetInnerWrapperStyles( this ) );
+        TwMerge.Merge( InputField.GetInnerWrapperStyles( this ) );
 
     private string? InputClass =>
-        TwMerge.Merge( TextBox.GetInputStyles( this ) );
+        TwMerge.Merge( InputField.GetInputStyles( this ) );
 
     private string? ClearButtonClass =>
-        TwMerge.Merge( TextBox.GetClearButtonStyles( this ) );
+        TwMerge.Merge( InputField.GetClearButtonStyles( this ) );
 
     private string? HelperWrapperClass =>
-        TwMerge.Merge( TextBox.GetHelperWrapperStyles( this ) );
+        TwMerge.Merge( InputField.GetHelperWrapperStyles( this ) );
 
     private string? DescriptionClass =>
-        TwMerge.Merge( TextBox.GetDescriptionStyles( this ) );
+        TwMerge.Merge( InputField.GetDescriptionStyles( this ) );
 
     private string? ErrorMessageClass =>
-        TwMerge.Merge( TextBox.GetErrorMessageStyles( this ) );
+        TwMerge.Merge( InputField.GetErrorMessageStyles( this ) );
 
-    private bool HasHelper => !string.IsNullOrEmpty( Description ) || !string.IsNullOrEmpty( ErrorMessage );
+    private bool HasHelper =>
+        !string.IsNullOrEmpty( Description ) ||
+        !string.IsNullOrEmpty( ErrorMessage ) ||
+        !string.IsNullOrEmpty( ValidationMessage );
     private bool HasValue => !string.IsNullOrEmpty( CurrentValueAsString );
     private bool ClearButtonVisible => Clearable && HasValue;
     private bool FilledOrFocused =>
@@ -150,10 +161,13 @@ public partial class LumexTextBox : LumexDebouncedInputBase<string?>, ISlotCompo
     private readonly RenderFragment _renderInputWrapper;
     private readonly RenderFragment _renderHelperWrapper;
 
+    private string _inputType = default!;
+    private IJSObjectReference _jsModule = default!;
+
     /// <summary>
-    /// Initializes a new instance of the <see cref="LumexTextBox"/>.
+    /// Initializes a new instance of the <see cref="LumexInputFieldBase{TValue}"/>.
     /// </summary>
-    public LumexTextBox()
+    public LumexInputFieldBase()
     {
         _renderMainWrapper = RenderMainWrapper;
         _renderInputWrapper = RenderInputWrapper;
@@ -167,9 +181,18 @@ public partial class LumexTextBox : LumexDebouncedInputBase<string?>, ISlotCompo
     {
         if( DebounceDelay > 0 && Behavior is not InputBehavior.OnInput )
         {
-            throw new InvalidOperationException( 
+            throw new InvalidOperationException(
                 $"{GetType()} requires '{nameof( InputBehavior.OnInput )}' behavior" +
                 $" to be used when '{nameof( DebounceDelay )}' is not zero." );
+        }
+    }
+
+    /// <inheritdoc />
+    protected override async Task OnAfterRenderAsync( bool firstRender )
+    {
+        if( firstRender )
+        {
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>( "import", JavaScriptFile );
         }
     }
 
@@ -196,10 +219,36 @@ public partial class LumexTextBox : LumexDebouncedInputBase<string?>, ISlotCompo
     }
 
     /// <inheritdoc />
-    protected override bool TryParseValueFromString( string? value, out string? result )
+    protected override bool TryParseValueFromString( string? value, [MaybeNullWhen( false )] out TValue result )
     {
-        result = value;
-        return true;
+        return BindConverter.TryConvertTo( value, CultureInfo.InvariantCulture, out result );
+    }
+
+    /// <inheritdoc />
+    protected override async ValueTask SetValidationMessageAsync( bool parsingFailed )
+    {
+        if( parsingFailed )
+        {
+            ValidationMessage = await _jsModule.InvokeAsync<string>( "input.getValidationMessage", ElementReference );
+        }
+        else
+        {
+            ValidationMessage = default;
+        }
+
+        Invalid = !string.IsNullOrEmpty( ErrorMessage ) ||
+                  !string.IsNullOrEmpty( ValidationMessage );
+
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// Sets the input type for the input field.
+    /// </summary>
+    /// <param name="type">The input type to set (e.g., "text", "number", "password").</param>
+    protected void SetInputType( string type )
+    {
+        _inputType = type;
     }
 
     private async Task FocusInputAsync()
@@ -225,8 +274,26 @@ public partial class LumexTextBox : LumexDebouncedInputBase<string?>, ISlotCompo
 
     private async Task ClearAsyncCore()
     {
-        await SetCurrentValueAsync( string.Empty );
+        await SetCurrentValueAsync( default );
         await OnCleared.InvokeAsync();
         await FocusAsync();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if( _jsModule is not null )
+            {
+                await _jsModule.DisposeAsync();
+            }
+
+            Dispose();
+        }
+        catch( Exception ex ) when( ex is JSDisconnectedException or OperationCanceledException )
+        {
+            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿@namespace LumexUI
-@inherits LumexDebouncedInputBase<string?>
+@inherits LumexDebouncedInputBase<TValue>
+@typeparam TValue
 
 <LumexComponent As="@As"
                 Class="@RootClass"
@@ -11,7 +12,7 @@
                 data-required="@Utils.GetDataAttributeValue( Required )"
                 data-focus="@Utils.GetDataAttributeValue( Focused )"
                 data-filled-focused="@Utils.GetDataAttributeValue( FilledOrFocused )"
-                data-hidden="@Utils.GetDataAttributeValue( Type is InputType.Hidden )">
+                data-hidden="@Utils.GetDataAttributeValue( _inputType is "hidden" )">
     @_renderMainWrapper
 </LumexComponent>
 
@@ -48,7 +49,7 @@
                  data-has-clear-button="@Utils.GetDataAttributeValue( ClearButtonVisible )">
                 @StartContent
 
-                <input type="@Type.ToDescription()"
+                <input type="@_inputType"
                        class="@InputClass"
                        value="@CurrentValueAsString"
                        placeholder="@Placeholder"
@@ -78,7 +79,7 @@
                           @onkeyup="@ClearAsync">
                         <LumexIcon Icon="@Icons.Rounded.Cancel"
                                    Size="@new("1em")"
-                                   Color="@ThemeColor.None" />
+                                   Color="@ThemeColor.Default" />
                     </span>
                 }
             </div>
@@ -93,10 +94,17 @@
         }
 
         <div class="@HelperWrapperClass" data-slot="helper-wrapper">
-            @if( Invalid && !string.IsNullOrEmpty( ErrorMessage ) )
+            @if( Invalid && ( !string.IsNullOrEmpty( ErrorMessage ) || !string.IsNullOrEmpty( ValidationMessage ) ) )
             {
                 <div class="@ErrorMessageClass" data-slot="error-message">
-                    @ErrorMessage
+                    @if( !string.IsNullOrEmpty( ErrorMessage ) )
+                    {
+                        @ErrorMessage
+                    }
+                    else
+                    {
+                        @ValidationMessage
+                    }
                 </div>
             }
             else if( !string.IsNullOrEmpty( Description ) )
