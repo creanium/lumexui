@@ -17,7 +17,7 @@ internal record DocsTheme : LumexTheme
         };
 
         // Dark theme
-        Dark.Colors.Divider["default"] = Colors.Gray["800"];
+        Dark.Colors.Divider["default"] = Colors.Gray["300"];
         Dark.Colors.Background["default"] = Colors.Gray["900"];
         Dark.Layout.FontFamily = fontFamily;
 

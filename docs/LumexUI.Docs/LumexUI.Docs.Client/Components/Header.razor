@@ -2,7 +2,8 @@
 
 <LumexNavbar Sticky="@true"
              Blurred="@true"
-             MaxWidth="@MaxWidth.XLarge">
+             MaxWidth="@MaxWidth.XLarge"
+             Classes="@_navbarClasses">
     <LumexNavbarContent>
         <LumexNavbarMenuToggle Class="sm:hidden" />
         <LumexNavbarBrand>
@@ -12,7 +13,7 @@
         </LumexNavbarBrand>
     </LumexNavbarContent>
 
-    <LumexNavbarContent Class="hidden sm:flex gap-4">
+    <LumexNavbarContent Align="@Align.End" Class="hidden sm:flex">
         @foreach( var item in _navigationItems )
         {
             <LumexNavbarItem>
@@ -21,6 +22,19 @@
                 </LumexNavLink>
             </LumexNavbarItem>
         }
+
+        <LumexNavbarItem Class="h-full">
+            <LumexDivider Orientation="@Orientation.Vertical" />
+        </LumexNavbarItem>
+        <LumexNavbarItem>
+            @* TODO: Should be a button *@
+            <LumexIcon Icon="@Icons.Rounded.DarkMode" />
+        </LumexNavbarItem>
+        <LumexNavbarItem Class="flex">
+            <LumexNavLink Href="https://github.com/LumexUI/lumexui">
+                <LumexIcon Icon="@Icons.Brands.GitHub" ViewBox="0 0 24 24" />
+            </LumexNavLink>
+        </LumexNavbarItem>
     </LumexNavbarContent>
 
     <LumexNavbarMenu>

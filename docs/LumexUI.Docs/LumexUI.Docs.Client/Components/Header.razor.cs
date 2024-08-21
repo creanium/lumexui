@@ -6,4 +6,9 @@ public partial class Header
         new("docs/overview", "Docs"),
         new("docs/components", "Components"),
     ];
+
+    private readonly NavbarSlots _navbarClasses = new()
+    {
+        Wrapper = "py-5 gap-6"
+    };
 }
