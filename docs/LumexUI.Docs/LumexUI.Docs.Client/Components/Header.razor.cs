@@ -1,4 +1,4 @@
-namespace LumexUI.Docs.Components.Layout;
+namespace LumexUI.Docs.Client.Components;
 
 public partial class Header
 {
