@@ -1,0 +1,36 @@
+﻿@rendermode InteractiveAuto
+
+<LumexNavbar Sticky="@true"
+             Blurred="@true"
+             MaxWidth="@MaxWidth.XLarge">
+    <LumexNavbarContent>
+        <LumexNavbarMenuToggle Class="sm:hidden" />
+        <LumexNavbarBrand>
+            <p class="font-bold text-xl">
+                Lumex<span class="font-normal">UI</span>
+            </p>
+        </LumexNavbarBrand>
+    </LumexNavbarContent>
+
+    <LumexNavbarContent Class="hidden sm:flex gap-4">
+        @foreach( var item in _navigationItems )
+        {
+            <LumexNavbarItem>
+                <LumexNavLink Href="@item.Link">
+                    @item.Name
+                </LumexNavLink>
+            </LumexNavbarItem>
+        }
+    </LumexNavbarContent>
+
+    <LumexNavbarMenu>
+        @foreach( var item in _navigationItems )
+        {
+            <LumexNavbarMenuItem>
+                <LumexNavLink Href="@item.Link">
+                    @item.Name
+                </LumexNavLink>
+            </LumexNavbarMenuItem>
+        }
+    </LumexNavbarMenu>
+</LumexNavbar>

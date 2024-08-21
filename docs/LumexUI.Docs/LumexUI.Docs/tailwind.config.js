@@ -33,7 +33,7 @@ const animations = {
 module.exports = {
     content: [
         "./Components/**/*.razor",
-        "../../src/LumexUI/Styles/*.cs"
+        "../../../src/LumexUI/Styles/*.cs"
     ],
     theme: {
         extend: {
