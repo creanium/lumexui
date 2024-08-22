@@ -1,0 +1,37 @@
+﻿@namespace LumexUI.Docs.Client.Components
+@rendermode InteractiveAuto
+
+<aside class="hidden fixed z-20 overflow-y-auto h-[calc(100vh-4rem)] w-[16rem] pb-10 lg:block">
+    <nav>
+        <ul>
+            @foreach( var category in _navigation.Categories )
+            {
+                RenderCategory( __builder, category );
+            }
+        </ul>
+    </nav>
+</aside>
+
+@code {
+    private void RenderCategory( RenderTreeBuilder __builder, NavigationCategory category )
+    {
+        var pathSegment = GetPathSegment( category.Name );
+
+        <li class="lg:mt-8">
+            <h5 class="lg:mb-3 font-semibold text-foreground-700">
+                @category.Name
+            </h5>
+            <ul class="lg:space-y-2 border-l border-divider">
+                @foreach( var item in category.Items )
+                {
+                    <li class="border-l pl-4 -ml-px border-transparent hover:border-primary">
+                        <LumexNavLink Href="@($"{pathSegment}/{item.Link}")"
+                                      Class="text-foreground-500">
+                            @item.Name
+                        </LumexNavLink>
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+}
