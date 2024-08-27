@@ -7,7 +7,6 @@
              MaxWidth="@MaxWidth.XLarge"
              Classes="@_navbarClasses">
     <LumexNavbarContent>
-        <LumexNavbarMenuToggle Class="sm:hidden" />
         <LumexNavbarBrand>
             <p class="font-bold text-xl text-foreground-800">
                 Lumex<span class="font-normal">UI</span>
@@ -30,15 +29,12 @@
         <LumexNavbarItem Class="h-full">
             <LumexDivider Orientation="@Orientation.Vertical" />
         </LumexNavbarItem>
-        <LumexNavbarItem>
-            @* TODO: Should be a button *@
-            <LumexIcon Icon="@Icons.Rounded.DarkMode" />
-        </LumexNavbarItem>
-        <LumexNavbarItem Class="flex">
-            <LumexNavLink Href="https://github.com/LumexUI/lumexui">
-                <LumexIcon Icon="@Icons.Brands.GitHub" ViewBox="0 0 24 24" />
-            </LumexNavLink>
-        </LumexNavbarItem>
+        @HeaderActions
+    </LumexNavbarContent>
+
+    <LumexNavbarContent Align="@Align.End" Class="sm:hidden gap-4">
+        @HeaderActions
+        <LumexNavbarMenuToggle Class="sm:hidden" />
     </LumexNavbarContent>
 
     <LumexNavbarMenu>
@@ -52,3 +48,18 @@
         }
     </LumexNavbarMenu>
 </LumexNavbar>
+
+@code {
+    private static RenderFragment HeaderActions =>
+    @<text>
+        <LumexNavbarItem>
+            @* TODO: Should be a button *@
+            <LumexIcon Icon="@Icons.Rounded.DarkMode" />
+        </LumexNavbarItem>
+        <LumexNavbarItem Class="flex">
+            <LumexNavLink Href="https://github.com/LumexUI/lumexui">
+                <LumexIcon Icon="@Icons.Brands.GitHub" ViewBox="0 0 24 24" />
+            </LumexNavLink>
+        </LumexNavbarItem>
+    </text>;
+}
