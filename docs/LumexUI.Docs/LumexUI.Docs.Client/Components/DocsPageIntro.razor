@@ -1,0 +1,23 @@
+﻿@namespace LumexUI.Docs.Client.Components
+
+<header class="relative z-20">
+    <div>
+        <p class="mb-2 text-sm leading-6 font-semibold text-primary">
+            @Category
+        </p>
+
+        <h1 class="text-3xl font-extrabold text-foreground-800">
+            @Title
+        </h1>
+    </div>
+
+    <div class="mt-4 text-lg space-y-4">
+        @Description
+    </div>
+</header>
+
+@code {
+    [Parameter] public RenderFragment? Description { get; set; }
+    [Parameter] public string? Category { get; set; }
+    [Parameter] public string? Title { get; set; }
+}

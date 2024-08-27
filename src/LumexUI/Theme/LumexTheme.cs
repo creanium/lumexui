@@ -34,8 +34,8 @@ public record LumexTheme
     /// </summary>
     public LumexTheme()
     {
-        Light = new();
-        Dark = new();
+        Light = new ThemeConfigLight();
+        Dark = new ThemeConfigDark();
     }
 
     /// <summary>

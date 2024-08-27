@@ -19,7 +19,9 @@
         @foreach( var item in _navigationItems )
         {
             <LumexNavbarItem>
-                <LumexNavLink Href="@item.Link">
+                <LumexNavLink Href="@item.Link"
+                              Color="@ThemeColor.None"
+                              Class="data-[active=true]:text-primary">
                     @item.Name
                 </LumexNavLink>
             </LumexNavbarItem>

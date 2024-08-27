@@ -6,23 +6,23 @@ using LumexUI.Docs.Client.Common;
 
 namespace LumexUI.Docs.Client.Services;
 
-internal class Navigation
+internal class NavigationStore
 {
-    private static DocsNavigation? _navigation;
+    private static Navigation? _navigation;
 
     private static NavigationCategory GettingStartedCategory =>
-        new NavigationCategory( "Getting Started" )
+        new NavigationCategory( "Getting Started", Icons.Rounded.AutoStories )
             .AddItem( "Overview" )
             .AddItem( "Installation" );
 
     private static NavigationCategory CustomizationCategory =>
-        new NavigationCategory( "Customization" )
+        new NavigationCategory( "Customization", Icons.Rounded.Brush )
             .AddItem( "Theme" )
             .AddItem( "Layout" )
             .AddItem( "Colors" );
 
     private static NavigationCategory ComponentsCategory =>
-        new NavigationCategory( "Components" )
+        new NavigationCategory( "Components", Icons.Rounded.Joystick )
             .AddItem( typeof( LumexAccordion ) )
             .AddItem( typeof( LumexButton ) )
             .AddItem( typeof( LumexCard ) )
@@ -40,12 +40,12 @@ internal class Navigation
             .AddItem( typeof( LumexThemeProvider ) );
 
     private static NavigationCategory ComponentsApiCategory =>
-        new NavigationCategory( "Components API" )
+        new NavigationCategory( "Components API", Icons.Rounded.Manufacturing )
             .CopyFrom( ComponentsCategory );
 
-    public static DocsNavigation Build()
+    public static Navigation GetNavigation()
     {
-        _navigation ??= new DocsNavigation()
+        _navigation ??= new Navigation()
             .AddCategory( GettingStartedCategory )
             .AddCategory( CustomizationCategory )
             .AddCategory( ComponentsCategory )

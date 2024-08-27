@@ -1,0 +1,9 @@
+﻿@namespace LumexUI.Docs.Client.Components
+
+<article class="relative z-20 max-w-none prose prose-zinc mt-12 dark:prose-invert">
+	@ChildContent
+</article>
+
+@code {
+	[Parameter] public RenderFragment? ChildContent { get; set; }
+}

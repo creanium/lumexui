@@ -1,0 +1,8 @@
+﻿@namespace LumexUI.Docs.Client.Components
+
+<CascadingValue TValue="DocsPage" Value="@this" IsFixed="@true">
+    @ChildContent
+</CascadingValue>
+
+<DocsPageToc Sections="@_collectedSections" />
+<DocsPageFooter />

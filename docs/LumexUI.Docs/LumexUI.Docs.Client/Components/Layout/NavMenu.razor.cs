@@ -5,20 +5,15 @@ namespace LumexUI.Docs.Client.Components;
 
 public partial class NavMenu
 {
-    private DocsNavigation _navigation = default!;
+    private Navigation _navigation = default!;
 
     protected override void OnInitialized()
     {
-        _navigation = Navigation.Build();
+        _navigation = NavigationStore.GetNavigation();
     }
 
-    private static string GetPathSegment( string name )
+    private static string GetCategoryPathSegment( string name )
     {
-        if( name is "Components API" )
-        {
-            return "api";
-        }
-
-        return $"docs/{name}".ToLowerInvariant().Replace( " ", "-" );
+        return name.ToLowerInvariant().Replace( " ", "-" );
     }
 }

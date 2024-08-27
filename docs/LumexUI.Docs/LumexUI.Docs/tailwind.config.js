@@ -38,6 +38,7 @@ module.exports = {
         "../LumexUI.Docs.Client/Components/**/*.razor.cs",
         "../../../src/LumexUI/Styles/*.cs"
     ],
+    darkMode: 'selector',
     theme: {
         extend: {
             colors: {
@@ -220,5 +221,7 @@ module.exports = {
             ...animations
         },
     },
-    plugins: [],
+    plugins: [
+        require('@tailwindcss/typography')
+    ],
 }

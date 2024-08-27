@@ -1,0 +1,49 @@
+﻿@namespace LumexUI.Docs.Client.Components
+
+<CascadingValue TValue="DocsPageSection" Value="@this" IsFixed="@true">
+    <LumexComponent As="@(Parent is null ? "h2" : "h3")"
+                    id="@_id">
+        <LumexNavLink Href="@Link"
+                      Color="@ThemeColor.None"
+                      Class="no-underline">
+            @Title
+            <LumexIcon Icon="@Icons.Rounded.Link"
+                       Class="ml-2 p-1 border rounded-md bg-foreground-200 border-foreground-400 text-foreground hover:text-primary hover:border-primary hover:bg-primary-100/20 transition-colors" />
+        </LumexNavLink>
+    </LumexComponent>
+
+    @ChildContent
+</CascadingValue>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string? Title { get; set; }
+
+    [CascadingParameter] private DocsPage Page { get; set; } = default!;
+    [CascadingParameter] private DocsPageSection? Parent { get; set; }
+
+    [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+
+    internal int Level => ( Parent?.Level ?? -1 ) + 1;
+    internal string Link => $"{_pageRelativePath}#{_id}";
+
+    private string? _id;
+    private string? _pageRelativePath;
+
+    protected override void OnInitialized()
+    {
+        if( !string.IsNullOrEmpty( Title ) )
+        {
+            _id = CreateIdAttributeValue( Title );
+            _pageRelativePath = NavigationManager.Uri.Substring( NavigationManager.BaseUri.Length );
+
+            Page.AddSection( this );
+        }
+    }
+
+    private string CreateIdAttributeValue( string title )
+    {
+        var titleParts = title.Split( ' ' );
+        return string.Join( "-", titleParts ).ToLowerInvariant();
+    }
+}

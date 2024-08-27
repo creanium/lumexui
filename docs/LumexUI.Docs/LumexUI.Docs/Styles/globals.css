@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    h2[id],
+    h3[id] {
+        @apply scroll-my-24;
+    }
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

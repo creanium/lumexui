@@ -1,0 +1,26 @@
+﻿@namespace LumexUI.Docs.Client.Components
+
+<li class="flex items-center p-6 border border-divider rounded-large shadow-md bg-gradient-to-br from-primary-900/10 via-primary-900/20 to-60% hover:border-primary hover:shadow-primary/20 hover:from-primary-900/10 hover:via-primary-900/20 transition cursor-pointer">
+    <LumexNavLink Href="@Link"
+                  Color="@ThemeColor.None"
+                  Class="block hover:opacity-100">
+        <div class="flex items-end gap-3 mb-2">
+            <div class="w-8 h-8 flex items-center justify-center bg-primary/5 border border-primary/70 ring-2 ring-primary/15 rounded-xl">
+                <LumexIcon Icon="@Icon" Size="@new("20")" Color="@ThemeColor.Primary" />
+            </div>
+            <h3 class="text-foreground-700">
+                @Title
+            </h3>
+        </div>
+        <p class="text-sm text-foreground-600 leading-6">
+            @Description
+        </p>
+    </LumexNavLink>
+</li>
+
+@code {
+    [Parameter] public string? Icon { get; set; }
+    [Parameter] public string? Link { get; set; }
+    [Parameter] public string? Title { get; set; }
+    [Parameter] public string? Description { get; set; }
+}

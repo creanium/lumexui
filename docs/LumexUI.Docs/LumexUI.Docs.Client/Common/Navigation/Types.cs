@@ -2,16 +2,16 @@
 
 namespace LumexUI.Docs.Client.Common;
 
-internal record DocsNavigation
+internal record Navigation
 {
     internal List<NavigationCategory> Categories { get; }
 
-    internal DocsNavigation()
+    internal Navigation()
     {
         Categories = [];
     }
 
-    internal DocsNavigation AddCategory( NavigationCategory category )
+    internal Navigation AddCategory( NavigationCategory category )
     {
         Categories.Add( category );
         return this;
@@ -21,11 +21,13 @@ internal record DocsNavigation
 internal record NavigationCategory
 {
     internal string Name { get; }
+    internal string Icon { get; }
     internal List<NavigationItem> Items { get; }
 
-    internal NavigationCategory( string name )
+    internal NavigationCategory( string name, string icon )
     {
         Name = name;
+        Icon = icon;
         Items = [];
     }
 
@@ -70,4 +72,3 @@ internal record NavigationItem
     internal string? Name { get; init; }
     internal string? Link { get; init; }
 }
-

@@ -1,0 +1,143 @@
+﻿@page "/docs/getting-started/overview"
+@namespace LumexUI.Docs.Client.Pages
+@rendermode InteractiveAuto
+
+<DocsPage>
+    <DocsPageIntro Title="Get Started with LumexUI" Category="Getting Started">
+        <Description>
+            <p>
+                LumexUI simplifies the process of building modern, responsive UIs in Blazor by providing a comprehensive set of components styled with TailwindCSS.
+            </p>
+            <p>It’s efficient, adaptable, and built with developer experience in mind.</p>
+        </Description>
+    </DocsPageIntro>
+
+    <DocsPageContent>
+        <DocsPageSection Title="Introduction">
+            <p>
+                LumexUI is an open-source project offering a collection of Blazor UI components fully built with TailwindCSS.
+            </p>
+            <p>
+                These components are designed to be not only aesthetically pleasing but also highly customizable, allowing you to tailor them to meet your specific needs. The library is optimized for performance, ensuring that your applications remain fast and responsive.
+            </p>
+            <p>
+                We would like to acknowledge NextUI, a React components library, for inspiring the foundational ideas behind LumexUI. Specifically, we were inspired by NextUI’s approach to using TailwindCSS, its beautiful design, and its robust customization system. Our goal is to bring these principles to the Blazor ecosystem, making them accessible to developers who prefer Blazor for their projects.
+            </p>
+
+            <Callout Variant="@CalloutVariant.Info">
+                This project is currently in the development stage, and we welcome contributions from the community to help improve and expand the library. Your feedback and involvement are crucial as we continue to evolve and refine the components.
+            </Callout>
+        </DocsPageSection>
+
+        <DocsPageSection Title="Advantages of LumexUI">
+            <ul>
+                @foreach( var feature in _features )
+                {
+                    <li>
+                        <strong>@feature.Title. </strong>@feature.Description
+                    </li>
+                }
+            </ul>
+        </DocsPageSection>
+
+        <DocsPageSection Title="Get started">
+            <p class="max-w-screen-sm">
+                <strong>Ready to dive in?</strong> Explore the documentation to learn how to integrate and use LumexUI in your Blazor projects.
+            </p>
+
+            @* Quick links *@
+            <ul class="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 not-prose">
+                @foreach( var quickLink in _quickLinks )
+                {
+                    <QuickLink Icon="@quickLink.Icon"
+                               Link="@quickLink.Link"
+                               Title="@quickLink.Title"
+                               Description="@quickLink.Description" />
+                }
+            </ul>
+        </DocsPageSection>
+
+        <DocsPageSection Title="Get involved">
+            <p>
+                As we continue to develop and expand this project, we invite you to contribute and help shape the future of LumexUI. Together, we can build a powerful and flexible UI toolkit for the Blazor community.
+            </p>
+        </DocsPageSection>
+    </DocsPageContent>
+</DocsPage>
+
+@code {
+    private IEnumerable<Feature> _features =
+    [
+        new Feature()
+        {
+            Title = "TailwindCSS Integration",
+            Description = "Every component is crafted using TailwindCSS, offering you the full power of this utility-first CSS framework. This ensures that your designs are modern, flexible, and in line with best practices."
+        },
+    new Feature()
+        {
+            Title = "Beautiful Design",
+            Description = "Our components are designed with attention to detail, providing a clean and professional look out of the box. You can trust that they will enhance the visual appeal of your application."
+        },
+    new Feature()
+        {
+            Title = "Customizable",
+            Description = "With extensive customization options, you can easily adapt the components to match your branding and design preferences. The flexibility of TailwindCSS is fully leveraged to give you control over every aspect of your UI."
+        },
+    new Feature()
+        {
+            Title = "Performance-Optimized",
+            Description = "We prioritize performance in all our components. LumexUI is built to ensure that your applications load quickly and run smoothly, even as they scale."
+        },
+    new Feature()
+        {
+            Title = "Conflict-Free Styling",
+            Description = "Our additional utility library automatically handles TailwindCSS class conflicts. This ensures that your custom styles override defaults as expected, eliminating potential issues and simplifying the development process."
+        }
+    ];
+
+    private IEnumerable<QuickLink> _quickLinks =
+    [
+        new QuickLink()
+        {
+            Icon = Icons.Rounded.InstallDesktop,
+            Link = "docs/getting-started/installation",
+            Title = "Installation",
+            Description = "Add LumexUI to your Blazor project with simple installation steps."
+        },
+    new QuickLink()
+        {
+            Icon = Icons.Rounded.Draw,
+            Link = "docs/getting-started/usage",
+            Title = "Usage",
+            Description = "Learn the basics about using LumexUI components in your projects."
+        },
+    new QuickLink()
+        {
+            Icon = Icons.Rounded.Joystick,
+            Link = "docs/components",
+            Title = "Components Library",
+            Description = "Browse the full collection of LumexUI components and discover how to use them."
+        },
+    new QuickLink()
+        {
+            Icon = Icons.Rounded.DesignServices,
+            Link = "docs/customization",
+            Title = "Customizing Components",
+            Description = "Discover the various customization options available to tailor components to your needs."
+        }
+    ];
+
+    private record Feature
+    {
+        public required string Title { get; init; }
+        public required string Description { get; init; }
+    }
+
+    private record QuickLink
+    {
+        public required string Icon { get; init; }
+        public required string Link { get; init; }
+        public required string Title { get; init; }
+        public required string Description { get; init; }
+    }
+}

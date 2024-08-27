@@ -40,6 +40,7 @@ public static class ServiceCollectionExtensions
                     ["font-size"] = new ClassGroup( "text", ["tiny", "small", "medium", "large"] ),
                     ["border-radius"] = new ClassGroup( "rounded", ["small", "medium", "large"] ),
                     ["shadow"] = new ClassGroup( "shadow", ["small", "medium", "large"] ),
+                    ["opacity"] = new ClassGroup( "opacity", ["hover", "focus", "disabled", "divider"] ),
                 }
             } );
         } );
