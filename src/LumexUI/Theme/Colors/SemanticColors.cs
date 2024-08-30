@@ -72,9 +72,9 @@ internal static class SemanticColors
             new( Foreground, GetReadableColor( Colors.Rose["500"] ) )
         ],
         Info = [
-            .. Colors.LightBlue,
-            new( Default, Colors.LightBlue["500"] ),
-            new( Foreground, GetReadableColor( Colors.LightBlue["500"] ) )
+            .. Colors.Sky,
+            new( Default, Colors.Sky["500"] ),
+            new( Foreground, GetReadableColor( Colors.Sky["500"] ) )
         ]
     };
 
@@ -139,9 +139,9 @@ internal static class SemanticColors
             new( Foreground, GetReadableColor( Colors.Rose["500"] ) )
         ],
         Info = [
-            .. Colors.ReverseColorValues( Colors.LightBlue ),
-            new( Default, Colors.LightBlue["500"] ),
-            new( Foreground, GetReadableColor( Colors.LightBlue["500"] ) )
+            .. Colors.ReverseColorValues( Colors.Sky ),
+            new( Default, Colors.Sky["500"] ),
+            new( Foreground, GetReadableColor( Colors.Sky["500"] ) )
         ]
     };
 }

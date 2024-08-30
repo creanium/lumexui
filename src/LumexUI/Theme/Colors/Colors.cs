@@ -6,6 +6,9 @@ namespace LumexUI.Theme;
 
 /// <summary>
 /// Provides predefined colors and color scales for themes.
+/// <para>
+/// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+/// </para>
 /// </summary>
 public static class Colors
 {
@@ -20,207 +23,465 @@ public static class Colors
     public const string Black = "#000000";
 
     /// <summary>
-    /// The scale of pink colors.
+    /// The scale of slate colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
     /// </summary>
-    public readonly static Dictionary<string, string> Pink = new()
+    public readonly static Dictionary<string, string> Slate = new()
     {
-        ["50"] = "#FFF0F8",
-        ["100"] = "#FFD6EB",
-        ["200"] = "#FAA8D1",
-        ["300"] = "#F47BB2",
-        ["400"] = "#F3599C",
-        ["500"] = "#E24084",
-        ["600"] = "#C4175F",
-        ["700"] = "#9D174D",
-        ["800"] = "#810E3C",
-        ["900"] = "#4A0722"
-    };
-
-    /// <summary>
-    /// The scale of rose colors.
-    /// </summary>
-    public readonly static Dictionary<string, string> Rose = new()
-    {
-        ["50"] = "#FFF0F2",
-        ["100"] = "#FFD1D9",
-        ["200"] = "#FFA3AF",
-        ["300"] = "#F97183",
-        ["400"] = "#F54761",
-        ["500"] = "#DB1F48",
-        ["600"] = "#C91841",
-        ["700"] = "#9D153C",
-        ["800"] = "#801434",
-        ["900"] = "#510B20"
-    };
-
-    /// <summary>
-    /// The scale of red colors.
-    /// </summary>
-    public readonly static Dictionary<string, string> Red = new()
-    {
-        ["50"] = "#FFF0F0",
-        ["100"] = "#FFD1D1",
-        ["200"] = "#FCA6A6",
-        ["300"] = "#FB6F6F",
-        ["400"] = "#FB5050",
-        ["500"] = "#ED4040",
-        ["600"] = "#DE2B2B",
-        ["700"] = "#9D1515",
-        ["800"] = "#821C1C",
-        ["900"] = "#420000"
-    };
-
-    /// <summary>
-    /// The scale of orange colors.
-    /// </summary>
-    public readonly static Dictionary<string, string> Orange = new()
-    {
-        ["50"] = "#FFF7F0",
-        ["100"] = "#FFE3CC",
-        ["200"] = "#FABF8F",
-        ["300"] = "#FBA665",
-        ["400"] = "#F68D3C",
-        ["500"] = "#F07828",
-        ["600"] = "#D15D10",
-        ["700"] = "#A7450C",
-        ["800"] = "#7F2B0A",
-        ["900"] = "#4E1C09"
-    };
-
-    /// <summary>
-    /// The scale of yellow colors.
-    /// </summary>
-    public readonly static Dictionary<string, string> Yellow = new()
-    {
-        ["50"] = "#FFFCEB",
-        ["100"] = "#FFF5C2",
-        ["200"] = "#FDE786",
-        ["300"] = "#FEDE6D",
-        ["400"] = "#FAC71E",
-        ["500"] = "#F5B40F",
-        ["600"] = "#CA8907",
-        ["700"] = "#A8610B",
-        ["800"] = "#733C11",
-        ["900"] = "#48250E"
-    };
-
-    /// <summary>
-    /// The scale of green colors.
-    /// </summary>
-    public readonly static Dictionary<string, string> Green = new()
-    {
-        ["50"] = "#F0FFF3",
-        ["100"] = "#D1FFDC",
-        ["200"] = "#A0FDB6",
-        ["300"] = "#7AEB94",
-        ["400"] = "#52E075",
-        ["500"] = "#2AB74F",
-        ["600"] = "#19A347",
-        ["700"] = "#137736",
-        ["800"] = "#0B4B24",
-        ["900"] = "#062D15"
-    };
-
-    /// <summary>
-    /// The scale of teal colors.
-    /// </summary>
-    public readonly static Dictionary<string, string> Teal = new()
-    {
-        ["50"] = "#ECFDF5",
-        ["100"] = "#D3FDE8",
-        ["200"] = "#A8FAD1",
-        ["300"] = "#85F4BD",
-        ["400"] = "#0DD38E",
-        ["500"] = "#0EB980",
-        ["600"] = "#0E9A6B",
-        ["700"] = "#0F7152",
-        ["800"] = "#064C39",
-        ["900"] = "#012D24"
-    };
-
-    /// <summary>
-    /// The scale of lightblue colors.
-    /// </summary>
-    public readonly static Dictionary<string, string> LightBlue = new()
-    {
-        ["50"] = "#F0FBFF",
-        ["100"] = "#DBF5FF",
-        ["200"] = "#B5E8FD",
-        ["300"] = "#78D1FC",
-        ["400"] = "#34BDFC",
-        ["500"] = "#049FE7",
-        ["600"] = "#0480B9",
-        ["700"] = "#076997",
-        ["800"] = "#0D4A73",
-        ["900"] = "#082A45"
-    };
-
-    /// <summary>
-    /// The scale of blue colors.
-    /// </summary>
-    public readonly static Dictionary<string, string> Blue = new()
-    {
-        ["50"] = "#F0F8FF",
-        ["100"] = "#D7EBFE",
-        ["200"] = "#B4D9FD",
-        ["300"] = "#7FBDFA",
-        ["400"] = "#4893F4",
-        ["500"] = "#227AEC",
-        ["600"] = "#1D5BD8",
-        ["700"] = "#19419F",
-        ["800"] = "#153279",
-        ["900"] = "#0F1C43"
-    };
-
-    /// <summary>
-    /// The scale of indigo colors.
-    /// </summary>
-    public readonly static Dictionary<string, string> Indigo = new()
-    {
-        ["50"] = "#F0F2FF",
-        ["100"] = "#E1E6FE",
-        ["200"] = "#C3CFFE",
-        ["300"] = "#93A4FB",
-        ["400"] = "#6E77F7",
-        ["500"] = "#5E62E4",
-        ["600"] = "#474CD7",
-        ["700"] = "#3935BB",
-        ["800"] = "#2A2583",
-        ["900"] = "#1D1B4B"
-    };
-
-    /// <summary>
-    /// The scale of violet colors.
-    /// </summary>
-    public readonly static Dictionary<string, string> Violet = new()
-    {
-        ["50"] = "#F4F0FF",
-        ["100"] = "#E8E1FF",
-        ["200"] = "#D8CDFE",
-        ["300"] = "#B5A1FC",
-        ["400"] = "#9F7DFC",
-        ["500"] = "#8050F2",
-        ["600"] = "#6A29DB",
-        ["700"] = "#5D27B9",
-        ["800"] = "#451A8E",
-        ["900"] = "#311560"
+        ["50"] = "#f8fafc",
+        ["100"] = "#f1f5f9",
+        ["200"] = "#e2e8f0",
+        ["300"] = "#cbd5e1",
+        ["400"] = "#94a3b8",
+        ["500"] = "#64748b",
+        ["600"] = "#475569",
+        ["700"] = "#334155",
+        ["800"] = "#1e293b",
+        ["900"] = "#0f172a",
+        ["950"] = "#020617"
     };
 
     /// <summary>
     /// The scale of gray colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
     /// </summary>
     public readonly static Dictionary<string, string> Gray = new()
     {
-        ["50"] = "#FAFAFA",
-        ["100"] = "#F4F4F5",
-        ["200"] = "#E4E4E7",
-        ["300"] = "#CACACE",
-        ["400"] = "#9C9CA5",
-        ["500"] = "#52525B",
-        ["600"] = "#3F3F46",
-        ["700"] = "#27272A",
-        ["800"] = "#18181B",
-        ["900"] = "#09090B"
+        ["50"] = "#f9fafb",
+        ["100"] = "#f3f4f6",
+        ["200"] = "#e5e7eb",
+        ["300"] = "#d1d5db",
+        ["400"] = "#9ca3af",
+        ["500"] = "#6b7280",
+        ["600"] = "#4b5563",
+        ["700"] = "#374151",
+        ["800"] = "#1f2937",
+        ["900"] = "#111827",
+        ["950"] = "#030712"
+    };
+
+    /// <summary>
+    /// The scale of zinc colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Zinc = new()
+    {
+        ["50"] = "#fafafa",
+        ["100"] = "#f4f4f5",
+        ["200"] = "#e4e4e7",
+        ["300"] = "#d4d4d8",
+        ["400"] = "#a1a1aa",
+        ["500"] = "#71717a",
+        ["600"] = "#52525b",
+        ["700"] = "#3f3f46",
+        ["800"] = "#27272a",
+        ["900"] = "#18181b",
+        ["950"] = "#09090b"
+    };
+
+    /// <summary>
+    /// The scale of neutral colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Neutral = new()
+    {
+        ["50"] = "#fafafa",
+        ["100"] = "#f5f5f5",
+        ["200"] = "#e5e5e5",
+        ["300"] = "#d4d4d4",
+        ["400"] = "#a3a3a3",
+        ["500"] = "#737373",
+        ["600"] = "#525252",
+        ["700"] = "#404040",
+        ["800"] = "#262626",
+        ["900"] = "#171717",
+        ["950"] = "#0a0a0a"
+    };
+
+    /// <summary>
+    /// The scale of stone colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Stone = new()
+    {
+        ["50"] = "#fafaf9",
+        ["100"] = "#f5f5f4",
+        ["200"] = "#e7e5e4",
+        ["300"] = "#d6d3d1",
+        ["400"] = "#a8a29e",
+        ["500"] = "#78716c",
+        ["600"] = "#57534e",
+        ["700"] = "#44403c",
+        ["800"] = "#292524",
+        ["900"] = "#1c1917",
+        ["950"] = "#0c0a09"
+    };
+
+    /// <summary>
+    /// The scale of red colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Red = new()
+    {
+        ["50"] = "#fef2f2",
+        ["100"] = "#fee2e2",
+        ["200"] = "#fecaca",
+        ["300"] = "#fca5a5",
+        ["400"] = "#f87171",
+        ["500"] = "#ef4444",
+        ["600"] = "#dc2626",
+        ["700"] = "#b91c1c",
+        ["800"] = "#991b1b",
+        ["900"] = "#7f1d1d",
+        ["950"] = "#450a0a"
+    };
+
+    /// <summary>
+    /// The scale of orange colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Orange = new()
+    {
+        ["50"] = "#fff7ed",
+        ["100"] = "#ffedd5",
+        ["200"] = "#fed7aa",
+        ["300"] = "#fdba74",
+        ["400"] = "#fb923c",
+        ["500"] = "#f97316",
+        ["600"] = "#ea580c",
+        ["700"] = "#c2410c",
+        ["800"] = "#9a3412",
+        ["900"] = "#7c2d12",
+        ["950"] = "#431407"
+    };
+
+    /// <summary>
+    /// The scale of amber colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Amber = new()
+    {
+        ["50"] = "#fffbeb",
+        ["100"] = "#fef3c7",
+        ["200"] = "#fde68a",
+        ["300"] = "#fcd34d",
+        ["400"] = "#fbbf24",
+        ["500"] = "#f59e0b",
+        ["600"] = "#d97706",
+        ["700"] = "#b45309",
+        ["800"] = "#92400e",
+        ["900"] = "#78350f",
+        ["950"] = "#451a03"
+    };
+
+    /// <summary>
+    /// The scale of yellow colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Yellow = new()
+    {
+        ["50"] = "#fefce8",
+        ["100"] = "#fef9c3",
+        ["200"] = "#fef08a",
+        ["300"] = "#fde047",
+        ["400"] = "#facc15",
+        ["500"] = "#eab308",
+        ["600"] = "#ca8a04",
+        ["700"] = "#a16207",
+        ["800"] = "#854d0e",
+        ["900"] = "#713f12",
+        ["950"] = "#422006"
+    };
+
+    /// <summary>
+    /// The scale of lime colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Lime = new()
+    {
+        ["50"] = "#f7fee7",
+        ["100"] = "#ecfccb",
+        ["200"] = "#d9f99d",
+        ["300"] = "#bef264",
+        ["400"] = "#a3e635",
+        ["500"] = "#84cc16",
+        ["600"] = "#65a30d",
+        ["700"] = "#4d7c0f",
+        ["800"] = "#3f6212",
+        ["900"] = "#365314",
+        ["950"] = "#1a2e05"
+    };
+
+    /// <summary>
+    /// The scale of green colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Green = new()
+    {
+        ["50"] = "#f0fdf4",
+        ["100"] = "#dcfce7",
+        ["200"] = "#bbf7d0",
+        ["300"] = "#86efac",
+        ["400"] = "#4ade80",
+        ["500"] = "#22c55e",
+        ["600"] = "#16a34a",
+        ["700"] = "#15803d",
+        ["800"] = "#166534",
+        ["900"] = "#14532d",
+        ["950"] = "#052e16"
+    };
+
+    /// <summary>
+    /// The scale of emerald colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Emerald = new()
+    {
+        ["50"] = "#ecfdf5",
+        ["100"] = "#d1fae5",
+        ["200"] = "#a7f3d0",
+        ["300"] = "#6ee7b7",
+        ["400"] = "#34d399",
+        ["500"] = "#10b981",
+        ["600"] = "#059669",
+        ["700"] = "#047857",
+        ["800"] = "#065f46",
+        ["900"] = "#064e3b",
+        ["950"] = "#022c22"
+    };
+
+    /// <summary>
+    /// The scale of teal colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Teal = new()
+    {
+        ["50"] = "#f0fdfa",
+        ["100"] = "#ccfbf1",
+        ["200"] = "#99f6e4",
+        ["300"] = "#5eead4",
+        ["400"] = "#2dd4bf",
+        ["500"] = "#14b8a6",
+        ["600"] = "#0d9488",
+        ["700"] = "#0f766e",
+        ["800"] = "#115e59",
+        ["900"] = "#134e4a",
+        ["950"] = "#042f2e"
+    };
+
+    /// <summary>
+    /// The scale of cyan colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Cyan = new()
+    {
+        ["50"] = "#ecfeff",
+        ["100"] = "#cffafe",
+        ["200"] = "#a5f3fc",
+        ["300"] = "#67e8f9",
+        ["400"] = "#22d3ee",
+        ["500"] = "#06b6d4",
+        ["600"] = "#0891b2",
+        ["700"] = "#0e7490",
+        ["800"] = "#155e75",
+        ["900"] = "#164e63",
+        ["950"] = "#083344"
+    };
+
+    /// <summary>
+    /// The scale of sky colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Sky = new()
+    {
+        ["50"] = "#f0f9ff",
+        ["100"] = "#e0f2fe",
+        ["200"] = "#bae6fd",
+        ["300"] = "#7dd3fc",
+        ["400"] = "#38bdf8",
+        ["500"] = "#0ea5e9",
+        ["600"] = "#0284c7",
+        ["700"] = "#0369a1",
+        ["800"] = "#075985",
+        ["900"] = "#0c4a6e",
+        ["950"] = "#082f49"
+    };
+
+    /// <summary>
+    /// The scale of blue colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Blue = new()
+    {
+        ["50"] = "#eff6ff",
+        ["100"] = "#dbeafe",
+        ["200"] = "#bfdbfe",
+        ["300"] = "#93c5fd",
+        ["400"] = "#60a5fa",
+        ["500"] = "#3b82f6",
+        ["600"] = "#2563eb",
+        ["700"] = "#1d4ed8",
+        ["800"] = "#1e40af",
+        ["900"] = "#1e3a8a",
+        ["950"] = "#172554"
+    };
+
+    /// <summary>
+    /// The scale of indigo colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Indigo = new()
+    {
+        ["50"] = "#eef2ff",
+        ["100"] = "#e0e7ff",
+        ["200"] = "#c7d2fe",
+        ["300"] = "#a5b4fc",
+        ["400"] = "#818cf8",
+        ["500"] = "#6366f1",
+        ["600"] = "#4f46e5",
+        ["700"] = "#4338ca",
+        ["800"] = "#3730a3",
+        ["900"] = "#312e81",
+        ["950"] = "#1e1b4b"
+    };
+
+    /// <summary>
+    /// The scale of violet colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Violet = new()
+    {
+        ["50"] = "#f5f3ff",
+        ["100"] = "#ede9fe",
+        ["200"] = "#ddd6fe",
+        ["300"] = "#c4b5fd",
+        ["400"] = "#a78bfa",
+        ["500"] = "#8b5cf6",
+        ["600"] = "#7c3aed",
+        ["700"] = "#6d28d9",
+        ["800"] = "#5b21b6",
+        ["900"] = "#4c1d95",
+        ["950"] = "#2e1065"
+    };
+
+    /// <summary>
+    /// The scale of purple colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Purple = new()
+    {
+        ["50"] = "#faf5ff",
+        ["100"] = "#f3e8ff",
+        ["200"] = "#e9d5ff",
+        ["300"] = "#d8b4fe",
+        ["400"] = "#c084fc",
+        ["500"] = "#a855f7",
+        ["600"] = "#9333ea",
+        ["700"] = "#7e22ce",
+        ["800"] = "#6b21a8",
+        ["900"] = "#581c87",
+        ["950"] = "#3b0764"
+    };
+
+    /// <summary>
+    /// The scale of fuchsia colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Fuchsia = new()
+    {
+        ["50"] = "#fdf4ff",
+        ["100"] = "#fae8ff",
+        ["200"] = "#f5d0fe",
+        ["300"] = "#f0abfc",
+        ["400"] = "#e879f9",
+        ["500"] = "#d946ef",
+        ["600"] = "#c026d3",
+        ["700"] = "#a21caf",
+        ["800"] = "#86198f",
+        ["900"] = "#701a75",
+        ["950"] = "#4a044e"
+    };
+
+    /// <summary>
+    /// The scale of pink colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Pink = new()
+    {
+        ["50"] = "#fdf2f8",
+        ["100"] = "#fce7f3",
+        ["200"] = "#fbcfe8",
+        ["300"] = "#f9a8d4",
+        ["400"] = "#f472b6",
+        ["500"] = "#ec4899",
+        ["600"] = "#db2777",
+        ["700"] = "#be185d",
+        ["800"] = "#9d174d",
+        ["900"] = "#831843",
+        ["950"] = "#500724"
+    };
+
+    /// <summary>
+    /// The scale of rose colors.
+    /// <para>
+    /// See <seealso href="https://tailwindcss.com/docs/customizing-colors"/>
+    /// </para>
+    /// </summary>
+    public readonly static Dictionary<string, string> Rose = new()
+    {
+        ["50"] = "#fff1f2",
+        ["100"] = "#ffe4e6",
+        ["200"] = "#fecdd3",
+        ["300"] = "#fda4af",
+        ["400"] = "#fb7185",
+        ["500"] = "#f43f5e",
+        ["600"] = "#e11d48",
+        ["700"] = "#be123c",
+        ["800"] = "#9f1239",
+        ["900"] = "#881337",
+        ["950"] = "#4c0519"
     };
 
     /// <summary>
