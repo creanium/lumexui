@@ -33,7 +33,7 @@ internal class NavigationStore
             .AddItem( typeof( LumexLink ) )
             .AddItem( typeof( LumexNavLink ) )
             .AddItem( typeof( LumexNavbar ) )
-            .AddItem( typeof( LumexNumbox<T> ) )
+            .AddItem( typeof( LumexNumbox<int> ) )
             .AddItem( typeof( LumexPopover ) )
             .AddItem( typeof( LumexSwitch ) )
             .AddItem( typeof( LumexTextbox ) )

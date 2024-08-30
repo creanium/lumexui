@@ -1,8 +1,44 @@
 ﻿@namespace LumexUI.Docs.Client.Components
 
 <CascadingValue TValue="DocsPage" Value="@this" IsFixed="@true">
-    @ChildContent
+    @Intro
+
+    <article class="relative z-20 max-w-none prose prose-zinc mt-12 dark:prose-invert">
+        @ChildContent
+    </article>
+
+    @Footer
 </CascadingValue>
 
-<DocsPageToc Sections="@_collectedSections" />
-<DocsPageFooter />
+@if( ShowToc )
+{
+    <DocsPageToc Sections="@_collectedSections" />
+}
+
+@code {
+    private RenderFragment Intro =>
+    @<text>
+        <header class="relative z-20">
+            <div>
+                <p class="mb-2 text-sm leading-6 font-semibold text-primary">
+                    @Category
+                </p>
+                <h1 class="text-3xl font-extrabold text-foreground-800">
+                    @Title
+                </h1>
+            </div>
+            <div class="mt-4 text-lg space-y-4">
+                @Description
+            </div>
+        </header>
+    </text>;
+
+    private RenderFragment Footer =>
+    @<text>
+        <footer class="mt-12">
+            <div class="pt-10 pb-28 border-t border-divider">
+                <p>.</p>
+            </div>
+        </footer>
+    </text>;
+}
