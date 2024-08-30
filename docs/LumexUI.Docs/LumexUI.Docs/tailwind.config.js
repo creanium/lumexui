@@ -1,4 +1,6 @@
-const DEFAULT_TRANSITION_DURATION = '200ms'
+const defaultTheme = require('tailwindcss/defaultTheme');
+
+const DEFAULT_TRANSITION_DURATION = '200ms';
 
 const animations = {
     animation: {
@@ -38,7 +40,7 @@ module.exports = {
         "../LumexUI.Docs.Client/Components/**/*.razor.cs",
         "../../../src/LumexUI/Styles/*.cs"
     ],
-    darkMode: 'selector',
+    darkMode: 'class',
     theme: {
         extend: {
             colors: {
@@ -193,6 +195,10 @@ module.exports = {
                     foreground: "hsl(var(--lumex-info-foreground) / <alpha-value>)"
                 }
             },
+            fontFamily: {
+                sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+                mono: ['Fira Code VF', ...defaultTheme.fontFamily.mono]
+            },
             fontSize: {
                 tiny: ["var(--lumex-font-size-tiny)", "var(--lumex-line-height-tiny)"],
                 small: ["var(--lumex-font-size-small)", "var(--lumex-line-height-small)"],
@@ -224,4 +230,4 @@ module.exports = {
     plugins: [
         require('@tailwindcss/typography')
     ],
-}
+};
