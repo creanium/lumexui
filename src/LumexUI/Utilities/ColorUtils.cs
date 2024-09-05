@@ -15,7 +15,12 @@ internal static class ColorUtils
     internal static string HexToHsl( string color )
     {
         HexToHsl( color, out var H, out var S, out var L );
-        return $"{H} {S}% {L}%";
+
+        var _H = H.ToString( "0.##", CultureInfo.InvariantCulture );
+        var _S = S.ToString( "0.##", CultureInfo.InvariantCulture );
+        var _L = L.ToString( "0.##", CultureInfo.InvariantCulture );
+
+        return $"{_H} {_S}% {_L}%";
     }
 
     internal static string GetReadableColor( string color )
@@ -73,9 +78,9 @@ internal static class ColorUtils
             }
         }
 
-        H = Math.Round( H *= 60d );
-        S = Math.Round( S *= 100 );
-        L = Math.Round( L *= 100 );
+        H = Math.Round( H *= 60d, 2 );
+        S = Math.Round( S *= 100d, 2 );
+        L = Math.Round( L *= 100d, 2 );
 
         if( H < 0 )
         {
