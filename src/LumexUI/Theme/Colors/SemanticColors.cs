@@ -17,8 +17,8 @@ internal static class SemanticColors
             new( Default, Colors.White )
         ],
         Foreground = [
-            .. Colors.Gray,
-            new( Default, Colors.Gray["700"] ),
+            .. Colors.Zinc,
+            new( Default, Colors.Zinc["700"] ),
         ],
         Overlay = [
             new( Default, Colors.Black )
@@ -27,24 +27,24 @@ internal static class SemanticColors
             new( Default, Colors.Blue["500"] )
         ],
         Divider = [
-            new( Default, Colors.Black )
+            new( Default, Colors.Zinc["900"] )
         ],
         Content1 = [
             new( Default, Colors.White ),
-            new( Foreground, Colors.Gray["900"] )
+            new( Foreground, Colors.Zinc["700"] )
         ],
         Content2 = [
-            new( Default, Colors.Gray["100"] ),
-            new( Foreground, Colors.Gray["800"] )
+            new( Default, Colors.Zinc["100"] ),
+            new( Foreground, Colors.Zinc["800"] )
         ],
         Content3 = [
-            new( Default, Colors.Gray["200"] ),
-            new( Foreground, Colors.Gray["700"] )
+            new( Default, Colors.Zinc["200"] ),
+            new( Foreground, Colors.Zinc["700"] )
         ],
         Default = [
-            .. Colors.Gray,
-            new( Default, Colors.Gray["200"] ),
-            new( Foreground, GetReadableColor( Colors.Gray["200"] ) )
+            .. Colors.Zinc,
+            new( Default, Colors.Zinc["300"] ),
+            new( Foreground, GetReadableColor( Colors.Zinc["300"] ) )
         ],
         Primary = [
             .. Colors.Blue,
@@ -62,9 +62,9 @@ internal static class SemanticColors
             new( Foreground, GetReadableColor( Colors.Green["500"] ) )
         ],
         Warning = [
-            .. Colors.Yellow,
-            new( Default, Colors.Yellow["500"] ),
-            new( Foreground, GetReadableColor( Colors.Yellow["500"] ) )
+            .. Colors.Amber,
+            new( Default, Colors.Amber["500"] ),
+            new( Foreground, GetReadableColor( Colors.Amber["500"] ) )
         ],
         Danger = [
             .. Colors.Rose,
@@ -84,9 +84,9 @@ internal static class SemanticColors
             new( Default, Colors.Black )
         ],
         Foreground = [
-            .. Colors.ReverseColorValues( Colors.Gray ),
-            new( Default, Colors.Gray["300"] ),
-        ],
+            .. Colors.ReverseColorValues( Colors.Zinc ),
+            new( Default, Colors.Zinc["200"] ),
+        ],                              
         Overlay = [
             new( Default, Colors.Black )
         ],
@@ -94,24 +94,24 @@ internal static class SemanticColors
             new( Default, Colors.Blue["500"] )
         ],
         Divider = [
-            new( Default, Colors.White )
+            new( Default, Colors.Zinc["50"] )
         ],
         Content1 = [
-            new( Default, Colors.Gray["900"] ),
-            new( Foreground, Colors.Gray["50"] )
+            new( Default, Colors.Zinc["900"] ),
+            new( Foreground, Colors.Zinc["50"] )
         ],
         Content2 = [
-            new( Default, Colors.Gray["800"] ),
-            new( Foreground, Colors.Gray["100"] )
+            new( Default, Colors.Zinc["800"] ),
+            new( Foreground, Colors.Zinc["100"] )
         ],
         Content3 = [
-            new( Default, Colors.Gray["700"] ),
-            new( Foreground, Colors.Gray["200"] )
+            new( Default, Colors.Zinc["700"] ),
+            new( Foreground, Colors.Zinc["200"] )
         ],
         Default = [
-            .. Colors.ReverseColorValues( Colors.Gray ),
-            new( Default, Colors.Gray["300"] ),
-            new( Foreground, GetReadableColor( Colors.Gray["300"] ) )
+            .. Colors.ReverseColorValues( Colors.Zinc ),
+            new( Default, Colors.Zinc["300"] ),
+            new( Foreground, GetReadableColor( Colors.Zinc["300"] ) )
         ],
         Primary = [
             .. Colors.ReverseColorValues( Colors.Blue ),
@@ -129,9 +129,9 @@ internal static class SemanticColors
             new( Foreground, GetReadableColor( Colors.Green["500"] ) )
         ],
         Warning = [
-            .. Colors.ReverseColorValues( Colors.Yellow ),
-            new( Default, Colors.Yellow["500"] ),
-            new( Foreground, GetReadableColor( Colors.Yellow["500"] ) )
+            .. Colors.ReverseColorValues( Colors.Amber ),
+            new( Default, Colors.Amber["500"] ),
+            new( Foreground, GetReadableColor( Colors.Amber["500"] ) )
         ],
         Danger = [
             .. Colors.ReverseColorValues( Colors.Rose ),
