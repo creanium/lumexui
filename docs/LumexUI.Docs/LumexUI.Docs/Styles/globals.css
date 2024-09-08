@@ -5,3 +5,15 @@
 @import 'blazor.css';
 @import 'prism.css';
 @import 'fonts.css';
+
+.dark {
+    color-scheme: dark;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+}

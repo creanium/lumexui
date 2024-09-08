@@ -1,0 +1,43 @@
+﻿@namespace LumexUI.Docs.Components
+
+<div class="@RootClass">
+    <LumexIcon Icon="@_icon"
+               Color="@ThemeColor.None"
+               Class="mt-1.5 shrink-0" />
+    <p>@ChildContent</p>
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public CalloutVariant Variant { get; set; }
+
+    private string RootClass => ElementClass.Empty()
+        .Add( "not-prose" )
+        .Add( "flex" )
+        .Add( "p-4" )
+        .Add( "my-6" )
+        .Add( "gap-3" )
+        .Add( "border" )
+        .Add( "rounded-xl" )
+        .Add( "bg-info-50 border-info-200 text-info-800", when: Variant is CalloutVariant.Info )
+        .Add( "bg-danger-50 border-danger-200 text-danger-800", when: Variant is CalloutVariant.Danger )
+        .Add( "bg-warning-50 border-warning-200 text-warning-800", when: Variant is CalloutVariant.Warning )
+        .Add( "bg-success-50 border-success-200 text-success-800", when: Variant is CalloutVariant.Success )
+        .Add( "bg-secondary-50 border-secondary-200 text-secondary-800", when: Variant is CalloutVariant.Tip )
+        .ToString();
+
+    private string _icon = default!;
+
+    protected override void OnInitialized()
+    {
+        _icon = Variant switch
+        {
+            CalloutVariant.Info => Icons.Rounded.Info,
+            CalloutVariant.Warning => Icons.Rounded.Warning,
+            CalloutVariant.Danger => Icons.Rounded.Dangerous,
+            CalloutVariant.Success => Icons.Rounded.CheckCircle,
+            CalloutVariant.Tip => Icons.Rounded.Lightbulb,
+            _ => throw new NotImplementedException()
+        };
+    }
+}

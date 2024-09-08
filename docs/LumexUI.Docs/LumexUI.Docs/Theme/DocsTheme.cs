@@ -7,7 +7,7 @@ internal record DocsTheme : LumexTheme
 {
     internal DocsTheme()
     {
-        DefaultTheme = ThemeType.Dark;
+        DefaultTheme = ThemeType.Light;
 
         // Typography
         var fontFamily = new FontFamily()
@@ -18,10 +18,7 @@ internal record DocsTheme : LumexTheme
 
         // Dark theme
         Dark.Layout.FontFamily = fontFamily;
-
-        Dark.Colors.Background = new ColorScale( Colors.Gray["900"] );
-        Dark.Colors.Divider = new ColorScale( Colors.Gray["300"] );
-        Dark.Colors.Primary = new ColorScale( Colors.Orange, "500" );
+        Dark.Colors.Background = new ColorScale( Colors.Zinc["950"] );
 
         // Light theme
         Light.Layout.FontFamily = fontFamily;

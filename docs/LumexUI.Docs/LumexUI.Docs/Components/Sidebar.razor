@@ -1,0 +1,45 @@
+﻿@namespace LumexUI.Docs.Components
+
+<aside class="hidden fixed z-20 overflow-y-auto inset-0 top-[4.0625rem] left-[max(0px,calc(50%-40rem))] right-auto w-[16rem] pl-6 pb-10 lg:block">
+    <nav>
+        <div class="sticky top-0 pointer-events-none">
+            <div class="h-10 bg-gradient-to-b from-background"></div>
+        </div>
+        <ul class="space-y-8">
+            @foreach( var category in _navigation.Categories )
+            {
+                RenderCategory( __builder, category );
+            }
+        </ul>
+    </nav>
+</aside>
+
+@code {
+    private void RenderCategory( RenderTreeBuilder __builder, NavigationCategory category )
+    {
+        var pathSegment = GetCategoryPathSegment( category.Name );
+
+        <li>
+            <div class="flex items-center gap-2 mb-3 text-foreground-700">
+                <LumexIcon Icon="@category.Icon"
+                           Color="@ThemeColor.None"
+                           Size="@new("20")" />
+                <h5 class="font-semibold">
+                    @category.Name
+                </h5>
+            </div>
+            <ul class="space-y-2 border-l border-divider">
+                @foreach( var item in category.Items )
+                {
+                    <li>
+                        <LumexNavLink Href="@($"docs/{pathSegment}/{item.Link}")"
+                                      Match="@NavLinkMatch.Prefix"
+                                      Class="block border-l pl-4 -ml-px border-transparent text-foreground-500 hover:border-primary  data-[active=true]:text-primary data-[active=true]:border-current">
+                            @item.Name
+                        </LumexNavLink>
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+}

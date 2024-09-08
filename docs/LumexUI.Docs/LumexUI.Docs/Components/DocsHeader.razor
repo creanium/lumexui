@@ -1,0 +1,24 @@
+﻿@namespace LumexUI.Docs.Components
+
+@if( !string.IsNullOrEmpty( Title ) && !string.IsNullOrEmpty( Description ) )
+{
+    <header class="relative z-20">
+        <div>
+            <p class="mb-2 text-sm leading-6 font-semibold text-orange-500 dark:text-orange-400">
+                @Section
+            </p>
+            <h1 class="text-3xl font-extrabold text-foreground-800">
+                @Title
+            </h1>
+        </div>
+        <div class="mt-4 text-lg space-y-4">
+            @Description
+        </div>
+    </header>
+}
+
+@code {
+    [Parameter, EditorRequired] public string Title { get; set; } = null!;
+    [Parameter, EditorRequired] public string Section { get; set; } = null!;
+    [Parameter, EditorRequired] public string Description { get; set; } = null!;
+}

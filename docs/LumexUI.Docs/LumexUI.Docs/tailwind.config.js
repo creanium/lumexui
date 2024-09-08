@@ -34,6 +34,8 @@ const animations = {
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
+        "./Pages/**/*.razor",
+        "./Pages/**/*.razor.cs",
         "./Components/**/*.razor",
         "./Components/**/*.razor.cs",
         "../LumexUI.Docs.Client/Components/**/*.razor",
@@ -59,6 +61,7 @@ module.exports = {
                     700: "hsl(var(--lumex-foreground-700) / <alpha-value>)",
                     800: "hsl(var(--lumex-foreground-800) / <alpha-value>)",
                     900: "hsl(var(--lumex-foreground-900) / <alpha-value>)",
+                    950: "hsl(var(--lumex-foreground-950) / <alpha-value>)",
                     DEFAULT: "hsl(var(--lumex-foreground) / <alpha-value>)"
                 },
                 focus: {
@@ -95,6 +98,7 @@ module.exports = {
                     700: "hsl(var(--lumex-default-700) / <alpha-value>)",
                     800: "hsl(var(--lumex-default-800) / <alpha-value>)",
                     900: "hsl(var(--lumex-default-900) / <alpha-value>)",
+                    950: "hsl(var(--lumex-default-950) / <alpha-value>)",
                     DEFAULT: "hsl(var(--lumex-default) / <alpha-value>)",
                     foreground: "hsl(var(--lumex-default-foreground) / <alpha-value>)"
                 },
@@ -111,6 +115,7 @@ module.exports = {
                     700: "hsl(var(--lumex-primary-700) / <alpha-value>)",
                     800: "hsl(var(--lumex-primary-800) / <alpha-value>)",
                     900: "hsl(var(--lumex-primary-900) / <alpha-value>)",
+                    950: "hsl(var(--lumex-primary-950) / <alpha-value>)",
                     DEFAULT: "hsl(var(--lumex-primary) / <alpha-value>)",
                     foreground: "hsl(var(--lumex-primary-foreground) / <alpha-value>)"
                 },
@@ -127,6 +132,7 @@ module.exports = {
                     700: "hsl(var(--lumex-secondary-700) / <alpha-value>)",
                     800: "hsl(var(--lumex-secondary-800) / <alpha-value>)",
                     900: "hsl(var(--lumex-secondary-900) / <alpha-value>)",
+                    950: "hsl(var(--lumex-secondary-950) / <alpha-value>)",
                     DEFAULT: "hsl(var(--lumex-secondary) / <alpha-value>)",
                     foreground: "hsl(var(--lumex-secondary-foreground) / <alpha-value>)"
                 },
@@ -143,6 +149,7 @@ module.exports = {
                     700: "hsl(var(--lumex-success-700) / <alpha-value>)",
                     800: "hsl(var(--lumex-success-800) / <alpha-value>)",
                     900: "hsl(var(--lumex-success-900) / <alpha-value>)",
+                    950: "hsl(var(--lumex-success-950) / <alpha-value>)",
                     DEFAULT: "hsl(var(--lumex-success) / <alpha-value>)",
                     foreground: "hsl(var(--lumex-success-foreground) / <alpha-value>)"
                 },
@@ -159,6 +166,7 @@ module.exports = {
                     700: "hsl(var(--lumex-warning-700) / <alpha-value>)",
                     800: "hsl(var(--lumex-warning-800) / <alpha-value>)",
                     900: "hsl(var(--lumex-warning-900) / <alpha-value>)",
+                    950: "hsl(var(--lumex-warning-950) / <alpha-value>)",
                     DEFAULT: "hsl(var(--lumex-warning) / <alpha-value>)",
                     foreground: "hsl(var(--lumex-warning-foreground) / <alpha-value>)"
                 },
@@ -175,6 +183,7 @@ module.exports = {
                     700: "hsl(var(--lumex-danger-700) / <alpha-value>)",
                     800: "hsl(var(--lumex-danger-800) / <alpha-value>)",
                     900: "hsl(var(--lumex-danger-900) / <alpha-value>)",
+                    950: "hsl(var(--lumex-danger-950) / <alpha-value>)",
                     DEFAULT: "hsl(var(--lumex-danger) / <alpha-value>)",
                     foreground: "hsl(var(--lumex-danger-foreground) / <alpha-value>)"
                 },
@@ -191,10 +200,34 @@ module.exports = {
                     700: "hsl(var(--lumex-info-700) / <alpha-value>)",
                     800: "hsl(var(--lumex-info-800) / <alpha-value>)",
                     900: "hsl(var(--lumex-info-900) / <alpha-value>)",
+                    950: "hsl(var(--lumex-info-950) / <alpha-value>)",
                     DEFAULT: "hsl(var(--lumex-info) / <alpha-value>)",
                     foreground: "hsl(var(--lumex-info-foreground) / <alpha-value>)"
                 }
             },
+            typography: (theme) => ({
+                DEFAULT: {
+                    css: {
+                        maxWidth: 'none',
+                        'h2, h3, h4': {
+                            'scroll-margin-top': 'var(--scroll-mt)',
+                        },
+                        a: {
+                            color: 'var(--tw-prose-links) !important',
+                            lineHeight: theme('lineHeight.none'),
+                            fontWeight: theme('fontWeight.semibold'),
+                            textDecoration: 'none',
+                            borderBottom: `1px solid ${theme('colors.orange.400')}`,
+                        },
+                        'a:hover': {
+                            borderBottomWidth: '2px',
+                        },
+                        'h2 > a': {
+                            border: 'none'
+                        }
+                    }
+                }
+            }),
             fontFamily: {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans],
                 mono: ['Fira Code VF', ...defaultTheme.fontFamily.mono]
@@ -228,6 +261,9 @@ module.exports = {
         },
     },
     plugins: [
-        require('@tailwindcss/typography')
+        require('@tailwindcss/typography'),
+        function ({ addVariant }) {
+            addVariant('children', '& > *')
+        },
     ],
 };

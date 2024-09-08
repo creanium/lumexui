@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="[--scroll-mt:6.5625rem]">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+    <link href="css/docs.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <HeadOutlet />
+</head>
+
+<body class="bg-background text-foreground">
+    <div id="app" class="relative flex flex-col">
+        <_Routes />
+    </div>
+
+    <script src="js/prism.js"></script>
+    <script src="_content/LumexUI/js/LumexUI.js" type="module"></script>
+    <script src="_framework/blazor.web.js"></script>
+    <script>
+        window.interceptNavigation = () => {
+            let currentUrl = window.location.href;
+            Blazor.addEventListener('enhancedload', () => {
+                let newUrl = window.location.href;
+                if (currentUrl != newUrl) {
+                    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                }
+                currentUrl = newUrl;
+            });
+        };
+
+        document.onload += window.interceptNavigation();
+    </script>
+</body>
+
+</html>

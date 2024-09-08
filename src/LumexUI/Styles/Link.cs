@@ -13,7 +13,6 @@ namespace LumexUI.Styles;
 internal readonly record struct LinkBase
 {
     private readonly static string _base = ElementClass.Empty()
-        .Add( "relative" )
         .Add( "inline-flex" )
         .Add( "items-center" )
         .Add( "hover:opacity-hover" )

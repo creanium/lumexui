@@ -12,7 +12,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.8" />
 	</ItemGroup>
 
-	<!-- Enables TailwindCSS compilations on every build -->
+	<!-- Enables Tailwind CSS compilations on every build -->
 	<Target Name="InstallTailwind" AfterTargets="BeforeBuild" Condition="'$(Configuration)'=='Debug' And !Exists('tailwindcss.exe')">
 		<Exec Command="curl -LO https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-windows-x64.exe" />
 		<Exec Command="ren tailwindcss-windows-x64.exe tailwindcss.exe" />
