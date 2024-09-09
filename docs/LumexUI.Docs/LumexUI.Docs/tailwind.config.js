@@ -214,7 +214,7 @@ module.exports = {
                         },
                         a: {
                             color: 'var(--tw-prose-links) !important',
-                            lineHeight: theme('lineHeight.none'),
+                            lineHeight: theme('lineHeight.tight'),
                             fontWeight: theme('fontWeight.semibold'),
                             textDecoration: 'none',
                             borderBottom: `1px solid ${theme('colors.orange.400')}`,
@@ -224,7 +224,10 @@ module.exports = {
                         },
                         'h2 > a': {
                             border: 'none'
-                        }
+                        },
+                        pre: {
+                            padding: theme('padding.5'),
+                        },
                     }
                 }
             }),
