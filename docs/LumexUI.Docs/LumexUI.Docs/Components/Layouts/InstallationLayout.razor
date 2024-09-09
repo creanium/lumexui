@@ -10,7 +10,6 @@
     <main class="mt-8">
         <div class="mb-8 prose prose-zinc dark:prose-invert">
             <DocsSection Title="Prerequisites">
-                <Heading></Heading>
                 <p>Before you begin, ensure that you have the following:</p>
                 <ul>
                     <li>
@@ -19,15 +18,20 @@
                             .NET SDK 8
                             <LumexIcon Icon="@Icons.Rounded.OpenInNew"
                                        Size="@new("16")"
-                                       Color="@ThemeColor.Primary"
-                                       Class="mx-1" />
-                        </LumexLink> or later
+                                       Color="@ThemeColor.None"
+                                       Class="mx-1 text-orange-400" />
+                        </LumexLink>
+                        or later
                     </li>
                     <li>
                         An existing Blazor project or create
                         <LumexLink Href="https://dotnet.microsoft.com/en-us/learn/aspnet/blazor-tutorial/intro"
                                    External="@true">
                             a new one
+                            <LumexIcon Icon="@Icons.Rounded.OpenInNew"
+                                       Size="@new("16")"
+                                       Color="@ThemeColor.None"
+                                       Class="mx-1 text-orange-400" />
                         </LumexLink>
                     </li>
                 </ul>
