@@ -1352,11 +1352,6 @@ const computePosition = (reference, floating, options) => {
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-/**
- * 
- * @param {any} selector
- * @returns
- */
 function waitForElement(selector) {
     return new Promise(resolve => {
         if (document.querySelector(selector)) {
@@ -1377,11 +1372,6 @@ function waitForElement(selector) {
     });
 }
 
-/**
- * 
- * @param {any} element
- * @param {any} selector
- */
 function portalTo(element, selector = undefined) {
     if (!(element instanceof HTMLElement)) {
         throw new Error('The provided element is not a valid HTMLElement.');
@@ -1400,11 +1390,6 @@ function portalTo(element, selector = undefined) {
     }
 }
 
-/**
- * 
- * @param {any} element
- * @returns
- */
 function createOutsideClickHandler(element) {
     const clickHandler = event => {
         if (element && !element.contains(event.target)) {

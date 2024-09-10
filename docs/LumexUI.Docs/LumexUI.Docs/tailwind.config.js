@@ -1,4 +1,4 @@
-const { lumexui } = require("../../../src/LumexUI/wwwroot/js/plugin/plugin.bundle.js");
+const lumexui = require("../../../src/LumexUI/wwwroot/js/plugin/plugin.bundle.js");
 
 /** @type {import("tailwindcss").Config} */
 module.exports = {
@@ -44,7 +44,7 @@ module.exports = {
         },
     },
     plugins: [
-        lumexui(),
+        lumexui,
         require("@tailwindcss/typography"),
         function ({ addVariant }) {
             addVariant("children", "& > *")
