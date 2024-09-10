@@ -9,5 +9,13 @@ export default defineConfig([
             format: 'esm',
         },
         plugins: [resolve()],
+    },
+    {
+        input: 'wwwroot/js/plugin/plugin.js',
+        output: {
+            file: 'wwwroot/js/plugin/plugin.bundle.js',
+            format: 'cjs',
+        },
+        plugins: [resolve()],
     }
 ]);
