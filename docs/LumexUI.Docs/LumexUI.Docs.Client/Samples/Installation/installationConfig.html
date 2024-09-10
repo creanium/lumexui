@@ -1,0 +1,12 @@
+<pre><code class="language-js">const { lumexui } = require(&quot;../../../src/LumexUI/wwwroot/js/plugin/plugin.bundle.js&quot;);
+
+/** @type {import(&quot;tailwindcss&quot;).Config} */
+module.exports = {
+    content: [&quot;../../../src/LumexUI/Styles/*.cs&quot;],
+    darkMode: &quot;class&quot;,
+    theme: {
+        extend: {},
+    },
+    plugins: [lumexui()],
+};
+</code></pre>

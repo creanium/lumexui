@@ -1,5 +1,6 @@
 ﻿.token.tag,
-.token.function {
+.token.function,
+.token.property {
     @apply text-orange-400;
 }
 
@@ -7,7 +8,8 @@
     @apply text-zinc-300;
 }
 
-.token.attr-value {
+.token.attr-value,
+.token.string {
     @apply text-indigo-300;
 }
 
@@ -16,8 +18,13 @@
     @apply text-zinc-500;
 }
 
-.token.comment {
+.token.comment,
+.token.operator {
     @apply text-zinc-400;
+}
+
+.token.keyword {
+    @apply text-teal-400;
 }
 
 .line-highlight {

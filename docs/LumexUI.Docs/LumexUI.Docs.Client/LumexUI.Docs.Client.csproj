@@ -9,19 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Samples\InstallationFiles.html" />
-	  <None Remove="Samples\InstallationImport.html" />
-	  <None Remove="Samples\InstallationPackage.html" />
-	  <None Remove="Samples\InstallationServices.html" />
-	  <None Remove="Samples\InstallationThemeProvider.html" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Include="Samples\Installation\installationFiles.html" />
-	  <EmbeddedResource Include="Samples\Installation\installationImport.html" />
-	  <EmbeddedResource Include="Samples\Installation\installationPackage.html" />
-	  <EmbeddedResource Include="Samples\Installation\installationServices.html" />
-	  <EmbeddedResource Include="Samples\Installation\installationThemeProvider.html" />
+	  <EmbeddedResource Include="Samples\**\*.html" />
 	</ItemGroup>
 
 	<ItemGroup>
