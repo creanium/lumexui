@@ -1,42 +1,49 @@
-const lumexui = require("../../../src/LumexUI/wwwroot/js/plugin/plugin.bundle.js");
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
 
-/** @type {import("tailwindcss").Config} */
+const nuget = path.join(os.homedir(), '.nuget', 'packages', 'lumexui');
+const version = fs.readdirSync(nuget).sort().at(-1);
+
+const lumexui = require(path.join(nuget, version, 'theme', 'plugin'));
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
-        "./Pages/**/*.razor",
-        "./Pages/**/*.razor.cs",
-        "./Components/**/*.razor",
-        "./Components/**/*.razor.cs",
-        "../LumexUI.Docs.Client/Components/**/*.razor",
-        "../LumexUI.Docs.Client/Components/**/*.razor.cs",
-        "../../../src/LumexUI/Styles/*.cs"
+        './Pages/**/*.razor',
+        './Pages/**/*.razor.cs',
+        './Components/**/*.razor',
+        './Components/**/*.razor.cs',
+        '../LumexUI.Docs.Client/Components/**/*.razor',
+        '../LumexUI.Docs.Client/Components/**/*.razor.cs',
+        `${nuget}/${version}/theme/components/*.cs`
     ],
-    darkMode: "class",
+    darkMode: 'class',
     theme: {
         extend: {
             typography: (theme) => ({
                 DEFAULT: {
                     css: {
-                        maxWidth: "none",
-                        "h2, h3, h4": {
-                            "scroll-margin-top": "var(--scroll-mt)",
+                        maxWidth: 'none',
+                        'h2, h3, h4': {
+                            'scroll-margin-top': 'var(--scroll-mt)',
                         },
                         a: {
-                            color: "var(--tw-prose-links) !important",
-                            lineHeight: theme("lineHeight.tight"),
-                            fontWeight: theme("fontWeight.semibold"),
-                            textDecoration: "none",
-                            borderBottom: `1px solid ${theme("colors.orange.400")}`,
+                            color: 'var(--tw-prose-links) !important',
+                            lineHeight: theme('lineHeight.tight'),
+                            fontWeight: theme('fontWeight.semibold'),
+                            textDecoration: 'none',
+                            borderBottom: `1px solid ${theme('colors.orange.400')}`,
                         },
-                        "a:hover": {
-                            borderBottomWidth: "2px",
+                        'a:hover': {
+                            borderBottomWidth: '2px',
                         },
-                        "h2 > a": {
-                            border: "none"
+                        'h2 > a': {
+                            border: 'none'
                         },
                         pre: {
-                            color: theme("colors.zinc.100"),
-                            padding: theme("padding.5"),
+                            color: theme('colors.zinc.100'),
+                            padding: theme('padding.5'),
                         },
                     }
                 }
@@ -45,9 +52,9 @@ module.exports = {
     },
     plugins: [
         lumexui,
-        require("@tailwindcss/typography"),
+        require('@tailwindcss/typography'),
         function ({ addVariant }) {
-            addVariant("children", "& > *")
+            addVariant('children', '& > *')
         },
     ],
 };

@@ -7,20 +7,32 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\LumexUI.Docs.Generator\LumexUI.Docs.Generator.csproj" />
-		<ProjectReference Include="..\LumexUI.Docs.Client\LumexUI.Docs.Client.csproj" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.8" />
 	</ItemGroup>
 
-	<!-- Enables Tailwind CSS compilations on every build -->
-	<Target Name="InstallTailwind" AfterTargets="BeforeBuild" Condition="'$(Configuration)'=='Debug' And !Exists('tailwindcss.exe')">
-		<Exec Command="curl -LO https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-windows-x64.exe" />
-		<Exec Command="ren tailwindcss-windows-x64.exe tailwindcss.exe" />
+	<ItemGroup>
+		<ProjectReference Include="..\..\LumexUI.Docs.Generator\LumexUI.Docs.Generator.csproj" />
+		<ProjectReference Include="..\LumexUI.Docs.Client\LumexUI.Docs.Client.csproj" />
+	</ItemGroup>
+
+	<!-- Installs Tailwind CSS dependencies if 'node_modules' is not present -->
+	<Target Name="TailwindInstall" BeforeTargets="Compile" Condition="!Exists('node_modules')">
+		<Exec Command="npm ci" />
 	</Target>
 
-	<Target Name="RunTailwind" AfterTargets="InstallTailwind">
-		<Exec Command="tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs.css" />
-		<Exec Command="tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs.min.css --minify" />
+	<!-- Enables Tailwind CSS compilation on every build in Debug mode -->
+	<Target Name="TailwindRunDebug" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+		<Exec Command="npm run build" />
 	</Target>
+
+	<!-- Enables Tailwind CSS compilation on every build in Release mode -->
+	<Target Name="TailwindRunRelease" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
+		<Exec Command="npm run build:prod" />
+	</Target>
+
+	<!-- Remove package.json and package-lock.json from the build output -->
+	<ItemGroup>
+		<Content Remove="*.json" />
+	</ItemGroup>
 
 </Project>
