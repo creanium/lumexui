@@ -11,9 +11,9 @@ export default defineConfig([
         plugins: [resolve()],
     },
     {
-        input: 'wwwroot/js/plugin/plugin.js',
+        input: 'Scripts/Plugin/plugin.js',
         output: {
-            file: 'wwwroot/js/plugin/plugin.bundle.js',
+            file: 'Scripts/Plugin/plugin.bundle.js',
             format: 'cjs',
         },
         plugins: [resolve()],
