@@ -1,4 +1,5 @@
 import { defineConfig } from 'rollup';
+import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 
 export default defineConfig([
@@ -13,9 +14,12 @@ export default defineConfig([
     {
         input: 'Scripts/Plugin/plugin.js',
         output: {
-            file: 'Scripts/Plugin/plugin.bundle.js',
+            file: 'Scripts/Plugin/dist/plugin.js',
             format: 'cjs',
         },
-        plugins: [resolve()],
+        plugins: [
+            resolve(),
+            commonjs()
+        ],
     }
 ]);
