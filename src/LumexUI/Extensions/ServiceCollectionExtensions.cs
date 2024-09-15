@@ -37,10 +37,10 @@ public static class ServiceCollectionExtensions
             {
                 ClassGroups = new()
                 {
-                    ["font-size"] = new ClassGroup( "text", ["tiny", "small", "medium", "large"] ),
-                    ["border-radius"] = new ClassGroup( "rounded", ["small", "medium", "large"] ),
                     ["shadow"] = new ClassGroup( "shadow", ["small", "medium", "large"] ),
+                    ["rounded"] = new ClassGroup( "rounded", ["small", "medium", "large"] ),
                     ["opacity"] = new ClassGroup( "opacity", ["hover", "focus", "disabled", "divider"] ),
+                    ["font-size"] = new ClassGroup( "text", ["tiny", "small", "medium", "large"] ),
                 }
             } );
         } );
