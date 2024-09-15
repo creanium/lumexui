@@ -13,7 +13,7 @@
                  Size="@Size.Small"
                  StartContent="@GithubIcon"
                  Class="bg-default-100"
-                 href="@_sourceLink"
+                 href="@($"{Constants.GitHub.ComponentPath}/{ComponentName}")"
                  target="_blank"
                  rel="noopener noreferrer">
         Source
@@ -23,7 +23,7 @@
                  Size="@Size.Small"
                  StartContent="@GithubIcon"
                  Class="bg-default-100"
-                 href="@_stylesSourceLink"
+                 href="@($"{Constants.GitHub.ComponentStylesPath}/{ComponentName}.cs")"
                  target="_blank"
                  rel="noopener noreferrer">
         Styles source
@@ -40,13 +40,4 @@
                    Size="@new("20")"
                    ViewBox="0 0 24 24" />
     </text>;
-
-    private string _sourceLink = default!;
-    private string _stylesSourceLink = default!;
-
-    protected override void OnInitialized()
-    {
-        _sourceLink = $"{Constants.GitHub.ComponentPath}/{ComponentName}";
-        _stylesSourceLink = $"{Constants.GitHub.ComponentStylesPath}/{ComponentName}.cs";
-    }
 }
