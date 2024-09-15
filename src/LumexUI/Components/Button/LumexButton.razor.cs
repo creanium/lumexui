@@ -12,12 +12,25 @@ using TailwindMerge;
 
 namespace LumexUI;
 
+/// <summary>
+/// A component representing a button.
+/// </summary>
 public partial class LumexButton : LumexComponentBase
 {
 	/// <summary>
 	/// Gets or sets content to be rendered inside the button.
 	/// </summary>
 	[Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets content to be rendered before the label of the button.
+    /// </summary>
+    [Parameter] public RenderFragment? StartContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets content to be rendered after the label of the button.
+    /// </summary>
+    [Parameter] public RenderFragment? EndContent { get; set; }
 
     /// <summary>
     /// Gets or sets the type of the button.
@@ -62,16 +75,6 @@ public partial class LumexButton : LumexComponentBase
 	[Parameter] public bool FullWidth { get; set; }
 
     /// <summary>
-    /// Gets or sets the icon to be rendered before the label of the button.
-    /// </summary>
-    [Parameter] public string? StartIcon { get; set; }
-
-    /// <summary>
-    /// Gets or sets the icon to be rendered after the label of the button.
-    /// </summary>
-    [Parameter] public string? EndIcon { get; set; }
-
-    /// <summary>
     /// Gets or sets a callback that is fired whenever the button is clicked.
     /// </summary>
     [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
@@ -79,7 +82,15 @@ public partial class LumexButton : LumexComponentBase
 	private protected override string? RootClass => 
         TwMerge.Merge( Button.GetStyles( this ) );
 
-    protected virtual Task OnClickAsync( MouseEventArgs args )
+    /// <summary>
+    /// Initializes a new instance of the <see cref="LumexButton"/>.
+    /// </summary>
+    public LumexButton()
+    {
+        As = "button";
+    }
+
+    private Task OnClickAsync( MouseEventArgs args )
     {
         return Disabled ? Task.CompletedTask : OnClick.InvokeAsync( args );
     }

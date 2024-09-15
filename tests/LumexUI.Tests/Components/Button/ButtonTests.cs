@@ -13,10 +13,10 @@ namespace LumexUI.Tests.Components;
 
 public class ButtonTests : TestContext
 {
-	public ButtonTests()
-	{
-		Services.AddSingleton<TwMerge>();
-	}
+    public ButtonTests()
+    {
+        Services.AddSingleton<TwMerge>();
+    }
 
     [Fact]
     public void Button_ShouldRenderCorrectly()
@@ -26,32 +26,32 @@ public class ButtonTests : TestContext
         action.Should().NotThrow();
     }
 
-	[Fact]
-	public void Button_Disabled_ShouldHaveDisabledAttribute()
-	{
-		var cut = RenderComponent<LumexButton>( p => p
-			.Add( p => p.Disabled, true )
-		);
+    [Fact]
+    public void Button_Disabled_ShouldHaveDisabledAttribute()
+    {
+        var cut = RenderComponent<LumexButton>( p => p
+            .Add( p => p.Disabled, true )
+        );
 
-		var button = cut.Find( "button" );
+        var button = cut.Find( "button" );
 
-		button.HasAttribute( "disabled" ).Should().BeTrue();
-	}
+        button.HasAttribute( "disabled" ).Should().BeTrue();
+    }
 
-	[Fact]
-	public void Button_Disabled_ShouldNotTriggerClick()
-	{
-		var clicked = false;
-		var cut = RenderComponent<LumexButton>( p => p
-			.Add( p => p.Disabled, true )
-			.Add( p => p.OnClick, () => clicked = true )
-		);
+    [Fact]
+    public void Button_Disabled_ShouldNotTriggerClick()
+    {
+        var clicked = false;
+        var cut = RenderComponent<LumexButton>( p => p
+            .Add( p => p.Disabled, true )
+            .Add( p => p.OnClick, () => clicked = true )
+        );
 
-		var button = cut.Find( "button" );
-		button.Click();
+        var button = cut.Find( "button" );
+        button.Click();
 
         clicked.Should().BeFalse();
-	}
+    }
 
     [Fact]
     public void Button_NotDisabled_ShouldTriggerClick()
@@ -69,34 +69,34 @@ public class ButtonTests : TestContext
     }
 
     [Fact]
-	public void Button_Type_ShouldHaveCorrectTypeAttribute()
-	{
-		var cut = RenderComponent<LumexButton>( p => p
-			.Add( p => p.Type, ButtonType.Submit )
-		);
-
-		var button = cut.Find( "button" );
-
-		button.GetAttribute( "type" ).Should().Be( ButtonType.Submit.ToDescription() );
-	}
-
-    [Fact]
-    public void Button_StartIcon_ShouldRenderWithStartIcon()
+    public void Button_Type_ShouldHaveCorrectTypeAttribute()
     {
         var cut = RenderComponent<LumexButton>( p => p
-            .Add( p => p.StartIcon, Icons.Rounded.Person )
+            .Add( p => p.Type, ButtonType.Submit )
         );
 
-        cut.FindComponent<LumexIcon>();
+        var button = cut.Find( "button" );
+
+        button.GetAttribute( "type" ).Should().Be( ButtonType.Submit.ToDescription() );
     }
 
     [Fact]
-    public void Button_EndIcon_ShouldRenderWithEndIcon()
+    public void Button_StartContent_ShouldRenderWithStartContent()
     {
         var cut = RenderComponent<LumexButton>( p => p
-            .Add( p => p.EndIcon, Icons.Rounded.Person )
+            .Add( p => p.StartContent, "start-content" )
         );
 
-        cut.FindComponent<LumexIcon>();
+        cut.Markup.Should().Contain( "start-content" );
+    }
+
+    [Fact]
+    public void Button_EndContent_ShouldRenderWithEndContent()
+    {
+        var cut = RenderComponent<LumexButton>( p => p
+            .Add( p => p.EndContent, "end-content" )
+        );
+
+        cut.Markup.Should().Contain( "end-content" );
     }
 }

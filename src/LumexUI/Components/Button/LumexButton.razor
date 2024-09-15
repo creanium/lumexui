@@ -1,22 +1,14 @@
 ﻿@namespace LumexUI
 @inherits LumexComponentBase
 
-<LumexComponent As="button"
+<LumexComponent As="@As"
                 Class="@RootClass"
                 Style="@RootStyle"
                 type="@Type.ToDescription()"
                 disabled="@Disabled"
                 @attributes="@AdditionalAttributes"
                 @onclick="@OnClickAsync">
-    @if( !string.IsNullOrWhiteSpace( StartIcon ) )
-    {
-        <LumexIcon Icon="@StartIcon" Color="@ThemeColor.None" />
-    }
-
+    @StartContent
     @ChildContent
-
-    @if( !string.IsNullOrWhiteSpace( EndIcon ) )
-    {
-        <LumexIcon Icon="@EndIcon" Color="@ThemeColor.None" />
-    }
+    @EndContent
 </LumexComponent>
