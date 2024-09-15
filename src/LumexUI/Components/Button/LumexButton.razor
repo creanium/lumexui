@@ -6,6 +6,7 @@
                 Style="@RootStyle"
                 type="@Type.ToDescription()"
                 disabled="@Disabled"
+                data-disabled="@Disabled.ToAttributeValue()"
                 @attributes="@AdditionalAttributes"
                 @onclick="@OnClickAsync">
     @StartContent
