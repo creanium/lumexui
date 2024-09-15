@@ -42,10 +42,7 @@ public partial class LumexIcon : LumexComponentBase
     /// <summary>
     /// Gets or sets a color of the icon.
     /// </summary>
-    /// <remarks>
-    /// Default value is <see cref="ThemeColor.Default"/>
-    /// </remarks>
-    [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
+    [Parameter] public ThemeColor? Color { get; set; }
 
     private protected override string? RootClass =>
         TwMerge.Merge( Styles.Icon.GetStyles( this ) );

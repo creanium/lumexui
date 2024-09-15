@@ -1,0 +1,68 @@
+﻿@namespace LumexUI.Docs.Client.Components
+@rendermode InteractiveAuto
+@inject IJSRuntime JSRuntime
+
+<div class="flex flex-col rounded-2xl ring-1 ring-foreground-950/5 shadow-sm overflow-hidden">
+    <div class="relative flex items-center p-8 rounded-t-xl bg-zinc-50">
+        <div class="absolute inset-0 bg-dots [mask-image:radial-gradient(#fff_0%,transparent_100%)]"></div>
+        <div class="relative flex flex-wrap items-center gap-4">
+            @ChildContent
+        </div>
+    </div>
+
+    <div class="@ToolbarClass">
+        <div class="flex items-center ms-auto">
+            <LumexButton Size="@Size.Small"
+                         OnClick="@Expand"
+                         Class="h-5 px-2 me-1 rounded-full bg-orange-50 border border-orange-300 text-orange-500 text-[0.675rem]">
+                @(_expanded ? "Collapse code" : "Expand code")
+            </LumexButton>
+            <LumexButton Size="@Size.Small"
+                         Variant="@Variant.Light"
+                         OnClick="@CopyToClipboard"
+                         Class="h-6 w-6 min-w-6 px-0">
+                <LumexIcon Icon="@(_copied ? Icons.Rounded.Check : Icons.Rounded.ContentCopy)"
+                           Size="@new("16")"
+                           Class="text-foreground-500" />
+            </LumexButton>
+        </div>
+    </div>
+
+    <LumexCollapse Expanded="@_expanded" Class="children:rounded-t-none">
+        <CodeSnippet Id="@_id" Code="@Code" />
+    </LumexCollapse>
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter, EditorRequired] public Code Code { get; set; } = default!;
+
+    private string ToolbarClass => ElementClass.Empty()
+        .Add( "p-2" )
+        .Add( "flex" )
+        .Add( "border-t" )
+        .Add( "border-foreground-950/5" )
+        .Add( "border-b", when: _expanded )
+        .Add( "rounded-b-xl", when: !_expanded )
+        .ToString();
+
+    private string _id = Identifier.New();
+    private bool _expanded;
+    private bool _copied;
+
+    private void Expand()
+    {
+        _expanded = !_expanded;
+    }
+
+    private async Task CopyToClipboard()
+    {
+        await JSRuntime.InvokeVoidAsync( "LumexDocs.copyToClipboard", _id );
+        _copied = true;
+        StateHasChanged();
+
+        await Task.Delay( 2000 );
+        _copied = false;
+        StateHasChanged();
+    }
+}

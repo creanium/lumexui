@@ -1,16 +1,16 @@
 ﻿@namespace LumexUI.Docs.Components
+@inject NavigationManager NavigationManager
 
 <CascadingValue TValue="DocsSection" Value="@this" IsFixed="@true">
     <LumexComponent As="@(IsSubsection ? "h3" : "h2")"
                     id="@_id">
-        <LumexNavLink Href="@Link"
+        <LumexNavLink Href="@($"{RelativePath}#{_id}")"
                       Color="@ThemeColor.None"
-                      Class="no-underline">
+                      Class="border-none">
             @Title
             <span class="flex items-center justify-center size-6 ml-2 rounded-md text-foreground-400 shadow-sm ring-1 ring-foreground-950/5 hover:ring-orange-200 hover:bg-orange-50 hover:text-orange-500">
                 <LumexIcon Icon="@Icons.Rounded.Link"
-                           Size="@new("16")"
-                           Color="@ThemeColor.None" />
+                           Size="@new("16")" />
             </span>
         </LumexNavLink>
     </LumexComponent>
@@ -19,33 +19,17 @@
 
 @code {
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter, EditorRequired] public string Title { get; set; } = null!;
+    [Parameter] public string? Title { get; set; }
 
-    [CascadingParameter] private DocsContentLayout? Layout { get; set; }
     [CascadingParameter] private DocsSection? Parent { get; set; }
 
-    [Inject] private NavigationManager NavigationManager { get; set; } = default!;
-
-    internal bool IsSubsection => Parent is not null;
-    internal string? Link { get; private set; }
+    private bool IsSubsection => Parent is not null;
+    private string RelativePath => NavigationManager.ToBaseRelativePath( NavigationManager.Uri );
 
     private string? _id;
 
     protected override void OnInitialized()
     {
-        Layout?.AddSection( this );
-
-        if( !string.IsNullOrEmpty( Title ) )
-        {
-            var pageRelativePath = NavigationManager.Uri.Substring( NavigationManager.BaseUri.Length );
-            _id = CreateIdAttributeValue( Title );
-            Link = $"{pageRelativePath}#{_id}";
-        }
-    }
-
-    private string CreateIdAttributeValue( string title )
-    {
-        var titleParts = title.Split( ' ' );
-        return string.Join( "-", titleParts ).ToLowerInvariant();
+        _id = Title?.ToKebabCase();
     }
 }

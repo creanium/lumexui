@@ -1,0 +1,52 @@
+﻿@namespace LumexUI.Docs.Components
+
+<div class="flex flex-wrap gap-4 mt-4">
+    @if( IsServer )
+    {
+        <LumexButton Size="@Size.Small"
+                     Class="bg-default-100">
+            Server component
+        </LumexButton>
+    }
+
+    <LumexButton As="a"
+                 Size="@Size.Small"
+                 StartContent="@GithubIcon"
+                 Class="bg-default-100"
+                 href="@_sourceLink"
+                 target="_blank"
+                 rel="noopener noreferrer">
+        Source
+    </LumexButton>
+
+    <LumexButton As="a"
+                 Size="@Size.Small"
+                 StartContent="@GithubIcon"
+                 Class="bg-default-100"
+                 href="@_stylesSourceLink"
+                 target="_blank"
+                 rel="noopener noreferrer">
+        Styles source
+    </LumexButton>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public string ComponentName { get; set; } = default!;
+    [Parameter] public bool IsServer { get; set; }
+
+    private RenderFragment GithubIcon =>
+    @<text>
+        <LumexIcon Icon="@Icons.Brands.GitHub"
+                   Size="@new("20")"
+                   ViewBox="0 0 24 24" />
+    </text>;
+
+    private string _sourceLink = default!;
+    private string _stylesSourceLink = default!;
+
+    protected override void OnInitialized()
+    {
+        _sourceLink = $"{Constants.GitHub.ComponentPath}/{ComponentName}";
+        _stylesSourceLink = $"{Constants.GitHub.ComponentStylesPath}/{ComponentName}.cs";
+    }
+}

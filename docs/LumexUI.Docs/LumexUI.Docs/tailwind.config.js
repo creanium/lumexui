@@ -1,11 +1,13 @@
-const fs = require('fs');
-const os = require('os');
-const path = require('path');
+//const fs = require('fs');
+//const os = require('os');
+//const path = require('path');
 
-const nuget = path.join(os.homedir(), '.nuget', 'packages', 'lumexui');
-const version = fs.readdirSync(nuget).sort().at(-1);
+//const nuget = path.join(os.homedir(), '.nuget', 'packages', 'lumexui');
+//const version = fs.readdirSync(nuget).sort().at(-1);
 
-const lumexui = require(path.join(nuget, version, 'theme', 'plugin'));
+//const lumexui = require(path.join(nuget, version, 'theme', 'plugin'));
+
+const lumexui = require('../../../src/LumexUI/Scripts/Plugin/dist/plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -14,9 +16,12 @@ module.exports = {
         './Pages/**/*.razor.cs',
         './Components/**/*.razor',
         './Components/**/*.razor.cs',
+        '../LumexUI.Docs.Client/Pages/**/*.razor',
+        '../LumexUI.Docs.Client/Pages/**/*.razor.cs',
         '../LumexUI.Docs.Client/Components/**/*.razor',
         '../LumexUI.Docs.Client/Components/**/*.razor.cs',
-        `${nuget}/${version}/theme/components/*.cs`
+        '../../../src/LumexUI/Styles/*.cs'
+        /*`${nuget}/${version}/theme/components/*.cs`*/
     ],
     darkMode: 'class',
     theme: {
@@ -38,9 +43,6 @@ module.exports = {
                         'a:hover': {
                             borderBottomWidth: '2px',
                         },
-                        'h2 > a': {
-                            border: 'none'
-                        },
                         pre: {
                             color: theme('colors.zinc.100'),
                             padding: theme('padding.5'),
@@ -56,5 +58,15 @@ module.exports = {
         function ({ addVariant }) {
             addVariant('children', '& > *')
         },
+        function ({ addUtilities, theme }) {
+            let color = theme('colors.indigo.200').replace('#', '%23');
+            let backgroundImage = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='1' fill='${color}' /%3E%3C/svg%3E")`;
+
+            addUtilities({
+                '.bg-dots': {
+                    backgroundImage
+                },
+            })
+        }
     ],
 };

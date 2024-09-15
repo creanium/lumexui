@@ -33,7 +33,7 @@ internal static class CodeSnippets
 
 	private static void GenerateHtmlFiles( string srcDirPath )
 	{
-		var docsDirPath = Directory.EnumerateDirectories( srcDirPath, "LumexUI.Docs" ).First();
+		var docsDirPath = Directory.EnumerateDirectories( srcDirPath, @"LumexUI.Docs\LumexUI.Docs.Client" ).First();
 		var directoryInfo = new DirectoryInfo( docsDirPath );
 		var files = directoryInfo.GetFiles( @"Pages\*.razor", SearchOption.AllDirectories );
 
@@ -73,7 +73,7 @@ internal static class CodeSnippets
 
 	private static string GetSrcDirectoryPath()
 	{
-		string path = Directory.GetCurrentDirectory();
+		var path = Directory.GetCurrentDirectory();
 
 		while( !string.IsNullOrEmpty( path ) )
 		{

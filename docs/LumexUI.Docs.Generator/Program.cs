@@ -8,14 +8,15 @@ using LumexUI.Docs.Generator;
 
 internal class Program
 {
-	private static void Main()
-	{
-		Console.WriteLine( $"Docs generation started..." );
+    private static void Main()
+    {
+        var stopWatch = new Stopwatch();
+        Console.WriteLine( "Docs generation started..." );
 
-		var stopWatch = Stopwatch.StartNew();
-		CodeSnippets.Execute();
-		stopWatch.Stop();
+        stopWatch.Start();
+        CodeSnippets.Execute();
+        stopWatch.Stop();
 
-		Console.WriteLine( $"Time Elapsed: {stopWatch.Elapsed:ss\\.fff} seconds" );
-	}
+        Console.WriteLine( $"Docs generation completed.Time Elapsed: {stopWatch.Elapsed:ss\\.fff} seconds" );
+    }
 }

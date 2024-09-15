@@ -5,8 +5,11 @@
 <CascadingValue TValue="DocsContentLayout" Value="@this" IsFixed="@true">
     <div class="pt-10 xl:mr-[11.5rem] xl:px-10">
         <DocsHeader Title="@_title"
-                    Section="@_section"
-                    Description="@_description" />
+                    Category="@_category"
+                    Description="@_description"
+                    LinksProps="@_linksProps" />
+
+        <LumexDivider Class="mt-8" />
 
         <main class="mt-8 prose prose-zinc dark:prose-invert">
             @Body
@@ -28,17 +31,31 @@
             </h5>
             <nav>
                 <ul class="text-sm leading-6">
-                    @foreach( var section in _sections )
+                    @foreach( var item in _tableOfContents )
                     {
-                        @* TODO: introduce scrollspy to set active state because #fragment change is not recognized by Blazor *@
-                        <li class="@(section.IsSubsection ? "ml-4" : default)" @key="@(section.Title)">
-                            <LumexNavLink Href="@(section.Link)"
+                        <li @key="@(item.Title)">
+                            <LumexNavLink Href="@($"{RelativePath}#{item.Title.ToKebabCase()}")"
                                           Color="@ThemeColor.None"
                                           Match="@NavLinkMatch.Prefix"
-                                          Class="py-1 w-full data-[active=true]:text-primary">
-                                @(section.Title)
+                                          Class="py-1 w-full">
+                                @(item.Title)
                             </LumexNavLink>
                         </li>
+
+                        if( item.Children is not null )
+                        {
+                            foreach( var subItem in item.Children )
+                            {
+                                <li @key="@(subItem.Title)">
+                                    <LumexNavLink Href="@($"{RelativePath}#{subItem.Title.ToKebabCase()}")"
+                                                  Color="@ThemeColor.None"
+                                                  Match="@NavLinkMatch.Prefix"
+                                                  Class="py-1 w-full ml-4">
+                                        @(subItem.Title)
+                                    </LumexNavLink>
+                                </li>
+                            }
+                        }
                     }
                 </ul>
             </nav>

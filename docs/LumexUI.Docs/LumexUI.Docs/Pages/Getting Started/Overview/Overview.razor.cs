@@ -1,3 +1,4 @@
+using LumexUI.Docs.Common;
 using LumexUI.Docs.Components;
 
 using Microsoft.AspNetCore.Components;
@@ -69,21 +70,30 @@ public partial class Overview
 
     [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
 
+    private readonly Heading[] _headings = [
+        new("Introduction"),
+        new("Advantages of LumexUI"),
+        new("Pick Your Learning Path"),
+        new("Get involved")
+    ];
+
     protected override void OnInitialized()
     {
-        Layout.SetHeader(
+        Layout.Initialize(
             title: "Get Started with LumexUI",
-            section: "Getting started",
-            description: "LumexUI simplifies the process of building modern, responsive UIs in Blazor by providing a comprehensive set of components styled with Tailwind CSS." );
+            category: "Getting started",
+            description: "LumexUI simplifies the process of building modern, responsive UIs in Blazor by providing a comprehensive set of components styled with Tailwind CSS.",
+            _headings
+        );
     }
 
-    private record Feature
+    private class Feature
     {
         public required string Title { get; init; }
         public required string Description { get; init; }
     }
 
-    private record QuickLink
+    private class QuickLink
     {
         public required string Icon { get; init; }
         public required string Link { get; init; }

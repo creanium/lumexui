@@ -1,27 +1,36 @@
+using LumexUI.Docs.Common;
+
+using Microsoft.AspNetCore.Components;
+
 namespace LumexUI.Docs.Components;
 
 public partial class DocsContentLayout
 {
-    private string? _title;
-    private string? _section;
-    private string? _description;
+    [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+
+    private string RelativePath => NavigationManager.ToBaseRelativePath( NavigationManager.Uri );
 
     private readonly List<DocsSection> _sections = [];
+    private Heading[] _tableOfContents = [];
+    private ComponentLinksProps? _linksProps;
 
-    public void SetHeader(
+    private string? _title;
+    private string? _category;
+    private string? _description;
+
+    public void Initialize(
         string title,
-        string section,
-        string description )
+        string category,
+        string description,
+        Heading[] headings,
+        ComponentLinksProps? linksProps = null )
     {
         _title = title;
-        _section = section;
+        _category = category;
         _description = description;
+        _tableOfContents = headings;
+        _linksProps = linksProps;
 
         StateHasChanged();
-    }
-
-    public void AddSection( DocsSection section )
-    {
-        _sections.Add( section );
     }
 }

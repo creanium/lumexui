@@ -16,7 +16,7 @@ internal readonly struct Icon
         .Add( "fill-current" )
         .ToString();
 
-    private static ElementClass GetColorStyles( ThemeColor color )
+    private static ElementClass GetColorStyles( ThemeColor? color )
     {
         return ElementClass.Empty()
             .Add( "text-default", when: color is ThemeColor.Default )

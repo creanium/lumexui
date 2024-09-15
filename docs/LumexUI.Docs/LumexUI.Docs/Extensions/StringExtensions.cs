@@ -8,6 +8,19 @@ namespace LumexUI.Docs.Extensions;
 
 internal static partial class StringExtensions
 {
+    private static readonly char[] _separators = [' ', '_', '-'];
+
+    internal static string? ToKebabCase( this string? value )
+    {
+        if( string.IsNullOrEmpty( value ) )
+        {
+            return value;
+        }
+
+        var words = value.Split( _separators, StringSplitOptions.RemoveEmptyEntries );
+        return string.Join( "-", words ).ToLower();
+    }
+
     internal static string[] SplitCamelCase( this string value )
     {
         return CamelCase().Split( value );

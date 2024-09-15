@@ -1,50 +1,9 @@
 ﻿@namespace LumexUI.Docs.Components
 
-@* <li class="flex items-center p-6 rounded-xl ring-1 ring-foreground-950/5 shadow bg-gradient-to-b from-transparent to-orange-900/5 hover:ring-orange-300 hover:shadow-orange-100 hover:shadow-md cursor-pointer">
-    <LumexNavLink Href="@Link"
-                  Color="@ThemeColor.None"
-                  Class="block hover:opacity-100">
-
-        <div class="flex items-end gap-3 mb-2">
-            <div class="size-8 flex items-center justify-center text-orange-500 bg-orange-50 border border-orange-300 ring-2 ring-orange-100 rounded-lg">
-                <LumexIcon Icon="@Icon"
-                           Size="@new("20")"
-                           Color="@ThemeColor.None" />
-            </div>
-            <h3 class="font-medium text-foreground-800">
-                @Title
-            </h3>
-        </div>
-        <p class="text-sm text-foreground-500 leading-6">
-            @Description
-        </p>
-
-    </LumexNavLink>
-</li> *@
-
-@* <li class="relative flex items-start gap-4">
-    <div class="flex shrink-0 items-center justify-center size-12 rounded-full bg-indigo-50/75 text-indigo-500 border border-indigo-300 ring-2 ring-indigo-100">
-        <LumexIcon Icon="@Icon" Color="@ThemeColor.None" />
-    </div>
-    <div class="peer">
-        <h3 class="mb-2 font-semibold text-foreground-800">
-            <LumexNavLink Href="@Link"
-                          Color="@ThemeColor.None"
-                          Class="before:absolute before:-inset-3 before:rounded-2xl">
-                @Title
-            </LumexNavLink>
-        </h3>
-        <p class="text-sm text-foreground-500 leading-6">
-            @Description
-        </p>
-    </div>
-    <div class="absolute -z-10 -inset-3 rounded-2xl bg-gray-50 peer-hover:ring-1 peer-hover:ring-foreground-950/5"></div>
-</li> *@
-
 <li class="relative flex flex-col items-start p-1">
     <div class="peer flex items-end gap-3 mb-3">
         <div class="flex items-center justify-center size-8 rounded-xl bg-indigo-50/75 text-indigo-500 border border-indigo-300 ring-2 ring-indigo-100">
-            <LumexIcon Icon="@Icon" Color="@ThemeColor.None" />
+            <LumexIcon Icon="@Icon" />
         </div>
         <h3 class="font-semibold text-foreground-800">
             <LumexNavLink Href="@Link"

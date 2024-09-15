@@ -16,22 +16,9 @@
     </div>
 
     <script src="js/prism.js"></script>
+    <script src="js/docs.js" type="module"></script>
     <script src="_content/LumexUI/js/LumexUI.js" type="module"></script>
     <script src="_framework/blazor.web.js"></script>
-    <script>
-        window.interceptNavigation = () => {
-            let currentUrl = window.location.href;
-            Blazor.addEventListener('enhancedload', () => {
-                let newUrl = window.location.href;
-                if (currentUrl != newUrl) {
-                    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-                }
-                currentUrl = newUrl;
-            });
-        };
-
-        document.onload += window.interceptNavigation();
-    </script>
 </body>
 
 </html>

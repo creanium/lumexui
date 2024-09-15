@@ -8,7 +8,8 @@ namespace LumexUI.Docs.Client.Components;
 
 public partial class CodeSnippet
 {
-    [Parameter, EditorRequired] public Code Code { get; set; }
+    [Parameter] public string? Id { get; set; }
+    [Parameter, EditorRequired] public Code Code { get; set; } = default!;
 
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
 
@@ -18,8 +19,6 @@ public partial class CodeSnippet
     public CodeSnippet()
     {
         _renderCodeSnippet = RenderCodeSnippet;
-
-        Code = new Code( "", "" );
     }
 
     protected override async Task OnAfterRenderAsync( bool firstRender )
