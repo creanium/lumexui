@@ -49,6 +49,15 @@ internal readonly record struct Button
             .Add( "min-w-24 h-12 px-6 gap-2 text-large rounded-large", when: size is Size.Large );
     }
 
+    private static ElementClass GetRadiusStyles( Radius radius )
+    {
+        return ElementClass.Empty()
+            .Add( "rounded-none", when: radius is Radius.None )
+            .Add( "rounded-small", when: radius is Radius.Small )
+            .Add( "rounded-medium", when: radius is Radius.Medium )
+            .Add( "rounded-large", when: radius is Radius.Large );
+    }
+
     private static ElementClass GetVariantStyles( Variant variant, ThemeColor color )
     {
         return ElementClass.Empty()
@@ -67,7 +76,7 @@ internal readonly record struct Button
         if( variant is Variant.Light )
         {
             styles
-                .Add( "hover:bg-default-50", when: color is ThemeColor.Default )
+                .Add( "hover:bg-default-100", when: color is ThemeColor.Default )
                 .Add( "hover:bg-primary-50", when: color is ThemeColor.Primary )
                 .Add( "hover:bg-secondary-50", when: color is ThemeColor.Secondary )
                 .Add( "hover:bg-sucess-50", when: color is ThemeColor.Success )
@@ -90,6 +99,7 @@ internal readonly record struct Button
             .Add( _disabled, when: button.Disabled )
             .Add( _fullWidth, when: button.FullWidth )
             .Add( GetSizeStyles( button.Size ) )
+            .Add( GetRadiusStyles( button.Radius ) )
             .Add( GetVariantStyles( button.Variant, button.Color ) )
             .Add( GetHoverStyles( button.Variant, button.Color ) )
             .Add( button.Class )

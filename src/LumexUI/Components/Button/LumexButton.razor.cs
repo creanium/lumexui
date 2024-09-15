@@ -64,10 +64,18 @@ public partial class LumexButton : LumexComponentBase
     /// </remarks>
     [Parameter] public Size Size { get; set; } = Size.Medium;
 
-	/// <summary>
-	/// Gets or sets a value indicating whether the button is disabled.
-	/// </summary>
-	[Parameter] public bool Disabled { get; set; }
+    /// <summary>
+    /// Gets or sets the radius of the button.
+    /// </summary>
+    /// <remarks>
+    /// Default value is <see cref="Radius.Medium"/>
+    /// </remarks>
+    [Parameter] public Radius Radius { get; set; } = Radius.Medium;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the button is disabled.
+    /// </summary>
+    [Parameter] public bool Disabled { get; set; }
 
 	/// <summary>
 	/// Gets or sets a value indicating whether the button is full-width.
