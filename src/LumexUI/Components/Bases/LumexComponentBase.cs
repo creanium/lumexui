@@ -10,6 +10,9 @@ using TailwindMerge;
 
 namespace LumexUI;
 
+/// <summary>
+/// Represents a base class for all components.
+/// </summary>
 public abstract class LumexComponentBase : ComponentBase
 {
 	/// <summary>
@@ -33,7 +36,7 @@ public abstract class LumexComponentBase : ComponentBase
 	[Parameter( CaptureUnmatchedValues = true )]
 	public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
-	[Inject] protected TwMerge TwMerge { get; set; } = default!;
+	[Inject] private protected TwMerge TwMerge { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the associated <see cref="ElementReference"/>.
@@ -43,6 +46,6 @@ public abstract class LumexComponentBase : ComponentBase
     /// </summary>
     [DisallowNull] public ElementReference? ElementReference { get; protected set; }
 
-	private protected virtual string? RootClass => Class;
+    private protected virtual string? RootClass => Class;
 	private protected virtual string? RootStyle => Style;
 }

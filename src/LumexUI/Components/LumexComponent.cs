@@ -7,21 +7,25 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace LumexUI;
 
+/// <summary>
+/// A component representing a polymorphic component.
+/// </summary>
 public class LumexComponent : LumexComponentBase
 {
-	/// <summary>
-	/// Gets or sets content to be rendered inside the component.
-	/// </summary>
-	[Parameter] public RenderFragment? ChildContent { get; set; }
+    /// <summary>
+    /// Gets or sets content to be rendered inside the component.
+    /// </summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 
-	protected override void BuildRenderTree( RenderTreeBuilder builder )
-	{
-		builder.OpenElement( 0, As );
-		builder.AddAttribute( 1, "class", Class );
-		builder.AddAttribute( 2, "style", Style );
-		builder.AddMultipleAttributes( 3, AdditionalAttributes );
+    /// <inheritdoc />
+    protected override void BuildRenderTree( RenderTreeBuilder builder )
+    {
+        builder.OpenElement( 0, As );
+        builder.AddAttribute( 1, "class", Class );
+        builder.AddAttribute( 2, "style", Style );
+        builder.AddMultipleAttributes( 3, AdditionalAttributes );
         builder.AddElementReferenceCapture( 4, elementReference => ElementReference = elementReference );
-		builder.AddContent( 5, ChildContent );
+        builder.AddContent( 5, ChildContent );
         builder.CloseElement();
-	}
+    }
 }
