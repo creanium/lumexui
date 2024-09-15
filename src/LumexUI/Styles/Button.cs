@@ -10,7 +10,7 @@ using LumexUI.Utilities;
 namespace LumexUI.Styles;
 
 [ExcludeFromCodeCoverage]
-internal readonly record struct Button
+internal class Button
 {
     private readonly static string _base = ElementClass.Empty()
         .Add( "inline-flex" )
@@ -26,7 +26,8 @@ internal readonly record struct Button
         .Add( "subpixel-antialiased" )
         .Add( "overflow-hidden" )
         .Add( "active:scale-[0.97]" )
-        .Add( "transition-[transform,colors,opacity]" )
+        // transition
+        .Add( "transition-transform-colors-opacity" )
         .Add( "motion-reduce:transition-none" )
         // focus ring
         .Add( Utils.FocusVisible )
@@ -58,7 +59,15 @@ internal readonly record struct Button
             .Add( "rounded-large", when: radius is Radius.Large );
     }
 
-    private static ElementClass GetVariantStyles( Variant variant, ThemeColor color )
+    private static ElementClass GetVariantStyles( Variant variant )
+    {
+        return ElementClass.Empty()
+            .Add( "border bg-transparent", when: variant is Variant.Outlined )
+            .Add( "border bg-transparent", when: variant is Variant.Ghost )
+            .Add( "bg-transparent", when: variant is Variant.Light );
+    }
+
+    private static ElementClass GetColorStyles( Variant variant, ThemeColor color )
     {
         return ElementClass.Empty()
             .Add( ColorVariants.Solid[color], when: variant is Variant.Solid )
@@ -71,25 +80,29 @@ internal readonly record struct Button
 
     private static ElementClass GetHoverStyles( Variant variant, ThemeColor color )
     {
-        var styles = ElementClass.Empty();
-
-        if( variant is Variant.Light )
+        return variant switch
         {
-            styles
+            Variant.Light => ElementClass.Empty()
                 .Add( "hover:bg-default-100", when: color is ThemeColor.Default )
-                .Add( "hover:bg-primary-50", when: color is ThemeColor.Primary )
-                .Add( "hover:bg-secondary-50", when: color is ThemeColor.Secondary )
-                .Add( "hover:bg-sucess-50", when: color is ThemeColor.Success )
-                .Add( "hover:bg-warning-50", when: color is ThemeColor.Warning )
-                .Add( "hover:bg-danger-50", when: color is ThemeColor.Danger )
-                .Add( "hover:bg-info-50", when: color is ThemeColor.Info );
-        }
-        else
-        {
-            styles.Add( "hover:opacity-hover" );
-        }
+                .Add( "hover:bg-primary-100", when: color is ThemeColor.Primary )
+                .Add( "hover:bg-secondary-100", when: color is ThemeColor.Secondary )
+                .Add( "hover:bg-sucess-100", when: color is ThemeColor.Success )
+                .Add( "hover:bg-warning-100", when: color is ThemeColor.Warning )
+                .Add( "hover:bg-danger-100", when: color is ThemeColor.Danger )
+                .Add( "hover:bg-info-100", when: color is ThemeColor.Info ),
 
-        return styles;
+            Variant.Ghost => ElementClass.Empty()
+                .Add( "hover:!bg-default hover:!text-default-foreground", when: color is ThemeColor.Default )
+                .Add( "hover:!bg-primary hover:!text-primary-foreground", when: color is ThemeColor.Primary )
+                .Add( "hover:!bg-secondary hover:!text-secondary-foreground", when: color is ThemeColor.Secondary )
+                .Add( "hover:!bg-sucess hover:!text-sucess-foreground", when: color is ThemeColor.Success )
+                .Add( "hover:!bg-warning hover:!text-warning-foreground", when: color is ThemeColor.Warning )
+                .Add( "hover:!bg-danger hover:!text-danger-foreground", when: color is ThemeColor.Danger )
+                .Add( "hover:!bg-info hover:!text-info-foreground", when: color is ThemeColor.Info ),
+
+            _ => ElementClass.Empty()
+                .Add( "hover:opacity-hover" )
+        };
     }
 
     public static string GetStyles( LumexButton button )
@@ -100,7 +113,8 @@ internal readonly record struct Button
             .Add( _fullWidth, when: button.FullWidth )
             .Add( GetSizeStyles( button.Size ) )
             .Add( GetRadiusStyles( button.Radius ) )
-            .Add( GetVariantStyles( button.Variant, button.Color ) )
+            .Add( GetVariantStyles( button.Variant ) )
+            .Add( GetColorStyles( button.Variant, button.Color ) )
             .Add( GetHoverStyles( button.Variant, button.Color ) )
             .Add( button.Class )
             .ToString();

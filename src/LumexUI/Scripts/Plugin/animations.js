@@ -1,4 +1,4 @@
-﻿const animations = {
+﻿export default {
     animation: {
         "appearance-in": "appearance-in 200ms ease-out normal both",
         "appearance-out": "appearance-out 60ms ease-in normal both",
@@ -26,5 +26,3 @@
         }
     },
 };
-
-export default animations;
