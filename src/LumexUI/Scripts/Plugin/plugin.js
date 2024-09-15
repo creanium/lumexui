@@ -1,5 +1,5 @@
-﻿const plugin = require("tailwindcss/plugin");
-const animations = require("./animations");
+﻿import plugin from "tailwindcss/plugin";
+import animations from "./animations";
 
 const DEFAULT_TRANSITION_DURATION = "200ms";
 
