@@ -1,10 +1,10 @@
 ﻿@namespace LumexUI.Docs.Components
 
-<div class="flex flex-wrap gap-4 mt-4">
+<div class="flex flex-wrap gap-3 mt-4">
     @if( IsServer )
     {
         <LumexButton Size="@Size.Small"
-                     Class="bg-default-100">
+                     Class="bg-default-100 text-default-700">
             Server component
         </LumexButton>
     }
@@ -12,7 +12,7 @@
     <LumexButton As="a"
                  Size="@Size.Small"
                  StartContent="@GithubIcon"
-                 Class="bg-default-100"
+                 Class="bg-default-100 text-default-700"
                  href="@($"{Constants.GitHub.ComponentPath}/{ComponentName}")"
                  target="_blank"
                  rel="noopener noreferrer">
@@ -22,7 +22,7 @@
     <LumexButton As="a"
                  Size="@Size.Small"
                  StartContent="@GithubIcon"
-                 Class="bg-default-100"
+                 Class="bg-default-100 text-default-700"
                  href="@($"{Constants.GitHub.ComponentStylesPath}/{ComponentName}.cs")"
                  target="_blank"
                  rel="noopener noreferrer">
