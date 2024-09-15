@@ -10,7 +10,7 @@ internal static partial class StringExtensions
 {
     private static readonly char[] _separators = [' ', '_', '-'];
 
-    internal static string? ToKebabCase( this string? value )
+    public static string? ToKebabCase( this string? value )
     {
         if( string.IsNullOrEmpty( value ) )
         {
@@ -21,11 +21,17 @@ internal static partial class StringExtensions
         return string.Join( "-", words ).ToLower();
     }
 
-    internal static string[] SplitCamelCase( this string value )
+    public static string? SplitPascalCase( this string? value )
     {
-        return CamelCase().Split( value );
+        if( string.IsNullOrEmpty( value ) )
+        {
+            return value;
+        }
+
+        var words = PascalCaseSplitter().Split( value );
+        return string.Join( " ", words );
     }
 
-    [GeneratedRegex( @"(?<!^)(?=[A-Z])" )]
-    private static partial Regex CamelCase();
+    [GeneratedRegex( "(?<!^)(?=[A-Z])" )]
+    private static partial Regex PascalCaseSplitter();
 }

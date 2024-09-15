@@ -33,23 +33,11 @@ internal record NavigationCategory
 
     internal NavigationCategory AddItem( string name )
     {
+        var formattedName = string.Join( "", name.Split( "Lumex" ) ).SplitPascalCase();
         var item = new NavigationItem
         {
-            Name = name,
-            Link = name.ToLowerInvariant().Replace( " ", "-" )
-        };
-
-        Items.Add( item );
-        return this;
-    }
-
-    internal NavigationCategory AddItem( Type component )
-    {
-        var formattedName = component.GetNameWithoutGenericArity().SplitCamelCase()[1..];
-        var item = new NavigationItem()
-        {
-            Name = string.Join( " ", formattedName ),
-            Link = string.Join( "-", formattedName ).ToLowerInvariant()
+            Name = formattedName,
+            Link = formattedName.ToKebabCase()
         };
 
         Items.Add( item );
