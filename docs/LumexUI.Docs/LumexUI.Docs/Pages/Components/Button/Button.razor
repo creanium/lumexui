@@ -61,12 +61,14 @@
 
     <DocsSection Title="Custom Styles">
         <p>
-            You can customize the button component by passing any Tailwind CSS 
+            You can customize the button component by passing any Tailwind CSS
             classes to the component's <code>Class</code> parameter.
         </p>
         <ButtonCustomPreviewCode />
     </DocsSection>
 </DocsSection>
+
+<DocsApiSection References="@_references" />
 
 @code {
     [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
@@ -81,7 +83,14 @@
             new("Variants"),
             new("With Icons"),
             new("Custom Styles"),
-        ])
+        ]),
+        new("API")
+    };
+
+    private readonly string[] _references = new string[]
+    {
+        nameof(LumexButton),
+        nameof(LumexIcon)
     };
 
     protected override void OnInitialized()
@@ -90,8 +99,8 @@
             title: "Button",
             category: "Components",
             description: "Buttons allow users to take actions, and make choices, with a single tap.",
-            _headings,
-            new ComponentLinksProps( "Button", isServer: false )
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Button", isServer: false )
         );
     }
 }

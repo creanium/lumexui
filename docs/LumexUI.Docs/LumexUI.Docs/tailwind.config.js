@@ -39,7 +39,7 @@ module.exports = {
                             'scroll-margin-top': 'var(--scroll-mt)',
                         },
                         a: {
-                            color: 'var(--tw-prose-links) !important',
+                            color: 'var(--tw-prose-links)',
                             lineHeight: theme('lineHeight.tight'),
                             fontWeight: theme('fontWeight.semibold'),
                             textDecoration: 'none',
