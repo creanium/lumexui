@@ -33,7 +33,7 @@ internal record NavigationCategory
 
     internal NavigationCategory AddItem( string name )
     {
-        var formattedName = string.Join( "", name.Split( "Lumex" ) ).SplitPascalCase();
+        var formattedName = name.Replace( "Lumex", "" ).SplitPascalCase();
         var item = new NavigationItem
         {
             Name = formattedName,

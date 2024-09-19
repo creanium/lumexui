@@ -68,7 +68,7 @@
     </DocsSection>
 </DocsSection>
 
-<DocsApiSection References="@_references" />
+<DocsApiSection Components="@_apiComponents" />
 
 @code {
     [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
@@ -87,7 +87,7 @@
         new("API")
     };
 
-    private readonly string[] _references = new string[]
+    private readonly string[] _apiComponents = new string[]
     {
         nameof(LumexButton),
         nameof(LumexIcon)
