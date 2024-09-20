@@ -1,0 +1,79 @@
+﻿@page "/docs/api/{componentName}"
+@layout DocsContentLayout
+
+@if( _component is not null )
+{
+    <PageTitle>@_component.GetType().Name.Replace( "Lumex", "" ) API – LumexUI</PageTitle>
+}
+
+@if( _properties.Length > 1 )
+{
+    <DocsSection Title="Properties">
+        <div class="overflow-x-auto children:mt-0">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach( var property in _properties )
+                    {
+                        <tr>
+                            <td class="font-semibold text-orange-500">@property.Name</td>
+                            <td class="max-w-44 overflow-x-auto scrollbar:h-1 scrollbar:w-1 scrollbar-thumb:rounded scrollbar-thumb:bg-foreground-300 scrollbar-track:rounded scrollbar-track:bg-foreground-100">
+                                <Code>@GetTypeName( property.PropertyType )</Code>
+                            </td>
+                            <td>@GetDescription( property )</td>
+                            <td>
+                                @{
+                                    var value = GetDefaultValue( property );
+                                    if( !string.IsNullOrEmpty( value ) )
+                                    {
+                                        <Code>@value</Code>
+                                    }
+                                    else
+                                    {
+                                        @value
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </DocsSection>
+}
+
+@if( _methods.Length > 1 )
+{
+    <DocsSection Title="Methods">
+        <div class="overflow-x-auto children:mt-0">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach( var method in _methods )
+                    {
+                        <tr>
+                            <td class="font-semibold text-orange-500">@method.Name</td>
+                            <td class="max-w-44 overflow-x-auto scrollbar:h-1 scrollbar:w-1 scrollbar-thumb:rounded scrollbar-thumb:bg-foreground-300 scrollbar-track:rounded scrollbar-track:bg-foreground-100">
+                                <Code>@GetTypeName( method.ReturnType )</Code>
+                            </td>
+                            <td>@GetDescription( method )</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </DocsSection>
+}

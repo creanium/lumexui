@@ -52,6 +52,12 @@ module.exports = {
                             color: theme('colors.zinc.100'),
                             padding: theme('padding.5'),
                         },
+                        'table code::before': {
+                            content: '""'
+                        },
+                        'table code::after': {
+                            content: '""'
+                        }
                     }
                 }
             }),
@@ -62,6 +68,9 @@ module.exports = {
         require('@tailwindcss/typography'),
         function ({ addVariant }) {
             addVariant('children', '& > *')
+            addVariant('scrollbar', '&::-webkit-scrollbar')
+            addVariant('scrollbar-track', '&::-webkit-scrollbar-track')
+            addVariant('scrollbar-thumb', '&::-webkit-scrollbar-thumb')
         },
         function ({ addUtilities, theme }) {
             let color = theme('colors.indigo.200').replace('#', '%23');

@@ -1,6 +1,6 @@
 ﻿@namespace LumexUI.Docs.Components
 
-<div class="@RootClass">
+<div class="@BaseClass">
     <LumexIcon Icon="@_icon"
                Class="mt-1.5 shrink-0" />
     <p>@ChildContent</p>
@@ -10,7 +10,7 @@
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public CalloutVariant Variant { get; set; }
 
-    private string RootClass => ElementClass.Empty()
+    private string BaseClass => ElementClass.Empty()
         .Add( "not-prose" )
         .Add( "flex" )
         .Add( "p-4" )
