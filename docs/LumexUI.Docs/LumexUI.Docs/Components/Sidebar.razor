@@ -1,7 +1,7 @@
 ﻿@namespace LumexUI.Docs.Components
 
-<aside class="hidden fixed z-20 overflow-y-auto inset-0 top-[4.0625rem] left-[max(0px,calc(50%-40rem))] right-auto w-[16rem] pl-6 pb-10 lg:block">
-    <nav>
+<aside class="hidden fixed z-20 overflow-y-auto inset-0 top-[4.0625rem] left-[max(0px,calc(50%-40rem))] right-auto w-[16rem] pl-6 pb-10 lg:block scrollbar:h-2 scrollbar:w-2 scrollbar-thumb:rounded scrollbar-thumb:bg-foreground-200 scrollbar-track:rounded scrollbar-track:bg-foreground-100">
+    <nav class="lg:text-sm lg:leading-6">
         <div class="sticky top-0 pointer-events-none">
             <div class="h-10 bg-gradient-to-b from-background"></div>
         </div>
@@ -22,7 +22,7 @@
         <li>
             <div class="flex items-center gap-2 mb-3 text-foreground-700">
                 <LumexIcon Icon="@category.Icon" Size="@new("20")" />
-                <h5 class="font-semibold">
+                <h5 class="text-foreground-900 font-semibold">
                     @category.Name
                 </h5>
             </div>
@@ -32,7 +32,7 @@
                     <li>
                         <LumexNavLink Href="@($"docs/{pathSegment}/{item.Link}")"
                                       Match="@NavLinkMatch.Prefix"
-                                      Class="block border-l pl-4 -ml-px border-transparent text-foreground-500 hover:border-primary  data-[active=true]:text-primary data-[active=true]:border-current">
+                                      Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 data-[active=true]:border-current">
                             @item.Name
                         </LumexNavLink>
                     </li>

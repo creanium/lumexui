@@ -14,7 +14,7 @@ internal class NavigationStore
             .AddItem( "Installation" );
 
     private static NavigationCategory CustomizationCategory =>
-        new NavigationCategory( "Customization", Icons.Rounded.Brush )
+        new NavigationCategory( "Customization", Icons.Rounded.DesignServices )
             .AddItem( "Theme" )
             .AddItem( "Layout" )
             .AddItem( "Colors" );

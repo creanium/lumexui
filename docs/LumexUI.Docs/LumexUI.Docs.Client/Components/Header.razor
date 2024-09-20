@@ -20,7 +20,7 @@
             <LumexNavbarItem>
                 <LumexNavLink Href="@item.Link"
                               Color="@ThemeColor.None"
-                              Class="data-[active=true]:text-primary">
+                              Class="hover:text-orange-500 data-[active=true]:text-orange-500">
                     @item.Name
                 </LumexNavLink>
             </LumexNavbarItem>
@@ -41,7 +41,9 @@
         @foreach( var item in _navigationItems )
         {
             <LumexNavbarMenuItem>
-                <LumexNavLink Href="@item.Link">
+                <LumexNavLink Href="@item.Link"
+                              Color="@ThemeColor.None"
+                              Class="hover:text-orange-500 data-[active=true]:text-orange-500">
                     @item.Name
                 </LumexNavLink>
             </LumexNavbarMenuItem>
@@ -52,12 +54,9 @@
 @code {
     private static RenderFragment HeaderActions =>
     @<text>
-        <LumexNavbarItem>
-            @* TODO: Should be a button *@
-            <LumexIcon Icon="@Icons.Rounded.DarkMode" />
-        </LumexNavbarItem>
         <LumexNavbarItem Class="flex">
-            <LumexNavLink Href="https://github.com/LumexUI/lumexui">
+            <LumexNavLink Href="https://github.com/LumexUI/lumexui"
+                          Class="text-foreground-400 hover:text-foreground-600">
                 <LumexIcon Icon="@Icons.Brands.GitHub" ViewBox="0 0 24 24" />
             </LumexNavLink>
         </LumexNavbarItem>
