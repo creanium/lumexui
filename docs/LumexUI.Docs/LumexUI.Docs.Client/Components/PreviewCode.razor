@@ -35,7 +35,7 @@
 
 @code {
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter, EditorRequired] public Code Code { get; set; } = default!;
+    [Parameter, EditorRequired] public CodeBlock Code { get; set; } = default!;
 
     private string ToolbarClass => ElementClass.Empty()
         .Add( "p-2" )
