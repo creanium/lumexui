@@ -1,62 +1,42 @@
-﻿using LumexUI.Docs.Extensions;
-
-namespace LumexUI.Docs.Common;
+﻿namespace LumexUI.Docs.Common;
 
 internal record Navigation
 {
-    internal List<NavigationCategory> Categories { get; }
+    private readonly List<NavigationCategory> _categories;
+
+    internal IEnumerable<NavigationCategory> Categories => _categories.AsEnumerable();
 
     internal Navigation()
     {
-        Categories = [];
+        _categories = [];
     }
 
-    internal Navigation AddCategory( NavigationCategory category )
+    internal Navigation Add( NavigationCategory category )
     {
-        Categories.Add( category );
+        _categories.Add( category );
         return this;
     }
 }
 
 internal record NavigationCategory
 {
+    private readonly List<string> _items;
+
     internal string Name { get; }
     internal string Icon { get; }
-    internal List<NavigationItem> Items { get; }
+    internal IEnumerable<string> Items => _items.AsEnumerable();
 
     internal NavigationCategory( string name, string icon )
     {
+        _items = [];
+
         Name = name;
         Icon = icon;
-        Items = [];
     }
 
-    internal NavigationCategory AddItem( string name )
+    internal NavigationCategory Add( string item )
     {
-        var formattedName = name.Replace( "Lumex", "" ).SplitPascalCase();
-        var item = new NavigationItem
-        {
-            Name = formattedName,
-            Link = formattedName.ToKebabCase()
-        };
-
-        Items.Add( item );
+        _items.Add( item );
         return this;
     }
-
-    internal NavigationCategory CopyFrom( NavigationCategory source )
-    {
-        foreach( var item in source.Items )
-        {
-            Items.Add( item );
-        }
-
-        return this;
-    }
-}
-
-internal record NavigationItem
-{
-    internal string? Name { get; init; }
-    internal string? Link { get; init; }
 }

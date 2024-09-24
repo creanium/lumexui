@@ -17,8 +17,6 @@
 @code {
     private void RenderCategory( RenderTreeBuilder __builder, NavigationCategory category )
     {
-        var pathSegment = GetCategoryPathSegment( category.Name );
-
         <li>
             <div class="flex items-center gap-2 mb-3 text-foreground-700">
                 <LumexIcon Icon="@category.Icon" Size="@new("20")" />
@@ -29,13 +27,26 @@
             <ul class="space-y-2 border-l border-divider">
                 @foreach( var item in category.Items )
                 {
-                    <li>
-                        <LumexNavLink Href="@($"docs/{pathSegment}/{item.Link}")"
+                    var formattedName = item.Replace( "Lumex", "" ).SplitPascalCase();
+
+                    if( category.Name is "Components API" )
+                    {
+                        <LumexNavLink Href="@($"docs/api/{formattedName.ToKebabCase()}")"
                                       Match="@NavLinkMatch.Prefix"
                                       Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 data-[active=true]:border-current">
-                            @item.Name
+                            @item.Replace( "Lumex", "" )
                         </LumexNavLink>
-                    </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <LumexNavLink Href="@($"docs/{category.Name.ToKebabCase()}/{formattedName.ToKebabCase()}")"
+                                          Match="@NavLinkMatch.Prefix"
+                                          Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 data-[active=true]:border-current">
+                                @formattedName
+                            </LumexNavLink>
+                        </li>
+                    }
                 }
             </ul>
         </li>

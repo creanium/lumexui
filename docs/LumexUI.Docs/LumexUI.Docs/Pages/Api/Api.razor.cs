@@ -1,9 +1,12 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
+using System.Reflection.Metadata;
 using System.Xml.Linq;
 
+using LumexUI.Common;
 using LumexUI.Docs.Common;
+using LumexUI.Docs.Common.Models;
 using LumexUI.Docs.Components;
 
 using Microsoft.AspNetCore.Components;
@@ -37,13 +40,21 @@ public partial class Api
         var componentName = $"Lumex{FromKebabToPascalCase( ComponentName )}";
         var componentType = Type.GetType( $"LumexUI.{componentName}, LumexUI" );
 
+        // To find the components with typeparams (need a better solution)
+        componentType ??= Type.GetType( $"LumexUI.{componentName}`1, LumexUI" );
+
         if( componentType is null || !typeof( IComponent ).IsAssignableFrom( componentType ) )
         {
             return;
         }
 
+        if( componentType.IsGenericTypeDefinition )
+        {
+            componentType = componentType.MakeGenericType( [typeof( T )] );
+        }
+
         _component = Activator.CreateInstance( componentType );
-        _properties = componentType.GetProperties( BindingFlags.Public | BindingFlags.Instance );
+        _properties = componentType.GetProperties();
         _methods = componentType
             .GetMethods( BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly )
             .Where( m => !m.IsSpecialName )
@@ -51,6 +62,7 @@ public partial class Api
 
         var headings = new List<Heading>()
         {
+            new("Examples"),
             new("Properties")
         };
 
@@ -60,9 +72,9 @@ public partial class Api
         }
 
         Layout.Initialize(
-            title: componentType.Name,
+            title: GetTypeName( componentType ),
             category: "Components API",
-            description: $"API reference documentation for the {componentType.Name} component. Explore details about its parameters, types and other APIs.",
+            description: $"API reference documentation for the {GetTypeName( componentType )} component. Explore details about its parameters, types and other APIs.",
             headings: [.. headings]
         );
     }
@@ -76,6 +88,18 @@ public partial class Api
         }
 
         return string.Concat( words );
+    }
+
+    private static string GetAggregatorComponentName( object component )
+    {
+        var componentType = component.GetType();
+        if( !Attribute.IsDefined( componentType, typeof( CompositionComponentAttribute ) ) )
+        {
+            return GetTypeName( componentType );
+        }
+
+        var attr = (CompositionComponentAttribute)Attribute.GetCustomAttribute( componentType, typeof( CompositionComponentAttribute ) )!;
+        return GetTypeName( attr.AggregatorType );
     }
 
     [SuppressMessage( "Style", "IDE0011:Add braces", Justification = "<Pending>" )]

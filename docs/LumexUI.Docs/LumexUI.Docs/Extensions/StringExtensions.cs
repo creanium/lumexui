@@ -21,7 +21,7 @@ internal static partial class StringExtensions
         return string.Join( "-", words ).ToLower();
     }
 
-    public static string? SplitPascalCase( this string? value )
+    public static string SplitPascalCase( this string value )
     {
         if( string.IsNullOrEmpty( value ) )
         {
