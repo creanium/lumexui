@@ -13,6 +13,7 @@ namespace LumexUI;
 /// A component representing the trigger element for a <see cref="LumexPopover"/> component, 
 /// which controls the display of the popover.
 /// </summary>
+[CompositionComponent( typeof( LumexPopover ) )]
 public partial class LumexPopoverTrigger : LumexComponentBase
 {
     /// <summary>

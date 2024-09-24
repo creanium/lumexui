@@ -12,6 +12,7 @@ namespace LumexUI;
 /// <summary>
 /// A component representing a button that toggles the <see cref="LumexNavbarMenu"/>.
 /// </summary>
+[CompositionComponent( typeof( LumexNavbar ) )]
 public partial class LumexNavbarMenuToggle : LumexComponentBase
 {
     [CascadingParameter] internal NavbarContext Context { get; set; } = default!;

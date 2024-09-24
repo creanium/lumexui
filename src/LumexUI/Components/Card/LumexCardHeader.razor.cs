@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
+[CompositionComponent( typeof( LumexCard ) )]
 public partial class LumexCardHeader : LumexComponentBase
 {
     /// <summary>

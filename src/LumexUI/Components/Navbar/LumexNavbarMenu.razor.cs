@@ -15,6 +15,7 @@ namespace LumexUI;
 /// <summary>
 /// A component representing a collapsible menu for the <see cref="LumexNavbar"/>.
 /// </summary>
+[CompositionComponent( typeof( LumexNavbar ) )]
 public partial class LumexNavbarMenu : LumexComponentBase
 {
     /// <summary>

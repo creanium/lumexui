@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace LumexUI;
 
+[CompositionComponent( typeof( LumexAccordion ) )]
 public partial class LumexAccordionItem : LumexComponentBase, ISlotComponent<AccordionItemSlots>, IDisposable
 {
     /// <summary>

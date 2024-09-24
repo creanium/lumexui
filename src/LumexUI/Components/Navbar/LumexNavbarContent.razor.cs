@@ -12,6 +12,7 @@ namespace LumexUI;
 /// <summary>
 /// A component representing the content section of the <see cref="LumexNavbar"/>.
 /// </summary>
+[CompositionComponent( typeof( LumexNavbar ) )]
 public partial class LumexNavbarContent : LumexComponentBase
 {
     /// <summary>

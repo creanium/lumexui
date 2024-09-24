@@ -16,6 +16,7 @@ namespace LumexUI;
 /// A component representing the content of a <see cref="LumexPopover"/> component, 
 /// which is displayed within the popover.
 /// </summary>
+[CompositionComponent( typeof( LumexPopover ) )]
 public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
 {
     private const string JavaScriptFile = "./_content/LumexUI/js/components/popover.bundle.js";
