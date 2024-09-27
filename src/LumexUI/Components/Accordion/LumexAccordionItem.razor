@@ -65,9 +65,9 @@
     </LumexCollapse>
 </LumexComponent>
 
-@if( Context.Owner.ShowDividers &&
- !Context.IsLastItem( this ) &&
- Context.Owner.Variant is not AccordionVariant.Splitted )
+@if( Context.Owner.ShowDividers
+   && !Context.IsLast( this )
+   && Context.Owner.Variant is not AccordionVariant.Splitted )
 {
     <LumexDivider />
 }

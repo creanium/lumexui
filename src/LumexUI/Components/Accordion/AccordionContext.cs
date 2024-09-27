@@ -18,7 +18,7 @@ internal sealed class AccordionContext( LumexAccordion owner ) : IComponentConte
         _items.Remove( item );
     }
 
-    public bool IsLastItem( LumexAccordionItem item )
+    public bool IsLast( LumexAccordionItem item )
     {
         return item == _items[^1];
     }

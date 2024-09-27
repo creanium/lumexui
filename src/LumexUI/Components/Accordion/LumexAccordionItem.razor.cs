@@ -15,7 +15,7 @@ public partial class LumexAccordionItem : LumexComponentBase, ISlotComponent<Acc
     /// <summary>
     /// Gets or sets the unique identifier for the accordion item.
     /// </summary>
-    [Parameter, EditorRequired] public string? Id { get; set; }
+    [Parameter, EditorRequired] public string Id { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets content to be rendered inside the accordion item.
