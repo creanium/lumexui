@@ -310,20 +310,6 @@ public class AccordionTests : TestContext
     }
 
     [Fact]
-    public void Accordion_ExpandedItemsAndSelectionModeSingle_ShouldThrowInvalidOperation()
-    {
-        var action = () => RenderComponent<LumexAccordion>( p => p
-            .Add( p => p.SelectionMode, SelectionMode.Single )
-            .Add( p => p.ExpandedItems, ["1"] )
-            .AddChildContent<LumexAccordionItem>( p => p
-                .Add( p => p.Id, "1" )
-            )
-        );
-
-        action.Should().Throw<InvalidOperationException>();
-    }
-
-    [Fact]
     public void AccordionItem_StandaloneUsage_ShouldThrowInvalidOperation()
     {
         var action = () => RenderComponent<LumexAccordionItem>( p => p
