@@ -6,7 +6,6 @@ using System.Xml.Linq;
 
 using LumexUI.Common;
 using LumexUI.Docs.Common;
-using LumexUI.Docs.Common.Models;
 using LumexUI.Docs.Components;
 
 using Microsoft.AspNetCore.Components;

@@ -1,3 +1,3 @@
-﻿namespace LumexUI.Docs.Common.Models;
+﻿namespace LumexUI.Docs.Common;
 
 public class T;
