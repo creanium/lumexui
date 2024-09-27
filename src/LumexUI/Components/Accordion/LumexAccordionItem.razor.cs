@@ -151,7 +151,7 @@ public partial class LumexAccordionItem : LumexComponentBase, ISlotComponent<Acc
                 $"Do not supply both '{nameof( Subtitle )}' and '{nameof( SubtitleContent )}'." );
         }
 
-        _expanded = Expanded || Context.Owner.ExpandedItems.Contains( Id );
+        _expanded = Expanded || Context.Owner.ExpandedItems.Contains( Id ) || Context.Owner.Expanded;
         _disabled = Disabled || Context.Owner.DisabledItems.Contains( Id ) || Context.Owner.Disabled;
     }
 

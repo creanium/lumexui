@@ -47,6 +47,11 @@ public partial class LumexAccordion : LumexComponentBase
     [Parameter] public bool Disabled { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the accordion items are expanded.
+    /// </summary>
+    [Parameter] public bool Expanded { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether to display a divider 
     /// under each accordion item (except the last one).
     /// </summary>
