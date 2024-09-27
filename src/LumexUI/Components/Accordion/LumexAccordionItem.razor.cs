@@ -48,12 +48,12 @@ public partial class LumexAccordionItem : LumexComponentBase, ISlotComponent<Acc
     [Parameter] public string? Subtitle { get; set; }
 
     /// <summary>
-    /// Gets or sets the icon used as an indicator in the accordion item.
+    /// Gets or sets the delegate that resolves the indicator icon based on its expanded state.
     /// </summary>
     /// <remarks>
     /// The default is <see cref="Icons.Rounded.ChevronLeft"/>
     /// </remarks>
-    [Parameter] public string Indicator { get; set; } = Icons.Rounded.ChevronLeft;
+    [Parameter] public IndicatorResolver Indicator { get; set; } = (_) => Icons.Rounded.ChevronLeft;
 
     /// <summary>
     /// Gets or sets a value indicating whether the accordion item is disabled.
@@ -194,4 +194,12 @@ public partial class LumexAccordionItem : LumexComponentBase, ISlotComponent<Acc
             _disposed = true;
         }
     }
+
+    /// <summary>
+    /// Represents a method that resolves the indicator icon 
+    /// for the <see cref="LumexAccordionItem"/> based on its expanded state.
+    /// </summary>
+    /// <param name="expanded">A boolean value indicating whether the accordion item is expanded.</param>
+    /// <returns>A <see langword="string"/> representing the indicator icon; otherwise, <see langword="null"/> if no indicator is needed.</returns>
+    public delegate string? IndicatorResolver( bool expanded );
 }

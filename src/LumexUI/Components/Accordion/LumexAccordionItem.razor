@@ -48,11 +48,8 @@
             </div>
             @if( Context.Owner.ShowIndicators )
             {
-                <span class="@IndicatorClass" data-open="@_expanded">
-                    @* TODO: Icon component *@
-                    <svg class="fill-current" width="1.25em" height="1.25em" focusable="false" viewBox="0 -960 960 960">
-                        @((MarkupString)Indicator)
-                    </svg>
+                <span class="@IndicatorClass" data-opened="@_expanded">
+                    <LumexIcon Icon="@Indicator(_expanded)" />
                 </span>
             }
         </button>
