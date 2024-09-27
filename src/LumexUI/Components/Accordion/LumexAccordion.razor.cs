@@ -71,12 +71,12 @@ public partial class LumexAccordion : LumexComponentBase
     /// <summary>
     /// Gets or sets the set of accordion item identifiers that are expanded by default in the accordion.
     /// </summary>
-    [Parameter] public ICollection<string> ExpandedItems { get; set; }
+    [Parameter] public ICollection<string> ExpandedItems { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the set of accordion item identifiers that are disabled in the accordion.
     /// </summary>
-    [Parameter] public ICollection<string> DisabledItems { get; set; }
+    [Parameter] public ICollection<string> DisabledItems { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the CSS class names for the accordion items slots.

@@ -83,7 +83,7 @@ internal readonly record struct AccordionItem
         .ToString();
 
     private readonly static string _content = ElementClass.Empty()
-        .Add( "py-2" )
+        .Add( "pb-4" )
         .ToString();
 
     private readonly static string _disabled = ElementClass.Empty()
