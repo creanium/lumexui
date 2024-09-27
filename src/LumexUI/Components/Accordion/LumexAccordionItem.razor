@@ -12,13 +12,13 @@
                 disabled="@_disabled"
                 data-slot="trigger"
                 @onclick="@ToggleExpansionAsync">
-            <div class="@TitleWrapperClass" data-slot="title-wrapper">
                 @if( StartContent is not null )
                 {
                     <div class="@StartContentClass" data-slot="start-content">
                         @StartContent
                     </div>
                 }
+            <div class="@TitleWrapperClass" data-slot="title-wrapper">
                 @if( !string.IsNullOrEmpty( Title ) || TitleContent is not null )
                 {
                     <span class="@TitleClass" data-slot="title">
