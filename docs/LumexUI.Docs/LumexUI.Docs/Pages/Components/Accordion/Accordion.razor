@@ -1,0 +1,181 @@
+﻿@page "/docs/components"
+@page "/docs/components/accordion"
+
+@using LumexUI.Docs.Client.Pages.Components.Accordion.PreviewCodes
+
+@layout DocsContentLayout
+
+<DocsCompositionSection Components="@_compositionComponents" />
+
+<DocsSection Title="Usage">
+    <p>
+        The basic accordion component helps organize content in a collapsible format.
+        Each item can expand or collapse to show or hide its content.
+    </p>
+    <Usage />
+
+    <DocsSection Title="Disabled">
+        <p>
+            Prevent user interaction by disabling the entire accordion,
+            which makes all accordion items unclickable and visually faded.
+            You can achieve this using the <Code>Disabled</Code> parameter.
+        </p>
+        <Disabled />
+
+        <p>
+            Alternatively, you can prevent user interaction by disabling specific accordion items.
+            You can achieve this using the <Code>DisabledItems</Code> parameter.
+        </p>
+        <DisabledItems />
+    </DocsSection>
+
+    <DocsSection Title="Expanded">
+        <p>
+            You can set the entire accordion to be expanded by default when the page is first loaded.
+            You can achieve this using the <Code>Expanded</Code> parameter.
+        </p>
+        <Expanded />
+
+        <p>
+            Alternatively, you can set specific accordion items to be expanded by default.
+            You can achieve this using the <Code>ExpandedItems</Code> parameter.
+        </p>
+        <ExpandedItems />
+    </DocsSection>
+
+    <DocsSection Title="Multiple">
+        <p>
+            By default, only one accordion item can be expanded at a time.
+            You can enable multiple expansion to allow more than one item to be open simultaneously.
+            You can achieve this using the <Code>SelectionMode</Code> parameter.
+        </p>
+        <Multiple />
+    </DocsSection>
+
+    <DocsSection Title="Variants">
+        <p>
+            The accordion component supports different visual variants to match your application's style,
+            such as <Code>Light</Code>, <Code>Shadow</Code>, <Code>Bordered</Code> or <Code>Splitted</Code>.
+            You can achieve this using the <Code>Variant</Code> parameter.
+        </p>
+        <Variants />
+    </DocsSection>
+
+    <DocsSection Title="Subtitle">
+        <p>
+            You can add a subtitle to provide additional context to
+            the accordion item, enhancing clarity for the user.
+            You can achieve this using the <Code>Subtitle</Code> or <Code>SubtitleContent</Code> parameters.
+        </p>
+        <Subtitle />
+    </DocsSection>
+
+    <DocsSection Title="Start Content">
+        <p>
+            You can add additional content at the very beginning of an accordion item,
+            such as icons, labels, or other elements. You can achieve this using the <Code>StartContent</Code> parameter.
+        </p>
+        <StartContent />
+    </DocsSection>
+
+    <DocsSection Title="Custom Indicator">
+        <p>
+            Customize the default expand/collapse indicator icon (such as an arrow).
+            You can achieve this using the <Code>Indicator</Code> parameter.
+        </p>
+        <CustomIndicator />
+
+        <p>
+            Since the <Code>Indicator</Code> parameter is of a delegate type <Code>IndicatorResolver</Code>,
+            you can control the indicator icon based on the expanded state of the accordion item:
+        </p>
+        <CustomIndicatorState />
+    </DocsSection>
+
+    <DocsSection Title="Two-way Data Binding">
+        <p>
+            The accordion component supports two-way data binding, allowing you to
+            programmatically control which items are expanded and respond to user interactions in real-time.
+            You can achieve this using the <Code>@@bind-Expanded</Code> directive, or the <Code>Expanded</Code> and <Code>ExpandedChanged</Code> parameters.
+        </p>
+        <TwoWayDataBinding />
+    </DocsSection>
+</DocsSection>
+
+<DocsSlotsSection Slots="@_slots">
+    <div>
+        <h4 class="font-semibold">Accordion</h4>
+        <ul>
+            <li><Code>Class</Code>: The basic CSS class name style the wrapper of the accordion items.</li>
+            <li><Code>ItemClasses</Code>: The CSS class names for the accordion items' slots style all the accordion items at once.</li>
+        </ul>
+    </div>
+    <div>
+        <h4 class="font-semibold">Accordion Item</h4>
+        <ul>
+            <li><Code>Class</Code>: The basic CSS class name style the wrapper of the accordion item.</li>
+            <li><Code>Classes</Code>: The CSS class names for the accordion item's slots style the entire accordion item at once.</li>
+        </ul>
+    </div>
+    <CustomStyles />
+</DocsSlotsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly CompositionComponent[] _compositionComponents = new CompositionComponent[]
+    {
+        new("LumexAccordion", "The container that holds collapsible sections."),
+        new("LumexAccordionItem", "The individual collapsible section within the accordion.")
+    };
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Composition"),
+        new("Usage", [
+            new("Disabled"),
+            new("Expanded"),
+            new("Multiple"),
+            new("Variants"),
+            new("Subtitle"),
+            new("Start Content"),
+            new("Custom Indicator"),
+            new("Two-way Data Binding"),
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly Slot[] _slots = new Slot[]
+    {
+        new("base", "The overall container of the accordion item."),
+        new("heading", "The wrappper of the header section that includes the trigger."),
+        new("trigger", "The element that toggles the accordion open or closed."),
+        new("titleWrapper", "The wrappper of both the title and subtitle of the accordion item."),
+        new("title", "The main title of the accordion item."),
+        new("subtitle", "The secondary text beneath the title."),
+        new("startContent", "The content, such as icons, placed at the start of the accordion item."),
+        new("indicator", "The icon that indicates the accordion item’s expanded or collapsed state."),
+        new("content", "The wrappper of the body content of the accordion item.")
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexAccordion),
+        nameof(LumexAccordionItem),
+        nameof(LumexIcon)
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Accordion",
+            category: "Components",
+            description: "Accordions present a list of top-level options that can expand or collapse to display additional details.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Accordion", isServer: false )
+        );
+    }
+}

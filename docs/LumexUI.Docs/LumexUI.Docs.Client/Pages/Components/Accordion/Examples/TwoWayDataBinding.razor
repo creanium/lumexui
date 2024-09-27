@@ -1,0 +1,35 @@
+﻿<LumexAccordion>
+    <LumexAccordionItem Id="1"
+                        Title="Accordion 1"
+                        @bind-Expanded="@_itemOneExpanded">
+        @_content
+    </LumexAccordionItem>
+    <LumexAccordionItem Id="2"
+                        Title="Accordion 2"
+                        @bind-Expanded="@_itemTwoExpanded">
+        @_content
+    </LumexAccordionItem>
+    <LumexAccordionItem Id="3"
+                        Title="@_itemThreeTitle"
+                        Expanded="@_itemThreeExpanded"
+                        ExpandedChanged="@OnExpandedChanged">
+        @_content
+    </LumexAccordionItem>
+</LumexAccordion>
+
+@code {
+    private RenderFragment _content =>
+    @<text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</text>;
+
+    private bool _itemOneExpanded;
+    private bool _itemTwoExpanded;
+    private bool _itemThreeExpanded;
+
+    private string _itemThreeTitle = "Accordion 3";
+
+    private void OnExpandedChanged( bool expanded )
+    {
+        _itemThreeExpanded = expanded;
+        _itemThreeTitle = expanded ? "I am expanded" : "I am collapsed";
+    }
+}

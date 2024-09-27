@@ -52,10 +52,10 @@ module.exports = {
                             color: theme('colors.zinc.100'),
                             padding: theme('padding.5'),
                         },
-                        'table code::before': {
+                        'code[class]::before': {
                             content: '""'
                         },
-                        'table code::after': {
+                        'code[class]::after': {
                             content: '""'
                         }
                     }

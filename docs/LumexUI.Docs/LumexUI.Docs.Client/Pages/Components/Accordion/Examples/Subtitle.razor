@@ -1,0 +1,27 @@
+﻿<LumexAccordion>
+    <LumexAccordionItem Id="1"
+                        Title="Accordion 1"
+                        Subtitle="Press to expand">
+        @_content
+    </LumexAccordionItem>
+    <LumexAccordionItem Id="2" Title="Accordion 2">
+        <SubtitleContent>
+            <span>
+                Press to expand <strong>item 2</strong>
+            </span>
+        </SubtitleContent>
+        <ChildContent>
+            @_content
+        </ChildContent>
+    </LumexAccordionItem>
+    <LumexAccordionItem Id="3"
+                        Title="Accordion 3"
+                        Subtitle="Press to expand">
+        @_content
+    </LumexAccordionItem>
+</LumexAccordion>
+
+@code {
+    private RenderFragment _content =>
+    @<text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</text>;
+}
