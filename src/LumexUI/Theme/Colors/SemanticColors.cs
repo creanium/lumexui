@@ -30,7 +30,7 @@ internal static class SemanticColors
             new( Default, Colors.Zinc["900"] )
         ],
         Content1 = [
-            new( Default, Colors.White ),
+            new( Default, Colors.Zinc["50"] ),
             new( Foreground, Colors.Zinc["700"] )
         ],
         Content2 = [

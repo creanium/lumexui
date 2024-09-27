@@ -20,7 +20,7 @@ internal readonly record struct Accordion
     {
         return ElementClass.Empty()
             .Add( "", when: variant is AccordionVariant.Light )
-            .Add( "px-4 shadow-medium rounded-medium bg-default-50", when: variant is AccordionVariant.Shadow )
+            .Add( "px-4 shadow-small rounded-medium bg-content1", when: variant is AccordionVariant.Shadow )
             .Add( "px-4 border border-divider rounded-medium", when: variant is AccordionVariant.Bordered )
             .Add( "group is-splitted flex flex-col gap-2", when: variant is AccordionVariant.Splitted );
     }
@@ -40,14 +40,15 @@ internal readonly record struct AccordionItem
 {
     private readonly static string _base = ElementClass.Empty()
         .Add( "group-[.is-splitted]:px-4" )
-        .Add( "group-[.is-splitted]:bg-default-50" )
-        .Add( "group-[.is-splitted]:shadow-medium" )
+        .Add( "group-[.is-splitted]:bg-content1" )
+        .Add( "group-[.is-splitted]:shadow-small" )
         .Add( "group-[.is-splitted]:rounded-medium" )
         .ToString();
 
     private readonly static string _trigger = ElementClass.Empty()
         .Add( "flex" )
         .Add( "py-4" )
+        .Add( "gap-3" )
         .Add( "w-full" )
         .Add( "items-center" )
         .Add( "outline-none" )
@@ -77,7 +78,7 @@ internal readonly record struct AccordionItem
     private readonly static string _indicator = ElementClass.Empty()
         .Add( "text-default-400" )
         .Add( "rotate-0" )
-        .Add( "data-[open]:-rotate-90" )
+        .Add( "data-[opened]:-rotate-90" )
         .Add( "transition-transform" )
         .ToString();
 

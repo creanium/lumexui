@@ -3,7 +3,7 @@
 
 <LumexComponent Class="@RootClass"
                 Style="@RootStyle"
-                data-slot="root"
+                data-slot="base"
                 data-opened="@_expanded"
                 @attributes="@AdditionalAttributes">
     <h2 class="@HeadingClass" data-slot="heading">
@@ -12,12 +12,12 @@
                 disabled="@_disabled"
                 data-slot="trigger"
                 @onclick="@ToggleExpansionAsync">
-                @if( StartContent is not null )
-                {
-                    <div class="@StartContentClass" data-slot="start-content">
-                        @StartContent
-                    </div>
-                }
+            @if( StartContent is not null )
+            {
+                <div class="@StartContentClass" data-slot="start-content">
+                    @StartContent
+                </div>
+            }
             <div class="@TitleWrapperClass" data-slot="title-wrapper">
                 @if( !string.IsNullOrEmpty( Title ) || TitleContent is not null )
                 {
