@@ -11,6 +11,11 @@ internal sealed class AccordionContext( LumexAccordion owner ) : IComponentConte
     public void Register( LumexAccordionItem item )
     {
         _items.Add( item );
+
+        if( Owner.Expanded )
+        {
+            Owner.ExpandedItems.Add( item.Id );
+        }
     }
 
     public void Unregister( LumexAccordionItem item )
@@ -25,12 +30,17 @@ internal sealed class AccordionContext( LumexAccordion owner ) : IComponentConte
 
     public ValueTask ToggleExpansionAsync( LumexAccordionItem item )
     {
-        if( Owner.SelectionMode is SelectionMode.Multiple )
+        if( Owner.SelectionMode is SelectionMode.Single )
         {
-            return ValueTask.CompletedTask;
+            if( !Owner.ExpandedItems.Contains( item.Id ) )
+            {
+                return CollapseAllButThisAsync( item );
+            }
+
+            Owner.ExpandedItems.Remove( item.Id );
         }
 
-        return CollapseAllButThisAsync( item );
+        return ValueTask.CompletedTask;
     }
 
     private async ValueTask CollapseAllButThisAsync( LumexAccordionItem item )
@@ -42,6 +52,7 @@ internal sealed class AccordionContext( LumexAccordion owner ) : IComponentConte
                 continue;
             }
 
+            Owner.ExpandedItems.Remove( accordionItem.Id );
             await accordionItem.CollapseAsync();
         }
     }

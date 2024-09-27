@@ -71,12 +71,12 @@ public partial class LumexAccordion : LumexComponentBase
     /// <summary>
     /// Gets or sets the set of accordion item identifiers that are expanded by default in the accordion.
     /// </summary>
-    [Parameter] public string[] ExpandedItems { get; set; } = [];
+    [Parameter] public ICollection<string> ExpandedItems { get; set; }
 
     /// <summary>
     /// Gets or sets the set of accordion item identifiers that are disabled in the accordion.
     /// </summary>
-    [Parameter] public string[] DisabledItems { get; set; } = [];
+    [Parameter] public ICollection<string> DisabledItems { get; set; }
 
     /// <summary>
     /// Gets or sets the CSS class names for the accordion items slots.
@@ -91,15 +91,5 @@ public partial class LumexAccordion : LumexComponentBase
     public LumexAccordion()
     {
         _context = new AccordionContext( this );
-    }
-
-    protected override void OnParametersSet()
-    {
-        if( SelectionMode is SelectionMode.Single && ExpandedItems.Length > 0 )
-        {
-            throw new InvalidOperationException(
-                $"{GetType()} requires '{nameof( SelectionMode )}' parameter to be " +
-                $"'{nameof( SelectionMode.Multiple )}' if used with '{nameof( ExpandedItems )}'." );
-        }
     }
 }
