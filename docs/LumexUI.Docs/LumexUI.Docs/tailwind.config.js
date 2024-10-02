@@ -1,15 +1,15 @@
-//const fs = require('fs');
-//const os = require('os');
-//const path = require('path');
-
-//const nuget = path.join(os.homedir(), '.nuget', 'packages', 'lumexui');
-//const version = fs.readdirSync(nuget).sort().at(-1);
-
-//const lumexui = require(path.join(nuget, version, 'theme', 'plugin'));
-
-const defaultTheme = require('tailwindcss/defaultTheme');
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
 const colors = require('tailwindcss/colors');
-const lumexui = require('../../../src/LumexUI/Scripts/Plugin/dist/plugin');
+const defaultTheme = require('tailwindcss/defaultTheme');
+
+const nuget = path.join(os.homedir(), '.nuget', 'packages', 'lumexui');
+const version = fs.readdirSync(nuget).sort().at(-1);
+
+const lumexui = require(path.join(nuget, version, 'theme', 'plugin'));
+
+//const lumexui = require('../../../src/LumexUI/Scripts/Plugin/dist/plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -22,8 +22,8 @@ module.exports = {
         '../LumexUI.Docs.Client/Pages/**/*.razor.cs',
         '../LumexUI.Docs.Client/Components/**/*.razor',
         '../LumexUI.Docs.Client/Components/**/*.razor.cs',
-        '../../../src/LumexUI/Styles/*.cs'
-        /*`${nuget}/${version}/theme/components/*.cs`*/
+        /*'../../../src/LumexUI/Styles/*.cs'*/
+        `${nuget}/${version}/theme/components/*.cs`
     ],
     darkMode: 'class',
     theme: {
