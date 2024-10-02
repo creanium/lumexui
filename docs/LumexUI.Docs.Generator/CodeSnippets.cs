@@ -10,81 +10,104 @@ namespace LumexUI.Docs.Generator;
 
 internal static class CodeSnippets
 {
-	private static readonly MarkdownPipeline _pipeline;
+    private static readonly MarkdownPipeline _pipeline;
 
-	static CodeSnippets()
-	{
-		_pipeline = new MarkdownPipelineBuilder()
-			.UseAdvancedExtensions()
-			.Build();
-	}
+    static CodeSnippets()
+    {
+        _pipeline = new MarkdownPipelineBuilder()
+            .UseAdvancedExtensions()
+            .Build();
+    }
 
-	internal static void Execute()
-	{
-		var srcDirPath = GetSrcDirectoryPath();
-		if( string.IsNullOrEmpty( srcDirPath ) )
-		{
-			return;
-		}
+    public static Task GenerateAsync()
+    {
+        var rootPath = GetRootDirectoryPath();
+        if( string.IsNullOrEmpty( rootPath ) )
+        {
+            throw new DirectoryNotFoundException( "The 'docs' directory was not found in the path hierarchy." );
+        }
 
-        Console.WriteLine( srcDirPath );
-		GenerateHtmlFiles( srcDirPath );
-	}
+        var contentsPath = Directory
+            .EnumerateDirectories( rootPath, Path.Combine( "LumexUI.Docs", "LumexUI.Docs.Client" ) )
+            .FirstOrDefault();
 
-	private static void GenerateHtmlFiles( string srcDirPath )
-	{
-		var docsDirPath = Directory.EnumerateDirectories( srcDirPath, @"LumexUI.Docs\LumexUI.Docs.Client" ).First();
-		var directoryInfo = new DirectoryInfo( docsDirPath );
-		var files = directoryInfo.GetFiles( @"Pages\*.razor", SearchOption.AllDirectories );
+        if( string.IsNullOrEmpty( contentsPath ) )
+        {
+            throw new DirectoryNotFoundException( "The 'LumexUI.Docs/LumexUI.Docs.Client' directory was not found." );
+        }
 
-		foreach( var file in files )
-		{
-			if( !file.DirectoryName!.EndsWith( "Examples" ) )
-			{
-				continue;
-			}
+        return ProcessAsync( new DirectoryInfo( contentsPath ) );
+    }
 
-			var fileName = file.Name.Replace( ".razor", ".html" );
-			var filePath = file.DirectoryName.Replace( "Examples", "Code" );
-			var markdownPath = Path.Combine( filePath, fileName );
-			var markdownContent = ConvertRazorToMarkdown( file );
-			var htmlContent = Markdown.ToHtml( markdownContent, _pipeline );
+    private static async Task ProcessAsync( DirectoryInfo di )
+    {
+        foreach( var file in di.GetFiles( "Pages/*.razor", SearchOption.AllDirectories ) )
+        {
+            if( file.DirectoryName?.EndsWith( "Examples" ) == true )
+            {
+                await ProcessFileAsync( file );
+            }
+        }
+    }
 
-			if( !Directory.Exists( filePath ) )
-			{
-				Directory.CreateDirectory( filePath );
-			}
+    private static async Task ProcessFileAsync( FileInfo file )
+    {
+        var fileName = file.Name.Replace( ".razor", ".html" );
+        var filePath = file.DirectoryName!.Replace( "Examples", "Code" );
+        var markdownPath = Path.Combine( filePath, fileName );
 
-			using var streamWriter = new StreamWriter ( markdownPath );
-			streamWriter.Write( htmlContent );
-		}
-	}
+        if( !Directory.Exists( filePath ) )
+        {
+            Directory.CreateDirectory( filePath );
+        }
 
-	private static string ConvertRazorToMarkdown( FileInfo file )
-	{
-		var sb = new StringBuilder();
+        var markdownContent = ConvertRazorToMarkdown( file );
+        var htmlContent = Markdown.ToHtml( markdownContent, _pipeline );
 
-		sb.AppendLine( "```razor" );
-		sb.AppendLine( File.ReadAllText( file.FullName ).TrimEnd() );
-		sb.AppendLine( "```" );
+        await using var streamWriter = new StreamWriter( markdownPath );
+        await streamWriter.WriteAsync( htmlContent );
+    }
 
-		return sb.ToString();
-	}
+    private static string ConvertRazorToMarkdown( FileInfo file )
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine( "```razor" );
 
-	private static string GetSrcDirectoryPath()
-	{
-		var path = Directory.GetCurrentDirectory();
+        try
+        {
+            using var reader = file.OpenText();
+            var content = reader.ReadToEnd();
+            sb.AppendLine( content );
+        }
+        catch( IOException ex )
+        {
+            Console.WriteLine( $"An error occurred while reading the file: {ex.Message}" );
+            return string.Empty;
+        }
 
-		while( !string.IsNullOrEmpty( path ) )
-		{
-			if( Path.GetFileName( path ) == "docs" )
-			{
-				return path;
-			}
+        sb.AppendLine( "```" );
+        return sb.ToString();
+    }
 
-			path = Path.GetDirectoryName( path )!;
-		}
+    private static string? GetRootDirectoryPath()
+    {
+        var path = Directory.GetCurrentDirectory();
+        while( !string.IsNullOrEmpty( path ) )
+        {
+            if( Path.GetFileName( path ).Equals( "docs", StringComparison.OrdinalIgnoreCase ) )
+            {
+                return path;
+            }
 
-		return path;
-	}
+            var parentPath = Path.GetDirectoryName( path );
+            if( string.IsNullOrEmpty( parentPath ) || parentPath == path )
+            {
+                break;
+            }
+
+            path = parentPath;
+        }
+
+        return null;
+    }
 }
