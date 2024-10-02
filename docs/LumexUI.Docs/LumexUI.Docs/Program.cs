@@ -1,6 +1,8 @@
 using LumexUI.Docs.Components;
 using LumexUI.Extensions;
 
+using TailwindMerge.Models;
+
 var builder = WebApplication.CreateBuilder( args );
 
 // Add services to the container.
@@ -8,7 +10,16 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
-builder.Services.AddLumexServices();
+builder.Services.AddLumexServices( options =>
+{
+    options.Extend( new ExtendedConfig()
+    {
+        ClassGroups = new()
+        {
+            ["bg-image"] = new ClassGroup( "bg", ["dots"] ),
+        }
+    } );
+} );
 
 var app = builder.Build();
 

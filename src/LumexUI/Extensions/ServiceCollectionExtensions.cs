@@ -8,6 +8,7 @@ using LumexUI.Services;
 
 using Microsoft.Extensions.DependencyInjection;
 
+using TailwindMerge;
 using TailwindMerge.Extensions;
 using TailwindMerge.Models;
 
@@ -25,11 +26,21 @@ public static class ServiceCollectionExtensions
     /// <param name="services">The <see cref="IServiceCollection"/>.</param>
     public static void AddLumexServices( this IServiceCollection services )
     {
-        services.AddTailwindMerge();
+        services.AddTwMerge();
         services.AddPopoverService();
     }
 
-    private static void AddTailwindMerge( this IServiceCollection services )
+    /// <summary>
+    /// Adds the LumexUI services to the specified <see cref="IServiceCollection"/>.
+    /// </summary>
+    /// <param name="services">The <see cref="IServiceCollection"/>.</param>
+    public static void AddLumexServices( this IServiceCollection services, Action<TwMergeConfig> options )
+    {
+        services.AddTwMerge( options );
+        services.AddPopoverService();
+    }
+
+    private static void AddTwMerge( this IServiceCollection services )
     {
         services.AddTailwindMerge( options =>
         {
@@ -44,6 +55,12 @@ public static class ServiceCollectionExtensions
                 }
             } );
         } );
+    }
+
+    private static void AddTwMerge( this IServiceCollection services, Action<TwMergeConfig> options )
+    {
+        services.AddTwMerge();
+        services.Configure( options );
     }
 
     private static void AddPopoverService( this IServiceCollection services )
