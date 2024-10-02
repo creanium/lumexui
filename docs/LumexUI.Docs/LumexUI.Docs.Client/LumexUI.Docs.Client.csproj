@@ -16,18 +16,9 @@
 		<ProjectReference Include="..\..\..\src\LumexUI\LumexUI.csproj" />
 	</ItemGroup>
 
-	<PropertyGroup>
-		<GeneratorCommand>dotnet run --configuration Release --project "$(SolutionDir)docs\LumexUI.Docs.Generator\LumexUI.Docs.Generator.csproj"</GeneratorCommand>
-	</PropertyGroup>
-
-	<!-- Runs the docs content generation command -->
-	<Target Name="GenerateDocs" BeforeTargets="BeforeBuild">
-		<Exec Command="$(GeneratorCommand)" />
-	</Target>
-
 	<ItemGroup>
-	  <EmbeddedResource Include="Pages\**\*.html" />
-	  <EmbeddedResource Include="Samples\**\*.html" />
+		<EmbeddedResource Include="Pages\**\*.html" />
+		<EmbeddedResource Include="Samples\**\*.html" />
 	</ItemGroup>
-
+	
 </Project>

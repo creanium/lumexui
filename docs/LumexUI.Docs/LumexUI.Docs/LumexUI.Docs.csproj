@@ -10,33 +10,45 @@
 		<WarningsAsErrors>RZ2012</WarningsAsErrors>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<GeneratorCommand>dotnet run --configuration Release --project "$(SolutionDir)docs\LumexUI.Docs.Generator\LumexUI.Docs.Generator.csproj"</GeneratorCommand>
+	</PropertyGroup>
+	
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.8" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\LumexUI.Docs.Generator\LumexUI.Docs.Generator.csproj" />
 		<ProjectReference Include="..\LumexUI.Docs.Client\LumexUI.Docs.Client.csproj" />
+		<ProjectReference Include="..\..\LumexUI.Docs.Generator\LumexUI.Docs.Generator.csproj" />
 	</ItemGroup>
 
-	<!-- Installs Tailwind CSS dependencies if 'node_modules' is not present -->
-	<Target Name="TailwindInstall" BeforeTargets="Compile" Condition="!Exists('node_modules')">
+	<!-- Runs the docs content generation command -->
+	<Target Name="GenerateDocs" BeforeTargets="BeforeBuild">
+		<Exec Command="$(GeneratorCommand)" />
+	</Target>
+
+	<!-- Installs npm dependencies if 'node_modules' is not present -->
+	<Target Name="Npm" BeforeTargets="Compile" Condition="!Exists('node_modules')">
 		<Exec Command="npm ci" />
 	</Target>
 
-	<!-- Enables Tailwind CSS compilation on every build in Debug mode -->
-	<Target Name="TailwindRunDebug" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+	<!-- Runs the 'build' script on every build in Debug mode -->
+	<Target Name="Build" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug'">
 		<Exec Command="npm run build" />
 	</Target>
 
-	<!-- Enables Tailwind CSS compilation on every build in Release mode -->
-	<Target Name="TailwindRunRelease" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
+	<!-- Runs the 'build:prod' script on every build in Release mode -->
+	<Target Name="BuildProd" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
 		<Exec Command="npm run build:prod" />
 	</Target>
 
 	<!-- Remove package.json and package-lock.json from the build output -->
 	<ItemGroup>
-		<Content Remove="*.json" />
+		<None Include="package.json" />
+		<None Include="package-lock.json" />
+		<Content Remove="package.json" />
+		<Content Remove="package-lock.json" />
 	</ItemGroup>
 
 </Project>
