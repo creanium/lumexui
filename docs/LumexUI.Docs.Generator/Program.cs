@@ -17,6 +17,6 @@ internal class Program
         CodeSnippets.Execute();
         stopWatch.Stop();
 
-        Console.WriteLine( $"Docs generation completed.Time Elapsed: {stopWatch.Elapsed:ss\\.fff} seconds" );
+        Console.WriteLine( $"Docs generation completed. Time Elapsed: {stopWatch.Elapsed:ss\\.fff} seconds" );
     }
 }

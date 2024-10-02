@@ -10,7 +10,7 @@ namespace LumexUI.Docs.Generator;
 
 internal static class CodeSnippets
 {
-	private static readonly MarkdownPipeline? _pipeline;
+	private static readonly MarkdownPipeline _pipeline;
 
 	static CodeSnippets()
 	{
@@ -22,12 +22,12 @@ internal static class CodeSnippets
 	internal static void Execute()
 	{
 		var srcDirPath = GetSrcDirectoryPath();
-
 		if( string.IsNullOrEmpty( srcDirPath ) )
 		{
 			return;
 		}
 
+        Console.WriteLine( srcDirPath );
 		GenerateHtmlFiles( srcDirPath );
 	}
 
@@ -55,14 +55,14 @@ internal static class CodeSnippets
 				Directory.CreateDirectory( filePath );
 			}
 
-			using StreamWriter streamWriter = new( markdownPath );
+			using var streamWriter = new StreamWriter ( markdownPath );
 			streamWriter.Write( htmlContent );
 		}
 	}
 
 	private static string ConvertRazorToMarkdown( FileInfo file )
 	{
-		StringBuilder sb = new();
+		var sb = new StringBuilder();
 
 		sb.AppendLine( "```razor" );
 		sb.AppendLine( File.ReadAllText( file.FullName ).TrimEnd() );
