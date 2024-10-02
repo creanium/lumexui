@@ -48,7 +48,7 @@ public class ColorScaleTests
     {
         var scale = new ColorScale( Colors.Orange, "500" );
 
-        scale.Should().HaveCount( 12 );
+        scale.Should().HaveCount( 13 );
         scale.Should().ContainKey( "default" );
         scale.Should().ContainKey( "foreground" );
         scale["default"].Should().Be( Colors.Orange["500"] );
