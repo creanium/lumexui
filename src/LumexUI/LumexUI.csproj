@@ -6,6 +6,35 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<Title>LumexUI</Title>
+		<Description>🚀 A versatile Blazor component library for efficient web development</Description>
+		<Version>0.1.0</Version>
+		<Authors>LumexUI</Authors>
+		<PackageId>LumexUI</PackageId>
+		<!--<PackageIcon>logo.png</PackageIcon>-->
+		<PackageTags>blazor;components;library;tailwindcss;</PackageTags>
+		<PackageProjectUrl>https://github.com/LumexUI/lumexui</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/LumexUI/lumexui</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath="" />
+		<None Include="..\..\README.md" Pack="true" Visible="false" PackagePath="" />
+		<!--<None Include="..\assets\logo.png" Pack="true" Visible="false" PackagePath="" />-->
+		<None Include=".\Styles\*.cs" Pack="true" PackagePath="theme\components" />
+		<None Include=".\Scripts\Plugin\plugin.js" Pack="true" PackagePath="theme\plugin.js" />
+	</ItemGroup>
+
 	<ItemGroup>
 		<SupportedPlatform Include="browser" />
 	</ItemGroup>
@@ -17,6 +46,24 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\LumexUI.Utilities\LumexUI.Utilities.csproj" />
+	</ItemGroup>
+
+	<!-- Installs npm dependencies if 'node_modules' is not present -->
+	<Target Name="Npm" BeforeTargets="Compile" Condition="!Exists('node_modules')">
+		<Exec Command="npm ci" />
+	</Target>
+
+	<!-- Runs the 'build:prod' script on every build in Release mode -->
+	<Target Name="BuildProd" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
+		<Exec Command="npm run build:prod" />
+	</Target>
+
+	<!-- Remove package.json and package-lock.json from the build output -->
+	<ItemGroup>
+		<None Include="package.json" />
+		<None Include="package-lock.json" />
+		<Content Remove="package.json" />
+		<Content Remove="package-lock.json" />
 	</ItemGroup>
 
 	<ItemGroup>
