@@ -2,16 +2,16 @@
 @rendermode InteractiveAuto
 @inject IJSRuntime JSRuntime
 
-<div class="flex flex-col rounded-2xl ring-1 ring-foreground-950/5 shadow-sm overflow-hidden">
-    <div class="relative flex items-center p-8 rounded-t-xl bg-zinc-50">
-        @* <div class="absolute inset-0 bg-dots [mask-image:radial-gradient(#fff_0%,transparent_100%)]"></div> *@
-        <div class="relative w-full flex flex-wrap items-center gap-4 bg-zinc-50 shadow-sm shadow-zinc-50 not-prose">
+<div class="rounded-2xl ring-1 ring-foreground-950/5 shadow-sm overflow-hidden">
+    <div class="@PreviewWrapperClass">
+        <div class="@BackgroundClass"></div>
+        <div class="@PreviewClass">
             @ChildContent
         </div>
     </div>
 
     <div class="@ToolbarClass">
-        <div class="flex items-center ms-auto">
+        <div class="flex items-center justify-end">
             <LumexButton Size="@Size.Small"
                          OnClick="@Expand"
                          Class="h-5 px-2 me-1 rounded-full bg-orange-50 border border-orange-300 text-orange-500 text-[0.625rem]">
@@ -32,37 +32,3 @@
         <CodeSnippet Id="@_id" Code="@Code" />
     </LumexCollapse>
 </div>
-
-@code {
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter, EditorRequired] public CodeBlock Code { get; set; } = default!;
-
-    private string ToolbarClass => ElementClass.Empty()
-        .Add( "p-2" )
-        .Add( "flex" )
-        .Add( "border-t" )
-        .Add( "border-foreground-950/5" )
-        .Add( "border-b", when: _expanded )
-        .Add( "rounded-b-xl", when: !_expanded )
-        .ToString();
-
-    private string _id = Identifier.New();
-    private bool _expanded;
-    private bool _copied;
-
-    private void Expand()
-    {
-        _expanded = !_expanded;
-    }
-
-    private async Task CopyToClipboard()
-    {
-        await JSRuntime.InvokeVoidAsync( "LumexDocs.copyToClipboard", _id );
-        _copied = true;
-        StateHasChanged();
-
-        await Task.Delay( 2000 );
-        _copied = false;
-        StateHasChanged();
-    }
-}
