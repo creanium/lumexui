@@ -106,15 +106,15 @@
     <div>
         <h4 class="font-semibold">Accordion</h4>
         <ul>
-            <li><Code>Class</Code>: The basic CSS class name style the wrapper of the accordion items.</li>
-            <li><Code>ItemClasses</Code>: The CSS class names for the accordion items' slots style all the accordion items at once.</li>
+            <li><Code>Class</Code>: The basic CSS class name styles the wrapper of the accordion items.</li>
+            <li><Code>ItemClasses</Code>: The CSS class names for the accordion items slots style all the accordion items at once.</li>
         </ul>
     </div>
     <div>
         <h4 class="font-semibold">Accordion Item</h4>
         <ul>
-            <li><Code>Class</Code>: The basic CSS class name style the wrapper of the accordion item.</li>
-            <li><Code>Classes</Code>: The CSS class names for the accordion item's slots style the entire accordion item at once.</li>
+            <li><Code>Class</Code>: The basic CSS class name styles the wrapper of the accordion item.</li>
+            <li><Code>Classes</Code>: The CSS class names for the accordion item slots style the entire accordion item at once.</li>
         </ul>
     </div>
     <CustomStyles />
@@ -127,8 +127,8 @@
 
     private readonly CompositionComponent[] _compositionComponents = new CompositionComponent[]
     {
-        new("LumexAccordion", "The container that holds collapsible sections."),
-        new("LumexAccordionItem", "The individual collapsible section within the accordion.")
+        new(nameof(LumexAccordion), "The container that holds collapsible sections."),
+        new(nameof(LumexAccordionItem), "The individual collapsible section within the accordion.")
     };
 
     private readonly Heading[] _headings = new Heading[]

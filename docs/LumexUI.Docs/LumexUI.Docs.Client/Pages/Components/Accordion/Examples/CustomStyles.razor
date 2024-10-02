@@ -1,6 +1,6 @@
 ﻿<LumexAccordion Variant="@AccordionVariant.Shadow"
                 ShowDividers="@false"
-                Class="p-2 grid gap-1 w-full max-w-sm"
+                Class="p-2 flex flex-col gap-1 max-w-sm"
                 ItemClasses="@_itemClasses">
     <LumexAccordionItem Id="1"
                         Title="Connected Devices">
@@ -44,11 +44,9 @@
     @<text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</text>;
 
     private AccordionItemSlots _itemClasses = new()
-        {
-            Root = "py-0 w-full",
-            Title = "font-normal text-medium",
-            Trigger = "px-2 py-0 hover:bg-default-100 rounded-lg h-14 flex items-center",
-            Indicator = "text-medium",
-            Content = "text-small px-2"
-        };
+    {
+        Title = "font-medium text-medium",
+        Trigger = "px-2 py-0 hover:bg-default-100 rounded-lg h-14",
+        Content = "text-small p-2"
+    };
 }
