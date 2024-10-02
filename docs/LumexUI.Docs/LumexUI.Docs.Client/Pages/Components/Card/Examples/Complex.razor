@@ -1,0 +1,54 @@
+﻿<LumexCard Class="max-w-sm">
+    <LumexCardHeader Class="justify-between">
+        <div class="flex items-center">
+            <LumexIcon Icon="@Icons.Rounded.Event"
+                       Size="@new("16")"
+                       Class="text-primary" />
+            <p class="ml-1 text-sm text-foreground-500">
+                16:15, 3 Dec
+            </p>
+        </div>
+        <LumexButton Size="@Size.Small"
+                     Variant="@Variant.Light"
+                     Class="h-6 w-6 min-w-6 px-0">
+            <LumexIcon Icon="@Icons.Rounded.MoreVert"
+                       Size="@new("20")" />
+        </LumexButton>
+    </LumexCardHeader>
+    <LumexCardBody>
+        <p class="text-sm">
+            User <strong>Clark Kent</strong> invites you to join the route.
+        </p>
+        <div class="grid grid-cols-5 mt-2 items-center">
+            <div class="col-span-3">
+                <p class="font-semibold">London, England</p>
+                <p class="text-sm">06.09.2024 - 13.09.2024</p>
+            </div>
+            <div class="col-span-2 flex justify-end font-bold">
+                <div class="w-10 h-10 flex items-center justify-center rounded-full border border-danger bg-danger-200 text-danger-foreground">
+                    <span>AS</span>
+                </div>
+                <div class="w-10 h-10 -ml-2 flex items-center justify-center rounded-full border border-secondary bg-secondary-200 text-secondary-foreground">
+                    <span>DN</span>
+                </div>
+                <div class="w-10 h-10 -ml-2 flex items-center justify-center rounded-full border border-primary bg-primary text-primary-foreground">
+                    <span>+4</span>
+                </div>
+            </div>
+        </div>
+    </LumexCardBody>
+    <LumexCardFooter Class="gap-2">
+        <LumexButton Color="@ThemeColor.Default"
+                     Radius="@Radius.Large"
+                     Size="@Size.Small"
+                     FullWidth="@true">
+            Reject
+        </LumexButton>
+        <LumexButton Color="@ThemeColor.Primary"
+                     Radius="@Radius.Large"
+                     Size="@Size.Small"
+                     FullWidth="@true">
+            Accept
+        </LumexButton>
+    </LumexCardFooter>
+</LumexCard>

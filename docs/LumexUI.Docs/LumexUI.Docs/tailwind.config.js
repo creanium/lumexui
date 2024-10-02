@@ -8,6 +8,7 @@
 //const lumexui = require(path.join(nuget, version, 'theme', 'plugin'));
 
 const defaultTheme = require('tailwindcss/defaultTheme');
+const colors = require('tailwindcss/colors');
 const lumexui = require('../../../src/LumexUI/Scripts/Plugin/dist/plugin');
 
 /** @type {import('tailwindcss').Config} */
@@ -27,6 +28,10 @@ module.exports = {
     darkMode: 'class',
     theme: {
         extend: {
+            colors: {
+                black: colors.black,
+                white: colors.white
+            },
             fontFamily: {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans],
                 mono: ['Fira Code var', ...defaultTheme.fontFamily.mono]
