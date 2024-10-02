@@ -3,7 +3,7 @@
   "private": "true",
   "scripts": {
     "build": "",
-    "build:prod": "npx rollup -c"
+    "build:prod": "rollup -c"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.6.10"

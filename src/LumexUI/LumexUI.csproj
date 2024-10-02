@@ -22,9 +22,9 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -32,7 +32,7 @@
 		<None Include="..\..\README.md" Pack="true" Visible="false" PackagePath="" />
 		<!--<None Include="..\assets\logo.png" Pack="true" Visible="false" PackagePath="" />-->
 		<None Include=".\Styles\*.cs" Pack="true" PackagePath="theme\components" />
-		<None Include=".\Scripts\Plugin\plugin.js" Pack="true" PackagePath="theme\plugin.js" />
+		<None Include=".\Scripts\Plugin\dist\plugin.js" Pack="true" PackagePath="theme\plugin.js" />
 	</ItemGroup>
 
 	<ItemGroup>
