@@ -58,27 +58,37 @@
 	</Target>
 
 	<!-- Install npm dependencies if 'node_modules' is not present -->
-	<Target Name="Npm" BeforeTargets="Compile" Condition="!Exists('node_modules')">
+	<Target Name="Npm" BeforeTargets="BeforeBuild" Condition="!Exists('node_modules')">
+		<Message Text="Running npm ci..." Importance="high" />
 		<Exec Command="npm ci" />
 	</Target>
 
 	<!-- Run the 'build' script on every build -->
-	<Target Name="NpmBuild" BeforeTargets="Build">
+	<Target Name="NpmBuild" DependsOnTargets="Npm" BeforeTargets="Build">
+		<Message Text="Running npm build..." Importance="high" />
 		<Exec Command="npm run build" />
 	</Target>
 
-	<!-- Include components styles and Tailwind plugin to the build output -->
-	<Target Name="IncludeContentsToOutput" DependsOnTargets="NpmBuild">
-		<ItemGroup>
-			<None Include="Styles\*.cs">
-				<TargetPath>theme\components\%(Filename).cs</TargetPath>
-				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			</None>
-			<None Include="Scripts\Plugin\dist\plugin.js">
-				<TargetPath>theme\plugin.js</TargetPath>
-				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			</None>
-		</ItemGroup>
+	<!-- Include content files to the build output if 'theme' is not present -->
+	<Target Name="IncludeContentsToOutput" DependsOnTargets="NpmBuild" AfterTargets="NpmBuild" Condition="!Exists('$(OutputPath)\theme')">
+		<Message Text="Including content files..." Importance="high" />
+
+		<!-- Dynamically create items for the content files -->
+		<CreateItem Include="Styles\*.cs">
+			<Output TaskParameter="Include" ItemName="StyleFiles" />
+		</CreateItem>
+
+		<CreateItem Include="Scripts\Plugin\dist\plugin.js">
+			<Output TaskParameter="Include" ItemName="PluginFile" />
+		</CreateItem>
+
+		<!-- Copy the style files -->
+		<Message Text="%(StyleFiles.Identity) to $(OutputPath)theme\components" Importance="high" />
+		<Copy SourceFiles="@(StyleFiles)" DestinationFolder="$(OutputPath)theme\components" />
+
+		<!-- Copy the plugin.js file -->
+		<Message Text="%(PluginFile.Identity) to $(OutputPath)theme" Importance="high" />
+		<Copy SourceFiles="@(PluginFile)" DestinationFolder="$(OutputPath)theme" />
 	</Target>
 
 	<!-- Remove package.json and package-lock.json from the build output -->
