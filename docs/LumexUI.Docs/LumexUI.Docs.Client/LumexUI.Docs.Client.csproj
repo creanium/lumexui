@@ -9,17 +9,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="LumexUI" Version="0.1.1" />
+		<PackageReference Include="LumexUI" Version="0.1.4" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.8" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\src\LumexUI.Utilities\LumexUI.Utilities.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<EmbeddedResource Include="Pages\**\*.html" />
 		<EmbeddedResource Include="Samples\**\*.html" />
 	</ItemGroup>
-	
+
 </Project>

@@ -13,8 +13,9 @@
 	<PropertyGroup>
 		<GeneratorCommand>dotnet run --configuration Release --project "$(SolutionDir)docs\LumexUI.Docs.Generator\LumexUI.Docs.Generator.csproj"</GeneratorCommand>
 	</PropertyGroup>
-	
+
 	<ItemGroup>
+		<PackageReference Include="LumexUI" Version="0.1.4" GeneratePathProperty="true" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.8" />
 	</ItemGroup>
 
@@ -23,23 +24,23 @@
 		<ProjectReference Include="..\..\LumexUI.Docs.Generator\LumexUI.Docs.Generator.csproj" />
 	</ItemGroup>
 
-	<!-- Runs the docs content generation command -->
-	<Target Name="GenerateDocs" BeforeTargets="BeforeBuild">
+	<!-- Run the docs content generation command -->
+	<Target Name="GenerateDocs" BeforeTargets="Compile">
 		<Exec Command="$(GeneratorCommand)" />
 	</Target>
 
-	<!-- Installs npm dependencies if 'node_modules' is not present -->
-	<Target Name="Npm" BeforeTargets="Compile" Condition="!Exists('node_modules')">
+	<!-- Install npm dependencies if 'node_modules' is not present -->
+	<Target Name="Npm" BeforeTargets="BeforeBuild" Condition="!Exists('node_modules')">
 		<Exec Command="npm ci" />
 	</Target>
 
-	<!-- Runs the 'build' script on every build in Debug mode -->
-	<Target Name="Build" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+	<!-- Run the 'build' script on every build in Debug mode -->
+	<Target Name="NpmBuild" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug'">
 		<Exec Command="npm run build" />
 	</Target>
 
-	<!-- Runs the 'build:prod' script on every build in Release mode -->
-	<Target Name="BuildProd" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
+	<!-- Run the 'build:prod' script on every build in Release mode -->
+	<Target Name="NpmBuildProd" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
 		<Exec Command="npm run build:prod" />
 	</Target>
 
@@ -49,6 +50,14 @@
 		<None Include="package-lock.json" />
 		<Content Remove="package.json" />
 		<Content Remove="package-lock.json" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<Content Include="$(PkgLumexUI)\theme\**\*">
+			<TargetPath>theme\%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Visible>false</Visible>
+		</Content>
 	</ItemGroup>
 
 </Project>

@@ -1,20 +1,12 @@
-const fs = require('fs');
-const os = require('os');
-const path = require('path');
 const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
-
-const nuget = path.join(os.homedir(), '.nuget', 'packages', 'lumexui');
-const version = fs.readdirSync(nuget).sort().at(-1);
-
-const lumexui = require(path.join(nuget, version, 'theme', 'plugin'));
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
         './{Pages,Components}/**/*.{razor,razor.cs}',
         '../LumexUI.Docs.Client/{Pages,Components}/**/*.{razor,razor.cs}',
-        `${nuget}/${version}/theme/components/*.cs`
+        './bin/Debug/net8.0/theme/components/*.cs',
     ],
     darkMode: 'class',
     theme: {
@@ -60,7 +52,7 @@ module.exports = {
         },
     },
     plugins: [
-        lumexui,
+        require('./bin/Debug/net8.0/theme/plugin'),
         require('@tailwindcss/typography'),
         function ({ addVariant }) {
             addVariant('children', '& > *')
