@@ -70,27 +70,27 @@
 	</Target>
 
 	<!-- Include content files to the build output if 'theme' is not present -->
-	<Target Name="IncludeContentsToOutput" DependsOnTargets="NpmBuild" AfterTargets="NpmBuild" Condition="!Exists('$(OutputPath)\theme')">
+	<Target Name="IncludeContentsToOutput" DependsOnTargets="NpmBuild" AfterTargets="NpmBuild">
 		<Message Text="Including content files..." Importance="high" />
 
 		<!-- Dynamically create items for the content files -->
-		<CreateItem Include="Styles\*.cs">
-			<Output TaskParameter="Include" ItemName="StyleFiles" />
-		</CreateItem>
+		<ItemGroup>
+			<StyleFiles Include="Styles\*.cs" />
+			<PluginFile Include="Scripts\Plugin\dist\plugin.js" />
+		</ItemGroup>
 
-		<CreateItem Include="Scripts\Plugin\dist\plugin.js">
-			<Output TaskParameter="Include" ItemName="PluginFile" />
-		</CreateItem>
-
-		<!-- Copy the style files -->
-		<Message Text="%(StyleFiles.Identity) to $(OutputPath)theme\components" Importance="high" />
-		<Copy SourceFiles="@(StyleFiles)" DestinationFolder="$(OutputPath)theme\components" />
-
-		<!-- Copy the plugin.js file -->
-		<Message Text="%(PluginFile.Identity) to $(OutputPath)theme" Importance="high" />
-		<Copy SourceFiles="@(PluginFile)" DestinationFolder="$(OutputPath)theme" />
+		<ItemGroup>
+			<Content Include="@(StyleFiles)">
+				<Pack>true</Pack>
+				<PackagePath>theme\components\%(Filename)%(Extension)</PackagePath>
+			</Content>
+			<Content Include="@(PluginFile)">
+				<Pack>true</Pack>
+				<PackagePath>theme\plugin.js</PackagePath>
+			</Content>
+		</ItemGroup>
 	</Target>
-
+	
 	<!-- Remove package.json and package-lock.json from the build output -->
 	<ItemGroup>
 		<None Include="package.json" />
