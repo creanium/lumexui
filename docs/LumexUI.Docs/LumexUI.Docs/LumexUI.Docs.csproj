@@ -30,17 +30,17 @@
 	</Target>
 
 	<!-- Install npm dependencies if 'node_modules' is not present -->
-	<Target Name="Npm" BeforeTargets="BeforeBuild" Condition="!Exists('node_modules')">
+	<Target Name="Npm" BeforeTargets="Build" Condition="!Exists('node_modules')">
 		<Exec Command="npm ci" />
 	</Target>
 
 	<!-- Run the 'build' script on every build in Debug mode -->
-	<Target Name="NpmBuild" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+	<Target Name="NpmBuild" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
 		<Exec Command="npm run build" />
 	</Target>
 
 	<!-- Run the 'build:prod' script on every build in Release mode -->
-	<Target Name="NpmBuildProd" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
+	<Target Name="NpmBuildProd" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
 		<Exec Command="npm run build:prod" />
 	</Target>
 
