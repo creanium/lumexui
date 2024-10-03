@@ -8,9 +8,9 @@
 
 	<PropertyGroup>
 		<Title>LumexUI</Title>
-		<Description>🚀 A versatile Blazor component library for efficient web development</Description>
-		<Version>0.1.1</Version>
-		<Authors>LumexUI</Authors>
+		<Description>🚀 A versatile Blazor component library built using Tailwind CSS for efficient web development</Description>
+		<Version>0.1.2</Version>
+		<Authors>desmondinho</Authors>
 		<PackageId>LumexUI</PackageId>
 		<!--<PackageIcon>logo.png</PackageIcon>-->
 		<PackageTags>blazor;components;library;tailwindcss;</PackageTags>
@@ -90,5 +90,5 @@
 	<ItemGroup>
 		<InternalsVisibleTo Include="LumexUI.Tests" />
 	</ItemGroup>
-	
+
 </Project>
