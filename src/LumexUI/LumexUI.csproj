@@ -28,7 +28,9 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+		<TargetsForTfmSpecificContentInPackage>
+			$(TargetsForTfmSpecificContentInPackage);AddUtilitiesToOutput
+		</TargetsForTfmSpecificContentInPackage>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -50,10 +52,10 @@
 		<ProjectReference Include="..\LumexUI.Utilities\LumexUI.Utilities.csproj" />
 	</ItemGroup>
 
-	<!-- Add utilities project to the build output -->
-	<Target Name="CopyProjectReferencesToPackage">
+	<!-- Add utilities to the build output -->
+	<Target Name="AddUtilitiesToOutput">
 		<ItemGroup>
-			<BuildOutputInPackage Include="$(OutputPath)$(AssemblyName).Utilities.dll"></BuildOutputInPackage>
+			<TfmSpecificPackageFile Include="$(OutputPath)\$(AssemblyName).Utilities.dll" PackagePath="utilities" />
 		</ItemGroup>
 	</Target>
 
@@ -90,7 +92,7 @@
 			</Content>
 		</ItemGroup>
 	</Target>
-	
+
 	<!-- Remove package.json and package-lock.json from the build output -->
 	<ItemGroup>
 		<None Include="package.json" />
