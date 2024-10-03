@@ -27,12 +27,14 @@
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath="" />
 		<None Include="..\..\README.md" Pack="true" Visible="false" PackagePath="" />
 		<!--<None Include="..\assets\logo.png" Pack="true" Visible="false" PackagePath="" />-->
-		<None Include=".\Styles\*.cs" Pack="true" PackagePath="theme\components" />
-		<None Include=".\Scripts\Plugin\dist\plugin.js" Pack="true" PackagePath="theme\plugin.js" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -48,15 +50,34 @@
 		<ProjectReference Include="..\LumexUI.Utilities\LumexUI.Utilities.csproj" />
 	</ItemGroup>
 
-	<!-- Installs npm dependencies if 'node_modules' is not present -->
+	<!-- Add utilities project to the build output -->
+	<Target Name="CopyProjectReferencesToPackage">
+		<ItemGroup>
+			<BuildOutputInPackage Include="$(OutputPath)$(AssemblyName).Utilities.dll"></BuildOutputInPackage>
+		</ItemGroup>
+	</Target>
+
+	<!-- Install npm dependencies if 'node_modules' is not present -->
 	<Target Name="Npm" BeforeTargets="Compile" Condition="!Exists('node_modules')">
 		<Exec Command="npm ci" />
 	</Target>
 
-	<!-- Runs the 'build:prod' script on every build in Release mode -->
+	<!-- Run the 'build:prod' script on every build in Release mode -->
 	<Target Name="BuildProd" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
 		<Exec Command="npm run build:prod" />
 	</Target>
+
+	<!-- Include components styles and Tailwind plugin to the build output -->
+	<ItemGroup>
+		<None Include="Styles\*.cs">
+			<TargetPath>theme\components\%(Filename).cs</TargetPath>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="Scripts\Plugin\dist\plugin.js">
+			<TargetPath>theme\plugin.js</TargetPath>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 	<!-- Remove package.json and package-lock.json from the build output -->
 	<ItemGroup>
