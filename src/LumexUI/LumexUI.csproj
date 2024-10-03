@@ -9,7 +9,7 @@
 	<PropertyGroup>
 		<Title>LumexUI</Title>
 		<Description>🚀 A versatile Blazor component library built using Tailwind CSS for efficient web development</Description>
-		<Version>0.1.3</Version>
+		<Version>0.1.4</Version>
 		<Authors>desmondinho</Authors>
 		<PackageId>LumexUI</PackageId>
 		<!--<PackageIcon>logo.png</PackageIcon>-->
@@ -58,7 +58,7 @@
 	<!-- Add utilities to the build output -->
 	<Target Name="AddUtilitiesToOutput">
 		<ItemGroup>
-			<TfmSpecificPackageFile Include="$(OutputPath)\$(AssemblyName).Utilities.dll" PackagePath="utilities" />
+			<TfmSpecificPackageFile Include="$(OutputPath)\$(AssemblyName).Utilities.dll" PackagePath="lib\net8.0" />
 		</ItemGroup>
 	</Target>
 
