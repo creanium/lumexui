@@ -35,12 +35,12 @@
 	</Target>
 
 	<!-- Run the 'build' script on every build in Debug mode -->
-	<Target Name="NpmBuild" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+	<Target Name="NpmBuild" AfterTargets="CopyFilesToOutputDirectory" Condition="'$(Configuration)' == 'Debug'">
 		<Exec Command="npm run build" />
 	</Target>
 
 	<!-- Run the 'build:prod' script on every build in Release mode -->
-	<Target Name="NpmBuildProd" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+	<Target Name="NpmBuildProd" AfterTargets="CopyFilesToOutputDirectory" Condition="'$(Configuration)' == 'Release'">
 		<Exec Command="npm run build:prod" />
 	</Target>
 
