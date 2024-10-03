@@ -9,7 +9,7 @@
 	<PropertyGroup>
 		<Title>LumexUI</Title>
 		<Description>🚀 A versatile Blazor component library built using Tailwind CSS for efficient web development</Description>
-		<Version>0.1.2</Version>
+		<Version>0.1.3</Version>
 		<Authors>desmondinho</Authors>
 		<PackageId>LumexUI</PackageId>
 		<!--<PackageIcon>logo.png</PackageIcon>-->
@@ -49,7 +49,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\LumexUI.Utilities\LumexUI.Utilities.csproj" />
+		<ProjectReference Include="..\LumexUI.Utilities\LumexUI.Utilities.csproj">
+			<PrivateAssets>all</PrivateAssets>
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+		</ProjectReference>
 	</ItemGroup>
 
 	<!-- Add utilities to the build output -->
