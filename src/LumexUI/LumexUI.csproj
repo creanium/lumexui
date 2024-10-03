@@ -63,8 +63,8 @@
 	</Target>
 
 	<!-- Run the 'build:prod' script on every build in Release mode -->
-	<Target Name="BuildProd" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
-		<Exec Command="npm run build:prod" />
+	<Target Name="NpmBuild" BeforeTargets="Build">
+		<Exec Command="npm run build" />
 	</Target>
 
 	<!-- Include components styles and Tailwind plugin to the build output -->
