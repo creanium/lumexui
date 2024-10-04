@@ -9,7 +9,7 @@
 	<PropertyGroup>
 		<Title>LumexUI</Title>
 		<Description>🚀 A versatile Blazor component library built using Tailwind CSS for efficient web development</Description>
-		<Version>0.1.4</Version>
+		<Version>0.1.5</Version>
 		<Authors>desmondinho</Authors>
 		<PackageId>LumexUI</PackageId>
 		<!--<PackageIcon>logo.png</PackageIcon>-->
@@ -63,36 +63,36 @@
 	</Target>
 
 	<!-- Install npm dependencies if 'node_modules' is not present -->
-	<Target Name="Npm" BeforeTargets="BeforeBuild" Condition="!Exists('node_modules')">
+	<Target Name="Npm" BeforeTargets="NpmBuild" Condition="!Exists('node_modules')">
 		<Message Text="Running npm ci..." Importance="high" />
 		<Exec Command="npm ci" />
 	</Target>
 
 	<!-- Run the 'build' script on every build -->
-	<Target Name="NpmBuild" DependsOnTargets="Npm" BeforeTargets="Build">
+	<Target Name="NpmBuild" DependsOnTargets="Npm" BeforeTargets="PrepareForBuild">
 		<Message Text="Running npm build..." Importance="high" />
 		<Exec Command="npm run build" />
 	</Target>
 
-	<!-- Include content files to the build output if 'theme' is not present -->
-	<Target Name="IncludeContentsToOutput" DependsOnTargets="NpmBuild" AfterTargets="NpmBuild">
-		<Message Text="Including content files..." Importance="high" />
-
-		<!-- Dynamically create items for the content files -->
-		<ItemGroup>
-			<StyleFiles Include="Styles\*.cs" />
-			<PluginFile Include="Scripts\Plugin\dist\plugin.js" />
-		</ItemGroup>
+	<!-- Pack content files -->
+	<Target Name="PackThemeContents" AfterTargets="NpmBuild" BeforeTargets="Build;Pack">
+		<Message Text="Packing theme content files..." Importance="high" />
 
 		<ItemGroup>
-			<Content Include="@(StyleFiles)">
+			<ThemeContent Include="Styles\*.cs">
 				<Pack>true</Pack>
 				<PackagePath>theme\components\%(Filename)%(Extension)</PackagePath>
-			</Content>
-			<Content Include="@(PluginFile)">
+			</ThemeContent>
+			<ThemeContent Include="Scripts\Plugin\dist\plugin.js">
 				<Pack>true</Pack>
 				<PackagePath>theme\plugin.js</PackagePath>
-			</Content>
+			</ThemeContent>
+		</ItemGroup>
+
+		<Message Text="Theme content files: @(ThemeContent)" Importance="high" />
+
+		<ItemGroup>
+			<Content Include="@(ThemeContent)" />
 		</ItemGroup>
 	</Target>
 
