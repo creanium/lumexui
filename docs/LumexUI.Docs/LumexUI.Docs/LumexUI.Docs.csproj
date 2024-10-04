@@ -32,11 +32,11 @@
 	<!-- Copy theme files before Npm -->
 	<Target Name="CopyThemeFiles" AfterTargets="GenerateDocs" BeforeTargets="Npm">
 		<ItemGroup>
-			<ThemeFiles Include="$(PkgLumexUI)\theme\**\*" />
+			<ThemeFiles Include="$(PkgLumexUI)/theme/**/*" />
 		</ItemGroup>
 		<Message Text="LumexUI.Docs: copying LumexUI package contents from '$(PkgLumexUI)' to '$(OutDir)theme'..." Importance="high" />
 		<Message Text="LumexUI.Docs: contents to copy @(ThemeFiles)" Importance="high" />
-		<Copy SourceFiles="@(ThemeFiles)" DestinationFolder="$(OutDir)theme\%(RecursiveDir)" />
+		<Copy SourceFiles="@(ThemeFiles)" DestinationFolder="$(OutDir)theme/%(RecursiveDir)" />
 		<Message Text="LumexUI.Docs: finished copying." Importance="high" />
 	</Target>
 
