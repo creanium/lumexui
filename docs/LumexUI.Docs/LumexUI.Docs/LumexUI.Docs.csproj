@@ -34,21 +34,27 @@
 		<ItemGroup>
 			<ThemeFiles Include="$(PkgLumexUI)\theme\**\*" />
 		</ItemGroup>
+		<Message Text="LumexUI.Docs: copying LumexUI package contents from $(PkgLumexUI) to $(OutDir)theme\%(RecursiveDir)..." Importance="high" />
+		<Message Text="LumexUI.Docs: contents to copy $(ThemeFiles)" Importance="high" />
 		<Copy SourceFiles="@(ThemeFiles)" DestinationFolder="$(OutDir)theme\%(RecursiveDir)" />
+		<Message Text="LumexUI.Docs: finished copying." Importance="high" />
 	</Target>
 
 	<!-- Install npm dependencies if 'node_modules' is not present -->
 	<Target Name="Npm" AfterTargets="CopyThemeFiles" Condition="!Exists('node_modules')">
+		<Message Text="LumexUI.Docs: running npm ci..." Importance="high" />
 		<Exec Command="npm ci" />
 	</Target>
 
 	<!-- Run the 'build' script on every build in Debug mode -->
 	<Target Name="NpmBuild" AfterTargets="Npm" Condition="'$(Configuration)' == 'Debug'">
+		<Message Text="LumexUI.Docs: running npm build..." Importance="high" />
 		<Exec Command="npm run build" />
 	</Target>
 
 	<!-- Run the 'build:prod' script on every build in Release mode -->
 	<Target Name="NpmBuildProd" AfterTargets="Npm" Condition="'$(Configuration)' == 'Release'">
+		<Message Text="LumexUI.Docs: running npm build:prod..." Importance="high" />
 		<Exec Command="npm run build:prod" />
 	</Target>
 
