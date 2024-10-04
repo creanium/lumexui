@@ -31,7 +31,7 @@
 
 	<Target Name="CheckLumexUIPackage" AfterTargets="GenerateDocs" BeforeTargets="CopyThemeFiles" Condition="'$(OS)' == 'Unix'">
 		<Message Text="Listing contents of '$(PkgLumexUI)'" Importance="high" />
-		<Exec Command="find $(PkgLumexUI)/theme" />
+		<Exec Command="find $(PkgLumexUI)" />
 	</Target>
 
 	<!-- Copy theme files before Npm -->
