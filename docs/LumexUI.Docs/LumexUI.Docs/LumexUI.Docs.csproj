@@ -38,26 +38,26 @@
 	</Target>
 
 	<!-- Install npm dependencies if 'node_modules' is not present -->
-	<Target Name="Npm" BeforeTargets="Build" Condition="!Exists('node_modules')">
+	<Target Name="Npm" AfterTargets="CopyThemeFiles" Condition="!Exists('node_modules')">
 		<Exec Command="npm ci" />
 	</Target>
 
 	<!-- Run the 'build' script on every build in Debug mode -->
-	<Target Name="NpmBuild" AfterTargets="CopyThemeFiles" Condition="'$(Configuration)' == 'Debug'">
+	<Target Name="NpmBuild" AfterTargets="Npm" Condition="'$(Configuration)' == 'Debug'">
 		<Exec Command="npm run build" />
 	</Target>
 
 	<!-- Run the 'build:prod' script on every build in Release mode -->
-	<Target Name="NpmBuildProd" AfterTargets="CopyThemeFiles" Condition="'$(Configuration)' == 'Release'">
+	<Target Name="NpmBuildProd" AfterTargets="Npm" Condition="'$(Configuration)' == 'Release'">
 		<Exec Command="npm run build:prod" />
 	</Target>
 
 	<!-- Remove package.json and package-lock.json from the build output -->
-	<ItemGroup>
+	<!--<ItemGroup>
 		<None Include="package.json" />
 		<None Include="package-lock.json" />
 		<Content Remove="package.json" />
 		<Content Remove="package-lock.json" />
-	</ItemGroup>
+	</ItemGroup>-->
 
 </Project>
