@@ -29,10 +29,15 @@
 		<Exec Command="$(GeneratorCommand)" />
 	</Target>
 
+	<Target Name="CheckLumexUIPackage" AfterTargets="GenerateDocs" BeforeTargets="CopyThemeFiles" Condition="'$(OS)' == 'Unix'">
+		<Message Text="Listing contents of '$(PkgLumexUI)'" Importance="high" />
+		<Exec Command="find $(PkgLumexUI)/theme" />
+	</Target>
+
 	<!-- Copy theme files before Npm -->
-	<Target Name="CopyThemeFiles" AfterTargets="GenerateDocs" BeforeTargets="Npm">
+	<Target Name="CopyThemeFiles" AfterTargets="CheckLumexUIPackage" BeforeTargets="Npm">
 		<ItemGroup>
-			<ThemeFiles Include="$(PkgLumexUI)/theme/**/*" />
+			<ThemeFiles Include="$(PkgLumexUI)/theme/**" />
 		</ItemGroup>
 		<Message Text="LumexUI.Docs: copying LumexUI package contents from '$(PkgLumexUI)' to '$(OutDir)theme'..." Importance="high" />
 		<Message Text="LumexUI.Docs: contents to copy @(ThemeFiles)" Importance="high" />
