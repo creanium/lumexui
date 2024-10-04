@@ -52,7 +52,7 @@ module.exports = {
         },
     },
     plugins: [
-        require('./bin/Debug/net8.0/theme/plugin'),
+        require('./bin/Release/net8.0/theme/plugin'),
         require('@tailwindcss/typography'),
         function ({ addVariant }) {
             addVariant('children', '& > *')
