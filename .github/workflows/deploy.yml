@@ -21,9 +21,6 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Build with dotnet
-        run: dotnet build -c Release
-
       - name: dotnet publish
         run: dotnet publish ./docs/LumexUI.Docs/LumexUI.Docs -c Release -o lumexui
 
@@ -61,5 +58,5 @@ jobs:
         with:
           app-name: 'lumexui'
           slot-name: 'Production'
-          package: lumexui
+          package: .
           
