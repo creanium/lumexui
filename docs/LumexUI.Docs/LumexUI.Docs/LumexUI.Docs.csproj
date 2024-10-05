@@ -15,7 +15,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="LumexUI" Version="0.1.4" GeneratePathProperty="true" />
+		<PackageReference Include="LumexUI" Version="0.1.8" GeneratePathProperty="true" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.8" />
 	</ItemGroup>
 
@@ -64,11 +64,11 @@
 	</Target>
 
 	<!-- Remove package.json and package-lock.json from the build output -->
-	<!--<ItemGroup>
+	<ItemGroup>
 		<None Include="package.json" />
 		<None Include="package-lock.json" />
 		<Content Remove="package.json" />
 		<Content Remove="package-lock.json" />
-	</ItemGroup>-->
+	</ItemGroup>
 
 </Project>
