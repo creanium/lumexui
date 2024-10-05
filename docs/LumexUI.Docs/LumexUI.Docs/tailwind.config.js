@@ -2,6 +2,8 @@ const package = process.env.npm_config_packagePath;
 const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
+console.log(`LumexUI package path: ${package}`)
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
