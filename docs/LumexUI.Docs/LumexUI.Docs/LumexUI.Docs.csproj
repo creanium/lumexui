@@ -42,13 +42,13 @@
 	<!-- Run the 'build' script on every build in Debug mode -->
 	<Target Name="NpmBuild" AfterTargets="Npm" Condition="'$(Configuration)' == 'Debug'">
 		<Message Text="LumexUI.Docs: running npm build..." Importance="high" />
-		<Exec Command="npm run build --packagePath=$(PkgLumexUI)" />
+		<Exec Command="npx cross-env LUMEXUI_PATH=$(PkgLumexUI) npm run build" />
 	</Target>
 
 	<!-- Run the 'build:prod' script on every build in Release mode -->
 	<Target Name="NpmBuildProd" AfterTargets="Npm" Condition="'$(Configuration)' == 'Release'">
 		<Message Text="LumexUI.Docs: running npm build:prod..." Importance="high" />
-		<Exec Command="npm run build:prod --packagePath=$(PkgLumexUI)" />
+		<Exec Command="npx cross-env LUMEXUI_PATH=$(PkgLumexUI) npm run build:prod" />
 	</Target>
 
 	<!-- Remove package.json and package-lock.json from the build output -->

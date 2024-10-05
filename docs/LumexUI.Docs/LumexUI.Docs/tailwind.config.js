@@ -2,7 +2,7 @@ const path = require('path');
 const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
-const packagePath = path.resolve(process.env.npm_config_packagePath);
+const packagePath = path.resolve(process.env.LUMEXUI_PATH);
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
