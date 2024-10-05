@@ -1,3 +1,4 @@
+const package = process.env.npm_config_packagePath;
 const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
@@ -6,7 +7,7 @@ module.exports = {
     content: [
         './{Pages,Components}/**/*.{razor,razor.cs}',
         '../LumexUI.Docs.Client/{Pages,Components}/**/*.{razor,razor.cs}',
-        './bin/Debug/net8.0/theme/components/*.cs',
+        `${package}/theme/components/*.cs`,
     ],
     darkMode: 'class',
     theme: {
@@ -52,7 +53,7 @@ module.exports = {
         },
     },
     plugins: [
-        require('./bin/Release/net8.0/theme/plugin'),
+        require(`${package}/theme/plugin`),
         require('@tailwindcss/typography'),
         function ({ addVariant }) {
             addVariant('children', '& > *')
