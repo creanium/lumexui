@@ -9,7 +9,7 @@
 	<PropertyGroup>
 		<Title>LumexUI</Title>
 		<Description>🚀 A versatile Blazor component library built using Tailwind CSS for efficient web development</Description>
-		<Version>0.1.5</Version>
+		<Version>0.1.7</Version>
 		<Authors>desmondinho</Authors>
 		<PackageId>LumexUI</PackageId>
 		<!--<PackageIcon>logo.png</PackageIcon>-->
@@ -28,6 +28,10 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
+		<PackDependsOn>Build;$(PackDependsOn)</PackDependsOn>
+	</PropertyGroup>
+
+	<PropertyGroup>
 		<TargetsForTfmSpecificContentInPackage>
 			$(TargetsForTfmSpecificContentInPackage);AddUtilitiesToOutput
 		</TargetsForTfmSpecificContentInPackage>
@@ -37,6 +41,16 @@
 		<None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath="" />
 		<None Include="..\..\README.md" Pack="true" Visible="false" PackagePath="" />
 		<!--<None Include="..\assets\logo.png" Pack="true" Visible="false" PackagePath="" />-->
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="Styles\*.cs">
+			<Pack>true</Pack>
+			<PackagePath>theme\components\%(Filename)%(Extension)</PackagePath>
+		</Content>
+		<Content Include="Scripts\Plugin\dist\plugin.js">
+			<Pack>true</Pack>
+			<PackagePath>theme\plugin.js</PackagePath>
+		</Content>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -68,32 +82,10 @@
 		<Exec Command="npm ci" />
 	</Target>
 
-	<!-- Run the 'build' script on every build -->
-	<Target Name="NpmBuild" DependsOnTargets="Npm" BeforeTargets="PrepareForBuild">
+	<!-- Run the 'build' script on before build -->
+	<Target Name="NpmBuild" DependsOnTargets="Npm" BeforeTargets="BeforeBuild">
 		<Message Text="Running npm build..." Importance="high" />
 		<Exec Command="npm run build" />
-	</Target>
-
-	<!-- Pack content files -->
-	<Target Name="PackThemeContents" AfterTargets="NpmBuild" BeforeTargets="Build;Pack">
-		<Message Text="Packing theme content files..." Importance="high" />
-
-		<ItemGroup>
-			<ThemeContent Include="Styles\*.cs">
-				<Pack>true</Pack>
-				<PackagePath>theme\components\%(Filename)%(Extension)</PackagePath>
-			</ThemeContent>
-			<ThemeContent Include="Scripts\Plugin\dist\plugin.js">
-				<Pack>true</Pack>
-				<PackagePath>theme\plugin.js</PackagePath>
-			</ThemeContent>
-		</ItemGroup>
-
-		<Message Text="Theme content files: @(ThemeContent)" Importance="high" />
-
-		<ItemGroup>
-			<Content Include="@(ThemeContent)" />
-		</ItemGroup>
 	</Target>
 
 	<!-- Remove package.json and package-lock.json from the build output -->
