@@ -14,8 +14,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Include="Pages\**\*.html" />
-		<EmbeddedResource Include="Samples\**\*.html" />
+		<EmbeddedResource Include="Pages/**/*.html" />
+		<EmbeddedResource Include="Samples/**/*.html" />
 	</ItemGroup>
 
 </Project>

@@ -32,6 +32,13 @@
 	<Target Name="DocsGenerator" BeforeTargets="Compile">
 		<Exec Command="$(DocsGeneratorProject)" />
 	</Target>
+
+	<Target Name="VerifyGeneratedFiles" AfterTargets="DocsGenerator" BeforeTargets="Compile">
+		<ItemGroup>
+			<GeneratedFiles Include="Pages/**/*.html" />
+		</ItemGroup>
+		<Error Text="Generated files are missing." Condition=" @(GeneratedFiles->Count()) == 0 " />
+	</Target>
 	
 	<!-- Install npm dependencies if 'node_modules' is not present -->
 	<Target Name="Npm" AfterTargets="DocsGenerator" Condition="!Exists('node_modules')">
