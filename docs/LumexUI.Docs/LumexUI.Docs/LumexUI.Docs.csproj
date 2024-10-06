@@ -19,7 +19,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="LumexUI" Version="0.1.8" GeneratePathProperty="true" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.8" />
 	</ItemGroup>
 
@@ -35,8 +34,10 @@
 
 	<Target Name="VerifyGeneratedFiles" AfterTargets="DocsGenerator" BeforeTargets="Compile">
 		<ItemGroup>
-			<GeneratedFiles Include="Pages/**/*.html" />
+			<GeneratedFiles Include="$(SolutionDir)docs/LumexUI.Docs/LumexUI.Docs.Client/Pages/**/*.html" />
 		</ItemGroup>
+		<Message Text="Generated files are:" Condition=" @(GeneratedFiles->Count()) > 0 " Importance="high" />
+		<Message Text="%(GeneratedFiles.Identity)" Condition=" @(GeneratedFiles->Count()) != 0 " Importance="high" />
 		<Error Text="Generated files are missing." Condition=" @(GeneratedFiles->Count()) == 0 " />
 	</Target>
 	
@@ -49,19 +50,17 @@
 	<!-- Run the 'build' script on every build in Debug mode -->
 	<Target Name="NpmBuild" AfterTargets="Npm" Condition="'$(Configuration)' == 'Debug'">
 		<Message Text="LumexUI.Docs: running npm build..." Importance="high" />
-		<Exec Command="npx cross-env LUMEXUI_PATH=$(PkgLumexUI) npm run build" />
+		<Exec Command="npm run build" />
 	</Target>
 
 	<!-- Run the 'build:prod' script on every build in Release mode -->
 	<Target Name="NpmBuildProd" AfterTargets="Npm" Condition="'$(Configuration)' == 'Release'">
 		<Message Text="LumexUI.Docs: running npm build:prod..." Importance="high" />
-		<Exec Command="npx cross-env LUMEXUI_PATH=$(PkgLumexUI) npm run build:prod" />
+		<Exec Command="npm run build:prod" />
 	</Target>
 
-	<!-- Remove package.json and package-lock.json from the build output -->
+	<!-- Remove these files from the build output -->
 	<ItemGroup>
-		<None Include="package.json" />
-		<None Include="package-lock.json" />
 		<Content Remove="package.json" />
 		<Content Remove="package-lock.json" />
 	</ItemGroup>
