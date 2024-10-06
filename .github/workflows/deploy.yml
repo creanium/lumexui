@@ -1,18 +1,20 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - lumexui
+name: Deploy to Azure Web App
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
+    paths:
+      - 'docs/**' 
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
       - uses: actions/checkout@v4
 
       - name: Set up .NET Core
@@ -20,7 +22,7 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: dotnet publish
+      - name: Publish
         run: dotnet publish ./docs/LumexUI.Docs/LumexUI.Docs -c Release -o lumexui
 
       - name: Upload artifact for deployment job
