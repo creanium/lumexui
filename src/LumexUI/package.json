@@ -1,9 +1,7 @@
 {
   "name": "lumexui",
   "private": "true",
-  "scripts": {
-    "build": "rollup -c"
-  },
+  "scripts": {},
   "dependencies": {
     "@floating-ui/dom": "^1.6.10"
   },

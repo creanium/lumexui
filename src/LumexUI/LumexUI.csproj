@@ -28,10 +28,6 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<PackDependsOn>Build;$(PackDependsOn)</PackDependsOn>
-	</PropertyGroup>
-
-	<PropertyGroup>
 		<TargetsForTfmSpecificContentInPackage>
 			$(TargetsForTfmSpecificContentInPackage);AddUtilitiesToOutput
 		</TargetsForTfmSpecificContentInPackage>
@@ -41,16 +37,8 @@
 		<None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath="" />
 		<None Include="..\..\README.md" Pack="true" Visible="false" PackagePath="" />
 		<!--<None Include="..\assets\logo.png" Pack="true" Visible="false" PackagePath="" />-->
-	</ItemGroup>
-	<ItemGroup>
-		<Content Include="Styles\*.cs">
-			<Pack>true</Pack>
-			<PackagePath>theme\components\%(Filename)%(Extension)</PackagePath>
-		</Content>
-		<Content Include="Scripts\Plugin\dist\plugin.js">
-			<Pack>true</Pack>
-			<PackagePath>theme\plugin.js</PackagePath>
-		</Content>
+		<Content Include="Styles\*.cs" Pack="true" PackagePath="theme\components\%(Filename)%(Extension)" />
+		<Content Include="Scripts\Plugin\dist\plugin.js" Pack="true" PackagePath="theme\plugin.js" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -77,21 +65,19 @@
 	</Target>
 
 	<!-- Install npm dependencies if 'node_modules' is not present -->
-	<Target Name="Npm" BeforeTargets="NpmBuild" Condition="!Exists('node_modules')">
+	<Target Name="Npm" BeforeTargets="BeforeBuild" Condition="!Exists('node_modules')">
 		<Message Text="Running npm ci..." Importance="high" />
 		<Exec Command="npm ci" />
 	</Target>
 
-	<!-- Run the 'build' script on before build -->
-	<Target Name="NpmBuild" DependsOnTargets="Npm" BeforeTargets="BeforeBuild">
-		<Message Text="Running npm build..." Importance="high" />
-		<Exec Command="npm run build" />
+	<!-- Run the rollup after npm dependencies are installed -->
+	<Target Name="Rollup" AfterTargets="Npm">
+		<Message Text="Running rollup..." Importance="high" />
+		<Exec Command="npx rollup -c" />
 	</Target>
 
-	<!-- Remove package.json and package-lock.json from the build output -->
+	<!-- Remove theme files from the build output -->
 	<ItemGroup>
-		<None Include="package.json" />
-		<None Include="package-lock.json" />
 		<Content Remove="package.json" />
 		<Content Remove="package-lock.json" />
 	</ItemGroup>
