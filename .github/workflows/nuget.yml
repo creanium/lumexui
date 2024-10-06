@@ -1,4 +1,4 @@
-name: Publish LumexUI to NuGet
+name: Publish to NuGet
 
 on:
   release:
@@ -6,7 +6,6 @@ on:
 
 jobs:
   publish:
-    name: Publish to NuGet
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -15,12 +14,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Setup .NET
+    - name: Setup .NET Core
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
 
-    - name: Pack NuGet package
+    - name: Create NuGet package
       run: dotnet pack -c Release --output nupkgs
 
     - name: Push to NuGet
