@@ -1,0 +1,23 @@
+changelog:
+  sections:
+    - title: "✨ New Features"
+      labels:
+        - enhancement
+    - title: "🐛 Bug Fixes"
+      labels:
+        - bug
+    - title: "📝 Docs"
+      labels:
+        - docs
+    - title: "🛠️ Chore / Refactor"
+      labels:
+        - refactor
+    - title: "⚡ Performance Improvements"
+      labels:
+        - performance
+    - title: "🚀 Continuous Integration"
+      labels:
+        - ci
+  sort: ascending
+  exclude_labels:
+    - no-changelog
