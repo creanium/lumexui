@@ -1,0 +1,18 @@
+﻿@namespace LumexUI.Docs.Client.Components
+@rendermode InteractiveWebAssembly
+
+<div class="relative mt-5 mb-8 first:mt-0 last:mb-0 rounded-2xl overflow-hidden" @ref="@_ref">
+    <div class="prose prose-zinc bg-zinc-800">
+        @if( !string.IsNullOrEmpty( Code.Name ) )
+        {
+            <div class="flex items-center px-3 py-2 text-xs leading-6 border-b border-zinc-600/50">
+                <div class="flex items-center px-2 py-0.5 text-orange-400 bg-zinc-700/40 rounded-lg">
+                    @Code.Name
+                </div>
+            </div>
+        }
+        <div id="@Id" class="children:my-0">
+            @_renderCodeSnippet
+        </div>
+    </div>
+</div>

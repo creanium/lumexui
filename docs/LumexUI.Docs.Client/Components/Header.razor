@@ -1,0 +1,65 @@
+﻿@namespace LumexUI.Docs.Client.Components
+@rendermode InteractiveWebAssembly
+
+<LumexNavbar Sticky="@true"
+             Blurred="@true"
+             Bordered="@true"
+             MaxWidth="@MaxWidth.XLarge"
+             Classes="@_navbarClasses">
+    <LumexNavbarContent>
+        <LumexNavbarBrand>
+            <LumexNavLink Href="/"
+                          Class="font-bold text-xl text-foreground-800">
+                Lumex<span class="font-normal">UI</span>
+            </LumexNavLink>
+        </LumexNavbarBrand>
+    </LumexNavbarContent>
+
+    <LumexNavbarContent Align="@Align.End" Class="hidden sm:flex">
+        @foreach( var item in _navigationItems )
+        {
+            <LumexNavbarItem>
+                <LumexNavLink Href="@item.Link"
+                              Color="@ThemeColor.None"
+                              Class="hover:text-orange-500 data-[active=true]:text-orange-500">
+                    @item.Name
+                </LumexNavLink>
+            </LumexNavbarItem>
+        }
+
+        <LumexNavbarItem Class="h-full">
+            <LumexDivider Orientation="@Orientation.Vertical" />
+        </LumexNavbarItem>
+        @HeaderActions
+    </LumexNavbarContent>
+
+    <LumexNavbarContent Align="@Align.End" Class="sm:hidden gap-4">
+        @HeaderActions
+        <LumexNavbarMenuToggle Class="sm:hidden" />
+    </LumexNavbarContent>
+
+    <LumexNavbarMenu>
+        @foreach( var item in _navigationItems )
+        {
+            <LumexNavbarMenuItem>
+                <LumexNavLink Href="@item.Link"
+                              Color="@ThemeColor.None"
+                              Class="hover:text-orange-500 data-[active=true]:text-orange-500">
+                    @item.Name
+                </LumexNavLink>
+            </LumexNavbarMenuItem>
+        }
+    </LumexNavbarMenu>
+</LumexNavbar>
+
+@code {
+    private static RenderFragment HeaderActions =>
+    @<text>
+        <LumexNavbarItem Class="flex">
+            <LumexNavLink Href="https://github.com/LumexUI/lumexui"
+                          Class="text-foreground-400 hover:text-foreground-600">
+                <LumexIcon Icon="@Icons.Brands.GitHub" ViewBox="0 0 24 24" />
+            </LumexNavLink>
+        </LumexNavbarItem>
+    </text>;
+}
