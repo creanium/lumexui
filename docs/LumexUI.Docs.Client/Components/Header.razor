@@ -15,7 +15,7 @@
     </LumexNavbarContent>
 
     <LumexNavbarContent Align="@Align.End" Class="hidden sm:flex">
-        @foreach( var item in _navigationItems )
+        @foreach( var item in _navItems )
         {
             <LumexNavbarItem>
                 <LumexNavLink Href="@item.Link"
@@ -29,21 +29,30 @@
         <LumexNavbarItem Class="h-full">
             <LumexDivider Orientation="@Orientation.Vertical" />
         </LumexNavbarItem>
-        @HeaderActions
+        @_headerActions
     </LumexNavbarContent>
 
     <LumexNavbarContent Align="@Align.End" Class="sm:hidden gap-4">
-        @HeaderActions
+        @_headerActions
         <LumexNavbarMenuToggle Class="sm:hidden" />
     </LumexNavbarContent>
 
-    <LumexNavbarMenu Class="pb-12">
-        <NavMenu />
+    <LumexNavbarMenu>
+        @foreach( var item in _navItems )
+        {
+            <LumexNavbarMenuItem>
+                <LumexNavLink Href="@item.Link"
+                              Color="@ThemeColor.None"
+                              Class="hover:text-orange-500 data-[active=true]:text-orange-500">
+                    @item.Name
+                </LumexNavLink>
+            </LumexNavbarMenuItem>
+        }
     </LumexNavbarMenu>
 </LumexNavbar>
 
 @code {
-    private static RenderFragment HeaderActions =>
+    private static RenderFragment _headerActions =
     @<text>
         <LumexNavbarItem Class="flex">
             <LumexNavLink Href="https://github.com/LumexUI/lumexui"
@@ -52,4 +61,17 @@
             </LumexNavLink>
         </LumexNavbarItem>
     </text>;
+
+    private readonly NavbarSlots _navbarClasses = new()
+    {
+        Wrapper = "py-5 gap-6"
+    };
+
+    private readonly NavItem[] _navItems = new NavItem[]
+    {
+        new("/", "Docs"),
+        new("/docs/components", "Components"),
+    };
+
+    private record NavItem( string Link, string Name );
 }

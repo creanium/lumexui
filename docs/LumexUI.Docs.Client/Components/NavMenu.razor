@@ -5,7 +5,7 @@
         <div class="h-10 bg-gradient-to-b from-background"></div>
     </div>
     <ul class="space-y-8">
-        @foreach( var category in _navigation.Categories )
+        @foreach( var category in NavigationStore.GetNavigation().Categories )
         {
             RenderCategory( __builder, category );
         }
