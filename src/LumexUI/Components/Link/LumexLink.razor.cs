@@ -6,11 +6,38 @@ using LumexUI.Common;
 using LumexUI.Styles;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
 
 namespace LumexUI;
 
-public partial class LumexLink : LumexLinkBase
+public partial class LumexLink : LumexComponentBase
 {
+    /// <summary>
+    /// Gets or sets content to be rendered inside the link.
+    /// </summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value representing the URL of the link.
+    /// </summary>
+    [Parameter] public string Href { get; set; } = "#";
+
+    /// <summary>
+    /// Gets or sets a value representing the URL matching behavior.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="NavLinkMatch.All"/>
+    /// </remarks>
+    [Parameter] public NavLinkMatch Match { get; set; } = NavLinkMatch.All;
+
+    /// <summary>
+    /// Gets or sets a color of the link.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="ThemeColor.Primary"/>
+    /// </remarks>
+    [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Primary;
+
     /// <summary>
     /// Gets or sets the underline style for the link.
     /// </summary>
@@ -20,10 +47,15 @@ public partial class LumexLink : LumexLinkBase
     [Parameter] public Underline Underline { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the link is disabled.
+    /// </summary>
+    [Parameter] public bool Disabled { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether the link should open in the new tab.
     /// </summary>
     /// <remarks>
-    /// Sets target to <c>_blank</c> and rel to <c>noopener noreferrer</c>.
+    /// Sets target to `_blank` and rel to `noopener noreferrer`.
     /// </remarks>
     [Parameter] public bool External { get; set; }
 

@@ -8,12 +8,11 @@ using Microsoft.AspNetCore.Components.Routing;
 namespace LumexUI.Infrastructure;
 
 /// <summary>
-/// An internal component representing the wrapper around the native <see cref="NavLink"/>.
+/// An internal component representing the navigation link that 
+/// overrides default behavior of the native <see cref="NavLink"/>.
 /// </summary>
 public class InternalNavLink : NavLink
 {
-    private bool _isActive;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="InternalNavLink"/>.
     /// </summary>
@@ -25,14 +24,14 @@ public class InternalNavLink : NavLink
     /// <inheritdoc/>
     protected override void BuildRenderTree( RenderTreeBuilder builder )
     {
-        _isActive = GetActiveState( this );
+        var isActive = GetActiveState( this );
 
         builder.OpenElement( 0, "a" );
         builder.AddMultipleAttributes( 1, AdditionalAttributes );
 
-        if( _isActive )
+        if( isActive )
         {
-            builder.AddAttribute( 2, "data-active", Utils.GetDataAttributeValue( _isActive ) );
+            builder.AddAttribute( 2, "data-active", Utils.GetDataAttributeValue( isActive ) );
             builder.AddAttribute( 3, "aria-current", "page" );
         }
 

@@ -36,12 +36,12 @@
                     @foreach( var item in _tableOfContents )
                     {
                         <li @key="@(item.Title)">
-                            <LumexNavLink Href="@($"{RelativePath}#{item.Title.ToKebabCase()}")"
-                                          Color="@ThemeColor.None"
-                                          Match="@NavLinkMatch.Prefix"
-                                          Class="py-1 w-full">
+                            <LumexLink Href="@($"{RelativePath}#{item.Title.ToKebabCase()}")"
+                                       Color="@ThemeColor.None"
+                                       Match="@NavLinkMatch.Prefix"
+                                       Class="py-1 w-full">
                                 @(item.Title)
-                            </LumexNavLink>
+                            </LumexLink>
                         </li>
 
                         if( item.Children is not null )
@@ -49,12 +49,12 @@
                             foreach( var subItem in item.Children )
                             {
                                 <li @key="@(subItem.Title)">
-                                    <LumexNavLink Href="@($"{RelativePath}#{subItem.Title.ToKebabCase()}")"
-                                                  Color="@ThemeColor.None"
-                                                  Match="@NavLinkMatch.Prefix"
-                                                  Class="py-1 w-full ml-4">
+                                    <LumexLink Href="@($"{RelativePath}#{subItem.Title.ToKebabCase()}")"
+                                               Color="@ThemeColor.None"
+                                               Match="@NavLinkMatch.Prefix"
+                                               Class="py-1 w-full ml-4">
                                         @(subItem.Title)
-                                    </LumexNavLink>
+                                    </LumexLink>
                                 </li>
                             }
                         }

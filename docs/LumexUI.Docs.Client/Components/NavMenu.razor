@@ -37,11 +37,11 @@
 
         if( categoryName is "Components API" )
         {
-            <LumexNavLink Href="@($"docs/api/{formattedName.ToKebabCase()}")"
-                          Match="@NavLinkMatch.Prefix"
-                          Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 data-[active=true]:border-current">
+            <LumexLink Href="@($"docs/api/{formattedName.ToKebabCase()}")"
+                       Match="@NavLinkMatch.Prefix"
+                       Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 data-[active=true]:border-current">
                 @item.Name.Replace( "Lumex", "" )
-            </LumexNavLink>
+            </LumexLink>
         }
         else
         {
@@ -57,11 +57,11 @@
                 }
                 else
                 {
-                    <LumexNavLink Href="@($"docs/{categoryName.ToKebabCase()}/{formattedName.ToKebabCase()}")"
-                                  Match="@NavLinkMatch.Prefix"
-                                  Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 data-[active=true]:border-current">
+                    <LumexLink Href="@($"docs/{categoryName.ToKebabCase()}/{formattedName.ToKebabCase()}")"
+                               Match="@NavLinkMatch.Prefix"
+                               Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 data-[active=true]:border-current">
                         @formattedName
-                    </LumexNavLink>
+                    </LumexLink>
                 }
             </li>
         }

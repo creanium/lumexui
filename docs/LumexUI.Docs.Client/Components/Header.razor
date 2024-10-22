@@ -7,10 +7,10 @@
              Classes="@_navbarClasses">
     <LumexNavbarContent>
         <LumexNavbarBrand>
-            <LumexNavLink Href="/"
-                          Class="font-bold text-xl text-foreground-900">
+            <LumexLink Href="/"
+                       Class="font-bold text-xl text-foreground-900">
                 Lumex<span class="font-normal">UI</span>
-            </LumexNavLink>
+            </LumexLink>
         </LumexNavbarBrand>
     </LumexNavbarContent>
 
@@ -18,11 +18,11 @@
         @foreach( var item in _navItems )
         {
             <LumexNavbarItem>
-                <LumexNavLink Href="@item.Link"
-                              Color="@ThemeColor.None"
-                              Class="hover:text-orange-500 data-[active=true]:text-orange-500">
+                <LumexLink Href="@item.Link"
+                           Color="@ThemeColor.None"
+                           Class="hover:text-orange-500 data-[active=true]:text-orange-500">
                     @item.Name
-                </LumexNavLink>
+                </LumexLink>
             </LumexNavbarItem>
         }
 
@@ -46,17 +46,18 @@
     private static RenderFragment _headerActions =
     @<text>
         <LumexNavbarItem Class="flex">
-            <LumexNavLink Href="https://github.com/LumexUI/lumexui"
-                          Class="text-foreground-400 hover:text-foreground-600">
+            <LumexLink Href="https://github.com/LumexUI/lumexui"
+                       External="@true"
+                       Class="text-foreground-400 hover:text-foreground-600">
                 <LumexIcon Icon="@Icons.Brands.GitHub" ViewBox="0 0 24 24" />
-            </LumexNavLink>
+            </LumexLink>
         </LumexNavbarItem>
     </text>;
 
     private readonly NavbarSlots _navbarClasses = new()
-    {
-        Wrapper = "py-5 gap-6"
-    };
+        {
+            Wrapper = "py-5 gap-6"
+        };
 
     private readonly NavItem[] _navItems = new NavItem[]
     {

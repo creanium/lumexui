@@ -38,10 +38,28 @@
 
     <DocsSection Title="Polymorphic">
         <p>
-            LumexUI components expose a <Code>As</Code> parameter that allows you to 
-            customize the element tag that is used to render the component.
+            LumexUI components expose an <Code>As</Code> parameter that allows you to
+            customize the HTML element tag used to render the component.
         </p>
         <Polymorphic />
+        <Callout Variant="@CalloutVariant.Warning" Classes="@(new() { Base = "[&_code]:font-semibold [&_code]:text-sm" })">
+            The above is an attempt to replicate the polymorphic components from React. 
+            However, in Blazor, we can only control the HTML element tag of the rendered component. 
+            For example, to make the button link open in a new tab, 
+            you must manually define the <code>`target`</code> and <code>`rel`</code> attributes.
+        </Callout>
+    </DocsSection>
+
+    <DocsSection Title="Active State">
+        <p>
+            Just like Blazor native <Code>NavLink</Code> component, this one also
+            enables an active CSS class based on whether its <code>href</code> matches the current URL.
+            Please refer to the
+            <LumexLink Href="https://learn.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-8.0#navlink-component"
+                       External="@true">
+                official documentation
+            </LumexLink> for further information.
+        </p>
     </DocsSection>
 </DocsSection>
 
@@ -66,6 +84,7 @@
             new("Underline"),
             new("External"),
             new("Polymorphic"),
+            new("Active State"),
         ]),
         new("Custom Styles"),
         new("API")
