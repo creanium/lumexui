@@ -38,16 +38,7 @@
     </LumexNavbarContent>
 
     <LumexNavbarMenu>
-        @foreach( var item in _navItems )
-        {
-            <LumexNavbarMenuItem>
-                <LumexNavLink Href="@item.Link"
-                              Color="@ThemeColor.None"
-                              Class="hover:text-orange-500 data-[active=true]:text-orange-500">
-                    @item.Name
-                </LumexNavLink>
-            </LumexNavbarMenuItem>
-        }
+        <NavMenu />
     </LumexNavbarMenu>
 </LumexNavbar>
 
