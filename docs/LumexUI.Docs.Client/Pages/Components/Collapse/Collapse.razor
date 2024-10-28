@@ -1,0 +1,49 @@
+﻿@page "/docs/components/collapse"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Collapse.PreviewCodes
+
+<DocsSection Title="Usage">
+    <p>
+        The collapse component is useful for organizing
+        large amounts of information in a compact way.
+    </p>
+    <Usage />
+</DocsSection>
+
+<DocsSection Title="Custom Styles">
+    <p>
+        You can customize the collapse component by passing any Tailwind CSS
+        classes to the component's <code>Class</code> parameter.
+    </p>
+</DocsSection>
+
+<DocsApiSection Components="@_apiComponents" />
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage"),
+        new("Custom Styles"),
+        new("API")
+    };
+
+    private readonly string[] _apiComponents = new string[]
+    {
+        nameof(LumexCollapse),
+        nameof(LumexIcon)
+    };
+
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Collapse",
+            category: "Components",
+            description: "Collapsible sections allow to toggle content visibility, perfect for compact organization.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Collapse", isServer: false )
+        );
+    }
+}
