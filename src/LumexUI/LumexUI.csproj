@@ -8,13 +8,13 @@
 
 	<PropertyGroup>
 		<Title>LumexUI</Title>
-		<Description>🚀 A versatile Blazor component library built using Tailwind CSS for efficient web development</Description>
-		<Version>0.1.9</Version>
+		<Description>🚀 A versatile Blazor UI library built using Tailwind CSS.</Description>
+		<Version>1.0.0-preview.1</Version>
 		<Authors>desmondinho</Authors>
 		<PackageId>LumexUI</PackageId>
 		<!--<PackageIcon>logo.png</PackageIcon>-->
 		<PackageTags>blazor;components;library;tailwindcss;</PackageTags>
-		<PackageProjectUrl>https://github.com/LumexUI/lumexui</PackageProjectUrl>
+		<PackageProjectUrl>https://lumexui.org</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/LumexUI/lumexui</RepositoryUrl>
@@ -76,7 +76,7 @@
 		<Exec Command="npx rollup -c" />
 	</Target>
 
-	<!-- Remove theme files from the build output -->
+	<!-- Remove these files from the build output -->
 	<ItemGroup>
 		<Content Remove="package.json" />
 		<Content Remove="package-lock.json" />
