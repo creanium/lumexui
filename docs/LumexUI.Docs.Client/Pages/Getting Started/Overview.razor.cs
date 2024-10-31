@@ -14,17 +14,17 @@ public partial class Overview
         new Feature()
         {
             Title = "Tailwind CSS Integration",
-            Description = "Every component is crafted using Tailwind CSS, offering you the full power of this utility-first CSS framework. This ensures that your designs are modern, flexible, and in line with best practices."
+            Description = "Every component is crafted using Tailwind CSS, offering you the full power of this utility-first CSS framework."
         },
         new Feature()
         {
             Title = "Beautiful Design",
-            Description = "Our components are designed with attention to detail, providing a clean and professional look out of the box. You can trust that they will enhance the visual appeal of your application."
+            Description = "Our components are designed with attention to detail, providing a clean and professional look out of the box."
         },
         new Feature()
         {
             Title = "Highly Customizable",
-            Description = "With extensive customization options, you can easily adapt the components to match your branding and design preferences. The flexibility of Tailwind CSS is fully leveraged to give you control over every aspect of your UI."
+            Description = "With extensive customization options, you can easily adapt the components to match your branding and design preferences."
         },
         new Feature()
         {
@@ -34,7 +34,7 @@ public partial class Overview
         new Feature()
         {
             Title = "Conflict-Free Styling",
-            Description = "Our additional utility library automatically handles Tailwind CSS class conflicts. This ensures that your custom styles override defaults as expected, eliminating potential issues and simplifying the development process."
+            Description = "Our additional utility library automatically handles Tailwind CSS class conflicts. This ensures that your custom styles override defaults as expected, eliminating potential issues."
         }
     ];
 
