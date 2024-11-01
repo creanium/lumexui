@@ -39,7 +39,7 @@ body:
     validations:
       required: true
   - type: textarea
-    id: expected
+    id: notes
     attributes:
       label: Notes
       description: Provide additional notes if any.
