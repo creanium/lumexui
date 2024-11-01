@@ -1,0 +1,45 @@
+name: Bug report
+description: 🐛 If something is broken with LumexUI, create a bug report to help us improve.
+title: "[Bug]: *BUG_TITLE*"
+labels: ["bug"]
+assignees:
+  - desmondinho
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: input
+    id: version
+    attributes:
+      label: LumexUI Version
+      description: Provide the version of LumexUI you are using.  
+      placeholder: e.g., v1.0.0-preview.1
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Provide a clear and concise description of the issue.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Provide a set of steps we have to take to reproduce the issue.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: Provide a clear and concise description of the expeceted behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Notes
+      description: Provide additional notes if any.
