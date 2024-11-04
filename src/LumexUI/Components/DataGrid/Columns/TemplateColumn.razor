@@ -1,0 +1,15 @@
+﻿@namespace LumexUI
+@inherits LumexColumnBase<T>
+@typeparam T
+
+@{
+    base.BuildRenderTree( __builder );
+}
+
+@code {
+    /// <inheritdoc />
+    protected internal override void RenderCellContent( RenderTreeBuilder __builder, T item )
+    {
+        @ChildContent( item )
+    }
+}
