@@ -13,17 +13,20 @@
         @{
             FinishCollectingColumns();
         }
-
-        <table class="@RootClass" style="@RootStyle" @attributes="@AdditionalAttributes">
-            <thead>
-                <tr>
-                    @_renderColumnHeaders
-                </tr>
-            </thead>
-            <tbody>
-                @_renderNonVirtualizedRows
-            </tbody>
-        </table>
+        <div class="@_slots.Base" style="@RootStyle" @attributes="@AdditionalAttributes">
+            <div class="@_slots.Wrapper">
+                <table class="@_slots.Table" >
+                    <thead class="@_slots.Thead">
+                        <tr class="@_slots.Tr">
+                            @_renderColumnHeaders
+                        </tr>
+                    </thead>
+                    <tbody class="@_slots.Tbody">
+                        @_renderNonVirtualizedRows
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </Defer>
 
 </CascadingValue>
@@ -41,10 +44,10 @@
 
     private void RenderRow( RenderTreeBuilder __builder, int rowIndex, T item )
     {
-        <tr @key="@item" aria-rowindex="@rowIndex">
+        <tr class="@_slots.Tr" aria-rowindex="@rowIndex" @key="@item">
             @foreach( var col in _columns )
             {
-                <td @key="@col">
+                <td class="@_slots.Td" @key="@col">
                     @{
                         col.RenderCellContent( __builder, item );
                     }
@@ -57,7 +60,7 @@
     {
         foreach( var col in _columns )
         {
-            <th @key="@col" scope="col">
+            <th class="@_slots.Th" scope="col" @key="@col">
                 @{
                     col.RenderHeaderCellContent( __builder );
                 }
