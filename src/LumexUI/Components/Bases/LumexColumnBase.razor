@@ -1,0 +1,34 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+@typeparam T
+
+@{
+    Context.Owner.AddColumn( this );
+}
+
+@code {
+    /// <summary>
+    /// Renders the content of a header cell for a specified column in the data grid.
+    /// Derived classes can override this method to define how each header cell’s content is rendered.
+    /// </summary>
+    /// <param name="__builder"></param>
+    protected internal virtual void RenderHeaderCellContent( RenderTreeBuilder __builder )
+    {
+        @if( TitleContent is not null )
+        {
+            @TitleContent( this )
+        }
+        else
+        {
+            @Title
+        }
+    }
+
+    /// <summary>
+    /// Renders the content of a cell for a specified column in the data grid.
+    /// Derived classes must override this method to define how each cell’s content is rendered based on the data item.
+    /// </summary>
+    /// <param name="builder">The current <see cref="RenderTreeBuilder" />.</param>
+    /// <param name="item">The data for the row being rendered.</param>
+    protected internal abstract void RenderCellContent( RenderTreeBuilder builder, T item );
+}

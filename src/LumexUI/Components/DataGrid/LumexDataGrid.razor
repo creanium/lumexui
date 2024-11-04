@@ -3,9 +3,65 @@
 @typeparam T
 
 <CascadingValue TValue="DataGridContext<T>" Value="@_context" IsFixed="@true">
-    @* columns *@
+    @{
+        StartCollectingColumns();
+    }
+
+    @ChildContent
+
+    <Defer>
+        @{
+            FinishCollectingColumns();
+        }
+
+        <table class="@RootClass" style="@RootStyle" @attributes="@AdditionalAttributes">
+            <thead>
+                <tr>
+                    @_renderColumnHeaders
+                </tr>
+            </thead>
+            <tbody>
+                @_renderNonVirtualizedRows
+            </tbody>
+        </table>
+    </Defer>
+
 </CascadingValue>
 
 @code {
+    private void RenderNonVirtualizedRows( RenderTreeBuilder __builder )
+    {
+        var initialRowIndex = 2; // aria-rowindex is 1-based, plus the first row is the header
+        var rowIndex = initialRowIndex;
+        foreach( var item in _currentNonVirtualizedItems )
+        {
+            RenderRow( __builder, rowIndex++, item );
+        }
+    }
 
+    private void RenderRow( RenderTreeBuilder __builder, int rowIndex, T item )
+    {
+        <tr @key="@item" aria-rowindex="@rowIndex">
+            @foreach( var col in _columns )
+            {
+                <td @key="@col">
+                    @{
+                        col.RenderCellContent( __builder, item );
+                    }
+                </td>
+            }
+        </tr>
+    }
+
+    private void RenderColumnHeaders( RenderTreeBuilder __builder )
+    {
+        foreach( var col in _columns )
+        {
+            <th @key="@col" scope="col">
+                @{
+                    col.RenderHeaderCellContent( __builder );
+                }
+            </th>
+        }
+    }
 }
