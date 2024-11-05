@@ -2,8 +2,8 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-using LumexUI.Components.DataGrid.Core;
-using LumexUI.Styles;
+using LumexUI.Common;
+using LumexUI.DataGrid.Core;
 using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
@@ -57,6 +57,24 @@ public partial class LumexDataGrid<T> : LumexComponentBase
     /// </para>
     /// </summary>
     [Parameter] public DataSource<T>? DataSource { get; set; }
+
+    /// <summary>
+    /// Gets or sets the selection mode for the data grid, determining how rows can be selected.
+    /// </summary>
+    /// <remarks>
+    /// The default is <see cref="SelectionMode.None"/>.
+    /// </remarks>
+    [Parameter] public SelectionMode SelectionMode { get; set; }
+
+    /// <summary>
+    /// Gets or sets the collection of items currently selected in the data grid.
+    /// </summary>
+    [Parameter] public ICollection<T> SelectedItems { get; set; } = new HashSet<T>();
+
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the selection of items in the data grid changes.
+    /// </summary>
+    [Parameter] public EventCallback<ICollection<T>> SelectedItemsChanged { get; set; }
 
     private readonly DataGridContext<T> _context;
     private readonly List<LumexColumnBase<T>> _columns;
@@ -130,12 +148,16 @@ public partial class LumexDataGrid<T> : LumexComponentBase
         return ( _columns.Count > 0 ) ? _refreshDataMemoizer.Memoize( RefreshDataCoreAsync, [Data, DataSource] ) : Task.CompletedTask;
     }
 
+    internal void Refresh() => StateHasChanged();
+
     internal void AddColumn( LumexColumnBase<T> column )
     {
-        if( _collectingColumns )
+        if( !_collectingColumns )
         {
-            _columns.Add( column );
+            return;
         }
+
+        _columns.Add( column );
     }
 
     private void StartCollectingColumns()
@@ -193,7 +215,7 @@ public partial class LumexDataGrid<T> : LumexComponentBase
 
     private DataGridSlots GetSlots()
     {
-        var slots = DataGrid.GetStyles( this );
+        var slots = Styles.DataGrid.GetStyles( this );
 
         slots.Base = TwMerge.Merge( slots.Base );
         slots.Wrapper = TwMerge.Merge( slots.Wrapper );

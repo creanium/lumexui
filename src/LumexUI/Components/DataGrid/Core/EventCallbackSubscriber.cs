@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace LumexUI.Components.DataGrid.Core;
+namespace LumexUI.DataGrid.Core;
 
 /// <summary>
 /// Represents a subscriber that may be subscribe to an <see cref="EventCallbackSubscribable{T}"/>.

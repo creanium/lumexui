@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 using IComponent = Microsoft.AspNetCore.Components.IComponent;
 
-namespace LumexUI.Components.DataGrid.Core;
+namespace LumexUI.DataGrid.Core;
 
 // One awkwardness of the way LumexDataGrid (QuickGrid) collects its list of child columns is that, during OnParametersSetAsync,
 // it only knows about the set of columns that were present on the *previous* render. If it's going to trigger a
@@ -34,7 +34,8 @@ namespace LumexUI.Components.DataGrid.Core;
 /// </summary>
 /// <typeparam name="T">For internal use only. Do not use.</typeparam>
 [EditorBrowsable( EditorBrowsableState.Never )]
-public sealed class ColumnsCollectedNotifier<T> : IComponent
+[System.Diagnostics.CodeAnalysis.SuppressMessage( "Style", "IDE1006:Naming Styles", Justification = "For internal use." )]
+public sealed class _ColumnsCollectedNotifier<T> : IComponent
 {
     private bool _isFirstRender = true;
 

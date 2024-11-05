@@ -26,6 +26,8 @@ public abstract partial class LumexColumnBase<T> : LumexComponentBase
 
     [CascadingParameter] internal DataGridContext<T> Context { get; set; } = default!;
 
+    internal LumexDataGrid<T> DataGrid => Context.Owner;
+
     /// <inheritdoc />
     protected override void OnInitialized()
     {

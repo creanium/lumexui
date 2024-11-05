@@ -2,11 +2,16 @@
 @inherits LumexComponentBase
 @typeparam T
 
-@using LumexUI.Components.DataGrid.Core
+@using LumexUI.DataGrid.Core
 
 <CascadingValue TValue="DataGridContext<T>" Value="@_context" IsFixed="@true">
     @{
         StartCollectingColumns();
+    }
+
+    @if( SelectionMode is not SelectionMode.None )
+    {
+        <_CheckboxColumn T="T" data-id="@Identifier.New()" />
     }
 
     @ChildContent
@@ -15,7 +20,7 @@
         @{
             FinishCollectingColumns();
         }
-        <ColumnsCollectedNotifier T="T" />
+        <_ColumnsCollectedNotifier T="T" />
 
         <div class="@_slots.Base" style="@RootStyle" @attributes="@AdditionalAttributes">
             <div class="@_slots.Wrapper">

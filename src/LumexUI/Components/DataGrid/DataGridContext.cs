@@ -1,5 +1,5 @@
 ﻿using LumexUI.Common;
-using LumexUI.Components.DataGrid.Core;
+using LumexUI.DataGrid.Core;
 
 namespace LumexUI;
 

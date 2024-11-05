@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace LumexUI.Components.DataGrid.Core;
+namespace LumexUI.DataGrid.Core;
 
 /// <summary>
 /// Represents an event that you may subscribe to. This differs from normal C# events in that the handlers
