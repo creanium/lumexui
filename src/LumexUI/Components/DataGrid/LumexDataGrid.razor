@@ -2,6 +2,8 @@
 @inherits LumexComponentBase
 @typeparam T
 
+@using LumexUI.Components.DataGrid.Core
+
 <CascadingValue TValue="DataGridContext<T>" Value="@_context" IsFixed="@true">
     @{
         StartCollectingColumns();
@@ -13,6 +15,8 @@
         @{
             FinishCollectingColumns();
         }
+        <ColumnsCollectedNotifier T="T" />
+
         <div class="@_slots.Base" style="@RootStyle" @attributes="@AdditionalAttributes">
             <div class="@_slots.Wrapper">
                 <table class="@_slots.Table">
