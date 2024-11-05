@@ -34,6 +34,17 @@ internal class DataGrid
         .Add( "text-foreground-400" )
         .ToString();
 
+    private readonly static string _loadingWrapper = ElementClass.Empty()
+        .Add( "absolute" )
+        .Add( "inset-0" )
+        .Add( "flex" )
+        .Add( "items-center" )
+        .Add( "justify-center" )
+        .Add( "text-small" )
+        .Add( "bg-surface1/70" )
+        .Add( "backdrop-blur-[1px]" )
+        .ToString();
+
     private readonly static string _table = ElementClass.Empty()
         .Add( "min-w-full" )
         .ToString();
@@ -92,6 +103,10 @@ internal class DataGrid
 
             EmptyWrapper = ElementClass.Empty()
                 .Add( _emptyWrapper )
+                .ToString(),
+
+            LoadingWrapper = ElementClass.Empty()
+                .Add( _loadingWrapper )
                 .ToString(),
 
             Table = ElementClass.Empty()

@@ -22,13 +22,20 @@
                         </tr>
                     </thead>
                     <tbody class="@_slots.Tbody">
-                        @if( Data is null || !Data.Any() )
+                        @if( Loading )
                         {
-                            @_renderEmptyContent
+                            @_renderLoadingContent
                         }
                         else
                         {
-                            @_renderNonVirtualizedRows
+                            if( Data is null || !Data.Any() )
+                            {
+                                @_renderEmptyContent
+                            }
+                            else
+                            {
+                                @_renderNonVirtualizedRows
+                            }
                         }
                     </tbody>
                 </table>
@@ -72,6 +79,27 @@
                 }
             </th>
         }
+    }
+
+    private void RenderLoadingContent( RenderTreeBuilder __builder )
+    {
+        <tr>
+            <td class="@_slots.LoadingWrapper" colspan="@(_columns.Count)">
+                @if( LoadingContent is not null )
+                {
+                    @LoadingContent
+                }
+                else
+                {
+                    <text>Loading...</text>
+                }
+            </td>
+
+            @if( Data is null || !Data.Any() )
+            {
+                <td class="@_slots.EmptyWrapper" />
+            }
+        </tr>
     }
 
     private void RenderEmptyContent( RenderTreeBuilder __builder )
