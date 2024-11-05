@@ -26,20 +26,18 @@
                         </tr>
                     </thead>
                     <tbody class="@_slots.Tbody">
-                        @if( Loading )
+                        @if( Data is null || !Data.Any() )
                         {
-                            @_renderLoadingContent
+                            @_renderEmptyContent
                         }
                         else
                         {
-                            if( Data is null || !Data.Any() )
-                            {
-                                @_renderEmptyContent
-                            }
-                            else
-                            {
-                                @_renderNonVirtualizedRows
-                            }
+                            @_renderNonVirtualizedRows
+                        }
+
+                        @if( Loading || _pendingDataLoadCts is not null )
+                        {
+                            @_renderLoadingContent
                         }
                     </tbody>
                 </table>
