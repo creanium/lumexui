@@ -15,20 +15,26 @@
         }
         <div class="@_slots.Base" style="@RootStyle" @attributes="@AdditionalAttributes">
             <div class="@_slots.Wrapper">
-                <table class="@_slots.Table" >
+                <table class="@_slots.Table">
                     <thead class="@_slots.Thead">
                         <tr class="@_slots.Tr">
                             @_renderColumnHeaders
                         </tr>
                     </thead>
                     <tbody class="@_slots.Tbody">
-                        @_renderNonVirtualizedRows
+                        @if( Data is null || !Data.Any() )
+                        {
+                            @_renderEmptyContent
+                        }
+                        else
+                        {
+                            @_renderNonVirtualizedRows
+                        }
                     </tbody>
                 </table>
             </div>
         </div>
     </Defer>
-
 </CascadingValue>
 
 @code {
@@ -66,5 +72,21 @@
                 }
             </th>
         }
+    }
+
+    private void RenderEmptyContent( RenderTreeBuilder __builder )
+    {
+        <tr>
+            <td class="@_slots.EmptyWrapper" colspan="@(_columns.Count)">
+                @if( EmptyContent is not null )
+                {
+                    @EmptyContent
+                }
+                else
+                {
+                    <text>No records available.</text>
+                }
+            </td>
+        </tr>
     }
 }

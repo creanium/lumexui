@@ -22,6 +22,11 @@ public partial class LumexDataGrid<T> : LumexComponentBase
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the content to be rendered inside the data grid when there is no data available.
+    /// </summary>
+    [Parameter] public RenderFragment? EmptyContent { get; set; }
+
+    /// <summary>
     /// Gets or sets a queryable source of data for the grid.
     /// <para>
     /// This could be in-memory data converted to queryable using the
@@ -33,6 +38,7 @@ public partial class LumexDataGrid<T> : LumexComponentBase
 
     private readonly DataGridContext<T> _context;
     private readonly List<LumexColumnBase<T>> _columns;
+    private readonly RenderFragment _renderEmptyContent;
     private readonly RenderFragment _renderColumnHeaders;
     private readonly RenderFragment _renderNonVirtualizedRows;
     private readonly Memoizer<DataGridSlots> _slotsMemoizer;
@@ -50,6 +56,7 @@ public partial class LumexDataGrid<T> : LumexComponentBase
         _context = new DataGridContext<T>( this );
         _slotsMemoizer = new Memoizer<DataGridSlots>();
 
+        _renderEmptyContent = RenderEmptyContent;
         _renderColumnHeaders = RenderColumnHeaders;
         _renderNonVirtualizedRows = RenderNonVirtualizedRows;
 
@@ -101,6 +108,8 @@ public partial class LumexDataGrid<T> : LumexComponentBase
         var slots = DataGrid.GetStyles( this );
 
         slots.Base = TwMerge.Merge( slots.Base );
+        slots.Wrapper = TwMerge.Merge( slots.Wrapper );
+        slots.EmptyWrapper = TwMerge.Merge( slots.EmptyWrapper );
         slots.Table = TwMerge.Merge( slots.Table );
         slots.Thead = TwMerge.Merge( slots.Thead );
         slots.Tbody = TwMerge.Merge( slots.Tbody );

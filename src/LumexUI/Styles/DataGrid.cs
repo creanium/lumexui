@@ -26,6 +26,14 @@ internal class DataGrid
         .Add( "overflow-auto" )
         .ToString();
 
+    private readonly static string _emptyWrapper = ElementClass.Empty()
+        .Add( "h-40" )
+        .Add( "align-middle" )
+        .Add( "text-small" )
+        .Add( "text-center" )
+        .Add( "text-foreground-400" )
+        .ToString();
+
     private readonly static string _table = ElementClass.Empty()
         .Add( "min-w-full" )
         .ToString();
@@ -80,6 +88,10 @@ internal class DataGrid
 
             Wrapper = ElementClass.Empty()
                 .Add( _wrapper )
+                .ToString(),
+
+            EmptyWrapper = ElementClass.Empty()
+                .Add( _emptyWrapper )
                 .ToString(),
 
             Table = ElementClass.Empty()
