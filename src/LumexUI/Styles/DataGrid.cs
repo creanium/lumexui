@@ -139,7 +139,9 @@ internal class DataGrid
         {
             true => ElementClass.Empty()
                 .Add( "cursor-default", when: slot is nameof( _tr ) )
-                .Add( "group-aria-[selected=false]:group-hover:bg-default-100/70", when: slot is nameof( _td ) ),
+                .Add( ElementClass.Empty()
+                    .Add( "group-aria-[selected=false]:group-hover:bg-default-100/70" )
+                    .Add( "first:rounded-s-lg last:rounded-e-lg" ), when: slot is nameof( _td ) ),
 
             _ => ElementClass.Empty()
         };
