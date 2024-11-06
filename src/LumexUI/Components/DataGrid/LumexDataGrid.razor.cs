@@ -214,7 +214,7 @@ public partial class LumexDataGrid<T> : LumexComponentBase
 
     internal void AddColumn( LumexColumnBase<T> column )
     {
-        if( !_collectingColumns )
+        if( !_collectingColumns || !column.Visible )
         {
             return;
         }

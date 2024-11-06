@@ -30,6 +30,14 @@ public abstract partial class LumexColumnBase<T> : LumexComponentBase
     /// </summary>
     [Parameter] public string? Title { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the column is visible.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see langword="true"/>
+    /// </remarks>
+    [Parameter] public bool Visible { get; set; } = true;
+
     [CascadingParameter] internal DataGridContext<T> Context { get; set; } = default!;
 
     internal LumexDataGrid<T> DataGrid => Context.Owner;
