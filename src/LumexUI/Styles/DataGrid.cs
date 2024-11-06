@@ -119,6 +119,7 @@ internal class DataGrid
 
             Tr = ElementClass.Empty()
                 .Add( _tr )
+                .Add( GetHoverableStyles( dataGrid.Hoverable, slot: nameof( _tr ) ) )
                 .ToString(),
 
             Th = ElementClass.Empty()
@@ -127,7 +128,20 @@ internal class DataGrid
 
             Td = ElementClass.Empty()
                 .Add( _td )
+                .Add( GetHoverableStyles( dataGrid.Hoverable, slot: nameof( _td ) ) )
                 .ToString(),
+        };
+    }
+
+    private static ElementClass GetHoverableStyles( bool hoverable, string slot )
+    {
+        return hoverable switch
+        {
+            true => ElementClass.Empty()
+                .Add( "cursor-default", when: slot is nameof( _tr ) )
+                .Add( "group-aria-[selected=false]:group-hover:bg-default-100/70", when: slot is nameof( _td ) ),
+
+            _ => ElementClass.Empty()
         };
     }
 }

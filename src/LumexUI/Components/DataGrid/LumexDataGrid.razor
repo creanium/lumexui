@@ -64,14 +64,19 @@
 
     private void RenderRow( RenderTreeBuilder __builder, int rowIndex, T item )
     {
+        var selected = Utils.GetDataAttributeValue( SelectedItems.Contains( item ) );
+
         <tr class="@_slots.Tr"
             aria-rowindex="@rowIndex"
+            aria-selected="@selected"
             @key="@item"
             @onclick="@(() => OnRowClickedAsync( item, rowIndex ))"
             @onclick:stopPropagation="@true">
             @foreach( var col in _columns )
             {
-                <td class="@_slots.Td" @key="@col">
+                <td class="@_slots.Td"
+                    data-selected="@selected"
+                    @key="@col">
                     @{
                         col.RenderCellContent( __builder, item );
                     }

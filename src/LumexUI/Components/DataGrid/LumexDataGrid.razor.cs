@@ -143,6 +143,21 @@ public partial class LumexDataGrid<T> : LumexComponentBase
     }
 
     /// <inheritdoc />
+    public override Task SetParametersAsync( ParameterView parameters )
+    {
+        parameters.SetParameterProperties( this );
+
+        // Set Hoverable to true if SelectionMode is not None and Hoverable was not set explicitly
+        if( !parameters.TryGetValue<bool>( nameof( Hoverable ), out var _ )
+            && parameters.TryGetValue<SelectionMode>( nameof( SelectionMode ), out var _ ) )
+        {
+            Hoverable = true;
+        }
+
+        return base.SetParametersAsync( ParameterView.Empty );
+    }
+
+    /// <inheritdoc />
     protected override Task OnParametersSetAsync()
     {
         if( Data is not null && DataSource is not null )
@@ -152,7 +167,7 @@ public partial class LumexDataGrid<T> : LumexComponentBase
         }
 
         // Perform a re-building only if the dependencies have changed
-        _slots = _slotsMemoizer.Memoize( GetSlots, [Class] );
+        _slots = _slotsMemoizer.Memoize( GetSlots, [Hoverable, Class] );
 
         // Perform a re-query only if the dependencies have changed
         //
