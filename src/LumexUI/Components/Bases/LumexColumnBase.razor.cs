@@ -5,6 +5,7 @@
 using LumexUI.Common;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace LumexUI;
 
@@ -18,6 +19,11 @@ public abstract partial class LumexColumnBase<T> : LumexComponentBase
     /// Gets or sets the content to be rendered in the column header.
     /// </summary>
     [Parameter] public RenderFragment<LumexColumnBase<T>>? TitleContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to be rendered in the column cells whose data has not yet been loaded.
+    /// </summary>
+    [Parameter] public RenderFragment<PlaceholderContext>? PlaceholderContent { get; set; }
 
     /// <summary>
     /// Gets or sets the title text for the column.

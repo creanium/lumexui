@@ -8,6 +8,7 @@ using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace LumexUI;
 
@@ -34,11 +35,6 @@ public partial class LumexDataGrid<T> : LumexComponentBase
     [Parameter] public RenderFragment? LoadingContent { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the data grid is loading.
-    /// </summary>
-    [Parameter] public bool Loading { get; set; }
-
-    /// <summary>
     /// Gets or sets a queryable source of data for the grid.
     /// <para>
     /// This could be in-memory data converted to queryable using the
@@ -60,9 +56,43 @@ public partial class LumexDataGrid<T> : LumexComponentBase
     [Parameter] public DataSource<T>? DataSource { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the data grid is loading.
+    /// </summary>
+    [Parameter] public bool Loading { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether rows in the data grid should highlight on hover.
     /// </summary>
     [Parameter] public bool Hoverable { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the grid will be rendered with virtualization. 
+    /// This is normally used in conjunction with scrolling and causes the grid to 
+    /// fetch and render only the data around the current scroll viewport.
+    /// This can greatly improve the performance when scrolling through large data sets.
+    /// <para>
+    /// If you use <see cref="Virtualize"/>, you should supply a value for <see cref="ItemSize"/> 
+    /// and must ensure that every row renders with the same constant height.
+    /// </para>
+    /// </summary>
+    /// <remarks>
+    /// Generally it's preferable not to use <see cref="Virtualize"/> if the amount of data being rendered
+    /// is small or if you are using pagination.
+    /// </remarks>
+    [Parameter] public bool Virtualize { get; set; }
+
+    /// <summary>
+    /// Gets or sets an expected height for each row in pixels.
+    /// <para>
+    /// This is applicable only when using <see cref="Virtualize"/>, 
+    /// allowing the virtualization mechanism to fetch the correct number of items to match the display
+    /// size and to ensure accurate scrolling.
+    /// </para>
+    /// </summary>
+    /// <remarks>
+    /// The default value is 40
+    /// </remarks>
+    [Parameter] public float ItemSize { get; set; } = 40;
 
     /// <summary>
     /// Gets or sets the selection mode for the data grid, determining how rows can be selected.
@@ -90,6 +120,10 @@ public partial class LumexDataGrid<T> : LumexComponentBase
     /// </remarks>
     [Parameter] public EventCallback<DataGridRowClickEventArgs<T>> OnRowClick { get; set; }
 
+    private string? RowStyles => ElementStyle.Empty()
+        .Add( "height", $"{ItemSize}px", when: Virtualize )
+        .ToString();
+
     private readonly DataGridContext<T> _context;
     private readonly List<LumexColumnBase<T>> _columns;
     private readonly Memoizer<Task> _refreshDataMemoizer;
@@ -100,6 +134,7 @@ public partial class LumexDataGrid<T> : LumexComponentBase
     private readonly RenderFragment _renderNonVirtualizedRows;
 
     private DataGridSlots _slots = default!;
+    private Virtualize<(int, T)>? _virtualizeRef;
 
     private bool _collectingColumns; // Columns might re-render themselves arbitrarily. We only want to capture them at a defined time.
     private ICollection<T> _currentNonVirtualizedItems;
@@ -206,15 +241,54 @@ public partial class LumexDataGrid<T> : LumexComponentBase
     {
         // Move into a "loading" state, cancelling any earlier-but-still-pending load
         _pendingDataLoadCts?.Cancel();
-        var thisLoadCts = _pendingDataLoadCts = new CancellationTokenSource();
+        var currLoadCts = _pendingDataLoadCts = new CancellationTokenSource();
 
-        var request = new DataSourceRequest<T>( count: null, startIndex: 0, thisLoadCts.Token );
-        var result = await ResolveItemsRequestAsync( request );
-        if( !thisLoadCts.IsCancellationRequested )
+        if( _virtualizeRef is not null )
         {
-            _currentNonVirtualizedItems = result.Items;
+            // If we're using Virtualize, we have to go through its RefreshDataAsync API otherwise:
+            // (1) It won't know to update its own internal state if the provider output has changed
+            // (2) We won't know what slice of data to query for
+            await _virtualizeRef.RefreshDataAsync();
             _pendingDataLoadCts = null;
         }
+        else
+        {
+            // If we're not using Virtualize, we build and execute a request against the data source directly
+            var dataSourceRequest = new DataSourceRequest<T>( count: null, startIndex: 0, currLoadCts.Token );
+            var dataSourceResult = await ResolveItemsRequestAsync( dataSourceRequest );
+            if( !currLoadCts.IsCancellationRequested )
+            {
+                _currentNonVirtualizedItems = dataSourceResult.Items;
+                _pendingDataLoadCts = null;
+            }
+        }
+    }
+
+    private async ValueTask<ItemsProviderResult<(int, T)>> ProvideVirtualizedItems( ItemsProviderRequest request )
+    {
+        // Debounce the requests. This eliminates a lot of redundant queries at the cost of slight lag after interactions.
+        // TODO: Consider making this configurable, or smarter (e.g., doesn't delay on first call in a batch, then the amount
+        // of delay increases if you rapidly issue repeated requests, such as when scrolling a long way)
+        await Task.Delay( 100 );
+        if( request.CancellationToken.IsCancellationRequested )
+        {
+            return default;
+        }
+
+        var dataSourceRequest = new DataSourceRequest<T>( request.Count, request.StartIndex, request.CancellationToken );
+        var dataSourceResult = await ResolveItemsRequestAsync( dataSourceRequest );
+
+        if( !request.CancellationToken.IsCancellationRequested )
+        {
+            // We're supplying the row index along with each row's data because we need it for aria-rowindex, and we have to account for
+            // the virtualized start index. It might be more performant just to have some _latestQueryRowStartIndex field, but we'd have
+            // to make sure it doesn't get out of sync with the rows being rendered.
+            return new ItemsProviderResult<(int, T)>(
+                 items: dataSourceResult.Items.Select( ( x, i ) => ValueTuple.Create( i + request.StartIndex + 2, x ) ),
+                 totalItemCount: dataSourceResult.TotalItemCount );
+        }
+
+        return default;
     }
 
     private async ValueTask<DataSourceResult<T>> ResolveItemsRequestAsync( DataSourceRequest<T> request )
@@ -225,7 +299,6 @@ public partial class LumexDataGrid<T> : LumexComponentBase
         }
         else if( Data is not null )
         {
-            var totalItemCount = Data.Count();
             var result = Data.Skip( request.StartIndex );
 
             if( request.Count.HasValue )
@@ -233,8 +306,7 @@ public partial class LumexDataGrid<T> : LumexComponentBase
                 result = result.Take( request.Count.Value );
             }
 
-            var resultArray = result.ToArray();
-            return DataSourceResult.From( resultArray, totalItemCount );
+            return DataSourceResult.From( result.ToArray(), Data.Count() );
         }
         else
         {
@@ -272,20 +344,6 @@ public partial class LumexDataGrid<T> : LumexComponentBase
 
     private DataGridSlots GetSlots()
     {
-        var slots = Styles.DataGrid.GetStyles( this );
-
-        slots.Base = TwMerge.Merge( slots.Base );
-        slots.Wrapper = TwMerge.Merge( slots.Wrapper );
-        slots.EmptyWrapper = TwMerge.Merge( slots.EmptyWrapper );
-        slots.LoadingWrapper = TwMerge.Merge( slots.LoadingWrapper );
-        slots.Table = TwMerge.Merge( slots.Table );
-        slots.Thead = TwMerge.Merge( slots.Thead );
-        slots.Tbody = TwMerge.Merge( slots.Tbody );
-        slots.Tfoot = TwMerge.Merge( slots.Tfoot );
-        slots.Tr = TwMerge.Merge( slots.Tr );
-        slots.Th = TwMerge.Merge( slots.Th );
-        slots.Td = TwMerge.Merge( slots.Td );
-
-        return slots;
+        return Styles.DataGrid.GetStyles( this, TwMerge );
     }
 }

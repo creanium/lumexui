@@ -9,9 +9,9 @@
 @code {
     /// <summary>
     /// Renders the content of a header cell for a specified column in the data grid.
-    /// Derived classes can override this method to define how each header cell’s content is rendered.
+    /// Derived classes can override this method to define how header cell’s content is rendered.
     /// </summary>
-    /// <param name="__builder"></param>
+    /// <param name="__builder">The current <see cref="RenderTreeBuilder" />.</param>
     protected internal virtual void RenderHeaderCellContent( RenderTreeBuilder __builder )
     {
         @if( TitleContent is not null )
@@ -25,8 +25,25 @@
     }
 
     /// <summary>
+    /// Renders placeholder content of a cell for a specified column in the data grid during loading.
+    /// Derived classes can override this method to define how each cell’s placeholder content
+    /// is rendered based on the <paramref name="placeholderContext"/>.
+    /// </summary>
+    /// <param name="__builder">The current <see cref="RenderTreeBuilder"/> used to build the placeholder content.</param>
+    /// <param name="placeholderContext">The current <see cref="PlaceholderContext"/> used for rendering the placeholder content.</param>
+    protected internal virtual void RenderPlaceholderContent( RenderTreeBuilder __builder, PlaceholderContext placeholderContext )
+    {
+        if( PlaceholderContent is not null )
+        {
+            PlaceholderContent( placeholderContext );
+        }
+    }
+
+
+    /// <summary>
     /// Renders the content of a cell for a specified column in the data grid.
-    /// Derived classes must override this method to define how each cell’s content is rendered based on the data item.
+    /// Derived classes must override this method to define how each cell’s content 
+    /// is rendered based on the <paramref name="item"/>.
     /// </summary>
     /// <param name="builder">The current <see cref="RenderTreeBuilder" />.</param>
     /// <param name="item">The data for the row being rendered.</param>

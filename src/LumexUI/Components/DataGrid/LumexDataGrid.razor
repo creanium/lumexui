@@ -38,7 +38,19 @@
                         }
                         else
                         {
-                            @_renderNonVirtualizedRows
+                            @if( Virtualize )
+                            {
+                                <Virtualize @ref="@_virtualizeRef"
+                                            TItem="(int RowIndex, T Data)"
+                                            ItemSize="@ItemSize"
+                                            ItemsProvider="@ProvideVirtualizedItems"
+                                            ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
+                                            Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))" />
+                            }
+                            else
+                            {
+                                @_renderNonVirtualizedRows
+                            }
                         }
 
                         @if( Loading || _pendingDataLoadCts is not null )
@@ -68,18 +80,35 @@
         var selected = Utils.GetDataAttributeValue( SelectedItems.Contains( item ) );
 
         <tr class="@_slots.Tr"
+            style="@RowStyles"
             aria-rowindex="@rowIndex"
             aria-selected="@selected"
             @key="@item"
             @onclick="@(() => OnRowClickedAsync( item, rowIndex ))"
             @onclick:stopPropagation="@true">
-            @foreach( var col in _columns )
+            @foreach( var column in _columns )
             {
                 <td class="@_slots.Td"
                     data-selected="@selected"
-                    @key="@col">
+                    @key="@column">
                     @{
-                        col.RenderCellContent( __builder, item );
+                        column.RenderCellContent( __builder, item );
+                    }
+                </td>
+            }
+        </tr>
+    }
+
+    private void RenderPlaceholderRow( RenderTreeBuilder __builder, PlaceholderContext placeholderContext )
+    {
+        <tr class="@_slots.Tr"
+            style="@RowStyles"
+            aria-rowindex="@(placeholderContext.Index + 1)">
+            @foreach( var column in _columns )
+            {
+                <td class="@_slots.Placeholder" @key="@column">
+                    @{
+                        column.RenderPlaceholderContent( __builder, placeholderContext );
                     }
                 </td>
             }
@@ -88,11 +117,11 @@
 
     private void RenderColumnHeaders( RenderTreeBuilder __builder )
     {
-        foreach( var col in _columns )
+        foreach( var column in _columns )
         {
-            <th class="@_slots.Th" scope="col" @key="@col">
+            <th class="@_slots.Th" scope="col" @key="@column">
                 @{
-                    col.RenderHeaderCellContent( __builder );
+                    column.RenderHeaderCellContent( __builder );
                 }
             </th>
         }

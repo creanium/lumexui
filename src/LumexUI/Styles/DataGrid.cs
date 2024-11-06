@@ -2,6 +2,8 @@
 
 using LumexUI.Utilities;
 
+using TailwindMerge;
+
 namespace LumexUI.Styles;
 
 [ExcludeFromCodeCoverage]
@@ -9,6 +11,7 @@ internal class DataGrid
 {
     private readonly static string _base = ElementClass.Empty()
         .Add( "relative" )
+        .Add( "w-full" )
         .Add( "flex" )
         .Add( "flex-col" )
         .Add( "gap-4" )
@@ -88,48 +91,70 @@ internal class DataGrid
         .Add( Utils.FocusVisible )
         .ToString();
 
-    public static DataGridSlots GetStyles<T>( LumexDataGrid<T> dataGrid )
+    private readonly static string _placeholder = ElementClass.Empty()
+        .Add( "before:block" )
+        .Add( "before:w-3/4" )
+        .Add( "before:h-4" )
+        .Add( "before:rounded-md" )
+        .Add( "before:bg-default-100" )
+        .ToString();
+
+    public static DataGridSlots GetStyles<T>( LumexDataGrid<T> dataGrid, TwMerge twMerge )
     {
         return new DataGridSlots()
         {
-            Base = ElementClass.Empty()
-                .Add( _base )
-                .Add( dataGrid.Class )
-                .ToString(),
+            Base = twMerge.Merge(
+                ElementClass.Empty()
+                    .Add( _base )
+                    .Add( dataGrid.Class )
+                    .ToString() ),
 
-            Wrapper = ElementClass.Empty()
-                .Add( _wrapper )
-                .ToString(),
+            Wrapper = twMerge.Merge(
+                ElementClass.Empty()
+                    .Add( _wrapper )
+                    .ToString() ),
 
-            EmptyWrapper = ElementClass.Empty()
-                .Add( _emptyWrapper )
-                .ToString(),
+            EmptyWrapper = twMerge.Merge(
+                ElementClass.Empty()
+                    .Add( _emptyWrapper )
+                    .ToString() ),
 
-            LoadingWrapper = ElementClass.Empty()
-                .Add( _loadingWrapper )
-                .ToString(),
+            LoadingWrapper = twMerge.Merge(
+                ElementClass.Empty()
+                    .Add( _loadingWrapper )
+                    .ToString() ),
 
-            Table = ElementClass.Empty()
-                .Add( _table )
-                .ToString(),
+            Table = twMerge.Merge(
+                ElementClass.Empty()
+                    .Add( _table )
+                    .ToString() ),
 
-            Thead = ElementClass.Empty()
-                .Add( _tHead )
-                .ToString(),
+            Thead = twMerge.Merge(
+                ElementClass.Empty()
+                    .Add( _tHead )
+                    .ToString() ),
 
-            Tr = ElementClass.Empty()
-                .Add( _tr )
-                .Add( GetHoverableStyles( dataGrid.Hoverable, slot: nameof( _tr ) ) )
-                .ToString(),
+            Tr = twMerge.Merge(
+                    ElementClass.Empty()
+                    .Add( _tr )
+                    .Add( GetHoverableStyles( dataGrid.Hoverable, slot: nameof( _tr ) ) )
+                    .ToString() ),
 
-            Th = ElementClass.Empty()
-                .Add( _th )
-                .ToString(),
+            Th = twMerge.Merge(
+                ElementClass.Empty()
+                    .Add( _th )
+                    .ToString() ),
 
-            Td = ElementClass.Empty()
-                .Add( _td )
-                .Add( GetHoverableStyles( dataGrid.Hoverable, slot: nameof( _td ) ) )
-                .ToString(),
+            Td = twMerge.Merge(
+                ElementClass.Empty()
+                    .Add( _td )
+                    .Add( GetHoverableStyles( dataGrid.Hoverable, slot: nameof( _td ) ) )
+                    .ToString() ),
+
+            Placeholder = twMerge.Merge(
+                ElementClass.Empty()
+                    .Add( _placeholder )
+                    .ToString() ),
         };
     }
 

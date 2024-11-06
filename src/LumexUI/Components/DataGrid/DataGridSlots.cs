@@ -13,4 +13,5 @@ public class DataGridSlots
     public string? Tr { get; set; }
     public string? Th { get; set; }
     public string? Td { get; set; }
+    public string? Placeholder { get; set; }
 }
