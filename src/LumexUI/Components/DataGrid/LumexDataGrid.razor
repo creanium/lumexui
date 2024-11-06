@@ -64,7 +64,11 @@
 
     private void RenderRow( RenderTreeBuilder __builder, int rowIndex, T item )
     {
-        <tr class="@_slots.Tr" aria-rowindex="@rowIndex" @key="@item">
+        <tr class="@_slots.Tr"
+            aria-rowindex="@rowIndex"
+            @key="@item"
+            @onclick="@(() => OnRowClickedAsync( item, rowIndex ))"
+            @onclick:stopPropagation="@true">
             @foreach( var col in _columns )
             {
                 <td class="@_slots.Td" @key="@col">

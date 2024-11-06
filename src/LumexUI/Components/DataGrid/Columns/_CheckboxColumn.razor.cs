@@ -39,7 +39,6 @@ public partial class _CheckboxColumn<T> : LumexColumnBase<T>
         }
 
         await DataGrid.SelectedItemsChanged.InvokeAsync( selectedItems );
-        DataGrid.Refresh();
     }
 
     private async Task SelectItemAsync( T item, bool selected )
@@ -49,14 +48,13 @@ public partial class _CheckboxColumn<T> : LumexColumnBase<T>
         {
             SelectItemCore();
         }
-        else
+        else if( DataGrid.SelectionMode is SelectionMode.Single )
         {
             selectedItems.Clear();
             SelectItemCore();
         }
 
         await DataGrid.SelectedItemsChanged.InvokeAsync( selectedItems );
-        DataGrid.Refresh();
 
         void SelectItemCore()
         {

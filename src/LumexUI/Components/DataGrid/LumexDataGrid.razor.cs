@@ -7,6 +7,7 @@ using LumexUI.DataGrid.Core;
 using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace LumexUI;
 
@@ -59,6 +60,11 @@ public partial class LumexDataGrid<T> : LumexComponentBase
     [Parameter] public DataSource<T>? DataSource { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether rows in the data grid should highlight on hover.
+    /// </summary>
+    [Parameter] public bool Hoverable { get; set; }
+
+    /// <summary>
     /// Gets or sets the selection mode for the data grid, determining how rows can be selected.
     /// </summary>
     /// <remarks>
@@ -75,6 +81,14 @@ public partial class LumexDataGrid<T> : LumexComponentBase
     /// Gets or sets the callback that is invoked when the selection of items in the data grid changes.
     /// </summary>
     [Parameter] public EventCallback<ICollection<T>> SelectedItemsChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback that is invoked when a row in the data grid is clicked.
+    /// </summary>
+    /// <remarks>
+    /// The callback receives a <see cref="DataGridRowClickEventArgs{T}"/> containing the details of the clicked row.
+    /// </remarks>
+    [Parameter] public EventCallback<DataGridRowClickEventArgs<T>> OnRowClick { get; set; }
 
     private readonly DataGridContext<T> _context;
     private readonly List<LumexColumnBase<T>> _columns;
@@ -211,6 +225,34 @@ public partial class LumexDataGrid<T> : LumexComponentBase
         {
             return DataSourceResult.From( Array.Empty<T>(), 0 );
         }
+    }
+
+    private async Task OnRowClickedAsync( T item, int index )
+    {
+        await OnRowClick.InvokeAsync( new DataGridRowClickEventArgs<T>( item, index ) );
+
+        // Skip selection changes if SelectionMode is None
+        if( SelectionMode is SelectionMode.None )
+        {
+            return;
+        }
+
+        var itemSelected = SelectedItems.Remove( item );
+
+        if( SelectionMode is SelectionMode.Single )
+        {
+            if( !itemSelected )
+            {
+                SelectedItems.Clear();
+                SelectedItems.Add( item );
+            }
+        }
+        else if( SelectionMode is SelectionMode.Multiple && !itemSelected )
+        {
+            SelectedItems.Add( item );
+        }
+
+        await SelectedItemsChanged.InvokeAsync( SelectedItems );
     }
 
     private DataGridSlots GetSlots()
