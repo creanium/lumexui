@@ -7,7 +7,6 @@ using LumexUI.DataGrid.Core;
 using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace LumexUI;
@@ -160,7 +159,6 @@ public partial class LumexDataGrid<T> : LumexComponentBase
         // As a special case, we don't issue the first data load request until we've collected the initial set of columns
         // This is so we can apply default sort order (or any future per-column options) before loading data
         // We use EventCallbackSubscriber to safely hook this async operation into the synchronous rendering flow
-        //var refreshData = _refreshDataMemoizer.Memoize( RefreshDataCoreAsync, [Data, DataSource] );
         var refreshData = () => _refreshDataMemoizer.Memoize( RefreshDataCoreAsync, [Data, DataSource] );
         var columnsFirstCollectedSubscriber = new EventCallbackSubscriber<object?>(
             EventCallback.Factory.Create<object?>( this, refreshData ) );
