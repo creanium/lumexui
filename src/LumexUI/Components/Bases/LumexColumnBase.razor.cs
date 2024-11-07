@@ -38,6 +38,14 @@ public abstract partial class LumexColumnBase<T> : LumexComponentBase
     /// </remarks>
     [Parameter] public bool Visible { get; set; } = true;
 
+    /// <summary>
+    /// Gets or sets the alignment of the content within the grid column.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="Align.Start"/>
+    /// </remarks>
+    [Parameter] public Align Align { get; set; }
+
     [CascadingParameter] internal DataGridContext<T> Context { get; set; } = default!;
 
     internal LumexDataGrid<T> DataGrid => Context.Owner;

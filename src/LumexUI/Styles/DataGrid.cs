@@ -59,6 +59,7 @@ internal class DataGrid
     private readonly static string _tr = ElementClass.Empty()
         .Add( "group" )
         .Add( "outline-none" )
+        // focus
         .Add( Utils.FocusVisible )
         .ToString();
 
@@ -66,7 +67,6 @@ internal class DataGrid
         .Add( "group" )
         .Add( "px-3" )
         .Add( "h-10" )
-        .Add( "text-start" )
         .Add( "align-middle" )
         .Add( "bg-default-100" )
         .Add( "text-foreground-500" )
@@ -77,6 +77,7 @@ internal class DataGrid
         .Add( "first:rounded-s-lg" )
         .Add( "last:rounded-e-lg" )
         .Add( "hover:text-foreground-400" )
+        // focus
         .Add( Utils.FocusVisible )
         .ToString();
 
@@ -84,10 +85,10 @@ internal class DataGrid
         .Add( "relative" )
         .Add( "py-2" )
         .Add( "px-3" )
-        .Add( "text-start" )
         .Add( "align-middle" )
         .Add( "text-small" )
         .Add( "outline-none" )
+        // focus
         .Add( Utils.FocusVisible )
         .ToString();
 
@@ -97,6 +98,12 @@ internal class DataGrid
         .Add( "before:h-4" )
         .Add( "before:rounded-md" )
         .Add( "before:bg-default-100" )
+        .ToString();
+
+    private readonly static string _align = ElementClass.Empty()
+        .Add( "data-[align=start]:text-start" )
+        .Add( "data-[align=center]:text-center" )
+        .Add( "data-[align=end]:text-end" )
         .ToString();
 
     public static DataGridSlots GetStyles<T>( LumexDataGrid<T> dataGrid, TwMerge twMerge )
@@ -143,11 +150,13 @@ internal class DataGrid
             Th = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _th )
+                    .Add( _align )
                     .ToString() ),
 
             Td = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _td )
+                    .Add( _align )
                     .Add( GetHoverableStyles( dataGrid.Hoverable, slot: nameof( _td ) ) )
                     .ToString() ),
 
