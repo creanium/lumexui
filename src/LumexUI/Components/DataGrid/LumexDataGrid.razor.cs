@@ -119,6 +119,9 @@ public partial class LumexDataGrid<T> : LumexComponentBase
     /// </remarks>
     [Parameter] public EventCallback<DataGridRowClickEventArgs<T>> OnRowClick { get; set; }
 
+    internal DataGridState<T> State { get; }
+    internal DataGridSlots Slots { get; private set; }
+
     private string? RowStyles => ElementStyle.Empty()
         .Add( "height", $"{ItemSize}px", when: Virtualize )
         .ToString();
@@ -132,7 +135,6 @@ public partial class LumexDataGrid<T> : LumexComponentBase
     private readonly RenderFragment _renderColumnHeaders;
     private readonly RenderFragment _renderNonVirtualizedRows;
 
-    private DataGridSlots _slots = default!;
     private Virtualize<(int, T)>? _virtualizeRef;
 
     private bool _collectingColumns; // Columns might re-render themselves arbitrarily. We only want to capture them at a defined time.
@@ -145,8 +147,8 @@ public partial class LumexDataGrid<T> : LumexComponentBase
     public LumexDataGrid()
     {
         _context = new DataGridContext<T>( this );
-        _refreshDataMemoizer = new Memoizer<Task>();
         _slotsMemoizer = new Memoizer<DataGridSlots>();
+        _refreshDataMemoizer = new Memoizer<Task>();
 
         _renderEmptyContent = RenderEmptyContent;
         _renderLoadingContent = RenderLoadingContent;
@@ -155,6 +157,9 @@ public partial class LumexDataGrid<T> : LumexComponentBase
 
         _columns = [];
         _currentNonVirtualizedItems = [];
+
+        State = new DataGridState<T>( this );
+        Slots = new DataGridSlots();
 
         // As a special case, we don't issue the first data load request until we've collected the initial set of columns
         // This is so we can apply default sort order (or any future per-column options) before loading data
@@ -173,6 +178,25 @@ public partial class LumexDataGrid<T> : LumexComponentBase
     {
         await RefreshDataCoreAsync();
         StateHasChanged();
+    }
+
+    /// <summary>
+    /// Asynchronously sorts the data grid by the specified column in the given sort direction.
+    /// </summary>
+    /// <param name="column">The column to sort by.</param>
+    /// <param name="direction">The direction of sorting. If the value is <see cref="SortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous sorting operation.</returns>
+    public Task SortByColumnAsync( LumexColumnBase<T> column, SortDirection direction = SortDirection.Auto )
+    {
+        if( !column.Sortable ?? true )
+        {
+            return Task.CompletedTask;
+        }
+
+        State.UpdateSortState( column, direction );
+
+        StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
+        return RefreshDataAsync();
     }
 
     /// <inheritdoc />
@@ -200,7 +224,7 @@ public partial class LumexDataGrid<T> : LumexComponentBase
         }
 
         // Perform a re-building only if the dependencies have changed
-        _slots = _slotsMemoizer.Memoize( GetSlots, [Hoverable, Class] );
+        Slots = _slotsMemoizer.Memoize( GetSlots, [Hoverable, Class] );
 
         // Perform a re-query only if the dependencies have changed
         //
@@ -252,8 +276,14 @@ public partial class LumexDataGrid<T> : LumexComponentBase
         else
         {
             // If we're not using Virtualize, we build and execute a request against the data source directly
-            var dataSourceRequest = new DataSourceRequest<T>( count: null, startIndex: 0, currLoadCts.Token );
+            var dataSourceRequest = new DataSourceRequest<T>(
+                count: null,
+                startIndex: 0,
+                State.Sort.Ascending,
+                State.Sort.Column,
+                currLoadCts.Token );
             var dataSourceResult = await ResolveItemsRequestAsync( dataSourceRequest );
+
             if( !currLoadCts.IsCancellationRequested )
             {
                 _currentNonVirtualizedItems = dataSourceResult.Items;
@@ -273,7 +303,12 @@ public partial class LumexDataGrid<T> : LumexComponentBase
             return default;
         }
 
-        var dataSourceRequest = new DataSourceRequest<T>( request.Count, request.StartIndex, request.CancellationToken );
+        var dataSourceRequest = new DataSourceRequest<T>(
+            request.Count,
+            request.StartIndex,
+            State.Sort.Ascending,
+            State.Sort.Column,
+            request.CancellationToken );
         var dataSourceResult = await ResolveItemsRequestAsync( dataSourceRequest );
 
         if( !request.CancellationToken.IsCancellationRequested )
@@ -297,18 +332,18 @@ public partial class LumexDataGrid<T> : LumexComponentBase
         }
         else if( Data is not null )
         {
-            var result = Data.Skip( request.StartIndex );
+            var result = request.ApplySorting( Data ).Skip( request.StartIndex );
 
             if( request.Count.HasValue )
             {
                 result = result.Take( request.Count.Value );
             }
 
-            return DataSourceResult.From( result.ToArray(), Data.Count() );
+            return DataSourceResult.From( result.ToArray(), totalItemCount: Data.Count() );
         }
         else
         {
-            return DataSourceResult.From( Array.Empty<T>(), 0 );
+            return DataSourceResult.From( items: Array.Empty<T>(), totalItemCount: 0 );
         }
     }
 

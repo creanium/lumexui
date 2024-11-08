@@ -22,16 +22,16 @@
         }
         <_ColumnsCollectedNotifier T="T" />
 
-        <div class="@_slots.Base" style="@RootStyle" @attributes="@AdditionalAttributes">
-            <div class="@_slots.Wrapper">
-                <table class="@_slots.Table">
-                    <thead class="@_slots.Thead">
-                        <tr class="@_slots.Tr">
+        <div class="@Slots.Base" style="@RootStyle" @attributes="@AdditionalAttributes">
+            <div class="@Slots.Wrapper">
+                <table class="@Slots.Table">
+                    <thead class="@Slots.Thead">
+                        <tr class="@Slots.Tr">
                             @_renderColumnHeaders
                         </tr>
                         <tr style="display: block;width: 1px;height: 1px;margin-top: 0.25rem;" />
                     </thead>
-                    <tbody class="@_slots.Tbody">
+                    <tbody class="@Slots.Tbody">
                         @if( Data is null || !Data.Any() )
                         {
                             @_renderEmptyContent
@@ -65,6 +65,24 @@
 </CascadingValue>
 
 @code {
+    private void RenderColumnHeaders( RenderTreeBuilder __builder )
+    {
+        foreach( var column in _columns )
+        {
+            <th class="@Slots.Th"
+                scope="col"
+                aria-sort="@column.GetAriaSortValue()"
+                data-align="@column.Align.ToLowerInvariant()"
+                data-sortable="@Utils.GetDataAttributeValue(column.Sortable ?? false)"
+                @onclick="@(() => SortByColumnAsync(column))"
+                @key="@column">
+                @{
+                    column.RenderHeaderCellContent( __builder );
+                }
+            </th>
+        }
+    }
+
     private void RenderNonVirtualizedRows( RenderTreeBuilder __builder )
     {
         var initialRowIndex = 2; // aria-rowindex is 1-based, plus the first row is the header
@@ -79,7 +97,7 @@
     {
         var selected = Utils.GetDataAttributeValue( SelectedItems.Contains( item ) );
 
-        <tr class="@_slots.Tr"
+        <tr class="@Slots.Tr"
             style="@RowStyles"
             aria-rowindex="@rowIndex"
             aria-selected="@selected"
@@ -88,7 +106,7 @@
             @onclick:stopPropagation="@true">
             @foreach( var column in _columns )
             {
-                <td class="@_slots.Td"
+                <td class="@Slots.Td"
                     data-align="@column.Align.ToLowerInvariant()"
                     data-selected="@selected"
                     @key="@column">
@@ -102,12 +120,12 @@
 
     private void RenderPlaceholderRow( RenderTreeBuilder __builder, PlaceholderContext placeholderContext )
     {
-        <tr class="@_slots.Tr"
+        <tr class="@Slots.Tr"
             style="@RowStyles"
             aria-rowindex="@(placeholderContext.Index + 1)">
             @foreach( var column in _columns )
             {
-                <td class="@_slots.Placeholder"
+                <td class="@Slots.Placeholder"
                     data-align="@column.Align.ToLowerInvariant()"
                     @key="@column">
                     @{
@@ -118,25 +136,10 @@
         </tr>
     }
 
-    private void RenderColumnHeaders( RenderTreeBuilder __builder )
-    {
-        foreach( var column in _columns )
-        {
-            <th class="@_slots.Th"
-                scope="col"
-                data-align="@column.Align.ToLowerInvariant()"
-                @key="@column">
-                @{
-                    column.RenderHeaderCellContent( __builder );
-                }
-            </th>
-        }
-    }
-
     private void RenderLoadingContent( RenderTreeBuilder __builder )
     {
         <tr>
-            <td class="@_slots.LoadingWrapper" colspan="@(_columns.Count)">
+            <td class="@Slots.LoadingWrapper" colspan="@(_columns.Count)">
                 @if( LoadingContent is not null )
                 {
                     @LoadingContent
@@ -149,7 +152,7 @@
 
             @if( Data is null || !Data.Any() )
             {
-                <td class="@_slots.EmptyWrapper" />
+                <td class="@Slots.EmptyWrapper" />
             }
         </tr>
     }
@@ -157,7 +160,7 @@
     private void RenderEmptyContent( RenderTreeBuilder __builder )
     {
         <tr>
-            <td class="@_slots.EmptyWrapper" colspan="@(_columns.Count)">
+            <td class="@Slots.EmptyWrapper" colspan="@(_columns.Count)">
                 @if( EmptyContent is not null )
                 {
                     @EmptyContent

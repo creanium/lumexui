@@ -20,7 +20,20 @@
         }
         else
         {
-            @Title
+            if( Sortable ?? false )
+            {
+                @Title
+                <LumexIcon Size="@new("16")"
+                           Icon="@Icons.Rounded.ChevronLeft"
+                           Color="@ThemeColor.None"
+                           Class="@DataGrid.Slots.SortIcon"
+                           aria-hidden="true"
+                           data-visible="@Utils.GetDataAttributeValue(DataGrid.State.Sort.Column == this)" />
+            }
+            else
+            {
+                @Title
+            }
         }
     }
 
@@ -42,7 +55,7 @@
 
     /// <summary>
     /// Renders the content of a cell for a specified column in the data grid.
-    /// Derived classes must override this method to define how each cell’s content 
+    /// Derived classes must override this method to define how each cell’s content
     /// is rendered based on the <paramref name="item"/>.
     /// </summary>
     /// <param name="builder">The current <see cref="RenderTreeBuilder" />.</param>

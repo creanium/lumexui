@@ -64,7 +64,7 @@ internal class DataGrid
         .ToString();
 
     private readonly static string _th = ElementClass.Empty()
-        .Add( "group" )
+        .Add( "group/th" )
         .Add( "px-3" )
         .Add( "h-10" )
         .Add( "align-middle" )
@@ -77,6 +77,7 @@ internal class DataGrid
         .Add( "first:rounded-s-lg" )
         .Add( "last:rounded-e-lg" )
         .Add( "hover:text-foreground-400" )
+        .Add( "data-[sortable=true]:cursor-pointer" )
         // focus
         .Add( Utils.FocusVisible )
         .ToString();
@@ -99,6 +100,17 @@ internal class DataGrid
         .Add( "before:rounded-md" )
         .Add( "before:bg-default-100" )
         .ToString();
+
+    private readonly static string _sortIcon = ElementClass.Empty()
+         .Add( "inline-block" )
+         .Add( "ms-2" )
+         .Add( "opacity-0" )
+         .Add( "-rotate-90" )
+         .Add( "transition-[transform,opacity]" )
+         .Add( "data-[visible=true]:opacity-100" )
+         .Add( "group-hover/th:opacity-100" )
+         .Add( "group-aria-[sort=ascending]/th:rotate-90" )
+         .ToString();
 
     private readonly static string _align = ElementClass.Empty()
         .Add( "data-[align=start]:text-start" )
@@ -163,6 +175,11 @@ internal class DataGrid
             Placeholder = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _placeholder )
+                    .ToString() ),
+
+            SortIcon = twMerge.Merge(
+                ElementClass.Empty()
+                    .Add( _sortIcon )
                     .ToString() ),
         };
     }

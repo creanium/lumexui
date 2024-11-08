@@ -18,13 +18,24 @@ public partial class PropertyColumn<T, P> : LumexColumnBase<T>
 
     /// <summary>
     /// Gets or sets a format string for the value.
-    /// Using this requires the <typeparamref name="P"/> type to implement <see cref="IFormattable" />.
     /// </summary>
+    /// <remarks>
+    /// Requires the <typeparamref name="P"/> type to implement <see cref="IFormattable" />.
+    /// </remarks>
     [Parameter] public string? Format { get; set; }
+
+    /// <inheritdoc/>
+    public override SortBuilder<T>? SortBy
+    {
+        get => _sortBuilder;
+        set => throw new NotSupportedException( 
+            $"PropertyColumn generates this member internally. For custom sorting rules, see '{typeof( TemplateColumn<T> )}'." );
+    }
 
     private Expression<Func<T, P>>? _lastAssignedProperty;
     private Type? _nullableUnderlyingTypeOrNull;
     private Func<T, string?>? _cellTextFunc;
+    private SortBuilder<T>? _sortBuilder;
 
     /// <inheritdoc />
     protected override void OnParametersSet()
@@ -53,6 +64,8 @@ public partial class PropertyColumn<T, P> : LumexColumnBase<T>
             {
                 _cellTextFunc = item => compiledPropertyFunc!( item )?.ToString();
             }
+
+            _sortBuilder = SortBuilder<T>.ByAscending( Property );
         }
 
         if( Title is null && Property.Body is MemberExpression memberExpression )

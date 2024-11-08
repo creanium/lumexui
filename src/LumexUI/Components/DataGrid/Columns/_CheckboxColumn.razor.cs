@@ -1,4 +1,6 @@
-﻿using LumexUI.Common;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using LumexUI.Common;
 
 namespace LumexUI;
 
@@ -9,10 +11,18 @@ namespace LumexUI;
 /// For internal use only.
 /// </remarks>
 /// <typeparam name="T">The type of data represented by each row in the grid.</typeparam>
+[SuppressMessage( "Style", "IDE1006:Naming Styles", Justification = "For internal use only." )]
 public partial class _CheckboxColumn<T> : LumexColumnBase<T>
 {
     private readonly Func<T, bool, Task> _selectItemDelegate;
     private readonly Func<T, bool> _checkItemSelectedDelegate;
+
+    /// <inheritdoc />
+    public override SortBuilder<T>? SortBy
+    {
+        get => throw new NotImplementedException();
+        set => throw new NotImplementedException();
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="_CheckboxColumn{T}"/>.
@@ -71,7 +81,7 @@ public partial class _CheckboxColumn<T> : LumexColumnBase<T>
 
     private bool AreAllItemsSelected()
     {
-        return DataGrid.Data is not null 
+        return DataGrid.Data is not null
             && DataGrid.Data.Count() == DataGrid.SelectedItems.Count;
     }
 

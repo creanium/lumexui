@@ -31,6 +31,14 @@ public abstract partial class LumexColumnBase<T> : LumexComponentBase
     [Parameter] public string? Title { get; set; }
 
     /// <summary>
+    /// Gets or sets the alignment of the content within the grid column.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="Align.Start"/>
+    /// </remarks>
+    [Parameter] public Align Align { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether the column is visible.
     /// </summary>
     /// <remarks>
@@ -39,20 +47,33 @@ public abstract partial class LumexColumnBase<T> : LumexComponentBase
     [Parameter] public bool Visible { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the alignment of the content within the grid column.
+    /// Gets or sets a value indicating whether the data should be sortable by this column.
     /// </summary>
-    /// <remarks>
-    /// The default value is <see cref="Align.Start"/>
-    /// </remarks>
-    [Parameter] public Align Align { get; set; }
+    [Parameter] public bool? Sortable { get; set; }
 
     [CascadingParameter] internal DataGridContext<T> Context { get; set; } = default!;
+
+    /// <summary>
+    /// Gets or sets the sorting rules for a column.
+    /// </summary>
+    public abstract SortBuilder<T>? SortBy { get; set; }
 
     internal LumexDataGrid<T> DataGrid => Context.Owner;
 
     /// <inheritdoc />
     protected override void OnInitialized()
     {
-        ContextNullException.ThrowIfNull( Context, nameof( LumexDataGrid<T> ) );
+        ContextNullException.ThrowIfNull( Context, nameof( LumexColumnBase<T> ) );
+    }
+
+    internal string GetAriaSortValue()
+    {
+        var sortState = DataGrid.State.Sort;
+        if( sortState.Column != this )
+        {
+            return "none";
+        }
+
+        return sortState.Ascending ? "ascending" : "descending";
     }
 }

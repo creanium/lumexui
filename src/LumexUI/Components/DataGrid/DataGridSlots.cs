@@ -14,4 +14,5 @@ public class DataGridSlots
     public string? Th { get; set; }
     public string? Td { get; set; }
     public string? Placeholder { get; set; }
+    public string? SortIcon { get; set; }
 }

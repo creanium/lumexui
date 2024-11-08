@@ -14,4 +14,7 @@ public partial class TemplateColumn<T> : LumexColumnBase<T>
     /// Gets or sets the content to be rendered for each row in the table.
     /// </summary>
     [Parameter] public RenderFragment<T> ChildContent { get; set; } = EmptyChildContent;
+
+    /// <inheritdoc/>
+    [Parameter] public override SortBuilder<T>? SortBy { get; set; }
 }
