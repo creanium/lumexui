@@ -12,6 +12,11 @@ namespace LumexUI;
 public partial class PropertyColumn<T, P> : LumexColumnBase<T>
 {
     /// <summary>
+    /// Gets or sets the content to be rendered for each row in the table.
+    /// </summary>
+    [Parameter] public RenderFragment<T>? Content { get; set; }
+
+    /// <summary>
     /// Gets or sets the value to be displayed in this column's cells.
     /// </summary>
     [Parameter, EditorRequired] public Expression<Func<T, P>> Property { get; set; } = default!;

@@ -11,6 +11,13 @@
     /// <inheritdoc />
     protected internal override void RenderCellContent( RenderTreeBuilder __builder, T item )
     {
-        @_cellTextFunc!( item )
+        if( Content is not null )
+        {
+            @Content
+        }
+        else
+        {
+            @_cellTextFunc!( item )
+        }
     }
 }
