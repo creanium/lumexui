@@ -15,25 +15,25 @@ internal class DataGridState<T>
         Sort = new SortState();
     }
 
-    public void UpdateSortState( LumexColumnBase<T> column, SortDirection direction )
-    {
-        var ascending = direction switch
-        {
-            SortDirection.Ascending => true,
-            SortDirection.Descending => false,
-            SortDirection.Auto => Sort.Column != column || !Sort.Ascending,
-            _ => throw new NotSupportedException( $"Unknown sort direction {direction}" ),
-        };
-
-        Sort.Column = column;
-        Sort.Direction = direction;
-        Sort.Ascending = ascending;
-    }
-
     internal class SortState
     {
-        public LumexColumnBase<T>? Column { get; set; }
-        public SortDirection Direction { get; set; }
-        public bool Ascending { get; set; }
+        public LumexColumnBase<T>? Column { get; private set; }
+        public SortDirection Direction { get; private set; }
+        public bool Ascending { get; private set; }
+
+        public void Update( LumexColumnBase<T> column, SortDirection direction )
+        {
+            var ascending = direction switch
+            {
+                SortDirection.Ascending => true,
+                SortDirection.Descending => false,
+                SortDirection.Auto => Column != column || !Ascending,
+                _ => throw new NotSupportedException( $"Unknown sort direction {direction}" ),
+            };
+
+            Column = column;
+            Direction = direction;
+            Ascending = ascending;
+        }
     }
 }

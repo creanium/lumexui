@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 using Microsoft.AspNetCore.Components;
 
@@ -30,11 +31,11 @@ namespace LumexUI.DataGrid.Core;
 // operation and re-rendering follows normal semantics without us having to call StateHasChanged or think about exceptions.
 
 /// <summary>
-/// For internal use only. Do not use.
+/// For internal use only.
 /// </summary>
-/// <typeparam name="T">For internal use only. Do not use.</typeparam>
+/// <typeparam name="T">For internal use only.</typeparam>
 [EditorBrowsable( EditorBrowsableState.Never )]
-[System.Diagnostics.CodeAnalysis.SuppressMessage( "Style", "IDE1006:Naming Styles", Justification = "For internal use." )]
+[SuppressMessage( "Style", "IDE1006:Naming Styles", Justification = "For internal use only." )]
 public sealed class _ColumnsCollectedNotifier<T> : IComponent
 {
     private bool _isFirstRender = true;

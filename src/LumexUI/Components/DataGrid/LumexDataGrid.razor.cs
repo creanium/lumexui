@@ -193,7 +193,7 @@ public partial class LumexDataGrid<T> : LumexComponentBase
             return Task.CompletedTask;
         }
 
-        State.UpdateSortState( column, direction );
+        State.Sort.Update( column, direction );
 
         StateHasChanged(); // We want to see the updated sort order in the header, even before the data query is completed
         return RefreshDataAsync();
