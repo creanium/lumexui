@@ -1,6 +1,4 @@
-﻿using LumexUI.Components.DataGrid.Core;
-
-namespace LumexUI;
+﻿namespace LumexUI;
 
 /// <summary>
 /// Parameters for data to be supplied by a <see cref="LumexDataGrid{T}"/>'s <see cref="LumexDataGrid{T}.DataSource"/>.
@@ -21,7 +19,7 @@ public readonly struct DataSourceRequest<T>
     /// <summary>
     /// Gets or sets a value indicating which column represents the sort order.
     ///
-    /// Rather than inferring the sort rules manually, you should normally call either <see cref="ApplySorting(IQueryable{TGridItem})"/>
+    /// Rather than inferring the sort rules manually, you should normally call either <see cref="ApplySorting(IQueryable{T})"/>
     /// or <see cref="GetSortByProperties"/>, since they also account for <see cref="SortByColumn" /> and <see cref="SortByAscending" /> automatically.
     /// </summary>
     public LumexColumnBase<T>? SortByColumn { get; init; }
@@ -29,7 +27,7 @@ public readonly struct DataSourceRequest<T>
     /// <summary>
     /// Specifies the current sort direction.
     ///
-    /// Rather than inferring the sort rules manually, you should normally call either <see cref="ApplySorting(IQueryable{TGridItem})"/>
+    /// Rather than inferring the sort rules manually, you should normally call either <see cref="ApplySorting(IQueryable{T})"/>
     /// or <see cref="GetSortByProperties"/>, since they also account for <see cref="SortByColumn" /> and <see cref="SortByAscending" /> automatically.
     /// </summary>
     public bool SortByAscending { get; init; }
