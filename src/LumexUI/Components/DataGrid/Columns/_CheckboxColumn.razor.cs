@@ -14,23 +14,11 @@ namespace LumexUI;
 [SuppressMessage( "Style", "IDE1006:Naming Styles", Justification = "For internal use only." )]
 public partial class _CheckboxColumn<T> : LumexColumnBase<T>
 {
-    private readonly Func<T, bool, Task> _selectItemDelegate;
-    private readonly Func<T, bool> _checkItemSelectedDelegate;
-
     /// <inheritdoc />
     public override SortBuilder<T>? SortBy
     {
         get => throw new NotImplementedException();
         set => throw new NotImplementedException();
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="_CheckboxColumn{T}"/>.
-    /// </summary>
-    public _CheckboxColumn()
-    {
-        _selectItemDelegate = SelectItemAsync;
-        _checkItemSelectedDelegate = IsItemSelected;
     }
 
     private async Task SelectAllItemsAsync( bool selected )

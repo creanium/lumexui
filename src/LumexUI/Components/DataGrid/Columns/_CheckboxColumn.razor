@@ -20,7 +20,7 @@
     /// <inheritdoc />
     protected internal override void RenderCellContent( RenderTreeBuilder __builder, T item )
     {
-        <LumexCheckbox Value="@_checkItemSelectedDelegate(item)"
-                       ValueChanged="@((value) => _selectItemDelegate(item, value))" />
+        <LumexCheckbox Value="@IsItemSelected(item)"
+                       ValueChanged="@((value) => SelectItemAsync(item, value))" />
     }
 }
