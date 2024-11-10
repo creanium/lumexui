@@ -9,7 +9,7 @@
                 data-readonly="@GetReadOnlyState().ToAttributeValue()"
                 tabindex="0"
                 @attributes="@AdditionalAttributes"
-                @onclick:stopPropagation="@true"> @* Stopping the click propagation to avoid triggering parent event *@
+                @onclick:stopPropagation="@true">
     <span class="@WrapperClass">
         <span class="@StyleUtils.VisuallyHidden">
             <input type="checkbox"
