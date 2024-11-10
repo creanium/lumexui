@@ -106,6 +106,7 @@
             style="@RowStyles"
             aria-rowindex="@rowIndex"
             aria-selected="@selected"
+            data-odd="@Utils.GetDataAttributeValue(rowIndex % 2 != 0)"
             @key="@item"
             @onclick="@(() => OnRowClickedAsync( item, rowIndex ))">
             @foreach( var column in _columns )
@@ -115,7 +116,8 @@
                     data-selected="@selected"
                     @key="@column"
                     @onclick="@(() => OnCellClicked( column, item ))"
-                    @onclick:stopPropagation="@(column is IEditableColumn)"> @* To prevent row selection when start editing *@
+                    @onclick:stopPropagation="@(column is IEditableColumn)">
+                    @* ^^^To prevent row selection when start editing^^^ *@
                     @{
                         column.RenderCellContent( __builder, item );
                     }

@@ -69,6 +69,11 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
     [Parameter] public bool Hoverable { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether rows in the data grid are striped.
+    /// </summary>
+    [Parameter] public bool Striped { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether the grid will be rendered with virtualization. 
     /// This is normally used in conjunction with scrolling and causes the grid to 
     /// fetch and render only the data around the current scroll viewport.
@@ -234,7 +239,7 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
         }
 
         // Perform a re-building only if the dependencies have changed
-        Slots = _slotsMemoizer.Memoize( GetSlots, [Hoverable, Class] );
+        Slots = _slotsMemoizer.Memoize( GetSlots, [Hoverable, Striped, Class] );
 
         // Perform a re-query only if the dependencies have changed
         //

@@ -112,6 +112,10 @@ internal class DataGrid
          .Add( "group-aria-[sort=ascending]/th:rotate-90" )
          .ToString();
 
+    private readonly static string _striped = ElementClass.Empty()
+        .Add( "group-data-[odd=true]:bg-default-100" )
+        .ToString();
+
     private readonly static string _align = ElementClass.Empty()
         .Add( "data-[align=start]:text-start" )
         .Add( "data-[align=center]:text-center" )
@@ -169,6 +173,7 @@ internal class DataGrid
                 ElementClass.Empty()
                     .Add( _td )
                     .Add( _align )
+                    .Add( _striped, when: dataGrid.Striped )
                     .Add( GetHoverableStyles( dataGrid.Hoverable, slot: nameof( _td ) ) )
                     .ToString() ),
 
