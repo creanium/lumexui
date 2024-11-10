@@ -99,6 +99,11 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputB
     [Parameter] public bool Clearable { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the textbox should automatically receive focus.
+    /// </summary>
+    [Parameter] public bool Autofocus { get; set; }
+
+    /// <summary>
     /// Gets or sets a callback that is fired when the value in the textbox is cleared.
     /// </summary>
     [Parameter] public EventCallback OnCleared { get; set; }
@@ -209,6 +214,11 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputB
         {
             _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>( "import", JavaScriptFile );
         }
+
+        if( Autofocus )
+        {
+            await FocusAsync();
+        }
     }
 
     /// <inheritdoc />
@@ -294,6 +304,7 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputB
         await FocusAsync();
     }
 
+    /// <inheritdoc />
     public async ValueTask DisposeAsync()
     {
         try
