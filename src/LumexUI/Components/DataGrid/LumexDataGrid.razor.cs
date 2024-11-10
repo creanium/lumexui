@@ -4,10 +4,12 @@
 
 using LumexUI.Common;
 using LumexUI.DataGrid.Core;
+using LumexUI.DataGrid.Interfaces;
 using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
+using Microsoft.JSInterop;
 
 namespace LumexUI;
 
@@ -16,8 +18,10 @@ namespace LumexUI;
 /// </summary>
 /// <typeparam name="T">The type of data represented by each row in the grid.</typeparam>
 [CascadingTypeParameter( nameof( T ) )]
-public partial class LumexDataGrid<T> : LumexComponentBase
+public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
 {
+    private const string JavaScriptFile = "./_content/LumexUI/js/components/data-grid.js";
+
     /// <summary>
     /// Gets or sets the content to be rendered inside the data grid.
     /// </summary>
@@ -89,9 +93,9 @@ public partial class LumexDataGrid<T> : LumexComponentBase
     /// </para>
     /// </summary>
     /// <remarks>
-    /// The default value is 40
+    /// The default value is 37
     /// </remarks>
-    [Parameter] public float ItemSize { get; set; } = 40;
+    [Parameter] public float ItemSize { get; set; } = 37;
 
     /// <summary>
     /// Gets or sets the selection mode for the data grid, determining how rows can be selected.
@@ -119,6 +123,8 @@ public partial class LumexDataGrid<T> : LumexComponentBase
     /// </remarks>
     [Parameter] public EventCallback<DataGridRowClickEventArgs<T>> OnRowClick { get; set; }
 
+    [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
+
     internal DataGridState<T> State { get; }
     internal DataGridSlots Slots { get; private set; }
 
@@ -136,6 +142,10 @@ public partial class LumexDataGrid<T> : LumexComponentBase
     private readonly RenderFragment _renderNonVirtualizedRows;
 
     private Virtualize<(int, T)>? _virtualizeRef;
+
+    private ElementReference _ref;
+    private IJSObjectReference? _jsModule;
+    private IJSObjectReference? _jsEventDisposable;
 
     private bool _collectingColumns; // Columns might re-render themselves arbitrarily. We only want to capture them at a defined time.
     private ICollection<T> _currentNonVirtualizedItems;
@@ -158,7 +168,7 @@ public partial class LumexDataGrid<T> : LumexComponentBase
         _columns = [];
         _currentNonVirtualizedItems = [];
 
-        State = new DataGridState<T>( this );
+        State = new DataGridState<T>();
         Slots = new DataGridSlots();
 
         // As a special case, we don't issue the first data load request until we've collected the initial set of columns
@@ -232,6 +242,16 @@ public partial class LumexDataGrid<T> : LumexComponentBase
         // because they might perform some action like setting the default sort order, so it would be wasteful
         // to have to re-query immediately.
         return ( _columns.Count > 0 ) ? _refreshDataMemoizer.Memoize( RefreshDataCoreAsync, [Data, DataSource] ) : Task.CompletedTask;
+    }
+
+    /// <inheritdoc />
+    protected override async Task OnAfterRenderAsync( bool firstRender )
+    {
+        if( firstRender )
+        {
+            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>( "import", JavaScriptFile );
+            _jsEventDisposable = await _jsModule.InvokeAsync<IJSObjectReference>( "dataGrid.initialize", _ref );
+        }
     }
 
     internal void Refresh() => StateHasChanged();
@@ -351,7 +371,6 @@ public partial class LumexDataGrid<T> : LumexComponentBase
     {
         await OnRowClick.InvokeAsync( new DataGridRowClickEventArgs<T>( item, index ) );
 
-        // Skip selection changes if SelectionMode is None
         if( SelectionMode is SelectionMode.None )
         {
             return;
@@ -375,8 +394,47 @@ public partial class LumexDataGrid<T> : LumexComponentBase
         await SelectedItemsChanged.InvokeAsync( SelectedItems );
     }
 
+    private void OnCellClicked( LumexColumnBase<T> column, T item )
+    {
+        if( column is IEditableColumn editColumn )
+        {
+            State.Edit.Update( editColumn, item );
+        }
+    }
+
+    private void OnOutsideClick()
+    {
+        if( State.Edit.Editing )
+        {
+            State.Edit.Update( default, default );
+        }
+    }
+
     private DataGridSlots GetSlots()
     {
         return Styles.DataGrid.GetStyles( this, TwMerge );
+    }
+
+    /// <inheritdoc />
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if( _jsEventDisposable is not null )
+            {
+                await _jsEventDisposable.InvokeVoidAsync( "destroy" );
+                await _jsEventDisposable.DisposeAsync();
+            }
+
+            if( _jsModule is not null )
+            {
+                await _jsModule.DisposeAsync();
+            }
+        }
+        catch( JSDisconnectedException )
+        {
+            // The JS side may routinely be gone already if the reason we're disposing is that
+            // the client disconnected. This is not an error.
+        }
     }
 }

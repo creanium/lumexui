@@ -3,6 +3,7 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using LumexUI.Common;
+using LumexUI.DataGrid.Core;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
@@ -59,6 +60,7 @@ public abstract partial class LumexColumnBase<T> : LumexComponentBase
     public abstract SortBuilder<T>? SortBy { get; set; }
 
     internal LumexDataGrid<T> DataGrid => Context.Owner;
+    internal DataGridState<T> State => Context.Owner.State;
 
     /// <inheritdoc />
     protected override void OnInitialized()
@@ -68,12 +70,11 @@ public abstract partial class LumexColumnBase<T> : LumexComponentBase
 
     internal string GetAriaSortValue()
     {
-        var sortState = DataGrid.State.Sort;
-        if( sortState.Column != this )
+        if( State.Sort.Column != this )
         {
             return "none";
         }
 
-        return sortState.Ascending ? "ascending" : "descending";
+        return State.Sort.Ascending ? "ascending" : "descending";
     }
 }

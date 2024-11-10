@@ -2,7 +2,7 @@
 @inherits LumexComponentBase
 @typeparam T
 
-@using LumexUI.DataGrid.Core
+@    using LumexUI.DataGrid.Core
 
 <CascadingValue TValue="DataGridContext<T>" Value="@_context" IsFixed="@true">
     @{
@@ -22,7 +22,11 @@
         }
         <_ColumnsCollectedNotifier T="T" />
 
-        <div class="@Slots.Base" style="@RootStyle" @attributes="@AdditionalAttributes">
+        <div class="@Slots.Base"
+             style="@RootStyle"
+             @ref="@_ref"
+             @attributes="@AdditionalAttributes"
+             @onclickoutside="@OnOutsideClick">
             <div class="@Slots.Wrapper">
                 <table class="@Slots.Table">
                     <thead class="@Slots.Thead">
@@ -102,14 +106,15 @@
             aria-rowindex="@rowIndex"
             aria-selected="@selected"
             @key="@item"
-            @onclick="@(() => OnRowClickedAsync( item, rowIndex ))"
-            @onclick:stopPropagation="@true">
+            @onclick="@(() => OnRowClickedAsync( item, rowIndex ))">
             @foreach( var column in _columns )
             {
                 <td class="@Slots.Td"
                     data-align="@column.Align.ToLowerInvariant()"
                     data-selected="@selected"
-                    @key="@column">
+                    @key="@column"
+                    @onclick="@(() => OnCellClicked( column, item ))"
+                    @onclick:stopPropagation="@(column is IEditableColumn)"> @* To prevent row selection when start editing *@
                     @{
                         column.RenderCellContent( __builder, item );
                     }

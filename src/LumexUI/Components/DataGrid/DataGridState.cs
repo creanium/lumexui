@@ -1,18 +1,17 @@
 ﻿using LumexUI.Common;
+using LumexUI.DataGrid.Interfaces;
 
-namespace LumexUI.DataGrid.Core;
+namespace LumexUI;
 
 internal class DataGridState<T>
 {
-    private readonly LumexDataGrid<T> _owner;
-
     public SortState Sort { get; }
+    public EditState Edit { get; }
 
-    public DataGridState( LumexDataGrid<T> owner )
+    public DataGridState()
     {
-        _owner = owner;
-
         Sort = new SortState();
+        Edit = new EditState();
     }
 
     internal class SortState
@@ -34,6 +33,24 @@ internal class DataGridState<T>
             Column = column;
             Direction = direction;
             Ascending = ascending;
+        }
+    }
+
+    internal class EditState
+    {
+        public IEditableColumn? Column { get; private set; }
+        public T? Item { get; private set; }
+        public bool Editing => Column is not null && Item is not null;
+
+        public void Update( IEditableColumn? column, T? item )
+        {
+            Column = column;
+            Item = item;
+        }
+
+        public bool IsCellEditing( IEditableColumn column, T item )
+        {
+            return Equals( column, Column ) && Equals( item, Item );
         }
     }
 }

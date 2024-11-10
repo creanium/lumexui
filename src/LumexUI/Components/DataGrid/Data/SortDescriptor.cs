@@ -1,6 +1,6 @@
 ﻿using LumexUI.Common;
 
-namespace LumexUI.Components.DataGrid.Core;
+namespace LumexUI;
 
 /// <summary>
 /// Represents a descriptor for sorting.
