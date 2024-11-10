@@ -3,7 +3,7 @@
 internal class Memoizer<T>
 {
     private bool _isMemoized;
-    private MemoEntry<T> _cachedMemoEntry;
+    private MemoEntry _cachedMemoEntry;
 
     public T Memoize( Func<T> callback, object?[] dependencies )
     {
@@ -18,7 +18,7 @@ internal class Memoizer<T>
 
         // Compute and cache new value
         var value = callback();
-        _cachedMemoEntry = new MemoEntry<T>( value, dependencies );
+        _cachedMemoEntry = new MemoEntry( value, dependencies );
         _isMemoized = true;
 
         return value;
@@ -29,9 +29,9 @@ internal class Memoizer<T>
         return oldDeps?.SequenceEqual( newDeps ) ?? newDeps == null;
     }
 
-    private readonly struct MemoEntry<U>( U value, object?[] deps )
+    private readonly struct MemoEntry( T value, object?[] deps )
     {
-        public readonly U Value = value;
+        public readonly T Value = value;
         public readonly object?[] Dependencies = deps;
     }
 }
