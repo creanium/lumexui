@@ -12,7 +12,7 @@ namespace LumexUI;
 public partial class PropertyColumn<T, P> : LumexColumnBase<T>
 {
     /// <summary>
-    /// Gets or sets the content to be rendered for each row in the table.
+    /// Gets or sets the content to be rendered for each row in the column.
     /// </summary>
     [Parameter] public RenderFragment<T>? Content { get; set; }
 
@@ -22,7 +22,7 @@ public partial class PropertyColumn<T, P> : LumexColumnBase<T>
     [Parameter, EditorRequired] public Expression<Func<T, P>> Property { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets a format string for the value.
+    /// Gets or sets a format string for the column's cells value.
     /// </summary>
     /// <remarks>
     /// Requires the <typeparamref name="P"/> type to implement <see cref="IFormattable" />.
@@ -33,41 +33,43 @@ public partial class PropertyColumn<T, P> : LumexColumnBase<T>
     public override SortBuilder<T>? SortBy
     {
         get => _sortBuilder;
-        set => throw new NotSupportedException( 
+        set => throw new NotSupportedException(
             $"PropertyColumn generates this member internally. For custom sorting rules, see '{typeof( TemplateColumn<T> )}'." );
     }
 
+    internal bool ProperyHasChanged { get; private set; }
+
     private Expression<Func<T, P>>? _lastAssignedProperty;
-    private Type? _nullableUnderlyingTypeOrNull;
-    private Func<T, string?>? _cellTextFunc;
+    private Func<T, string?>? _cellContentFunc;
     private SortBuilder<T>? _sortBuilder;
 
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
-        // We have to do a bit of pre-processing on the lambda expression.
-        // Only do that if it's new or changed.
-        if( _lastAssignedProperty != Property )
+        ProperyHasChanged = _lastAssignedProperty?.ToString() != Property.ToString();
+
+        // Only do the pre-processing on the lambda expression if it's changed.
+        if( ProperyHasChanged )
         {
             _lastAssignedProperty = Property;
-            var compiledPropertyFunc = Property.Compile();
+            var compiledPropertyExpession = Property.Compile();
 
             if( !string.IsNullOrEmpty( Format ) )
             {
                 // If the type is nullable, we're interested in formatting the underlying type
-                _nullableUnderlyingTypeOrNull = Nullable.GetUnderlyingType( typeof( P ) );
-                if( !typeof( IFormattable ).IsAssignableFrom( _nullableUnderlyingTypeOrNull ?? typeof( P ) ) )
+                var nullableUnderlyingTypeOrNull = Nullable.GetUnderlyingType( typeof( P ) );
+                if( !typeof( IFormattable ).IsAssignableFrom( nullableUnderlyingTypeOrNull ?? typeof( P ) ) )
                 {
                     throw new InvalidOperationException(
                         $"{GetType()} requires the type '{typeof( P )}' to implement '{typeof( IFormattable )}'" +
                         $"when the '{nameof( Format )}' parameter is supplied." );
                 }
 
-                _cellTextFunc = FormatCellValue();
+                _cellContentFunc = GetFormattedCellContentFunc( nullableUnderlyingTypeOrNull );
             }
             else
             {
-                _cellTextFunc = item => compiledPropertyFunc!( item )?.ToString();
+                _cellContentFunc = item => compiledPropertyExpession!( item )?.ToString();
             }
 
             _sortBuilder = SortBuilder<T>.ByAscending( Property );
@@ -79,16 +81,22 @@ public partial class PropertyColumn<T, P> : LumexColumnBase<T>
         }
     }
 
-    private Func<T, string> FormatCellValue()
+    /// <summary>
+    /// Retrieves the content to be displayed in a column's cell for the specified data item.
+    /// </summary>
+    /// <param name="item">The data item for which to retrieve the cell content.</param>
+    /// <returns>A <see cref="string"/> representing the cell content.</returns>
+    protected string? CellContent( T item ) =>
+        _cellContentFunc?.Invoke( item );
+
+    private Func<T, string> GetFormattedCellContentFunc( Type? nullableUnderlyingTypeOrNull )
     {
         var toStringMethod = typeof( IFormattable ).GetMethod( "ToString" )!;
         ParameterExpression propVar = Expression.Variable( typeof( P ), "prop" );
 
-        Expression toStringCallTarget = _nullableUnderlyingTypeOrNull == null
+        Expression toStringCallTarget = nullableUnderlyingTypeOrNull == null
             ? propVar
-            : Expression.Call(
-                propVar,
-                typeof( P ).GetMethod( "GetValueOrDefault", Type.EmptyTypes )! );
+            : Expression.Call( propVar, typeof( P ).GetMethod( "GetValueOrDefault", Type.EmptyTypes )! );
 
         MethodCallExpression toStringCall = Expression.Call(
             toStringCallTarget,
