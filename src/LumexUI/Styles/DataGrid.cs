@@ -116,6 +116,13 @@ internal class DataGrid
         .Add( "group-data-[odd=true]:bg-default-100" )
         .ToString();
 
+    private readonly static string _stickyHeader = ElementClass.Empty()
+        .Add( "sticky" )
+        .Add( "top-0" )
+        .Add( "z-20" )
+        .Add( "[&>tr]:first:shadow-small" )
+        .ToString();
+
     private readonly static string _align = ElementClass.Empty()
         .Add( "data-[align=start]:text-start" )
         .Add( "data-[align=center]:text-center" )
@@ -155,6 +162,7 @@ internal class DataGrid
             Thead = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _tHead )
+                    .Add( _stickyHeader, when: dataGrid.StickyHeader )
                     .ToString() ),
 
             Tr = twMerge.Merge(
