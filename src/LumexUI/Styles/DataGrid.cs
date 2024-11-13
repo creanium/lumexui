@@ -228,22 +228,22 @@ internal class DataGrid
                 .Add( "bg-default-100 data-[selected=true]:text-default-foreground", when: slot is nameof( _td ) ),
 
             ThemeColor.Primary => ElementClass.Empty()
-                .Add( "bg-primary-100 data-[selected=true]:text-primary", when: slot is nameof( _td ) ),
+                .Add( "bg-primary-100 data-[selected=true]:text-primary-700", when: slot is nameof( _td ) ),
 
             ThemeColor.Secondary => ElementClass.Empty()
-                .Add( "bg-secondary-100 data-[selected=true]:text-secondary", when: slot is nameof( _td ) ),
+                .Add( "bg-secondary-100 data-[selected=true]:text-secondary-700", when: slot is nameof( _td ) ),
 
             ThemeColor.Success => ElementClass.Empty()
-                .Add( "bg-success-100 data-[selected=true]:text-success-600", when: slot is nameof( _td ) ),
+                .Add( "bg-success-100 data-[selected=true]:text-success-700", when: slot is nameof( _td ) ),
 
             ThemeColor.Warning => ElementClass.Empty()
-                .Add( "bg-warning-100 data-[selected=true]:text-warning-600", when: slot is nameof( _td ) ),
+                .Add( "bg-warning-100 data-[selected=true]:text-warning-700", when: slot is nameof( _td ) ),
 
             ThemeColor.Danger => ElementClass.Empty()
-                .Add( "bg-danger-100 data-[selected=true]:text-danger", when: slot is nameof( _td ) ),
+                .Add( "bg-danger-100 data-[selected=true]:text-danger-700", when: slot is nameof( _td ) ),
 
             ThemeColor.Info => ElementClass.Empty()
-                .Add( "bg-info-100 data-[selected=true]:text-info-600", when: slot is nameof( _td ) ),
+                .Add( "bg-info-100 data-[selected=true]:text-info-700", when: slot is nameof( _td ) ),
 
             _ => ElementClass.Empty()
         };
