@@ -149,6 +149,11 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
     [Parameter] public Layout Layout { get; set; }
 
     /// <summary>
+    /// Gets or sets a collection of items in the data grid that are disabled.
+    /// </summary>
+    [Parameter] public ICollection<T> DisabledItems { get; set; } = new HashSet<T>();
+
+    /// <summary>
     /// Gets or sets the selection mode for the data grid, determining how rows can be selected.
     /// </summary>
     /// <remarks>
@@ -286,13 +291,13 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
 
         // Perform a re-building only if the dependencies have changed
         Slots = _slotsMemoizer.Memoize( GetSlots, [
-            StickyHeader, 
+            StickyHeader,
             Hoverable,
-            Striped, 
+            Striped,
             Shadow,
-            Radius, 
+            Radius,
             Layout,
-            Color, 
+            Color,
             Class
         ] );
 
@@ -427,8 +432,13 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
         }
     }
 
-    private async Task OnRowClickedAsync( T item, int index )
+    private async Task OnRowClickedAsync( T item, int index, bool disabled )
     {
+        if( disabled )
+        {
+            return;
+        }
+
         await OnRowClick.InvokeAsync( new DataGridRowClickEventArgs<T>( item, index ) );
 
         if( SelectionMode is SelectionMode.None )
@@ -454,8 +464,13 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
         await SelectedItemsChanged.InvokeAsync( SelectedItems );
     }
 
-    private void OnCellClicked( LumexColumnBase<T> column, T item )
+    private void OnCellClicked( LumexColumnBase<T> column, T item, bool disabled )
     {
+        if( disabled )
+        {
+            return;
+        }
+
         if( column is IEditableColumn editColumn )
         {
             State.Edit.Update( editColumn, item );

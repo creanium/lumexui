@@ -22,6 +22,7 @@
     protected internal override void RenderCellContent( RenderTreeBuilder __builder, T item )
     {
         <LumexCheckbox Color="@DataGrid.Color"
+                       Disabled="@DataGrid.DisabledItems.Contains(item)"
                        Value="@IsItemSelected(item)"
                        ValueChanged="@((value) => SelectItemAsync(item, value))" />
     }

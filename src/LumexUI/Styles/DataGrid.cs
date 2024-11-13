@@ -90,6 +90,9 @@ internal class DataGrid
         .Add( "text-small" )
         .Add( "outline-none" )
         .Add( "data-[selected=false]:bg-transparent" )
+        // disabled
+        .Add( "group-data-[disabled=true]:text-foreground-300" )
+        .Add( "group-data-[disabled=true]:cursor-not-allowed" )
         // focus
         .Add( Utils.FocusVisible )
         .ToString();
@@ -210,7 +213,7 @@ internal class DataGrid
             true => ElementClass.Empty()
                 .Add( "cursor-default", when: slot is nameof( _tr ) )
                 .Add( ElementClass.Empty()
-                    .Add( "group-aria-[selected=false]:group-hover:bg-default-100/70" )
+                    .Add( "group-aria-[selected=false]:group-data-[disabled=false]:group-hover:bg-default-100/70" )
                     .Add( "first:rounded-s-lg last:rounded-e-lg" ), when: slot is nameof( _td ) ),
 
             _ => ElementClass.Empty()

@@ -24,11 +24,15 @@ public partial class _CheckboxColumn<T> : LumexColumnBase<T>
     private async Task SelectAllItemsAsync( bool selected )
     {
         var selectedItems = DataGrid.SelectedItems;
+
         if( selected )
         {
             if( DataGrid.Data is not null )
             {
-                selectedItems = new HashSet<T>( DataGrid.Data );
+                var selectableItems = DataGrid.Data
+                    .Where( i => !DataGrid.DisabledItems.Contains( i ) );
+
+                selectedItems = new HashSet<T>( selectableItems );
             }
         }
         else
@@ -69,8 +73,16 @@ public partial class _CheckboxColumn<T> : LumexColumnBase<T>
 
     private bool AreAllItemsSelected()
     {
-        return DataGrid.Data is not null
-            && DataGrid.Data.Count() == DataGrid.SelectedItems.Count;
+        if( DataGrid.Data is not null )
+        {
+            var selectableItems = DataGrid.Data
+                .Where( i => !DataGrid.DisabledItems.Contains( i ) )
+                .ToArray();
+
+            return selectableItems.Length == DataGrid.SelectedItems.Count;
+        }
+
+        return false;
     }
 
     private bool IsItemSelected( T item )

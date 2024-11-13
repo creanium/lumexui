@@ -105,24 +105,27 @@
 
     private void RenderRow( RenderTreeBuilder __builder, int rowIndex, T item )
     {
-        var selected = Utils.GetDataAttributeValue( SelectedItems.Contains( item ) );
+        var selected = SelectedItems.Contains( item );
+        var disabled = DisabledItems.Contains( item );
+        var odd = rowIndex % 2 != 0;
 
         <tr class="@Slots.Tr"
             style="@RowStyles"
-            data-slot="tr"
             aria-rowindex="@rowIndex"
-            aria-selected="@selected"
-            data-odd="@Utils.GetDataAttributeValue(rowIndex % 2 != 0)"
+            aria-selected="@Utils.GetDataAttributeValue(selected)"
+            data-slot="tr"
+            data-odd="@Utils.GetDataAttributeValue(odd)"
+            data-disabled="@Utils.GetDataAttributeValue(disabled)"
             @key="@item"
-            @onclick="@(() => OnRowClickedAsync( item, rowIndex ))">
+            @onclick="@(() => OnRowClickedAsync(item, rowIndex, disabled))">
             @foreach( var column in _columns )
             {
                 <td class="@Slots.Td"
                     data-slot="td"
                     data-align="@column.Align.ToLowerInvariant()"
-                    data-selected="@selected"
+                    data-selected="@Utils.GetDataAttributeValue(selected)"
                     @key="@column"
-                    @onclick="@(() => OnCellClicked( column, item ))"
+                    @onclick="@(() => OnCellClicked(column, item, disabled))"
                     @onclick:stopPropagation="@(column is IEditableColumn)">
                     @* ^^^To prevent row selection when start editing^^^ *@
                     @{
@@ -156,7 +159,7 @@
     private void RenderLoadingContent( RenderTreeBuilder __builder )
     {
         <tr>
-            <td class="@Slots.LoadingWrapper" 
+            <td class="@Slots.LoadingWrapper"
                 data-slot="loading-wrapper"
                 colspan="@(_columns.Count)">
                 @if( LoadingContent is not null )
@@ -179,7 +182,7 @@
     private void RenderEmptyContent( RenderTreeBuilder __builder )
     {
         <tr>
-            <td class="@Slots.EmptyWrapper" 
+            <td class="@Slots.EmptyWrapper"
                 data-slot="empty-wrapper"
                 colspan="@(_columns.Count)">
                 @if( EmptyContent is not null )
