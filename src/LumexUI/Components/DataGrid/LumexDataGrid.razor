@@ -107,14 +107,12 @@
     {
         var selected = SelectedItems.Contains( item );
         var disabled = DisabledItems.Contains( item );
-        var odd = rowIndex % 2 != 0;
 
         <tr class="@Slots.Tr"
             style="@RowStyles"
             aria-rowindex="@rowIndex"
             aria-selected="@Utils.GetDataAttributeValue(selected)"
             data-slot="tr"
-            data-odd="@Utils.GetDataAttributeValue(odd)"
             data-disabled="@Utils.GetDataAttributeValue(disabled)"
             @key="@item"
             @onclick="@(() => OnRowClickedAsync(item, rowIndex, disabled))">

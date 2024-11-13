@@ -272,7 +272,8 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
 
         // Set Hoverable to true if SelectionMode is not None and Hoverable was not set explicitly
         if( !parameters.TryGetValue<bool>( nameof( Hoverable ), out var _ )
-            && parameters.TryGetValue<SelectionMode>( nameof( SelectionMode ), out var _ ) )
+            && parameters.TryGetValue<SelectionMode>( nameof( SelectionMode ), out var mode )
+            && mode is not SelectionMode.None )
         {
             Hoverable = true;
         }
@@ -291,6 +292,7 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
 
         // Perform a re-building only if the dependencies have changed
         Slots = _slotsMemoizer.Memoize( GetSlots, [
+            SelectionMode,
             StickyHeader,
             Hoverable,
             Striped,

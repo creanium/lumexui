@@ -117,7 +117,7 @@ internal class DataGrid
          .ToString();
 
     private readonly static string _striped = ElementClass.Empty()
-        .Add( "group-data-[odd=true]:bg-default-100" )
+        .Add( "group-even:bg-default-100" )
         .ToString();
 
     private readonly static string _stickyHeader = ElementClass.Empty()
@@ -189,9 +189,10 @@ internal class DataGrid
                     .Add( _td )
                     .Add( _align )
                     .Add( _striped, when: dataGrid.Striped )
-                    .Add( GetStripedColorStyles( dataGrid.Color, slot: nameof( _td ) ), when: dataGrid.Striped )
                     .Add( GetColorStyles( dataGrid.Color, slot: nameof( _td ) ) )
+                    .Add( GetStripedColorStyles( dataGrid.Color, slot: nameof( _td ) ), when: dataGrid.Striped )
                     .Add( GetHoverableStyles( dataGrid.Hoverable, slot: nameof( _td ) ) )
+                    .Add( GetMultipleSelectionStyles( slot: nameof( _td ) ), when: dataGrid.SelectionMode is SelectionMode.Multiple )
                     .ToString() ),
 
             Placeholder = twMerge.Merge(
@@ -218,6 +219,18 @@ internal class DataGrid
 
             _ => ElementClass.Empty()
         };
+    }
+
+    private static ElementClass GetMultipleSelectionStyles( string slot )
+    {
+        return ElementClass.Empty()
+                .Add( ElementClass.Empty()
+                    .Add( "group-first:first:rounded-tl-lg" )
+                    .Add( "group-first:last:rounded-tr-lg" )
+                    .Add( "first:rounded-none" )
+                    .Add( "last:rounded-none" )
+                    .Add( "group-last:first:rounded-bl-lg" )
+                    .Add( "group-last:last:rounded-br-lg" ), when: slot is nameof( _td ) );
     }
 
     private static ElementClass GetColorStyles( ThemeColor color, string slot )
@@ -254,25 +267,25 @@ internal class DataGrid
         return color switch
         {
             ThemeColor.Default => ElementClass.Empty()
-                .Add( "group-data-[odd=true]:data-[selected=true]:bg-default-100", when: slot is nameof( _td ) ),
+                .Add( "group-even:data-[selected=true]:bg-default-100", when: slot is nameof( _td ) ),
 
             ThemeColor.Primary => ElementClass.Empty()
-                .Add( "group-data-[odd=true]:data-[selected=true]:bg-primary-100", when: slot is nameof( _td ) ),
+                .Add( "group-even:data-[selected=true]:bg-primary-100", when: slot is nameof( _td ) ),
 
             ThemeColor.Secondary => ElementClass.Empty()
-                .Add( "group-data-[odd=true]:data-[selected=true]:bg-secondary-100", when: slot is nameof( _td ) ),
+                .Add( "group-even:data-[selected=true]:bg-secondary-100", when: slot is nameof( _td ) ),
 
             ThemeColor.Success => ElementClass.Empty()
-                .Add( "group-data-[odd=true]:data-[selected=true]:bg-success-100", when: slot is nameof( _td ) ),
+                .Add( "group-even:data-[selected=true]:bg-success-100", when: slot is nameof( _td ) ),
 
             ThemeColor.Warning => ElementClass.Empty()
-                .Add( "group-data-[odd=true]:data-[selected=true]:bg-warning-100", when: slot is nameof( _td ) ),
+                .Add( "group-even:data-[selected=true]:bg-warning-100", when: slot is nameof( _td ) ),
 
             ThemeColor.Danger => ElementClass.Empty()
-                .Add( "group-data-[odd=true]:data-[selected=true]:bg-danger-100", when: slot is nameof( _td ) ),
+                .Add( "group-even:data-[selected=true]:bg-danger-100", when: slot is nameof( _td ) ),
 
             ThemeColor.Info => ElementClass.Empty()
-                .Add( "group-data-[odd=true]:data-[selected=true]:bg-info-100", when: slot is nameof( _td ) ),
+                .Add( "group-even:data-[selected=true]:bg-info-100", when: slot is nameof( _td ) ),
 
             _ => ElementClass.Empty()
         };
