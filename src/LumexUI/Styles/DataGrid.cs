@@ -160,6 +160,7 @@ internal class DataGrid
             Table = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _table )
+                    .Add( GetLayoutStyles( dataGrid.Layout, slot: nameof( _table ) ) )
                     .ToString() ),
 
             Thead = twMerge.Merge(
@@ -309,6 +310,20 @@ internal class DataGrid
 
             Shadow.Large => ElementClass.Empty()
                 .Add( "shadow-large", when: slot is nameof( _wrapper ) ),
+
+            _ => ElementClass.Empty()
+        };
+    }
+
+    private static ElementClass GetLayoutStyles( Layout layout, string slot )
+    {
+        return layout switch
+        {
+            Layout.Auto => ElementClass.Empty()
+                .Add( "table-auto", when: slot is nameof( _table ) ),
+
+            Layout.Fixed => ElementClass.Empty()
+                .Add( "table-fixed", when: slot is nameof( _table ) ),
 
             _ => ElementClass.Empty()
         };

@@ -132,9 +132,21 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
     /// Gets or sets the shadow of the data grid.
     /// </summary>
     /// <remarks>
-    /// Default value is <see cref="Shadow.Small"/>
+    /// The default value is <see cref="Shadow.Small"/>
     /// </remarks>
     [Parameter] public Shadow Shadow { get; set; } = Shadow.Small;
+
+    /// <summary>
+    /// Gets or sets the table layout algorithm used by the data grid, 
+    /// determining how the table and its columns are sized.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="Layout.Auto"/>
+    /// <para>
+    /// See <see href="https://developer.mozilla.org/en-US/docs/Web/CSS/table-layout" />
+    /// </para>
+    /// </remarks>
+    [Parameter] public Layout Layout { get; set; }
 
     /// <summary>
     /// Gets or sets the selection mode for the data grid, determining how rows can be selected.
@@ -279,6 +291,7 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
             Striped, 
             Shadow,
             Radius, 
+            Layout,
             Color, 
             Class
         ] );
