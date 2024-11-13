@@ -129,6 +129,14 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
     [Parameter] public Radius Radius { get; set; } = Radius.Large;
 
     /// <summary>
+    /// Gets or sets the shadow of the data grid.
+    /// </summary>
+    /// <remarks>
+    /// Default value is <see cref="Shadow.Small"/>
+    /// </remarks>
+    [Parameter] public Shadow Shadow { get; set; } = Shadow.Small;
+
+    /// <summary>
     /// Gets or sets the selection mode for the data grid, determining how rows can be selected.
     /// </summary>
     /// <remarks>
@@ -267,8 +275,9 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
         // Perform a re-building only if the dependencies have changed
         Slots = _slotsMemoizer.Memoize( GetSlots, [
             StickyHeader, 
-            Hoverable, 
+            Hoverable,
             Striped, 
+            Shadow,
             Radius, 
             Color, 
             Class

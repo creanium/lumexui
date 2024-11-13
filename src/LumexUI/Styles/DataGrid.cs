@@ -26,7 +26,6 @@ internal class DataGrid
         .Add( "justify-between" )
         .Add( "gap-4" )
         .Add( "bg-surface1" )
-        .Add( "shadow-small" )
         .Add( "overflow-auto" )
         .ToString();
 
@@ -145,6 +144,7 @@ internal class DataGrid
                 ElementClass.Empty()
                     .Add( _wrapper )
                     .Add( GetRadiusStyles( dataGrid.Radius, slot: nameof( _wrapper ) ) )
+                    .Add( GetShadowStyles( dataGrid.Shadow, slot: nameof( _wrapper ) ) )
                     .ToString() ),
 
             EmptyWrapper = twMerge.Merge(
@@ -289,6 +289,26 @@ internal class DataGrid
 
             Radius.Large => ElementClass.Empty()
                 .Add( "rounded-large", when: slot is nameof( _wrapper ) ),
+
+            _ => ElementClass.Empty()
+        };
+    }
+
+    private static ElementClass GetShadowStyles( Shadow shadow, string slot )
+    {
+        return shadow switch
+        {
+            Shadow.None => ElementClass.Empty()
+                .Add( "shadow-none", when: slot is nameof( _wrapper ) ),
+
+            Shadow.Small => ElementClass.Empty()
+                .Add( "shadow-small", when: slot is nameof( _wrapper ) ),
+
+            Shadow.Medium => ElementClass.Empty()
+                .Add( "shadow-medium", when: slot is nameof( _wrapper ) ),
+
+            Shadow.Large => ElementClass.Empty()
+                .Add( "shadow-large", when: slot is nameof( _wrapper ) ),
 
             _ => ElementClass.Empty()
         };
