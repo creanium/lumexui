@@ -144,6 +144,7 @@ internal class DataGrid
             Wrapper = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _wrapper )
+                    .Add( GetRadiusStyles( dataGrid.Radius, slot: nameof( _wrapper ) ) )
                     .ToString() ),
 
             EmptyWrapper = twMerge.Merge(
@@ -268,6 +269,26 @@ internal class DataGrid
 
             ThemeColor.Info => ElementClass.Empty()
                 .Add( "group-data-[odd=true]:data-[selected=true]:bg-info-100", when: slot is nameof( _td ) ),
+
+            _ => ElementClass.Empty()
+        };
+    }
+
+    private static ElementClass GetRadiusStyles( Radius radius, string slot )
+    {
+        return radius switch
+        {
+            Radius.None => ElementClass.Empty()
+                .Add( "rounded-none", when: slot is nameof( _wrapper ) ),
+
+            Radius.Small => ElementClass.Empty()
+                .Add( "rounded-small", when: slot is nameof( _wrapper ) ),
+
+            Radius.Medium => ElementClass.Empty()
+                .Add( "rounded-medium", when: slot is nameof( _wrapper ) ),
+
+            Radius.Large => ElementClass.Empty()
+                .Add( "rounded-large", when: slot is nameof( _wrapper ) ),
 
             _ => ElementClass.Empty()
         };

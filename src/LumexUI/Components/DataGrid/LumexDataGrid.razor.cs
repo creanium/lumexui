@@ -121,6 +121,14 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
     [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
 
     /// <summary>
+    /// Gets or sets the radius of the data grid.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="Radius.Large"/>
+    /// </remarks>
+    [Parameter] public Radius Radius { get; set; } = Radius.Large;
+
+    /// <summary>
     /// Gets or sets the selection mode for the data grid, determining how rows can be selected.
     /// </summary>
     /// <remarks>
@@ -257,7 +265,14 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
         }
 
         // Perform a re-building only if the dependencies have changed
-        Slots = _slotsMemoizer.Memoize( GetSlots, [Hoverable, Striped, StickyHeader, Color, Class] );
+        Slots = _slotsMemoizer.Memoize( GetSlots, [
+            StickyHeader, 
+            Hoverable, 
+            Striped, 
+            Radius, 
+            Color, 
+            Class
+        ] );
 
         // Perform a re-query only if the dependencies have changed
         //
