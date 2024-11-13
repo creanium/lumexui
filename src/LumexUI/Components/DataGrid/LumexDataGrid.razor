@@ -25,21 +25,22 @@
 
         <div class="@Slots.Base"
              style="@RootStyle"
+             data-slot="base"
              @ref="@_ref"
              @attributes="@AdditionalAttributes"
              @onclickoutside="@OnOutsideClick">
 
             @ToolbarContent
 
-            <div class="@Slots.Wrapper">
-                <table class="@Slots.Table">
-                    <thead class="@Slots.Thead">
-                        <tr class="@Slots.Tr">
+            <div class="@Slots.Wrapper" data-slot="wrapper">
+                <table class="@Slots.Table" data-slot="table">
+                    <thead class="@Slots.Thead" data-slot="thead">
+                        <tr class="@Slots.Tr" data-slot="tr">
                             @_renderColumnHeaders
                         </tr>
                         <tr style="display: block;width: 1px;height: 1px;margin-top: 0.25rem;" />
                     </thead>
-                    <tbody class="@Slots.Tbody">
+                    <tbody class="@Slots.Tbody" data-slot="tbody">
                         @if( Data is null || !Data.Any() )
                         {
                             @_renderEmptyContent
@@ -79,6 +80,7 @@
         {
             <th class="@Slots.Th"
                 scope="col"
+                data-slot="th"
                 aria-sort="@column.GetAriaSortValue()"
                 data-align="@column.Align.ToLowerInvariant()"
                 data-sortable="@Utils.GetDataAttributeValue(column.Sortable ?? false)"
@@ -107,6 +109,7 @@
 
         <tr class="@Slots.Tr"
             style="@RowStyles"
+            data-slot="tr"
             aria-rowindex="@rowIndex"
             aria-selected="@selected"
             data-odd="@Utils.GetDataAttributeValue(rowIndex % 2 != 0)"
@@ -115,6 +118,7 @@
             @foreach( var column in _columns )
             {
                 <td class="@Slots.Td"
+                    data-slot="td"
                     data-align="@column.Align.ToLowerInvariant()"
                     data-selected="@selected"
                     @key="@column"
@@ -133,10 +137,12 @@
     {
         <tr class="@Slots.Tr"
             style="@RowStyles"
+            data-slot="tr"
             aria-rowindex="@(placeholderContext.Index + 1)">
             @foreach( var column in _columns )
             {
                 <td class="@Slots.Placeholder"
+                    data-slot="placeholder"
                     data-align="@column.Align.ToLowerInvariant()"
                     @key="@column">
                     @{
@@ -150,7 +156,9 @@
     private void RenderLoadingContent( RenderTreeBuilder __builder )
     {
         <tr>
-            <td class="@Slots.LoadingWrapper" colspan="@(_columns.Count)">
+            <td class="@Slots.LoadingWrapper" 
+                data-slot="loading-wrapper"
+                colspan="@(_columns.Count)">
                 @if( LoadingContent is not null )
                 {
                     @LoadingContent
@@ -163,7 +171,7 @@
 
             @if( Data is null || !Data.Any() )
             {
-                <td class="@Slots.EmptyWrapper" />
+                <td class="@Slots.EmptyWrapper" data-slot="empty-wrapper" />
             }
         </tr>
     }
@@ -171,7 +179,9 @@
     private void RenderEmptyContent( RenderTreeBuilder __builder )
     {
         <tr>
-            <td class="@Slots.EmptyWrapper" colspan="@(_columns.Count)">
+            <td class="@Slots.EmptyWrapper" 
+                data-slot="empty-wrapper"
+                colspan="@(_columns.Count)">
                 @if( EmptyContent is not null )
                 {
                     @EmptyContent
