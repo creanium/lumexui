@@ -70,7 +70,7 @@ public abstract partial class LumexInputFieldBase<TValue> : LumexDebouncedInputB
     /// <remarks>
     /// The default value is <see cref="InputBehavior.OnChange"/>
     /// </remarks>
-    [Parameter] public InputBehavior Behavior { get; set; }
+    [Parameter] public InputBehavior Behavior { get; set; } = InputBehavior.OnChange;
 
     /// <summary>
     /// Gets or sets the border radius of the textbox.

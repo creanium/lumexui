@@ -28,6 +28,11 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets the content to be rendered inside the data grid toolbar.
+    /// </summary>
+    [Parameter] public RenderFragment? ToolbarContent { get; set; }
+
+    /// <summary>
     /// Gets or sets the content to be rendered inside the data grid when there is no data available.
     /// </summary>
     [Parameter] public RenderFragment? EmptyContent { get; set; }
