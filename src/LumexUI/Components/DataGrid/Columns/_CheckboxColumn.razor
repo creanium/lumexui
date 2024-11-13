@@ -12,7 +12,8 @@
     {
         if( DataGrid.SelectionMode is SelectionMode.Multiple )
         {
-            <LumexCheckbox Value="@AreAllItemsSelected()"
+            <LumexCheckbox Color="@DataGrid.Color"
+                           Value="@AreAllItemsSelected()"
                            ValueChanged="@SelectAllItemsAsync" />
         }
     }
@@ -20,7 +21,8 @@
     /// <inheritdoc />
     protected internal override void RenderCellContent( RenderTreeBuilder __builder, T item )
     {
-        <LumexCheckbox Value="@IsItemSelected(item)"
+        <LumexCheckbox Color="@DataGrid.Color"
+                       Value="@IsItemSelected(item)"
                        ValueChanged="@((value) => SelectItemAsync(item, value))" />
     }
 }

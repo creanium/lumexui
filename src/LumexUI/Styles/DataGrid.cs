@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
+using LumexUI.Common;
 using LumexUI.Utilities;
 
 using TailwindMerge;
@@ -89,6 +90,7 @@ internal class DataGrid
         .Add( "align-middle" )
         .Add( "text-small" )
         .Add( "outline-none" )
+        .Add( "data-[selected=false]:bg-transparent" )
         // focus
         .Add( Utils.FocusVisible )
         .ToString();
@@ -182,6 +184,8 @@ internal class DataGrid
                     .Add( _td )
                     .Add( _align )
                     .Add( _striped, when: dataGrid.Striped )
+                    .Add( GetStripedColorStyles( dataGrid.Color, slot: nameof( _td ) ), when: dataGrid.Striped )
+                    .Add( GetColorStyles( dataGrid.Color, slot: nameof( _td ) ) )
                     .Add( GetHoverableStyles( dataGrid.Hoverable, slot: nameof( _td ) ) )
                     .ToString() ),
 
@@ -206,6 +210,64 @@ internal class DataGrid
                 .Add( ElementClass.Empty()
                     .Add( "group-aria-[selected=false]:group-hover:bg-default-100/70" )
                     .Add( "first:rounded-s-lg last:rounded-e-lg" ), when: slot is nameof( _td ) ),
+
+            _ => ElementClass.Empty()
+        };
+    }
+
+    private static ElementClass GetColorStyles( ThemeColor color, string slot )
+    {
+        return color switch
+        {
+            ThemeColor.Default => ElementClass.Empty()
+                .Add( "bg-default-100 data-[selected=true]:text-default-foreground", when: slot is nameof( _td ) ),
+
+            ThemeColor.Primary => ElementClass.Empty()
+                .Add( "bg-primary-100 data-[selected=true]:text-primary", when: slot is nameof( _td ) ),
+
+            ThemeColor.Secondary => ElementClass.Empty()
+                .Add( "bg-secondary-100 data-[selected=true]:text-secondary", when: slot is nameof( _td ) ),
+
+            ThemeColor.Success => ElementClass.Empty()
+                .Add( "bg-success-100 data-[selected=true]:text-success-600", when: slot is nameof( _td ) ),
+
+            ThemeColor.Warning => ElementClass.Empty()
+                .Add( "bg-warning-100 data-[selected=true]:text-warning-600", when: slot is nameof( _td ) ),
+
+            ThemeColor.Danger => ElementClass.Empty()
+                .Add( "bg-danger-100 data-[selected=true]:text-danger", when: slot is nameof( _td ) ),
+
+            ThemeColor.Info => ElementClass.Empty()
+                .Add( "bg-info-100 data-[selected=true]:text-info-600", when: slot is nameof( _td ) ),
+
+            _ => ElementClass.Empty()
+        };
+    }
+
+    private static ElementClass GetStripedColorStyles( ThemeColor color, string slot )
+    {
+        return color switch
+        {
+            ThemeColor.Default => ElementClass.Empty()
+                .Add( "group-data-[odd=true]:data-[selected=true]:bg-default-100", when: slot is nameof( _td ) ),
+
+            ThemeColor.Primary => ElementClass.Empty()
+                .Add( "group-data-[odd=true]:data-[selected=true]:bg-primary-100", when: slot is nameof( _td ) ),
+
+            ThemeColor.Secondary => ElementClass.Empty()
+                .Add( "group-data-[odd=true]:data-[selected=true]:bg-secondary-100", when: slot is nameof( _td ) ),
+
+            ThemeColor.Success => ElementClass.Empty()
+                .Add( "group-data-[odd=true]:data-[selected=true]:bg-success-100", when: slot is nameof( _td ) ),
+
+            ThemeColor.Warning => ElementClass.Empty()
+                .Add( "group-data-[odd=true]:data-[selected=true]:bg-warning-100", when: slot is nameof( _td ) ),
+
+            ThemeColor.Danger => ElementClass.Empty()
+                .Add( "group-data-[odd=true]:data-[selected=true]:bg-danger-100", when: slot is nameof( _td ) ),
+
+            ThemeColor.Info => ElementClass.Empty()
+                .Add( "group-data-[odd=true]:data-[selected=true]:bg-info-100", when: slot is nameof( _td ) ),
 
             _ => ElementClass.Empty()
         };

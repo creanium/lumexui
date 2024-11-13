@@ -113,6 +113,14 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
     [Parameter] public float ItemSize { get; set; } = 37;
 
     /// <summary>
+    /// Gets or sets a color used to style the selected rows and checkboxes in the data grid.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="ThemeColor.Default"/>.
+    /// </remarks>
+    [Parameter] public ThemeColor Color { get; set; } = ThemeColor.Default;
+
+    /// <summary>
     /// Gets or sets the selection mode for the data grid, determining how rows can be selected.
     /// </summary>
     /// <remarks>
@@ -249,7 +257,7 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
         }
 
         // Perform a re-building only if the dependencies have changed
-        Slots = _slotsMemoizer.Memoize( GetSlots, [Hoverable, Striped, StickyHeader, Class] );
+        Slots = _slotsMemoizer.Memoize( GetSlots, [Hoverable, Striped, StickyHeader, Color, Class] );
 
         // Perform a re-query only if the dependencies have changed
         //
