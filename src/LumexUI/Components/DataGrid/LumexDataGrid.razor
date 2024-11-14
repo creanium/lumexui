@@ -38,7 +38,7 @@
                         <tr class="@Slots.Tr" data-slot="tr">
                             @_renderColumnHeaders
                         </tr>
-                        <tr style="display: block;width: 1px;height: 1px;margin-top: 0.25rem;" />
+                        <tr style="display:block; width:1px; height:1px; margin-top:0.25rem;" />
                     </thead>
                     <tbody class="@Slots.Tbody" data-slot="tbody">
                         @if( Data is null || !Data.Any() )
@@ -81,9 +81,9 @@
             <th class="@Slots.Th"
                 scope="col"
                 data-slot="th"
-                aria-sort="@column.GetAriaSortValue()"
                 data-align="@column.Align.ToLowerInvariant()"
                 data-sortable="@Utils.GetDataAttributeValue(column.Sortable ?? false)"
+                aria-sort="@column.GetAriaSortValue()"
                 @onclick="@(() => SortByColumnAsync(column))"
                 @key="@column">
                 @{
@@ -110,10 +110,10 @@
 
         <tr class="@Slots.Tr"
             style="@RowStyles"
-            aria-rowindex="@rowIndex"
-            aria-selected="@Utils.GetDataAttributeValue(selected)"
             data-slot="tr"
             data-disabled="@Utils.GetDataAttributeValue(disabled)"
+            aria-selected="@Utils.GetDataAttributeValue(selected)"
+            aria-rowindex="@rowIndex"
             @key="@item"
             @onclick="@(() => OnRowClickedAsync(item, rowIndex, disabled))">
             @foreach( var column in _columns )
@@ -158,8 +158,8 @@
     {
         <tr>
             <td class="@Slots.LoadingWrapper"
-                data-slot="loading-wrapper"
-                colspan="@(_columns.Count)">
+                colspan="@(_columns.Count)"
+                data-slot="loading-wrapper">
                 @if( LoadingContent is not null )
                 {
                     @LoadingContent
@@ -180,9 +180,9 @@
     private void RenderEmptyContent( RenderTreeBuilder __builder )
     {
         <tr>
-            <td class="@Slots.EmptyWrapper"
-                data-slot="empty-wrapper"
-                colspan="@(_columns.Count)">
+            <td class="@Slots.EmptyWrapper"  
+                colspan="@(_columns.Count)"
+                data-slot="empty-wrapper">
                 @if( EmptyContent is not null )
                 {
                     @EmptyContent
