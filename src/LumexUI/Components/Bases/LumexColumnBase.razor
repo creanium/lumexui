@@ -14,9 +14,9 @@
     /// <param name="__builder">The current <see cref="RenderTreeBuilder" />.</param>
     protected internal virtual void RenderHeaderCellContent( RenderTreeBuilder __builder )
     {
-        @if( TitleContent is not null )
+        @if( HeaderContent is not null )
         {
-            @TitleContent( this )
+            @HeaderContent( this )
         }
         else
         {

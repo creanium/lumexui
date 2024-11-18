@@ -3,7 +3,6 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using LumexUI.Common;
-using LumexUI.DataGrid.Core;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
@@ -19,7 +18,7 @@ public abstract partial class LumexColumnBase<T> : LumexComponentBase
     /// <summary>
     /// Gets or sets the content to be rendered in the column header.
     /// </summary>
-    [Parameter] public RenderFragment<LumexColumnBase<T>>? TitleContent { get; set; }
+    [Parameter] public RenderFragment<LumexColumnBase<T>>? HeaderContent { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered in the column cells whose data has not yet been loaded.
