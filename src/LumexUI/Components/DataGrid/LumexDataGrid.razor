@@ -41,7 +41,7 @@
                         <tr style="display:block; width:1px; height:1px; margin-top:0.25rem;" />
                     </thead>
                     <tbody class="@Slots.Tbody" data-slot="tbody">
-                        @if( Data is null || !Data.Any() )
+                        @if( ( Data is null || !Data.Any() ) && DataSource is null )
                         {
                             @_renderEmptyContent
                         }
@@ -180,7 +180,7 @@
     private void RenderEmptyContent( RenderTreeBuilder __builder )
     {
         <tr>
-            <td class="@Slots.EmptyWrapper"  
+            <td class="@Slots.EmptyWrapper"
                 colspan="@(_columns.Count)"
                 data-slot="empty-wrapper">
                 @if( EmptyContent is not null )
