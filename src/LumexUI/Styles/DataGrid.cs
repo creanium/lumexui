@@ -45,7 +45,7 @@ internal class DataGrid
         .Add( "justify-center" )
         .Add( "text-small" )
         .Add( "bg-surface1/70" )
-        .Add( "backdrop-blur-[1px]" )
+        .Add( "backdrop-blur-[2px]" )
         .ToString();
 
     private readonly static string _table = ElementClass.Empty()
@@ -192,7 +192,7 @@ internal class DataGrid
                     .Add( GetColorStyles( dataGrid.Color, slot: nameof( _td ) ) )
                     .Add( GetStripedColorStyles( dataGrid.Color, slot: nameof( _td ) ), when: dataGrid.Striped )
                     .Add( GetHoverableStyles( dataGrid.Hoverable, slot: nameof( _td ) ) )
-                    .Add( GetMultipleSelectionStyles( slot: nameof( _td ) ), when: dataGrid.SelectionMode is SelectionMode.Multiple )
+                    .Add( GetSelectionModeStyles( dataGrid.SelectionMode, slot: nameof( _td ) ) )
                     .ToString() ),
 
             Placeholder = twMerge.Merge(
@@ -221,16 +221,24 @@ internal class DataGrid
         };
     }
 
-    private static ElementClass GetMultipleSelectionStyles( string slot )
+    private static ElementClass GetSelectionModeStyles( SelectionMode selectionMode, string slot )
     {
-        return ElementClass.Empty()
+        return selectionMode switch
+        {
+            SelectionMode.Single or SelectionMode.None => ElementClass.Empty()
+                .Add( "first:rounded-s-lg last:rounded-e-lg" , when: slot is nameof( _td ) ),
+
+            SelectionMode.Multiple => ElementClass.Empty()
                 .Add( ElementClass.Empty()
                     .Add( "group-first:first:rounded-tl-lg" )
                     .Add( "group-first:last:rounded-tr-lg" )
                     .Add( "first:rounded-none" )
                     .Add( "last:rounded-none" )
                     .Add( "group-last:first:rounded-bl-lg" )
-                    .Add( "group-last:last:rounded-br-lg" ), when: slot is nameof( _td ) );
+                    .Add( "group-last:last:rounded-br-lg" ), when: slot is nameof( _td ) ),
+
+            _ => ElementClass.Empty()
+        };
     }
 
     private static ElementClass GetColorStyles( ThemeColor color, string slot )
