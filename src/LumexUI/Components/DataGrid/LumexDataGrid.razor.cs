@@ -321,8 +321,6 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
         }
     }
 
-    internal void Refresh() => StateHasChanged();
-
     internal void AddColumn( LumexColumnBase<T> column )
     {
         if( !_collectingColumns || !column.Visible )
