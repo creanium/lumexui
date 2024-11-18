@@ -137,10 +137,11 @@ internal class DataGrid
     {
         return new DataGridSlots()
         {
-            Base = twMerge.Merge(
+            Root = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _base )
                     .Add( dataGrid.Class )
+                    .Add( dataGrid.Classes?.Root )
                     .ToString() ),
 
             Wrapper = twMerge.Merge(
@@ -148,40 +149,57 @@ internal class DataGrid
                     .Add( _wrapper )
                     .Add( GetRadiusStyles( dataGrid.Radius, slot: nameof( _wrapper ) ) )
                     .Add( GetShadowStyles( dataGrid.Shadow, slot: nameof( _wrapper ) ) )
+                    .Add( dataGrid.Classes?.Wrapper )
                     .ToString() ),
 
             EmptyWrapper = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _emptyWrapper )
+                    .Add( dataGrid.Classes?.EmptyWrapper )
                     .ToString() ),
 
             LoadingWrapper = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _loadingWrapper )
+                    .Add( dataGrid.Classes?.LoadingWrapper )
                     .ToString() ),
 
             Table = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _table )
                     .Add( GetLayoutStyles( dataGrid.Layout, slot: nameof( _table ) ) )
+                    .Add( dataGrid.Classes?.Table )
                     .ToString() ),
 
             Thead = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _tHead )
                     .Add( _stickyHeader, when: dataGrid.StickyHeader )
+                    .Add( dataGrid.Classes?.Thead )
+                    .ToString() ),
+
+            Tbody = twMerge.Merge(
+                ElementClass.Empty()
+                    .Add( dataGrid.Classes?.Tbody )
+                    .ToString() ),
+
+            Tfoot = twMerge.Merge(
+                ElementClass.Empty()
+                    .Add( dataGrid.Classes?.Tfoot )
                     .ToString() ),
 
             Tr = twMerge.Merge(
                     ElementClass.Empty()
                     .Add( _tr )
                     .Add( GetHoverableStyles( dataGrid.Hoverable, slot: nameof( _tr ) ) )
+                    .Add( dataGrid.Classes?.Tr )
                     .ToString() ),
 
             Th = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _th )
                     .Add( _align )
+                    .Add( dataGrid.Classes?.Th )
                     .ToString() ),
 
             Td = twMerge.Merge(
@@ -193,16 +211,19 @@ internal class DataGrid
                     .Add( GetStripedColorStyles( dataGrid.Color, slot: nameof( _td ) ), when: dataGrid.Striped )
                     .Add( GetHoverableStyles( dataGrid.Hoverable, slot: nameof( _td ) ) )
                     .Add( GetSelectionModeStyles( dataGrid.SelectionMode, slot: nameof( _td ) ) )
+                    .Add( dataGrid.Classes?.Td )
                     .ToString() ),
 
             Placeholder = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _placeholder )
+                    .Add( dataGrid.Classes?.Placeholder )
                     .ToString() ),
 
             SortIcon = twMerge.Merge(
                 ElementClass.Empty()
                     .Add( _sortIcon )
+                    .Add( dataGrid.Classes?.SortIcon )
                     .ToString() ),
         };
     }

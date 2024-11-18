@@ -18,7 +18,7 @@ namespace LumexUI;
 /// </summary>
 /// <typeparam name="T">The type of data represented by each row in the grid.</typeparam>
 [CascadingTypeParameter( nameof( T ) )]
-public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
+public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable, ISlotComponent<DataGridSlots>
 {
     private const string JavaScriptFile = "./_content/LumexUI/js/components/data-grid.js";
 
@@ -178,6 +178,11 @@ public partial class LumexDataGrid<T> : LumexComponentBase, IAsyncDisposable
     /// The callback receives a <see cref="DataGridRowClickEventArgs{T}"/> containing the details of the clicked row.
     /// </remarks>
     [Parameter] public EventCallback<DataGridRowClickEventArgs<T>> OnRowClick { get; set; }
+
+    /// <summary>
+    /// Gets or sets the CSS class names for the data grid slots.
+    /// </summary>
+    [Parameter] public DataGridSlots? Classes { get; set; }
 
     [Inject] private IJSRuntime JSRuntime { get; set; } = default!;
 
