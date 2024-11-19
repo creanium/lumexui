@@ -58,7 +58,11 @@ public abstract partial class LumexColumnBase<T> : LumexComponentBase
     /// </summary>
     public abstract SortBuilder<T>? SortBy { get; set; }
 
-    internal LumexDataGrid<T> DataGrid => Context.Owner;
+    /// <summary>
+    /// Gets a reference to the enclosing <see cref="LumexDataGrid{T}" />.
+    /// </summary>
+    public LumexDataGrid<T> DataGrid => Context.Owner;
+
     internal DataGridState<T> State => Context.Owner.State;
 
     /// <inheritdoc />
