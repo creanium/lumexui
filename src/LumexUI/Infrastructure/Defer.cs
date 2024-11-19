@@ -15,7 +15,9 @@ namespace LumexUI.Infrastructure;
 [EditorBrowsable( EditorBrowsableState.Never )]
 public class Defer : ComponentBase
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     [Parameter] public RenderFragment? ChildContent { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
     /// <inheritdoc />
     protected override void BuildRenderTree( RenderTreeBuilder builder )
