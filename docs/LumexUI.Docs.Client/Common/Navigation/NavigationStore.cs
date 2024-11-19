@@ -28,6 +28,7 @@ public class NavigationStore
             .Add( new( nameof( LumexCheckbox ) ) )
             .Add( new( nameof( LumexCheckboxGroup ) ) )
             .Add( new( nameof( LumexCollapse ) ) )
+            .Add( new( nameof( LumexDataGrid<T> ) ) )
             .Add( new( nameof( LumexDivider ) ) )
             .Add( new( nameof( LumexIcon ) ) )
             .Add( new( nameof( LumexLink ) ) )
