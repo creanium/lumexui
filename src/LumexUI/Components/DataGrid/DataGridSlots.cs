@@ -1,10 +1,13 @@
-﻿using LumexUI.Common;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using LumexUI.Common;
 
 namespace LumexUI;
 
 /// <summary>
 /// Represents a collection of customizable slots for styling various elements within the data grid.
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class DataGridSlots : ISlot
 {
     /// <summary>

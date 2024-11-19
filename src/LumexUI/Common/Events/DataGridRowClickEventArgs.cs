@@ -1,10 +1,13 @@
-﻿namespace LumexUI.Common;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace LumexUI.Common;
 
 /// <summary>
 /// Provides data for the <see cref="LumexDataGrid{T}.OnRowClick"/> event, 
 /// including the clicked item and its index.
 /// </summary>
 /// <typeparam name="T">The type of data represented by the row.</typeparam>
+[ExcludeFromCodeCoverage]
 public class DataGridRowClickEventArgs<T> : EventArgs
 {
     /// <summary>
