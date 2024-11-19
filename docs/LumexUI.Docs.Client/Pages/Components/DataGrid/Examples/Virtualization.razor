@@ -13,7 +13,9 @@
     <PropertyColumn Property="@(p => p.Status)" />
 </LumexDataGrid>
 
-<p class="text-sm"><strong>@_resultsCount results found</strong></p>
+<p class="text-small">
+    <strong>@_resultsCount results found</strong>
+</p>
 
 @code {
     private DataSource<FoodRecall>? _foodRecallProvider;
