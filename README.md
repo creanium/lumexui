@@ -34,6 +34,8 @@ For chatting with others using the library:
 
 Contributions are always welcome!
 
+Please adhere to this project's [Code of Conduct](https://github.com/LumexUI/lumexui/blob/main/CODE_OF_CONDUCT.md).
+
 ## License
 
 LumexUI is licensed under the terms of the [MIT license](https://github.com/LumexUI/lumex-ui/blob/main/LICENSE).
