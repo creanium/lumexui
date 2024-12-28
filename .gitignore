@@ -396,15 +396,12 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-
-# Generated assets
-/src/LumexUI/**/dist
-
-/docs/LumexUI.Docs/**/*/css
-/docs/LumexUI.Docs/**/*.exe
-
-# .idea Folder for Rider (IntelliJ IDEA)
 .idea/*
 
 # MacOS DS_Store files
 **/.DS_Store
+
+# LumexUI generated assets
+/src/LumexUI/**/dist
+
+/docs/LumexUI.Docs/**/*/css
