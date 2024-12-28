@@ -1,7 +1,27 @@
 ﻿@namespace LumexUI.Docs.Client.Components
 
 <footer class="mt-12 text-sm leading-6">
-    <div class="pt-10 pb-28 border-t border-divider">
-        <p>.</p>
+    <div class="pt-10 pb-20 border-t border-divider flex flex-col justify-center items-center gap-1">
+        <p class="text-default-500">
+            &copy; @(DateTimeOffset.UtcNow.ToString("yyyy")) LumexUI. All rights reserved.
+        </p>
+
+        <div class="flex items-center gap-1">
+            <LumexLink Href="https://github.com/LumexUI/lumexui"
+                       External="@true"
+                       Class="p-1 text-default-600">
+                <LumexIcon Icon="@Icons.Brands.GitHub"
+                           viewBox="0 0 24 24" />
+                <span class="sr-only">GitHub</span>
+            </LumexLink>
+
+            <LumexLink Href="https://discord.gg/jjgMz3apcb"
+                       External="@true"
+                       Class="p-1 text-default-600">
+                <LumexIcon Icon="@Icons.Brands.Discord"
+                           viewBox="0 0 24 24" />
+                <span class="sr-only">Discord</span>
+            </LumexLink>
+        </div>
     </div>
 </footer>
