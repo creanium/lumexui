@@ -1,0 +1,41 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<CascadingValue TValue="TabsContext" Value="@_context" IsFixed="@true">
+    @* Unfortunate hack to make `LumexTab` always re-render when the `SelectedTab` changes to prevent its removal. *@
+    <CascadingValue TValue="LumexTab" Value="@_context.GetSelectedTab()">
+        @{
+            _context.StartCollectingTabs();
+        }
+        @ChildContent
+
+        <Defer>
+            @{
+                _context.StopCollectingTabs();
+            }
+            <div class="@Slots.Root" data-slot="base">
+                <LumexComponent As="@As"
+                                Class="@Slots.TabList"
+                                Style="@Style"
+                                data-slot="tab-list"
+                                @attributes="@AdditionalAttributes">
+                    @_renderTabs
+                </LumexComponent>
+            </div>
+
+            <TabPanel SelectedTab="@_context.GetSelectedTab()" />
+        </Defer>
+    </CascadingValue>
+</CascadingValue>
+
+@code {
+    private void RenderTabs(RenderTreeBuilder __builder)
+    {
+        <LayoutGroup Id="@_layoutGroupId">
+            @foreach (var (id, tab) in _context.Tabs)
+            {
+                tab.Render(__builder2);
+            }
+        </LayoutGroup>
+    }
+}
