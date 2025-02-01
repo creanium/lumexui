@@ -27,8 +27,8 @@ public partial class LumexCardFooter : LumexComponentBase
 
 	[CascadingParameter] internal CardContext Context { get; set; } = default!;
 
-	private protected override string? RootClass
-		=> TwMerge.Merge( Card.GetFooterStyles( this ) );
+	private protected override string? RootClass =>
+		Card.GetFooterStyles( this );
 
 	/// <inheritdoc />
 	protected override void OnInitialized()

@@ -22,8 +22,8 @@ public partial class LumexCardHeader : LumexComponentBase
 
 	[CascadingParameter] internal CardContext Context { get; set; } = default!;
 
-	private protected override string? RootClass
-		=> TwMerge.Merge( Card.GetHeaderStyles( this ) );
+	private protected override string? RootClass =>
+		Card.GetHeaderStyles( this );
 
 	/// <inheritdoc />
 	protected override void OnInitialized()

@@ -23,7 +23,7 @@ public partial class LumexDivider : LumexComponentBase
 	[Parameter] public Orientation Orientation { get; set; }
 
 	private protected override string? RootClass =>
-		TwMerge.Merge( Divider.GetStyles( this ) );
+		Divider.GetStyles( this );
 
 	private new string As => Orientation is Orientation.Horizontal ? "hr" : "div";
 }

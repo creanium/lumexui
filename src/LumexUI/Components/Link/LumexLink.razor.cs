@@ -63,7 +63,7 @@ public partial class LumexLink : LumexComponentBase
 	[Parameter] public bool External { get; set; }
 
 	private protected override string? RootClass =>
-		TwMerge.Merge( Link.GetStyles( this ) );
+		Link.GetStyles( this );
 
 	private IReadOnlyDictionary<string, object> Attributes
 	{

@@ -10,28 +10,28 @@ using LumexUI.Utilities;
 namespace LumexUI.Styles;
 
 [ExcludeFromCodeCoverage]
-internal readonly record struct Divider
+internal class Divider
 {
-    private readonly static string _base = ElementClass.Empty()
-        .Add( "bg-divider" )
-        .Add( "border-none" )
-        .ToString();
+	private readonly static string _base = ElementClass.Empty()
+		.Add( "bg-divider" )
+		.Add( "border-none" )
+		.ToString();
 
-    private static ElementClass GetOrientationStyles( Orientation orientation )
-    {
-        return ElementClass.Empty()
-            .Add( "w-full h-px", when: orientation is Orientation.Horizontal )
-            .Add( "h-full w-px", when: orientation is Orientation.Vertical );
-    }
+	private static ElementClass GetOrientationStyles( Orientation orientation )
+	{
+		return ElementClass.Empty()
+			.Add( "w-full h-px", when: orientation is Orientation.Horizontal )
+			.Add( "h-full w-px", when: orientation is Orientation.Vertical );
+	}
 
-    public static string GetStyles( LumexDivider divider )
-    {
-        var styles = new ElementClass()
-            .Add( _base )
-            .Add( GetOrientationStyles( divider.Orientation ) )
-            .Add( divider.Class )
-            .ToString();
+	public static string? GetStyles( LumexDivider divider )
+	{
+		var twMerge = divider.TwMerge;
 
-        return styles;
-    }
+		return twMerge.Merge(
+			ElementClass.Default( _base )
+				.Add( GetOrientationStyles( divider.Orientation ) )
+				.Add( divider.Class )
+				.ToString() );
+	}
 }

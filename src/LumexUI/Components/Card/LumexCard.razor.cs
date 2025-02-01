@@ -50,8 +50,8 @@ public partial class LumexCard : LumexComponentBase, ISlotComponent<CardSlots>
 	/// </summary>
 	[Parameter] public CardSlots? Classes { get; set; }
 
-	private protected override string? RootClass
-		=> TwMerge.Merge( Card.GetStyles( this ) );
+	private protected override string? RootClass =>
+		Card.GetStyles( this );
 
 	private readonly CardContext _context;
 

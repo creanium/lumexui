@@ -40,7 +40,7 @@ public partial class LumexIcon : LumexComponentBase
 	[Parameter] public ThemeColor Color { get; set; }
 
 	private protected override string? RootClass =>
-		TwMerge.Merge( Styles.Icon.GetStyles( this ) );
+		Styles.Icon.GetStyles( this );
 
 	private string? FontIconStyle => ElementStyle.Empty()
 		.Add( "font-size", $"{Size.W}px", when: Size.W == Size.H )

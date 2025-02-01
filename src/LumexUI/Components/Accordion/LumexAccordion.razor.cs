@@ -82,7 +82,7 @@ public partial class LumexAccordion : LumexComponentBase
 	[Parameter] public AccordionItemSlots? ItemClasses { get; set; }
 
 	private protected override string? RootClass =>
-		TwMerge.Merge( Accordion.GetStyles( this ) );
+		Accordion.GetStyles( this );
 
 	private readonly AccordionContext _context;
 

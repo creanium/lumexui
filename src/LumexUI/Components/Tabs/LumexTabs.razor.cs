@@ -85,7 +85,7 @@ public partial class LumexTabs : LumexComponentBase, ISlotComponent<TabsSlots>
 	internal TabsSlots Slots { get; private set; } = default!;
 
 	private readonly TabsContext _context;
-	private readonly Memoizer<TabsSlots> _slotsMemoizer;
+	private readonly Memoizer<TabsSlots, SlotsDeps> _slotsMemo;
 	private readonly RenderFragment _renderTabs;
 	private readonly string _layoutGroupId;
 
@@ -95,7 +95,7 @@ public partial class LumexTabs : LumexComponentBase, ISlotComponent<TabsSlots>
 	public LumexTabs()
 	{
 		_context = new TabsContext( this );
-		_slotsMemoizer = new Memoizer<TabsSlots>();
+		_slotsMemo = new Memoizer<TabsSlots, SlotsDeps>();
 		_layoutGroupId = Identifier.New();
 		_renderTabs = RenderTabs;
 	}
@@ -104,7 +104,7 @@ public partial class LumexTabs : LumexComponentBase, ISlotComponent<TabsSlots>
 	protected override void OnParametersSet()
 	{
 		// Perform a re-building only if the dependencies have changed
-		Slots = _slotsMemoizer.Memoize( GetSlots, [
+		Slots = _slotsMemo.Memoize( GetSlots, new SlotsDeps(
 			DisabledItems,
 			FullWidth,
 			Disabled,
@@ -114,7 +114,7 @@ public partial class LumexTabs : LumexComponentBase, ISlotComponent<TabsSlots>
 			Size,
 			Class,
 			Classes
-		] );
+		) );
 	}
 
 	internal Task SetSelectedIdAsync( object id )
@@ -131,6 +131,18 @@ public partial class LumexTabs : LumexComponentBase, ISlotComponent<TabsSlots>
 
 	private TabsSlots GetSlots()
 	{
-		return Tabs.GetStyles( this, TwMerge );
+		return Tabs.GetStyles( this );
 	}
+
+	private readonly record struct SlotsDeps(
+		ICollection<object>? DisabledItems,
+		bool FullWidth,
+		bool Disabled,
+		TabVariant Variant,
+		Radius Radius,
+		ThemeColor Color,
+		Size Size,
+		string? Class,
+		TabsSlots? Classes
+	);
 }

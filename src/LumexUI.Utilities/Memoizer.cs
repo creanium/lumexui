@@ -9,6 +9,8 @@ public class Memoizer<TValue, TDeps> where TDeps : struct, IEquatable<TDeps>
 	private bool _isMemoized;
 	private Entry _entry;
 
+	public TValue Value => _entry.Value;
+
 	public TValue Memoize( Func<TValue> callback, TDeps dependencies )
 	{
 		// Check for a potential change

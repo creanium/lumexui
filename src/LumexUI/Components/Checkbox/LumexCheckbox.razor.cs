@@ -4,6 +4,7 @@
 
 using LumexUI.Common;
 using LumexUI.Styles;
+using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
 
@@ -34,25 +35,17 @@ public partial class LumexCheckbox : LumexBooleanInputBase, ISlotComponent<Check
 
 	[CascadingParameter] internal CheckboxGroupContext? Context { get; set; }
 
-	private protected override string? RootClass =>
-		TwMerge.Merge( Checkbox.GetStyles( this ) );
-
-	private string? WrapperClass =>
-		TwMerge.Merge( Checkbox.GetWrapperStyles( this ) );
-
-	private string? IconClass =>
-		TwMerge.Merge( Checkbox.GetIconStyles( this ) );
-
-	private string? LabelClass =>
-		TwMerge.Merge( Checkbox.GetLabelStyles( this ) );
-
+	private readonly Memoizer<CheckboxSlots, SlotsDeps> _slotsMemo;
 	private readonly RenderFragment _renderCheckIcon;
+
+	private CheckboxSlots _slots = default!;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="LumexCheckbox"/>.
 	/// </summary>
 	public LumexCheckbox()
 	{
+		_slotsMemo = new Memoizer<CheckboxSlots, SlotsDeps>();
 		_renderCheckIcon = RenderCheckIcon;
 	}
 
@@ -80,10 +73,38 @@ public partial class LumexCheckbox : LumexBooleanInputBase, ISlotComponent<Check
 	}
 
 	/// <inheritdoc />
+	protected override void OnParametersSet()
+	{
+		// Perform a re-building only if the dependencies have changed
+		_slots = _slotsMemo.Memoize( GetSlots, new SlotsDeps(
+			GetDisabledState(),
+			Radius,
+			Color,
+			Size,
+			Class,
+			Classes
+		) );
+	}
+
+	/// <inheritdoc />
 	protected internal override bool GetDisabledState() =>
 		Disabled || ( Context?.Owner.Disabled ?? false );
 
 	/// <inheritdoc />
 	protected internal override bool GetReadOnlyState() =>
 		ReadOnly || ( Context?.Owner.ReadOnly ?? false );
+
+	private CheckboxSlots GetSlots()
+	{
+		return Checkbox.GetStyles( this );
+	}
+
+	private readonly record struct SlotsDeps(
+		bool Disabled,
+		Radius Radius,
+		ThemeColor Color,
+		Size Size,
+		string? Class,
+		CheckboxSlots? Classes
+	);
 }

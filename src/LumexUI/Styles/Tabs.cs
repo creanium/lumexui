@@ -7,8 +7,6 @@ using System.Diagnostics.CodeAnalysis;
 using LumexUI.Common;
 using LumexUI.Utilities;
 
-using TailwindMerge;
-
 namespace LumexUI.Styles;
 
 [ExcludeFromCodeCoverage]
@@ -76,8 +74,10 @@ internal class Tabs
 		.Add( "bg-white" )
 		.ToString();
 
-	public static TabsSlots GetStyles( LumexTabs tabs, TwMerge twMerge )
+	public static TabsSlots GetStyles( LumexTabs tabs )
 	{
+		var twMerge = tabs.TwMerge;
+
 		return new TabsSlots()
 		{
 			Root = twMerge.Merge(

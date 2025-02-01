@@ -4,6 +4,7 @@
 
 using LumexUI.Common;
 using LumexUI.Styles;
+using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
 
@@ -73,19 +74,10 @@ public partial class LumexCheckboxGroup : LumexComponentBase, ISlotComponent<Che
 	/// </summary>
 	[Parameter] public CheckboxSlots? CheckboxClasses { get; set; }
 
-	private protected override string? RootClass =>
-		TwMerge.Merge( CheckboxGroup.GetStyles( this ) );
-
-	private string? LabelClass =>
-		TwMerge.Merge( CheckboxGroup.GetLabelStyles( this ) );
-
-	private string? WrapperClass =>
-		TwMerge.Merge( CheckboxGroup.GetWrapperStyles( this ) );
-
-	private string? DescriptionClass =>
-		TwMerge.Merge( CheckboxGroup.GetDescriptionStyles( this ) );
-
 	private readonly CheckboxGroupContext _context;
+	private readonly Memoizer<CheckboxGroupSlots, SlotsDeps> _slotsMemo;
+
+	private CheckboxGroupSlots _slots = default!;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="LumexCheckboxGroup"/>.
@@ -93,5 +85,26 @@ public partial class LumexCheckboxGroup : LumexComponentBase, ISlotComponent<Che
 	public LumexCheckboxGroup()
 	{
 		_context = new CheckboxGroupContext( this );
+		_slotsMemo = new Memoizer<CheckboxGroupSlots, SlotsDeps>();
 	}
+
+	/// <inheritdoc />
+	protected override void OnParametersSet()
+	{
+		// Perform a re-building only if the dependencies have changed
+		_slots = _slotsMemo.Memoize( GetSlots, new SlotsDeps(
+			Class,
+			Classes
+		) );
+	}
+
+	private CheckboxGroupSlots GetSlots()
+	{
+		return CheckboxGroup.GetStyles( this );
+	}
+
+	private readonly record struct SlotsDeps(
+		string? Class,
+		CheckboxGroupSlots? Classes
+	);
 }

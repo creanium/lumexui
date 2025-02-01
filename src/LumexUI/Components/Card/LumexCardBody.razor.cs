@@ -22,8 +22,8 @@ public partial class LumexCardBody : LumexComponentBase
 
 	[CascadingParameter] internal CardContext Context { get; set; } = default!;
 
-	private protected override string? RootClass
-		=> TwMerge.Merge( Card.GetBodyStyles( this ) );
+	private protected override string? RootClass =>
+		Card.GetBodyStyles( this );
 
 	/// <inheritdoc />
 	protected override void OnInitialized()

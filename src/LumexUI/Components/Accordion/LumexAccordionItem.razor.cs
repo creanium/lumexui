@@ -4,6 +4,7 @@
 
 using LumexUI.Common;
 using LumexUI.Styles;
+using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
 
@@ -79,36 +80,20 @@ public partial class LumexAccordionItem : LumexComponentBase,
 
 	[CascadingParameter] internal AccordionContext Context { get; set; } = default!;
 
-	private protected override string? RootClass =>
-		TwMerge.Merge( AccordionItem.GetStyles( this ) );
-
-	private string? HeadingClass =>
-		TwMerge.Merge( AccordionItem.GetHeadingStyles( this ) );
-
-	private string? TriggerClass =>
-		TwMerge.Merge( AccordionItem.GetTriggerStyles( this ) );
-
-	private string? StartContentClass =>
-		TwMerge.Merge( AccordionItem.GetStartContentStyles( this ) );
-
-	private string? TitleWrapperClass =>
-		TwMerge.Merge( AccordionItem.GetTitleWrapperStyles( this ) );
-
-	private string? TitleClass =>
-		TwMerge.Merge( AccordionItem.GetTitleStyles( this ) );
-
-	private string? SubtitleClass =>
-		TwMerge.Merge( AccordionItem.GetSubtitleStyles( this ) );
-
-	private string? IndicatorClass =>
-		TwMerge.Merge( AccordionItem.GetIndicatorStyles( this ) );
-
-	private string? ContentClass =>
-		TwMerge.Merge( AccordionItem.GetContentStyles( this ) );
+	private readonly Memoizer<AccordionItemSlots, SlotsDeps> _slotsMemo;
+	private AccordionItemSlots _slots = default!;
 
 	private bool _disposed;
 	private bool _disabled;
 	private bool _expanded;
+
+	/// <summary>
+	/// Initializes a new instance of the <see cref="LumexAccordionItem"/>.
+	/// </summary>
+	public LumexAccordionItem()
+	{
+		_slotsMemo = new Memoizer<AccordionItemSlots, SlotsDeps>();
+	}
 
 	/// <summary>
 	/// Asynchronously expands the accordion item.
@@ -163,6 +148,14 @@ public partial class LumexAccordionItem : LumexComponentBase,
 				$"Do not supply both '{nameof( Subtitle )}' and '{nameof( SubtitleContent )}'." );
 		}
 
+		// Perform a re-building only if the dependencies have changed
+		_slots = _slotsMemo.Memoize( GetSlots, new SlotsDeps(
+			Disabled,
+			Class,
+			Classes,
+			Context.Owner.ItemClasses
+		) );
+
 		_expanded = Expanded || Context.Owner.ExpandedItems.Contains( Id ) || Context.Owner.Expanded;
 		_disabled = Disabled || Context.Owner.DisabledItems.Contains( Id ) || Context.Owner.Disabled;
 	}
@@ -188,6 +181,9 @@ public partial class LumexAccordionItem : LumexComponentBase,
 		return ExpandedChanged.InvokeAsync( _expanded );
 	}
 
+	private AccordionItemSlots GetSlots() =>
+		AccordionItem.GetSlots( this );
+
 	/// <inheritdoc />
 	public void Dispose()
 	{
@@ -208,4 +204,11 @@ public partial class LumexAccordionItem : LumexComponentBase,
 			_disposed = true;
 		}
 	}
+
+	private readonly record struct SlotsDeps(
+		bool Disabled,
+		string? Class,
+		AccordionItemSlots? Classes,
+		AccordionItemSlots? ItemClasses
+	);
 }

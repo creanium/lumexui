@@ -6,22 +6,22 @@
                 data-slot="base"
                 data-opened="@_expanded"
                 @attributes="@AdditionalAttributes">
-    <h2 class="@HeadingClass" data-slot="heading">
+    <h2 class="@_slots.Heading" data-slot="heading">
         <button type="button"
-                class="@TriggerClass"
+                class="@_slots.Trigger"
                 disabled="@_disabled"
                 data-slot="trigger"
                 @onclick="@ToggleExpansionAsync">
             @if( StartContent is not null )
             {
-                <div class="@StartContentClass" data-slot="start-content">
+                <div class="@_slots.StartContent" data-slot="start-content">
                     @StartContent
                 </div>
             }
-            <div class="@TitleWrapperClass" data-slot="title-wrapper">
+            <div class="@_slots.TitleWrapper" data-slot="title-wrapper">
                 @if( !string.IsNullOrEmpty( Title ) || TitleContent is not null )
                 {
-                    <span class="@TitleClass" data-slot="title">
+                    <span class="@_slots.Title" data-slot="title">
                         @if( !string.IsNullOrEmpty( Title ) )
                         {
                             @Title
@@ -34,7 +34,7 @@
                 }
                 @if( !string.IsNullOrEmpty( Subtitle ) || SubtitleContent is not null )
                 {
-                    <span class="@SubtitleClass" data-slot="subtitle">
+                    <span class="@_slots.Subtitle" data-slot="subtitle">
                         @if( !string.IsNullOrEmpty( Subtitle ) )
                         {
                             @Subtitle
@@ -48,7 +48,7 @@
             </div>
             @if( Context.Owner.ShowIndicators )
             {
-                <span class="@IndicatorClass" 
+                <span class="@_slots.Indicator"
                       data-slot="indicator" 
                       data-opened="@_expanded">
                     <LumexIcon Icon="@Indicator(_expanded)" />
@@ -58,15 +58,15 @@
     </h2>
 
     <LumexCollapse As="section" Expanded="@_expanded">
-        <div class="@ContentClass" data-slot="content">
+        <div class="@_slots.Content" data-slot="content">
             @ChildContent
         </div>
     </LumexCollapse>
 </LumexComponent>
 
-@if( Context.Owner.ShowDividers
-   && !Context.IsLast( this )
-   && Context.Owner.Variant is not AccordionVariant.Splitted )
+@if( Context.Owner.ShowDividers && 
+     !Context.IsLast( this ) && 
+     Context.Owner.Variant is not AccordionVariant.Splitted )
 {
     <LumexDivider />
 }
