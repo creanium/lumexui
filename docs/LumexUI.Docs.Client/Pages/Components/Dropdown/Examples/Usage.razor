@@ -1,0 +1,29 @@
+﻿@using LumexUI.Services
+
+@inject IPopoverService PopoverService
+
+<LumexButton Variant="@Variant.Outlined"
+             OnClick="@TriggerAsync"
+             data-popoverref="@_dropdownId">
+    Open Dropdown
+</LumexButton>
+
+<LumexDropdown Id="@_dropdownId">
+    <LumexDropdownMenu>
+        <LumexDropdownItem>New file</LumexDropdownItem>
+        <LumexDropdownItem>Edit file</LumexDropdownItem>
+        <LumexDropdownItem>Share file</LumexDropdownItem>
+        <LumexDropdownItem Color="@ThemeColor.Danger" Class="text-danger">
+            Delete file
+        </LumexDropdownItem>
+    </LumexDropdownMenu>
+</LumexDropdown>
+
+@code {
+    private string _dropdownId = "dropdown-usage";
+
+    private Task TriggerAsync()
+    {
+        return PopoverService.TriggerAsync( _dropdownId );
+    }
+}

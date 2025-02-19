@@ -1,0 +1,31 @@
+﻿@using LumexUI.Services
+
+@inject IPopoverService PopoverService
+
+<LumexButton Variant="@Variant.Outlined"
+             OnClick="@TriggerAsync"
+             data-popoverref="@_dropdownId">
+    Open Dropdown
+</LumexButton>
+
+<LumexDropdown Id="@_dropdownId">
+    <LumexDropdownMenu DisabledItems="@(["share", "delete"])">
+        <LumexDropdownItem Id="@("new")">New file</LumexDropdownItem>
+        <LumexDropdownItem Id="@("edit")">Edit file</LumexDropdownItem>
+        <LumexDropdownItem Id="@("share")">Share file</LumexDropdownItem>
+        <LumexDropdownItem Id="@("delete")"
+                           Color="@ThemeColor.Danger"
+                           Class="text-danger">
+            Delete file
+        </LumexDropdownItem>
+    </LumexDropdownMenu>
+</LumexDropdown>
+
+@code {
+    private string _dropdownId = "dropdown-disabled-items";
+
+    private Task TriggerAsync()
+    {
+        return PopoverService.TriggerAsync( _dropdownId );
+    }
+}

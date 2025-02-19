@@ -1,0 +1,50 @@
+﻿@namespace LumexUI.Internal
+@inherits LumexComponentBase
+
+@{
+    Context.Register( this );
+}
+
+@code {
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="__builder"></param>
+    protected internal virtual void Render( RenderTreeBuilder __builder )
+    {
+        <LumexComponent As="@As"
+                        Class="@_slots["Base"]( Menu.ItemClasses?.Base, Classes?.Base, Class )"
+                        Style="@Style"
+                        data-slot="base"
+                        data-disabled="@_disabled.ToAttributeValue()"
+                        data-readonly="@ReadOnly.ToAttributeValue()"
+                        @attributes="@AdditionalAttributes"
+                        @onclick="@OnClickAsync">
+            @StartContent
+
+            @if( !string.IsNullOrEmpty( Description ) )
+            {
+                <div class="@_slots["Wrapper"]( Menu.ItemClasses?.Wrapper, Classes?.Wrapper )"
+                     data-slot="wrapper">
+                    <span class="@_slots["Title"]( Menu.ItemClasses?.Title, Classes?.Title )"
+                          data-slot="title">
+                        @ChildContent
+                    </span>
+                    <span class="@_slots["Description"]( Menu.ItemClasses?.Description, Classes?.Description )"
+                          data-slot="description">
+                        @Description
+                    </span>
+                </div>
+            }
+            else
+            {
+                <span class="@_slots["Title"]( Menu.ItemClasses?.Title, Classes?.Title )"
+                      data-slot="title">
+                    @ChildContent
+                </span>
+            }
+
+            @EndContent
+        </LumexComponent>
+    }
+}

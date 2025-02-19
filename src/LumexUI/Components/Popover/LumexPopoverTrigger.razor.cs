@@ -5,7 +5,6 @@
 using System.Diagnostics.CodeAnalysis;
 
 using LumexUI.Common;
-using LumexUI.Styles;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -15,79 +14,83 @@ namespace LumexUI;
 /// <summary>
 /// A component representing the trigger of the <see cref="LumexPopover"/> component, controlling its display.
 /// </summary>
+[Obsolete( "Deprecated. This will be removed in the future releases. See the Popover usage in the docs." )]
 [CompositionComponent( typeof( LumexPopover ) )]
 public partial class LumexPopoverTrigger : LumexButton
 {
-    [CascadingParameter] internal PopoverContext Context { get; set; } = default!;
+	[CascadingParameter] internal PopoverContext Context { get; set; } = default!;
 
-    private protected override string? RootClass =>
-        TwMerge.Merge( base.RootClass, Popover.GetTriggerStyles( this ) );
+	private LumexPopover Popover => Context.Owner;
 
-    /// <inheritdoc />
-    public override async Task SetParametersAsync( ParameterView parameters )
-    {
-        await base.SetParametersAsync( parameters );
+	/// <inheritdoc />
+	public override Task SetParametersAsync( ParameterView parameters )
+	{
+		parameters.SetParameterProperties( this );
 
-        Color = parameters.TryGetValue<ThemeColor>( nameof( Color ), out var color )
-            ? color
-            : Context.Owner.Color;
-    }
+		Color = parameters.TryGetValue<ThemeColor>( nameof( Color ), out var color )
+			? color
+			: Popover.Color;
 
-    /// <inheritdoc />
-    protected override void OnInitialized()
-    {
-        ContextNullException.ThrowIfNull( Context, nameof( LumexPopoverTrigger ) );
+		return base.SetParametersAsync( parameters );
+	}
 
-        SetAdditionalAttributes();
-    }
+	/// <inheritdoc />
+	protected override void OnInitialized()
+	{
+		ContextNullException.ThrowIfNull( Context, nameof( LumexPopoverTrigger ) );
 
-    private void SetAdditionalAttributes()
-    {
-        if( TryConvertToDictionary( AdditionalAttributes, out var additionalAttributes ) )
-        {
-            AdditionalAttributes = additionalAttributes;
-        }
+		Class = Popover.Slots["Trigger"]( Popover.Classes?.Trigger, Class );
 
-        additionalAttributes["data-slot"] = "trigger";
-        additionalAttributes["data-popoverref"] = Context.Owner.Id;
-    }
+		SetAdditionalAttributes();
+	}
 
-    private protected override async Task OnClickAsync( MouseEventArgs args )
-    {
-        if( Disabled )
-        {
-            return;
-        }
+	private void SetAdditionalAttributes()
+	{
+		if( TryConvertToDictionary( AdditionalAttributes, out var additionalAttributes ) )
+		{
+			AdditionalAttributes = additionalAttributes;
+		}
 
-        await Context.TriggerAsync();
-        await OnClick.InvokeAsync( args );
-    }
+		additionalAttributes["data-slot"] = "trigger";
+		additionalAttributes["data-popoverref"] = Popover.Id;
+	}
 
-    // TODO: Move to the extensions (duplicate of ConvertToDictionary in LumexNumbox)
-    [ExcludeFromCodeCoverage]
-    private static bool TryConvertToDictionary( IReadOnlyDictionary<string, object>? source, out Dictionary<string, object> result )
-    {
-        var newDictionaryCreated = true;
+	private protected override async Task OnClickAsync( MouseEventArgs args )
+	{
+		if( Disabled )
+		{
+			return;
+		}
 
-        if( source is null )
-        {
-            result = [];
-        }
-        else if( source is Dictionary<string, object> currentDictionary )
-        {
-            result = currentDictionary;
-            newDictionaryCreated = false;
-        }
-        else
-        {
-            result = [];
+		await Context.TriggerAsync();
+		await OnClick.InvokeAsync( args );
+	}
 
-            foreach( var item in source )
-            {
-                result.Add( item.Key, item.Value );
-            }
-        }
+	// TODO: Move to the extensions (duplicate of ConvertToDictionary in LumexNumbox)
+	[ExcludeFromCodeCoverage]
+	private static bool TryConvertToDictionary( IReadOnlyDictionary<string, object>? source, out Dictionary<string, object> result )
+	{
+		var newDictionaryCreated = true;
 
-        return newDictionaryCreated;
-    }
+		if( source is null )
+		{
+			result = [];
+		}
+		else if( source is Dictionary<string, object> currentDictionary )
+		{
+			result = currentDictionary;
+			newDictionaryCreated = false;
+		}
+		else
+		{
+			result = [];
+
+			foreach( var item in source )
+			{
+				result.Add( item.Key, item.Value );
+			}
+		}
+
+		return newDictionaryCreated;
+	}
 }
