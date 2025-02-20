@@ -70,10 +70,10 @@
 </div>
 
 @code {
-    private object? _selectedTabIdOne;
-    private object? _selectedTabIdTwo;
+    private string? _selectedTabIdOne;
+    private string? _selectedTabIdTwo;
 
-    private void OnSelectedTabChange(object? id)
+    private void OnSelectedTabChange( string? id )
     {
         _selectedTabIdTwo = id;
     }

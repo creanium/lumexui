@@ -2,7 +2,7 @@
     <LumexTabs Variant="@TabVariant.Underlined"
                Color="@ThemeColor.Primary"
                Classes="@_classes">
-        <LumexTab Id="@("photos")">
+        <LumexTab>
             <TitleContent>
                 <div class="flex items-center space-x-2">
                     <LumexIcon Icon="@Icons.Rounded.PhotoLibrary" />
@@ -11,7 +11,7 @@
                 </div>
             </TitleContent>
         </LumexTab>
-        <LumexTab Id="@("music")">
+        <LumexTab>
             <TitleContent>
                 <div class="flex items-center space-x-2">
                     <LumexIcon Icon="@Icons.Rounded.LibraryMusic" />
@@ -20,7 +20,7 @@
                 </div>
             </TitleContent>
         </LumexTab>
-        <LumexTab Id="@("videos")">
+        <LumexTab>
             <TitleContent>
                 <div class="flex items-center space-x-2">
                     <LumexIcon Icon="@Icons.Rounded.VideoLibrary" />
@@ -34,9 +34,9 @@
 
 @code {
     private RenderFragment<int> _chip = content =>
-    @<div class="size-5 inline-flex items-center justify-center border-2 border-default-200 bg-default-100 text-default-foreground rounded-full">
-        <span class="text-tiny">@content</span>
-    </div>;
+        @<div class="size-5 inline-flex items-center justify-center border-2 border-default-200 bg-default-100 text-default-foreground rounded-full">
+            <span class="text-tiny">@content</span>
+        </div>;
 
     private TabsSlots _classes = new()
     {

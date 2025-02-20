@@ -2,9 +2,9 @@
     @foreach (var color in Enum.GetValues<ThemeColor>()[1..])
     {
         <LumexTabs Color="@color">
-            <LumexTab Id="@("photos")" Title="Photos" />
-            <LumexTab Id="@("music")" Title="Music" />
-            <LumexTab Id="@("videos")" Title="Videos" />
+            <LumexTab Title="Photos" />
+            <LumexTab Title="Music" />
+            <LumexTab Title="Videos" />
         </LumexTabs>
     }
 </div>

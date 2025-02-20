@@ -21,6 +21,10 @@
 
         <p>Alternatively, you can prevent user interaction by disabling specific tabs.</p>
         <DisabledItems />
+        <Callout Variant="@CalloutVariant.Warning">
+            It's important to set a unique <Code>Id</Code> for each tab,
+            otherwise the disabled items will not work.
+        </Callout>
     </DocsSection>
 
     <DocsSection Title="Sizes">
@@ -90,7 +94,7 @@
     private readonly Heading[] _headings = new Heading[]
     {
         new("Usage", [
-            new("Disalbed"),
+            new("Disabled"),
             new("Sizes"),
             new("Radius"),
             new("Colors"),
