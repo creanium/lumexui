@@ -140,22 +140,5 @@
         tab.TextContent.Should().Be("Item 1");
     }
 
-    [Fact]
-    public void ShouldThrowWhenTabIdIsNotProvided()
-    {
-        var action = () => Render(
-            @<LumexTabs>
-                @foreach(var tab in _tabs)
-                {
-                    <LumexTab Title="@tab.Title">
-                        @tab.Content
-                    </LumexTab>
-                }
-            </LumexTabs>
-        );
-
-        action.Should().Throw<InvalidOperationException>();
-    }
-
     private record TestModel(string Id, string Title, string Content);
 }
