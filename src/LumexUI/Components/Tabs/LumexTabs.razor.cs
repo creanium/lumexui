@@ -65,17 +65,17 @@ public partial class LumexTabs : LumexComponentBase, ISlotComponent<TabsSlots>
 	/// <summary>
 	/// Gets or sets a collection of tab IDs that should be disabled.
 	/// </summary>
-	[Parameter] public ICollection<object>? DisabledItems { get; set; }
+	[Parameter] public ICollection<string>? DisabledItems { get; set; }
 
 	/// <summary>
 	/// Gets or sets the ID of the currently selected tab.
 	/// </summary>
-	[Parameter] public object? SelectedId { get; set; }
+	[Parameter] public string? SelectedId { get; set; }
 
 	/// <summary>
 	/// Gets or sets the callback invoked when the selected tab changes.
 	/// </summary>
-	[Parameter] public EventCallback<object> SelectedIdChanged { get; set; }
+	[Parameter] public EventCallback<string> SelectedIdChanged { get; set; }
 
 	/// <summary>
 	/// Gets or sets the CSS class names for the tabs slots.
@@ -117,10 +117,9 @@ public partial class LumexTabs : LumexComponentBase, ISlotComponent<TabsSlots>
 		] );
 	}
 
-	internal Task SetSelectedIdAsync( object id )
+	internal Task SetSelectedIdAsync( string id )
 	{
-		var hasChanged = !EqualityComparer<object>.Default.Equals( SelectedId, id );
-		if( SelectedId is null || hasChanged )
+		if( SelectedId is null || SelectedId != id )
 		{
 			SelectedId = id;
 			return SelectedIdChanged.InvokeAsync( id );

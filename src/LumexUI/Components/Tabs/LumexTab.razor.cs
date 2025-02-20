@@ -4,6 +4,7 @@
 
 using LumexUI.Common;
 using LumexUI.Motion.Types;
+using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
 
@@ -16,11 +17,6 @@ namespace LumexUI;
 public partial class LumexTab : LumexComponentBase
 {
 	/// <summary>
-	/// Gets or sets the unique identifier for the tab.
-	/// </summary>
-	[Parameter, EditorRequired] public object Id { get; set; } = default!;
-
-	/// <summary>
 	/// Gets or sets the content to be rendered inside the tab panel.
 	/// </summary>
 	[Parameter] public RenderFragment? ChildContent { get; set; }
@@ -29,6 +25,11 @@ public partial class LumexTab : LumexComponentBase
 	/// Gets or sets the content to be rendered as the tab's title.
 	/// </summary>
 	[Parameter] public RenderFragment? TitleContent { get; set; }
+
+	/// <summary>
+	/// Gets or sets the unique identifier for the tab.
+	/// </summary>
+	[Parameter] public string Id { get; set; } = Identifier.New();
 
 	/// <summary>
 	/// Gets or sets the title text of the tab.
