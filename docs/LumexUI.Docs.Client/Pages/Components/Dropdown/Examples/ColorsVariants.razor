@@ -41,7 +41,6 @@
 
 @code {
     private ThemeColor _color = ThemeColor.Default;
-    private MenuVariant _variant = MenuVariant.Solid;
 
     private Task TriggerAsync( string id )
     {
@@ -57,7 +56,7 @@
             MenuVariant.Flat => Variant.Flat,
             MenuVariant.Shadow => Variant.Shadow,
             MenuVariant.Light => Variant.Light,
-            _ => Variant.Solid
+            _ => throw new NotSupportedException()
         };
     }
 }

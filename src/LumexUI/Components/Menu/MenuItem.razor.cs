@@ -116,6 +116,12 @@ public abstract partial class MenuItem : LumexComponentBase
 	/// <inheritdoc />
 	protected override void OnParametersSet()
 	{
+		if( Id is null )
+		{
+			throw new InvalidOperationException(
+				$"{GetType()} requires a value for the {nameof( Id )} parameter." );
+		}
+
 		_disabled = Disabled || Menu.DisabledItems?.Contains( Id ) is true;
 
 		var menuItem = Styles.MenuItem.Style( TwVariant );
