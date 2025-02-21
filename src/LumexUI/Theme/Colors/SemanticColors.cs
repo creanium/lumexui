@@ -94,7 +94,7 @@ public static class SemanticColors
         ],
         Foreground = [
             .. Colors.ReverseColorValues( Colors.Zinc ),
-            new( Default, Colors.Zinc["200"] ),
+            new( Default, Colors.Zinc["300"] ),
         ],                              
         Overlay = [
             new( Default, Colors.Black )
@@ -103,7 +103,7 @@ public static class SemanticColors
             new( Default, Colors.Blue["500"] )
         ],
         Divider = [
-            new( Default, Colors.Zinc["50"] )
+            new( Default, Colors.Zinc["100"] )
         ],
         Surface1 = [
             new( Default, Colors.Zinc["900"] ),
