@@ -16,7 +16,7 @@
         .Add( "rounded-full" )
         .Add( "ring-1" )
         .Add( "font-semibold" )
-        .Add( "text-[0.5rem]" )
+        .Add( "text-[0.625rem]" )
         .Add( "uppercase" )
         .Add( "leading-none" )
         .Add( _variants[Status!.Value], when: Status.HasValue )
@@ -24,8 +24,8 @@
 
     private static readonly Dictionary<ComponentStatus, string> _variants = new()
     {
-        [ComponentStatus.New] = "bg-orange-100 ring-orange-300 text-orange-600",
-        [ComponentStatus.Soon] = "bg-foreground-100 ring-foreground-300 text-foreground-600",
-        [ComponentStatus.Preview] = "bg-indigo-50 ring-indigo-200 text-indigo-500"
+        [ComponentStatus.New] = "bg-orange-500/20 ring-orange-300 text-orange-600 dark:ring-orange-300 dark:text-orange-400",
+        [ComponentStatus.Soon] = "bg-foreground-500/20 ring-foreground-300 text-foreground-600",
+        [ComponentStatus.Preview] = "bg-indigo-500/20 ring-indigo-300 text-indigo-600 dark:ring-indigo-300 dark:text-indigo-400"
     };
 }

@@ -40,7 +40,7 @@
             <li>
                 <LumexLink Href="@($"docs/api/{formattedName.ToKebabCase()}")"
                            Match="@NavLinkMatch.Prefix"
-                           Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 data-[active=true]:border-current">
+                           Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 dark:data-[active=true]:text-orange-400 data-[active=true]:border-current">
                     @item.Name.Replace( "Lumex", "" )
                 </LumexLink>
             </li>
@@ -48,15 +48,13 @@
         else
         {
             var styles = ElementClass.Default( "flex items-center gap-2" )
-                .Add( ElementClass.Empty()
-                    .Add( "opacity-disabled" )
-                    .Add( "pointer-events-none" ), when: item.Status.HasValue && item.Status.Value is ComponentStatus.Soon )
+                .Add( "opacity-disabled pointer-events-none", when: item.Status.HasValue && item.Status.Value is ComponentStatus.Soon )
                 .ToString();
 
             <li class="@styles">
                 <LumexLink Href="@($"docs/{categoryName.ToKebabCase()}/{formattedName.ToKebabCase()}")"
                            Match="@NavLinkMatch.Prefix"
-                           Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 data-[active=true]:border-current">
+                           Class="block border-l pl-4 -ml-px border-transparent text-foreground hover:border-foreground-400 data-[active=true]:text-orange-500 dark:data-[active=true]:text-orange-400 data-[active=true]:border-current">
                     @formattedName
                 </LumexLink>
                 <NavItemBadge Status="@item.Status" />
