@@ -8,7 +8,7 @@ module.exports = {
         '../LumexUI.Docs.Client/{Pages,Components}/**/*.{razor,razor.cs}',
         `${lumexui}/Styles/*.cs`
     ],
-    darkMode: 'class',
+    darkMode: 'selector',
     theme: {
         extend: {
             fontFamily: {
