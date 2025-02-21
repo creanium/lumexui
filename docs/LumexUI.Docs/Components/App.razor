@@ -16,6 +16,14 @@
         <Routes />
     </div>
 
+    <script>
+        (function() {
+            let theme = localStorage.getItem('theme');
+            if (theme === "light" || theme === "dark") {
+                document.documentElement.classList.add(theme);
+            }
+        })();
+    </script>
     <script src="js/prism.js"></script>
     <script src="js/docs.js"></script>
     <script src="_content/LumexUI/js/LumexUI.js" type="module"></script>
