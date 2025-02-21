@@ -5,6 +5,7 @@
 using System.Globalization;
 using System.Text;
 
+using LumexUI.Services;
 using LumexUI.Theme;
 using LumexUI.Utilities;
 
@@ -22,19 +23,23 @@ public partial class LumexThemeProvider : ComponentBase
 	/// <summary>
 	/// Gets or sets the configuration of the theme.
 	/// </summary>
-	[Parameter] public LumexTheme Theme { get; set; }
+	[Parameter] public LumexTheme Theme { get; set; } = new();
 
-	/// <summary>
-	/// Initializes a new instance of the <see cref="LumexThemeProvider"/>.
-	/// </summary>
-	public LumexThemeProvider()
+	[Inject] private ThemeService ThemeService { get; set; } = default!;
+
+	/// <inheritdoc />
+	protected override async Task OnAfterRenderAsync( bool firstRender )
 	{
-		Theme = new();
+		if( firstRender )
+		{
+			await ThemeService.InitializeAsync( Theme.DefaultTheme );
+		}
 	}
 
 	private string GenerateTheme<TColors>( ThemeConfig<TColors> theme ) where TColors : ThemeColors, new()
 	{
-		var cssSelector = $"[data-theme={theme.Type.ToDescription()}]";
+		var themeType = theme.Type.ToDescription();
+		var cssSelector = $".{themeType}";
 
 		if( theme.Type == Theme.DefaultTheme )
 		{
@@ -43,6 +48,7 @@ public partial class LumexThemeProvider : ComponentBase
 
 		var sb = new StringBuilder();
 		sb.AppendLine( $"{cssSelector} {{" );
+		sb.AppendLine( $"color-scheme: {themeType};" );
 
 		// Colors
 		var themeColors = GetThemeColorsDict( theme.Colors );
