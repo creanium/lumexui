@@ -5,6 +5,7 @@
 using System.Globalization;
 using System.Text;
 
+using LumexUI.Extensions;
 using LumexUI.Theme;
 using LumexUI.Utilities;
 

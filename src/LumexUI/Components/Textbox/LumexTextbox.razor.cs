@@ -3,7 +3,7 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using LumexUI.Common;
-using LumexUI.Utilities;
+using LumexUI.Extensions;
 
 using Microsoft.AspNetCore.Components;
 

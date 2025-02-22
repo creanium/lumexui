@@ -3,6 +3,7 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using LumexUI.Common;
+using LumexUI.Extensions;
 using LumexUI.Services;
 using LumexUI.Styles;
 using LumexUI.Utilities;

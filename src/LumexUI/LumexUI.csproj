@@ -27,12 +27,6 @@
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
 
-	<PropertyGroup>
-		<TargetsForTfmSpecificContentInPackage>
-			$(TargetsForTfmSpecificContentInPackage);AddUtilitiesToOutput
-		</TargetsForTfmSpecificContentInPackage>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<None Include="..\..\LICENSE" Pack="true" Visible="false" PackagePath="" />
 		<None Include="..\..\README.md" Pack="true" Visible="false" PackagePath="" />
@@ -59,16 +53,8 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\LumexUI.Motion\LumexUI.Motion.csproj" />
-		<ProjectReference Include="..\LumexUI.Utilities\LumexUI.Utilities.csproj" />
 		<ProjectReference Include="..\LumexUI.Variants\LumexUI.Variants.csproj" />
 	</ItemGroup>
-
-	<!-- Add utilities to the build output -->
-	<Target Name="AddUtilitiesToOutput">
-		<ItemGroup>
-			<TfmSpecificPackageFile Include="$(OutputPath)\$(AssemblyName).Utilities.dll" PackagePath="lib\$(TargetFramework)" />
-		</ItemGroup>
-	</Target>
 
 	<!-- Install npm dependencies if 'node_modules' is not present -->
 	<Target Name="Npm" BeforeTargets="BeforeBuild" Condition="!Exists('node_modules')">

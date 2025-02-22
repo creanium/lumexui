@@ -4,6 +4,8 @@
 
 using System.Diagnostics.CodeAnalysis;
 
+using LumexUI.Extensions;
+
 namespace LumexUI.Utilities;
 
 [ExcludeFromCodeCoverage]
