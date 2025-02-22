@@ -13,10 +13,10 @@
     {
         Services.AddSingleton<TwMerge>();
         Services.AddSingleton<TwVariant>();
-        Services.AddSingleton<MotionInterop>();
+        Services.AddSingleton<MotionJsInterop>();
 
-        var module = JSInterop.SetupModule("./_content/LumexUI.Motion/motion.js");
-        module.SetupVoid("motion.animateLayoutId", _ => true);
+        var module = JSInterop.SetupModule( "./_content/LumexUI.Motion/motion.js" );
+        module.SetupVoid( "motion.animateLayoutId", _ => true );
     }
 
     [Fact]

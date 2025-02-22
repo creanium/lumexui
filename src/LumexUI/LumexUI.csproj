@@ -48,11 +48,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="TailwindMerge.NET" Version="0.3.0" />
+		<PackageReference Include="LumexUI.Motion" Version="0.0.4" PrivateAssets="all" />
+		<PackageReference Include="TailwindMerge.NET" Version="0.3.0" PrivateAssets="all" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\LumexUI.Motion\LumexUI.Motion.csproj" />
 		<ProjectReference Include="..\LumexUI.Variants\LumexUI.Variants.csproj" />
 	</ItemGroup>
 
