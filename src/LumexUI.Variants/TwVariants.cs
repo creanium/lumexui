@@ -10,7 +10,7 @@ public delegate Dictionary<string, ComponentSlot> ComponentVariant( Dictionary<s
 
 public delegate string? ComponentSlot( params string?[] classNames );
 
-public class TwVariant( TwMerge twMerge )
+public class TwVariants( TwMerge twMerge )
 {
 	public ComponentVariant Create( VariantConfig config )
 	{

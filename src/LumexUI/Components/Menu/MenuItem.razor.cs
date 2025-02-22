@@ -5,7 +5,6 @@
 using LumexUI.Common;
 using LumexUI.Extensions;
 using LumexUI.Utilities;
-using LumexUI.Variants;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -124,7 +123,7 @@ public abstract partial class MenuItem : LumexComponentBase
 
 		_disabled = Disabled || Menu.DisabledItems?.Contains( Id ) is true;
 
-		var menuItem = Styles.MenuItem.Style( TwVariant );
+		var menuItem = Styles.MenuItem.Style( TwMerge );
 		_slots = menuItem( new()
 		{
 			[nameof( Color )] = Color.ToString(),

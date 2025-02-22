@@ -4,6 +4,8 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
+using TailwindMerge;
+
 namespace LumexUI.Variants.Extensions;
 
 public static class ServiceCollectionExtensions
@@ -12,9 +14,9 @@ public static class ServiceCollectionExtensions
 	/// 
 	/// </summary>
 	/// <param name="services"></param>
-	public static void AddTailwindVariants( this IServiceCollection services )
+	public static void AddTwVariants( this IServiceCollection services )
 	{
-		services.AddSingleton<TwVariant>();
-		//services.AddSingleton<TwMerge>();
+		services.AddScoped<TwMerge>();
+		services.AddScoped<TwVariants>();
 	}
 }

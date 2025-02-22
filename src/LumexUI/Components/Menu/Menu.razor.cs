@@ -3,7 +3,7 @@
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
 using LumexUI.Common;
-using LumexUI.Variants;
+using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
 
@@ -74,7 +74,7 @@ public abstract partial class Menu : LumexComponentBase
 	/// <inheritdoc />
 	protected override void OnParametersSet()
 	{
-		var menu = Styles.Menu.Style( TwVariant );
+		var menu = Styles.Menu.Style( TwMerge );
 		_slots = menu();
 	}
 }

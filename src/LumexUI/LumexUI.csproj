@@ -48,12 +48,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="LumexUI.Motion" Version="0.0.4" PrivateAssets="all" />
-		<PackageReference Include="TailwindMerge.NET" Version="0.3.0" PrivateAssets="all" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\LumexUI.Variants\LumexUI.Variants.csproj" />
+		<PackageReference Include="LumexUI.Motion" Version="0.0.4" />
+		<PackageReference Include="TailwindMerge.NET" Version="0.3.0" />
 	</ItemGroup>
 
 	<!-- Install npm dependencies if 'node_modules' is not present -->

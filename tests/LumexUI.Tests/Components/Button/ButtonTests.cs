@@ -4,7 +4,6 @@
 
 using LumexUI.Common;
 using LumexUI.Extensions;
-using LumexUI.Variants;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,91 +13,90 @@ namespace LumexUI.Tests.Components;
 
 public class ButtonTests : TestContext
 {
-    public ButtonTests()
-    {
-        Services.AddSingleton<TwMerge>();
-		Services.AddSingleton<TwVariant>();
+	public ButtonTests()
+	{
+		Services.AddSingleton<TwMerge>();
 	}
 
-    [Fact]
-    public void Button_ShouldRenderCorrectly()
-    {
-        var action = () => RenderComponent<LumexButton>();
+	[Fact]
+	public void Button_ShouldRenderCorrectly()
+	{
+		var action = () => RenderComponent<LumexButton>();
 
-        action.Should().NotThrow();
-    }
+		action.Should().NotThrow();
+	}
 
-    [Fact]
-    public void Button_Disabled_ShouldHaveDisabledAttribute()
-    {
-        var cut = RenderComponent<LumexButton>( p => p
-            .Add( p => p.Disabled, true )
-        );
+	[Fact]
+	public void Button_Disabled_ShouldHaveDisabledAttribute()
+	{
+		var cut = RenderComponent<LumexButton>( p => p
+			.Add( p => p.Disabled, true )
+		);
 
-        var button = cut.Find( "button" );
+		var button = cut.Find( "button" );
 
-        button.HasAttribute( "disabled" ).Should().BeTrue();
-    }
+		button.HasAttribute( "disabled" ).Should().BeTrue();
+	}
 
-    [Fact]
-    public void Button_Disabled_ShouldNotTriggerClick()
-    {
-        var clicked = false;
-        var cut = RenderComponent<LumexButton>( p => p
-            .Add( p => p.Disabled, true )
-            .Add( p => p.OnClick, () => clicked = true )
-        );
+	[Fact]
+	public void Button_Disabled_ShouldNotTriggerClick()
+	{
+		var clicked = false;
+		var cut = RenderComponent<LumexButton>( p => p
+			.Add( p => p.Disabled, true )
+			.Add( p => p.OnClick, () => clicked = true )
+		);
 
-        var button = cut.Find( "button" );
-        button.Click();
+		var button = cut.Find( "button" );
+		button.Click();
 
-        clicked.Should().BeFalse();
-    }
+		clicked.Should().BeFalse();
+	}
 
-    [Fact]
-    public void Button_NotDisabled_ShouldTriggerClick()
-    {
-        var clicked = false;
-        var cut = RenderComponent<LumexButton>( p => p
-            .Add( p => p.Disabled, false )
-            .Add( p => p.OnClick, () => clicked = true )
-        );
+	[Fact]
+	public void Button_NotDisabled_ShouldTriggerClick()
+	{
+		var clicked = false;
+		var cut = RenderComponent<LumexButton>( p => p
+			.Add( p => p.Disabled, false )
+			.Add( p => p.OnClick, () => clicked = true )
+		);
 
-        var button = cut.Find( "button" );
-        button.Click();
+		var button = cut.Find( "button" );
+		button.Click();
 
-        clicked.Should().BeTrue();
-    }
+		clicked.Should().BeTrue();
+	}
 
-    [Fact]
-    public void Button_Type_ShouldHaveCorrectTypeAttribute()
-    {
-        var cut = RenderComponent<LumexButton>( p => p
-            .Add( p => p.Type, ButtonType.Submit )
-        );
+	[Fact]
+	public void Button_Type_ShouldHaveCorrectTypeAttribute()
+	{
+		var cut = RenderComponent<LumexButton>( p => p
+			.Add( p => p.Type, ButtonType.Submit )
+		);
 
-        var button = cut.Find( "button" );
+		var button = cut.Find( "button" );
 
-        button.GetAttribute( "type" ).Should().Be( ButtonType.Submit.ToDescription() );
-    }
+		button.GetAttribute( "type" ).Should().Be( ButtonType.Submit.ToDescription() );
+	}
 
-    [Fact]
-    public void Button_StartContent_ShouldRenderWithStartContent()
-    {
-        var cut = RenderComponent<LumexButton>( p => p
-            .Add( p => p.StartContent, "start-content" )
-        );
+	[Fact]
+	public void Button_StartContent_ShouldRenderWithStartContent()
+	{
+		var cut = RenderComponent<LumexButton>( p => p
+			.Add( p => p.StartContent, "start-content" )
+		);
 
-        cut.Markup.Should().Contain( "start-content" );
-    }
+		cut.Markup.Should().Contain( "start-content" );
+	}
 
-    [Fact]
-    public void Button_EndContent_ShouldRenderWithEndContent()
-    {
-        var cut = RenderComponent<LumexButton>( p => p
-            .Add( p => p.EndContent, "end-content" )
-        );
+	[Fact]
+	public void Button_EndContent_ShouldRenderWithEndContent()
+	{
+		var cut = RenderComponent<LumexButton>( p => p
+			.Add( p => p.EndContent, "end-content" )
+		);
 
-        cut.Markup.Should().Contain( "end-content" );
-    }
+		cut.Markup.Should().Contain( "end-content" );
+	}
 }

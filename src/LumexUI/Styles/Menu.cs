@@ -7,7 +7,8 @@ using System.Diagnostics.CodeAnalysis;
 using LumexUI.Common;
 using LumexUI.Internal;
 using LumexUI.Utilities;
-using LumexUI.Variants;
+
+using TailwindMerge;
 
 using MenuItemComp = LumexUI.Internal.MenuItem;
 
@@ -18,9 +19,11 @@ internal static class Menu
 {
 	private static ComponentVariant? _variant;
 
-	public static ComponentVariant Style( TwVariant twVariant )
+	public static ComponentVariant Style( TwMerge twMerge )
 	{
-		return _variant ??= twVariant.Create( new VariantConfig()
+		var twVariants = new TwVariants( twMerge );
+
+		return _variant ??= twVariants.Create( new VariantConfig()
 		{
 			Slots = new SlotCollection
 			{
@@ -59,9 +62,11 @@ internal static class MenuItem
 {
 	private static ComponentVariant? _variant;
 
-	public static ComponentVariant Style( TwVariant twVariant )
+	public static ComponentVariant Style( TwMerge twMerge )
 	{
-		return _variant ??= twVariant.Create( new VariantConfig()
+		var twVariants = new TwVariants( twMerge );
+
+		return _variant ??= twVariants.Create( new VariantConfig()
 		{
 			Slots = new SlotCollection()
 			{

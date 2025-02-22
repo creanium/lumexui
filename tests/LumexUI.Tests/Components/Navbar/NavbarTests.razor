@@ -9,7 +9,6 @@
     public NavbarTests()
     {
         Services.AddSingleton<TwMerge>();
-        Services.AddSingleton<TwVariant>();
 
         JSInterop.Setup<int>( "Lumex.elementReference.getScrollHeight", _ => true );
         JSInterop.SetupVoid( "Lumex.elementReference.portalTo", _ => true );

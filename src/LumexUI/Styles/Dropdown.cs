@@ -5,7 +5,8 @@
 using System.Diagnostics.CodeAnalysis;
 
 using LumexUI.Utilities;
-using LumexUI.Variants;
+
+using TailwindMerge;
 
 namespace LumexUI.Styles;
 
@@ -14,9 +15,11 @@ internal static class Dropdown
 {
 	private static ComponentVariant? _variant;
 
-	public static ComponentVariant Style( TwVariant twVariant )
+	public static ComponentVariant Style( TwMerge twMerge )
 	{
-		return _variant ??= twVariant.Create( new VariantConfig()
+		var twVariants = new TwVariants( twMerge );
+
+		return _variant ??= twVariants.Create( new VariantConfig()
 		{
 			Base = new ElementClass()
 				.Add( "min-w-[200px]" )

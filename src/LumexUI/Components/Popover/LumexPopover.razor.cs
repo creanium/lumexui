@@ -7,7 +7,6 @@ using LumexUI.Extensions;
 using LumexUI.Services;
 using LumexUI.Styles;
 using LumexUI.Utilities;
-using LumexUI.Variants;
 
 using Microsoft.AspNetCore.Components;
 
@@ -144,7 +143,7 @@ public partial class LumexPopover : LumexComponentBase, ISlotComponent<PopoverSl
 
 		Options = new PopoverOptions( this );
 
-		var popover = Popover.Style( TwVariant );
+		var popover = Popover.Style( TwMerge );
 		Slots = popover( new()
 		{
 			[nameof( Size )] = Size.ToString(),

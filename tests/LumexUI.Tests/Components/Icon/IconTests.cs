@@ -2,8 +2,6 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-using LumexUI.Variants;
-
 using Microsoft.Extensions.DependencyInjection;
 
 using TailwindMerge;
@@ -15,7 +13,6 @@ public class IconTests : TestContext
     public IconTests()
     {
         Services.AddSingleton<TwMerge>();
-		Services.AddSingleton<TwVariant>();
 	}
 
     [Fact]

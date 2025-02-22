@@ -4,7 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-using LumexUI.Variants;
+using LumexUI.Utilities;
 
 using Microsoft.AspNetCore.Components;
 
@@ -39,7 +39,6 @@ public abstract class LumexComponentBase : ComponentBase
 	public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
 	[Inject] internal TwMerge TwMerge { get; set; } = default!;
-	[Inject] internal TwVariant TwVariant { get; set; } = default!;
 
 	/// <summary>
 	/// Gets or sets the associated <see cref="ElementReference"/>.

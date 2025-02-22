@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 
 using LumexUI.Motion.Extensions;
 using LumexUI.Services;
-using LumexUI.Variants.Extensions;
+using LumexUI.Utilities;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -28,9 +28,8 @@ public static class ServiceCollectionExtensions
 	/// <param name="services">The <see cref="IServiceCollection"/>.</param>
 	public static void AddLumexServices( this IServiceCollection services )
 	{
-		services.AddLumexMotion();
-		services.AddTailwindVariants();
 		services.AddTwMerge();
+		services.AddLumexMotion();
 		services.AddPopoverService();
 	}
 
@@ -41,9 +40,8 @@ public static class ServiceCollectionExtensions
 	/// <param name="options">An action to configure the <see cref="TwMergeConfig"/>.</param>
 	public static void AddLumexServices( this IServiceCollection services, Action<TwMergeConfig> options )
 	{
-		services.AddLumexMotion();
-		services.AddTailwindVariants();
 		services.AddTwMerge( options );
+		services.AddLumexMotion();
 		services.AddPopoverService();
 	}
 

@@ -4,7 +4,7 @@
 
 using LumexUI.Common;
 using LumexUI.Styles;
-using LumexUI.Variants;
+using LumexUI.Utilities;
 
 namespace LumexUI;
 
@@ -33,7 +33,7 @@ public partial class LumexDropdown : LumexPopover
 	{
 		base.OnParametersSet();
 
-		var dropdown = Dropdown.Style( TwVariant );
+		var dropdown = Dropdown.Style( TwMerge );
 		_slots = dropdown();
 
 		Classes = new PopoverSlots
