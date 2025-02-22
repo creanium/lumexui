@@ -37,7 +37,7 @@ For help, discussion about best practices, or any other conversation that would 
 
 For chatting with others using the library:
 
-[Join the LumexUI Discord Server](https://discord.gg/e2QNPByQ)
+[Join the LumexUI Discord Server](https://discord.gg/6BVRhjyTcX)
 
 ## Contributing
 
