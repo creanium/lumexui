@@ -13,7 +13,6 @@
     --color-foreground-700: var(--lumex-foreground-700);
     --color-foreground-800: var(--lumex-foreground-800);
     --color-foreground-900: var(--lumex-foreground-900);
-    --color-foreground-950: var(--lumex-foreground-950);
     --color-foreground: var(--lumex-foreground);
 
     --color-focus: var(--lumex-focus);
@@ -36,7 +35,6 @@
     --color-default-700: var(--lumex-default-700);
     --color-default-800: var(--lumex-default-800);
     --color-default-900: var(--lumex-default-900);
-    --color-default-950: var(--lumex-default-950);
     --color-default: var(--lumex-default);
     --color-default-foreground: var(--lumex-default-foreground);
 
@@ -50,7 +48,6 @@
     --color-primary-700: var(--lumex-primary-700);
     --color-primary-800: var(--lumex-primary-800);
     --color-primary-900: var(--lumex-primary-900);
-    --color-primary-950: var(--lumex-primary-950);
     --color-primary: var(--lumex-primary);
     --color-primary-foreground: var(--lumex-primary-foreground);
 
@@ -64,7 +61,6 @@
     --color-secondary-700: var(--lumex-secondary-700);
     --color-secondary-800: var(--lumex-secondary-800);
     --color-secondary-900: var(--lumex-secondary-900);
-    --color-secondary-950: var(--lumex-secondary-950);
     --color-secondary: var(--lumex-secondary);
     --color-secondary-foreground: var(--lumex-secondary-foreground);
 
@@ -78,7 +74,6 @@
     --color-success-700: var(--lumex-success-700);
     --color-success-800: var(--lumex-success-800);
     --color-success-900: var(--lumex-success-900);
-    --color-success-950: var(--lumex-success-950);
     --color-success: var(--lumex-success);
     --color-success-foreground: var(--lumex-success-foreground);
 
@@ -92,7 +87,6 @@
     --color-warning-700: var(--lumex-warning-700);
     --color-warning-800: var(--lumex-warning-800);
     --color-warning-900: var(--lumex-warning-900);
-    --color-warning-950: var(--lumex-warning-950);
     --color-warning: var(--lumex-warning);
     --color-warning-foreground: var(--lumex-warning-foreground);
 
@@ -106,7 +100,6 @@
     --color-danger-700: var(--lumex-danger-700);
     --color-danger-800: var(--lumex-danger-800);
     --color-danger-900: var(--lumex-danger-900);
-    --color-danger-950: var(--lumex-danger-950);
     --color-danger: var(--lumex-danger);
     --color-danger-foreground: var(--lumex-danger-foreground);
 
@@ -120,7 +113,6 @@
     --color-info-700: var(--lumex-info-700);
     --color-info-800: var(--lumex-info-800);
     --color-info-900: var(--lumex-info-900);
-    --color-info-950: var(--lumex-info-950);
     --color-info: var(--lumex-info);
     --color-info-foreground: var(--lumex-info-foreground);
 
