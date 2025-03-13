@@ -53,3 +53,11 @@ export function createOutsideClickHandler(element) {
         document.body.removeEventListener('click', clickHandler)
     };
 }
+
+export function isImageLoaded(img) {
+    if (!(img instanceof HTMLElement)) {
+        return false;
+    }
+
+    return img.complete && img.naturalWidth !== 0;
+}
