@@ -23,6 +23,7 @@ public class NavigationStore
 	private static NavigationCategory ComponentsCategory =>
 		new NavigationCategory( "Components", Icons.Rounded.Joystick )
 			.Add( new( nameof( LumexAccordion ) ) )
+			.Add( new( nameof( LumexAvatar ), ComponentStatus.New ) )
 			.Add( new( nameof( LumexButton ) ) )
 			.Add( new( nameof( LumexCard ) ) )
 			.Add( new( nameof( LumexCheckbox ) ) )
@@ -30,7 +31,7 @@ public class NavigationStore
 			.Add( new( nameof( LumexCollapse ) ) )
 			.Add( new( nameof( LumexDataGrid<T> ) ) )
 			.Add( new( nameof( LumexDivider ) ) )
-			.Add( new( nameof( LumexDropdown ), ComponentStatus.New ) )
+			.Add( new( nameof( LumexDropdown ) ) )
 			.Add( new( nameof( LumexIcon ) ) )
 			.Add( new( nameof( LumexLink ) ) )
 			.Add( new( nameof( LumexListbox<T> ) ) )
@@ -39,14 +40,17 @@ public class NavigationStore
 			.Add( new( nameof( LumexPopover ) ) )
 			.Add( new( nameof( LumexRadioGroup<T> ) ) )
 			.Add( new( nameof( LumexSelect<T> ) ) )
+			.Add( new( nameof( LumexSkeleton ), ComponentStatus.New ) )
 			.Add( new( nameof( LumexSwitch ) ) )
-			.Add( new( nameof( LumexTabs ), ComponentStatus.New ) )
+			.Add( new( nameof( LumexTabs ) ) )
 			.Add( new( nameof( LumexTextbox ) ) );
 
 	private static NavigationCategory ComponentsApiCategory =>
 		new NavigationCategory( "Components API", Icons.Rounded.Manufacturing )
 			.Add( new( nameof( LumexAccordion ) ) )
 			.Add( new( nameof( LumexAccordionItem ) ) )
+			.Add( new( nameof( LumexAvatar ) ) )
+			.Add( new( nameof( LumexAvatarGroup ) ) )
 			//.Add( nameof( LumexBooleanInputBase ) )
 			.Add( new( nameof( LumexButton ) ) )
 			.Add( new( nameof( LumexCard ) ) )
@@ -82,6 +86,7 @@ public class NavigationStore
 			.Add( new( nameof( LumexPopoverTrigger ) ) )
 			.Add( new( nameof( LumexSelect<T> ) ) )
 			.Add( new( nameof( LumexSelectItem<T> ) ) )
+			.Add( new( nameof( LumexSkeleton ) ) )
 			.Add( new( nameof( LumexSwitch ) ) )
 			.Add( new( nameof( LumexTab ) ) )
 			.Add( new( nameof( LumexTabs ) ) )
