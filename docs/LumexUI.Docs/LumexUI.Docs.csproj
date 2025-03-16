@@ -48,8 +48,8 @@
 	</Target>
 
 	<Target Name="TailwindCSS" AfterTargets="InstallTailwindCSS">
-		<Exec Command="tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs.css --minify" Condition="'$(OS)' == 'Windows_NT'" />
-		<Exec Command="./tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs.css --minify" Condition="'$(OS)' != 'Windows_NT'" />
+		<Exec Command="tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs.css" Condition="'$(OS)' == 'Windows_NT'" />
+		<Exec Command="./tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs.css" Condition="'$(OS)' != 'Windows_NT'" />
 	</Target>
 
 </Project>
