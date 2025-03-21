@@ -5,37 +5,37 @@
 namespace LumexUI.Common;
 
 /// <summary>
-/// Specifies the visual variants for the <see cref="LumexSpinner"/>.
+/// Specifies the visual variants for the <see cref="LumexChip"/>.
 /// </summary>
-public enum SpinnerVariant
+public enum ChipVariant
 {
 	/// <summary>
-	/// A circular ring-shaped spinner.
+	/// A solid chip with a filled background.
 	/// </summary>
-	Ring,
+	Solid,
 
 	/// <summary>
-	/// An arc-shaped spinner.
+	/// A chip with an outlined border.
 	/// </summary>
-	Arc,
+	Outlined,
 
 	/// <summary>
-	/// An arc-shaped spinner with gradient coloring.
+	/// A chip with a flat background.
 	/// </summary>
-	ArcGradient,
+	Flat,
 
 	/// <summary>
-	/// A spinner consisting of dots in a wave animation.
+	/// A chip with a shadow.
 	/// </summary>
-	DotsWave,
+	Shadow,
 
 	/// <summary>
-	/// A spinner consisting of dots with fade animation.
+	/// A chip without a background, just text.
 	/// </summary>
-	DotsFade,
+	Light,
 
 	/// <summary>
-	/// A classic spinner style.
+	/// A chip with a dot at the start.
 	/// </summary>
-	Classic
+	Dot
 }
