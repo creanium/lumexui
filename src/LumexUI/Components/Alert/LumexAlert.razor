@@ -1,0 +1,48 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+@using S = AlertSlots;
+
+<div role="alert"
+     class="@Class"
+     style="@Style"
+     data-slot="base"
+     data-closeable="@Closeable.ToAttributeValue()"
+     data-has-title="@HasTitle.ToAttributeValue()"
+     data-has-description="@HasDescription.ToAttributeValue()"
+     @attributes="@AdditionalAttributes">
+    @StartContent
+
+    <div class="" data-slot="icon-wrapper">
+        <LumexIcon Icon="@AlertIcon" data-slot="alert-icon" />
+    </div>
+
+    <div class="" data-slot="main-wrapper">
+        @if( HasTitle )
+        {
+            <div class="" data-slot="title">
+                @(!string.IsNullOrWhiteSpace( Title ) ? (MarkupString)Title : TitleContent)
+            </div>
+        }
+
+        @if( HasDescription )
+        {
+            <div class="" data-slot="description">
+                @(!string.IsNullOrWhiteSpace( Description ) ? (MarkupString)Description : DescriptionContent)
+            </div>
+        }
+
+        @ChildContent
+    </div>
+
+    @EndContent
+
+    @if( Closeable || OnClose.HasDelegate )
+    {
+        <LumexButton Radius="@Radius.Full"
+                     Variant="@Common.Variant.Light"
+                     aria-label="Close">
+            <LumexIcon Icon="@Icons.Rounded.Close" Size="@new("20")" />
+        </LumexButton>
+    }
+</div>
