@@ -84,6 +84,11 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 	/// <summary>
 	/// 
 	/// </summary>
+	[Parameter] public bool HideIcon { get; set; }
+
+	/// <summary>
+	/// 
+	/// </summary>
 	[Parameter] public bool Closeable { get; set; }
 
 	/// <summary>

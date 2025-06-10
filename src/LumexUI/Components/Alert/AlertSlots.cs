@@ -25,4 +25,34 @@ public class AlertSlots : ISlot
 	/// Gets or sets the CSS class for the base slot.
 	/// </summary>
 	public string? Base { get; set; }
+
+	/// <summary>
+	/// Gets or sets the CSS class for the main wrapper slot.
+	/// </summary>
+	public string? MainWrapper { get; set; }
+
+	/// <summary>
+	/// Gets or sets the CSS class for the title slot.
+	/// </summary>
+	public string? Title { get; set; }
+
+	/// <summary>
+	/// Gets or sets the CSS class for the description slot.
+	/// </summary>
+	public string? Description { get; set; }
+
+	/// <summary>
+	/// Gets or sets the CSS class for the close button slot.
+	/// </summary>
+	public string? CloseButton { get; set; }
+
+	/// <summary>
+	/// Gets or sets the CSS class for the icon wrapper slot.
+	/// </summary>
+	public string? IconWrapper { get; set; }
+
+	/// <summary>
+	/// Gets or sets the CSS class for the icon slot.
+	/// </summary>
+	public string? Icon { get; set; }
 }

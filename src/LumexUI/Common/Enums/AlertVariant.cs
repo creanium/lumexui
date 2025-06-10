@@ -22,5 +22,10 @@ public enum AlertVariant
 	/// <summary>
 	/// An alert with a flat background.
 	/// </summary>
-	Flat
+	Flat,
+
+	/// <summary>
+	/// An alert with a flat background and subtle border.
+	/// </summary>
+	Faded
 }
