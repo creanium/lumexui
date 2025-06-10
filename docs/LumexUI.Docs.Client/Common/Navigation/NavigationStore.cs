@@ -23,6 +23,7 @@ public class NavigationStore
 	private static NavigationCategory ComponentsCategory =>
 		new NavigationCategory( "Components", Icons.Rounded.Joystick )
 			.Add( new( nameof( LumexAccordion ) ) )
+			.Add( new( nameof( LumexAlert ), ComponentStatus.New ) )
 			.Add( new( nameof( LumexAvatar ), ComponentStatus.New ) )
 			.Add( new( nameof( LumexButton ) ) )
 			.Add( new( nameof( LumexCard ) ) )
@@ -51,6 +52,7 @@ public class NavigationStore
 		new NavigationCategory( "Components API", Icons.Rounded.Manufacturing )
 			.Add( new( nameof( LumexAccordion ) ) )
 			.Add( new( nameof( LumexAccordionItem ) ) )
+			.Add( new( nameof( LumexAlert ) ) )
 			.Add( new( nameof( LumexAvatar ) ) )
 			.Add( new( nameof( LumexAvatarGroup ) ) )
 			//.Add( nameof( LumexBooleanInputBase ) )

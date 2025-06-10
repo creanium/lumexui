@@ -20,7 +20,7 @@ internal static class Alert
 	{
 		var twVariants = new TwVariants( twMerge );
 
-		return _variant ??= twVariants.Create( new VariantConfig()
+		return _variant ??= twVariants.Create( new VariantConfig
 		{
 			Slots = new SlotCollection
 			{
@@ -66,12 +66,12 @@ internal static class Alert
 			{
 				[nameof( LumexAlert.Variant )] = new VariantValueCollection
 				{
-					[nameof( AlertVariant.Solid )] = new SlotCollection { },
+					[nameof( AlertVariant.Solid )] = new SlotCollection(),
 					[nameof( AlertVariant.Outlined )] = new SlotCollection
 					{
 						[nameof( AlertSlots.Base )] = "border bg-transparent"
 					},
-					[nameof( AlertVariant.Flat )] = new SlotCollection { },
+					[nameof( AlertVariant.Flat )] = new SlotCollection(),
 					[nameof( AlertVariant.Faded )] = new SlotCollection
 					{
 						[nameof( AlertSlots.Base )] = "border"
@@ -114,7 +114,8 @@ internal static class Alert
 			CompoundVariants =
 			[
 				// solid & color
-				new CompoundVariant()
+				
+				new CompoundVariant
 				{
 					Conditions = new()
 					{
@@ -128,7 +129,7 @@ internal static class Alert
 						[nameof( AlertSlots.Icon )] = "text-default-foreground",
 					}
 				},
-				new CompoundVariant()
+				new CompoundVariant
 				{
 					Conditions = new()
 					{
@@ -140,7 +141,7 @@ internal static class Alert
 						[nameof( AlertSlots.Base )] = ColorVariants.Solid[ThemeColor.Primary]
 					}
 				},
-				new CompoundVariant()
+				new CompoundVariant
 				{
 					Conditions = new()
 					{
@@ -152,7 +153,7 @@ internal static class Alert
 						[nameof( AlertSlots.Base )] = ColorVariants.Solid[ThemeColor.Secondary]
 					}
 				},
-				new CompoundVariant()
+				new CompoundVariant
 				{
 					Conditions = new()
 					{
@@ -164,7 +165,7 @@ internal static class Alert
 						[nameof( AlertSlots.Base )] = ColorVariants.Solid[ThemeColor.Success]
 					}
 				},
-				new CompoundVariant()
+				new CompoundVariant
 				{
 					Conditions = new()
 					{
@@ -176,7 +177,7 @@ internal static class Alert
 						[nameof( AlertSlots.Base )] = ColorVariants.Solid[ThemeColor.Warning]
 					}
 				},
-				new CompoundVariant()
+				new CompoundVariant
 				{
 					Conditions = new()
 					{
@@ -188,7 +189,7 @@ internal static class Alert
 						[nameof( AlertSlots.Base )] = ColorVariants.Solid[ThemeColor.Danger]
 					}
 				},
-				new CompoundVariant()
+				new CompoundVariant
 				{
 					Conditions = new()
 					{
@@ -202,7 +203,7 @@ internal static class Alert
 				},
 
 				// flat & color
-				new CompoundVariant()
+				new CompoundVariant
 				{
 					Conditions = new()
 					{
@@ -220,7 +221,7 @@ internal static class Alert
 						[nameof( AlertSlots.IconWrapper )] = "bg-default-50 dark:bg-default-100 border-default-200",
 					}
 				},
-				new CompoundVariant()
+				new CompoundVariant
 				{
 					Conditions = new()
 					{
@@ -236,7 +237,7 @@ internal static class Alert
 						[nameof( AlertSlots.IconWrapper )] = "bg-primary-50 dark:bg-primary-100 border-primary-100",
 					}
 				},
-				new CompoundVariant()
+				new CompoundVariant
 				{
 					Conditions = new()
 					{
@@ -252,7 +253,7 @@ internal static class Alert
 						[nameof( AlertSlots.IconWrapper )] = "bg-secondary-50 dark:bg-secondary-100 border-secondary-100",
 					}
 				},
-				new CompoundVariant()
+				new CompoundVariant
 				{
 					Conditions = new()
 					{
@@ -268,7 +269,7 @@ internal static class Alert
 						[nameof( AlertSlots.IconWrapper )] = "bg-success-50 dark:bg-success-100 border-success-100",
 					}
 				},
-				new CompoundVariant()
+				new CompoundVariant
 				{
 					Conditions = new()
 					{
@@ -284,7 +285,7 @@ internal static class Alert
 						[nameof( AlertSlots.IconWrapper )] = "bg-warning-50 dark:bg-warning-100 border-warning-100",
 					}
 				},
-				new CompoundVariant()
+				new CompoundVariant
 				{
 					Conditions = new()
 					{
@@ -300,7 +301,7 @@ internal static class Alert
 						[nameof( AlertSlots.IconWrapper )] = "bg-danger-50 dark:bg-danger-100 border-danger-100",
 					}
 				},
-				new CompoundVariant()
+				new CompoundVariant
 				{
 					Conditions = new()
 					{

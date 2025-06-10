@@ -1,0 +1,38 @@
+@page "/docs/components/alert"
+@layout DocsContentLayout
+
+@using LumexUI.Docs.Client.Pages.Components.Alert.PreviewCodes
+
+<DocsSection Title="Usage">
+    <Usage/>
+</DocsSection>
+
+@code {
+    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
+    
+    private readonly Heading[] _headings = new Heading[]
+    {
+        new("Usage", [
+            new("Disabled"),
+            new("Read-Only"),
+            new("Sizes"),
+            new("Radius"),
+            new("Colors"),
+            new("Custom Check Icon"),
+            new("Two-way Data Binding"),
+        ]),
+        new("Custom Styles"),
+        new("API")
+    };
+    
+    protected override void OnInitialized()
+    {
+        Layout.Initialize(
+            title: "Alert",
+            category: "Components",
+            description: "Alerts are temporary notifications that provide concise feedback about an action or event.",
+            headings: _headings,
+            linksProps: new ComponentLinksProps( "Alert", isServer: false )
+        );
+    }
+}

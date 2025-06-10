@@ -121,6 +121,16 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 	/// <inheritdoc />
 	protected override void OnParametersSet()
 	{
+		var alertStyle = Styles.Alert.Style( TwMerge );
+		_slots = alertStyle( new()
+		{
+			[nameof( Color )] = Color.ToString(),
+			[nameof( Radius )] = Radius.ToString(),
+			[nameof( Variant )] = Variant.ToString(),
+			[nameof( HideIcon )] = HideIcon.ToString(),
+			[nameof( Closeable )] = Closeable.ToString(),
+			[nameof( Icon )] = AlertIcon
+		} );
 	}
 
 	[ExcludeFromCodeCoverage]
@@ -128,13 +138,17 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 	{
 		if( !_slots.TryGetValue( slot, out var styles ) )
 		{
-			throw new NotImplementedException();
+			throw new NotImplementedException($"{slot} slot is not implemented in the styles.");
 		}
 
 		return slot switch
 		{
 			nameof( AlertSlots.Base ) => styles( Classes?.Base, Class ),
-			_ => throw new NotImplementedException()
+			nameof( AlertSlots.IconWrapper ) => styles( Classes?.IconWrapper ),
+			nameof( AlertSlots.Icon ) => styles( Classes?.Icon ),
+			nameof( AlertSlots.Title ) => styles( Classes?.Title ),
+			nameof( AlertSlots.Description ) => styles( Classes?.Description ),
+			_ => throw new NotImplementedException($"{slot} slot is not implemented in the styles")
 		};
 	}
 }

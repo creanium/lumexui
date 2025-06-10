@@ -4,7 +4,7 @@
 @using S = AlertSlots;
 
 <div role="alert"
-     class="@Class"
+     class="@GetStyles(nameof(S.Base))"
      style="@Style"
      title="@Title"
      data-slot="base"
@@ -14,21 +14,21 @@
      @attributes="@AdditionalAttributes">
     @StartContent
 
-    <div class="" data-slot="icon-wrapper">
+    <div class="@GetStyles(nameof(S.IconWrapper))" data-slot="icon-wrapper">
         <LumexIcon Icon="@AlertIcon" data-slot="alert-icon" />
     </div>
 
     <div class="" data-slot="main-wrapper">
         @if( HasTitle )
         {
-            <div class="" data-slot="title">
+            <div class="@GetStyles(nameof(S.Title))" data-slot="title">
                 @(!string.IsNullOrWhiteSpace( Title ) ? (MarkupString)Title : TitleContent)
             </div>
         }
 
         @if( HasDescription )
         {
-            <div class="" data-slot="description">
+            <div class="@GetStyles(nameof(S.Description))" data-slot="description">
                 @(!string.IsNullOrWhiteSpace( Description ) ? (MarkupString)Description : DescriptionContent)
             </div>
         }
