@@ -406,3 +406,4 @@ FodyWeavers.xsd
 
 /docs/LumexUI.Docs/**/*/css
 /docs/LumexUI.Docs/*.exe
+docs/LumexUI.Docs/tailwindcss
