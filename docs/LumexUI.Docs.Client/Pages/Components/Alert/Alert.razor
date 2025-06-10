@@ -5,26 +5,82 @@
 
 <DocsSection Title="Usage">
     <Usage/>
+
+    <DocsSection Title="Colors">
+        <p>
+            Alerts can be styled with different colors to indicate the type of message.
+            The available colors are Default, Primary, Secondary, Success, Warning, and Danger.
+        </p>
+        <Colors/>
+    </DocsSection>
+
+    <DocsSection Title="Variants">
+        <p>
+            Alerts can have different variants to suit various design needs.
+            Variants include Default, Outline, and Solid.
+            Each variant has its own visual style and can be used to convey different levels of importance or urgency.
+        </p>
+        <Variants/>
+    </DocsSection>
+    
+    <DocsSection Title="Radius">
+        <p>
+            The alert component supports various border radius options,
+            allowing you to create alerts with rounded corners or sharp edges.
+        </p>
+        <Radius/>
+    </DocsSection>
+
+    <DocsSection Title="Custom Icon">
+        <p>
+            By default, Alert displays an appropriate icon based on the <code>Color</code> prop.
+            You can override this by providing a custom icon using the <code>Icon</code> prop.
+        </p>
+        <CustomIcon/>
+    </DocsSection>
+
+    <DocsSection Title="Without Icon">
+        <p>
+            You can hide the icon by setting the <code>HideIcon</code> prop to <code>true</code>.
+        </p>
+        <NoIcon />
+    </DocsSection>
+
+    <DocsSection Title="Without Icon Wrapper">
+        <p>
+            You can hide the icon by setting the <code>HideIconWrapper</code> prop to <code>true</code>.
+        </p>
+        <NoIconWrapper />
+    </DocsSection>
+
+    <DocsSection Title="Dismissible">
+        <p>
+            You can allow the alert to be dismissed (closed) either by setting the <code>Closeable</code> prop to <code>true</code>, 
+            or by defining a callback for the <code>OnClose</code> property.
+        </p>
+        <Dismissible />
+    </DocsSection>
 </DocsSection>
 
 @code {
-    [CascadingParameter] private DocsContentLayout Layout { get; set; } = default!;
-    
-    private readonly Heading[] _headings = new Heading[]
-    {
+
+    [CascadingParameter]
+    private DocsContentLayout Layout { get; set; } = default!;
+
+    private readonly Heading[] _headings =
+    [
         new("Usage", [
-            new("Disabled"),
-            new("Read-Only"),
-            new("Sizes"),
-            new("Radius"),
             new("Colors"),
-            new("Custom Check Icon"),
-            new("Two-way Data Binding"),
+            new("Variants"),
+            new("Radius"),
+            new("Custom Icon"),
+            new("Without Icon"),
+            new("Without Icon Wrapper"),
         ]),
         new("Custom Styles"),
         new("API")
-    };
-    
+    ];
+
     protected override void OnInitialized()
     {
         Layout.Initialize(
@@ -32,7 +88,7 @@
             category: "Components",
             description: "Alerts are temporary notifications that provide concise feedback about an action or event.",
             headings: _headings,
-            linksProps: new ComponentLinksProps( "Alert", isServer: false )
+            linksProps: new ComponentLinksProps("Alert", isServer: false)
         );
     }
 }

@@ -58,8 +58,22 @@ internal static class Alert
 					.Add( "text-inherit" ),
 
 				[nameof( AlertSlots.IconWrapper )] = new ElementClass()
-					.Add( "size-10" )
-					.Add( "rounded-full" ),
+					.Add( "flex-none" )
+					.Add( "relative" )
+					.Add( "w-9" )
+					.Add( "h-9" )
+					.Add( "rounded-full" )
+					.Add( "grid" )
+					.Add( "place-items-center" ),
+				
+				[nameof( AlertSlots.Icon )] = new ElementClass()
+					.Add( "fill-current" )
+					.Add( "w-6" )
+					.Add( "absolute" )
+					.Add( "top-1/2" )
+					.Add( "left-1/2" )
+					.Add( "-translate-x-1/2" )
+					.Add( "-translate-y-1/2" )
 			},
 
 			Variants = new VariantCollection
@@ -69,12 +83,17 @@ internal static class Alert
 					[nameof( AlertVariant.Solid )] = new SlotCollection(),
 					[nameof( AlertVariant.Outlined )] = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = "border bg-transparent"
+						[nameof( AlertSlots.Base )] = "border bg-transparent",
+						[nameof( AlertSlots.IconWrapper )] = "shadow-small"
 					},
-					[nameof( AlertVariant.Flat )] = new SlotCollection(),
+					[nameof( AlertVariant.Flat )] = new SlotCollection
+					{
+						[nameof( AlertSlots.IconWrapper )] = "shadow-small border-1"
+					},
 					[nameof( AlertVariant.Faded )] = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = "border"
+						[nameof( AlertSlots.Base )] = "border",
+						[nameof( AlertSlots.IconWrapper )] = "shadow-small border-1"
 					}
 				},
 

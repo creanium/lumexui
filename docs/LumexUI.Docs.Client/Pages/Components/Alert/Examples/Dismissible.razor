@@ -1,0 +1,17 @@
+<LumexAlert Title="This is a default alert" 
+            Color="ThemeColor.Default"
+            OnClose="@(() => IsAlertClosed = true)"
+/>
+
+@if (IsAlertClosed)
+{
+    <LumexButton>
+        Show Alert Again
+    </LumexButton>
+}
+
+@code{
+
+    public bool IsAlertClosed { get; set; }
+
+}

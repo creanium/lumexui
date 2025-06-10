@@ -82,6 +82,11 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 	[Parameter] public AlertVariant Variant { get; set; } = AlertVariant.Flat;
 
 	/// <summary>
+	/// Hides the icon wrapper and only renders the plain icon if <see cref="HideIcon"/> is false.
+	/// </summary>
+	[Parameter] public bool HideIconWrapper { get; set; }
+	
+	/// <summary>
 	/// 
 	/// </summary>
 	[Parameter] public bool HideIcon { get; set; }
@@ -144,6 +149,7 @@ public partial class LumexAlert : LumexComponentBase, ISlotComponent<AlertSlots>
 		return slot switch
 		{
 			nameof( AlertSlots.Base ) => styles( Classes?.Base, Class ),
+			nameof( AlertSlots.MainWrapper ) => styles( Classes?.MainWrapper ),
 			nameof( AlertSlots.IconWrapper ) => styles( Classes?.IconWrapper ),
 			nameof( AlertSlots.Icon ) => styles( Classes?.Icon ),
 			nameof( AlertSlots.Title ) => styles( Classes?.Title ),
