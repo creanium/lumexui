@@ -10,6 +10,12 @@
 		<DocsGeneratorProject>dotnet run -c Release --project "$(SolutionDir)docs/LumexUI.Docs.Generator/LumexUI.Docs.Generator.csproj"</DocsGeneratorProject>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<IsWindows>$([System.OperatingSystem]::IsWindows())</IsWindows>
+		<IsLinux>$([System.OperatingSystem]::IsLinux())</IsLinux>
+		<IsMacOS>$([System.OperatingSystem]::IsMacOS())</IsMacOS>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.1" />
 	</ItemGroup>
@@ -28,11 +34,11 @@
 	<Target Name="InstallTailwindCSS" AfterTargets="Build" Condition="!Exists('tailwindcss.exe') and !Exists('tailwindcss')">
 		<PropertyGroup>
 			<!-- Tailwind standalone CLI for Windows -->
-			<TailwindFile Condition="$([System.OperatingSystem]::IsWindows())">tailwindcss-windows-x64.exe</TailwindFile>
+			<TailwindFile Condition="$(IsWindows)">tailwindcss-windows-x64.exe</TailwindFile>
 			<!-- Tailwind standalone CLI for Linux -->
-			<TailwindFile Condition="$([System.OperatingSystem]::IsLinux())">tailwindcss-linux-x64</TailwindFile>
+			<TailwindFile Condition="$(IsLinux)">tailwindcss-linux-x64</TailwindFile>
 			<!-- Tailwind standalone CLI for MacOS -->
-			<TailwindFile Condition="$([System.OperatingSystem]::IsMacOS())">tailwindcss-macos-arm64</TailwindFile>
+			<TailwindFile Condition="$(IsMacOS)">tailwindcss-macos-arm64</TailwindFile>
 			
 			<TailwindVersion>4.1.8</TailwindVersion>
 			
@@ -43,16 +49,16 @@
 		<Exec Command="curl -LO $(TailwindURL)" />
 		
 		<!-- Rename a file for Windows -->
-		<Exec Command="ren $(TailwindFile) tailwindcss.exe" Condition="'$(OS)' == 'Windows_NT'" />
+		<Exec Command="ren $(TailwindFile) tailwindcss.exe" Condition="$(IsWindows)" />
 
-		<!-- Rename a file for Linux -->
-		<Exec Command="mv $(TailwindFile) tailwindcss" Condition="'$(OS)' != 'Windows_NT'" />
-		<Exec Command="chmod +x tailwindcss" Condition="'$(OS)' != 'Windows_NT'" />
+		<!-- Rename a file for Linux/Mac -->
+		<Exec Command="mv $(TailwindFile) tailwindcss" Condition="!$(IsWindows)" />
+		<Exec Command="chmod +x tailwindcss" Condition="!$(IsWindows)" />
 	</Target>
 
 	<Target Name="TailwindCSS" AfterTargets="InstallTailwindCSS">
-		<Exec Command="tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs.css" Condition="'$(OS)' == 'Windows_NT'" />
-		<Exec Command="./tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs.css" Condition="'$(OS)' != 'Windows_NT'" />
+		<Exec Command="tailwindcss.exe -i ./Styles/globals.css -o ./wwwroot/css/docs.css" Condition="$(IsWindows)" />
+		<Exec Command="./tailwindcss -i ./Styles/globals.css -o ./wwwroot/css/docs.css" Condition="!$(IsWindows)" />
 	</Target>
 
 </Project>
