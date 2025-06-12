@@ -24,7 +24,7 @@ internal static class Alert
 		{
 			Slots = new SlotCollection
 			{
-				[nameof( AlertSlots.Base )] = new ElementClass()
+				[nameof(AlertSlots.Base)] = new ElementClass()
 					.Add( "flex" )
 					.Add( "flex-grow" )
 					.Add( "flex-row" )
@@ -33,8 +33,7 @@ internal static class Alert
 					.Add( "py-3" )
 					.Add( "px-4" )
 					.Add( "gap-x-1" ),
-				
-				[nameof( AlertSlots.MainWrapper )] = new ElementClass()
+				[nameof(AlertSlots.MainWrapper)] = new ElementClass()
 					.Add( "h-full" )
 					.Add( "flex-grow" )
 					.Add( "min-h-10" )
@@ -45,28 +44,24 @@ internal static class Alert
 					.Add( "items-start" )
 					.Add( "text-inherit" )
 					.Add( "justify-center" ),
-
-				[nameof( AlertSlots.Title )] = new ElementClass()
+				[nameof(AlertSlots.Title)] = new ElementClass()
 					.Add( "text-small" )
 					.Add( "w-full" )
 					.Add( "font-medium" )
 					.Add( "block" )
 					.Add( "text-inherit" )
 					.Add( "leading-5" ),
-				
-				[nameof( AlertSlots.Description )] = new ElementClass()
+				[nameof(AlertSlots.Description)] = new ElementClass()
 					.Add( "pl-[1px]" )
 					.Add( "text-small" )
 					.Add( "font-normal" )
 					.Add( "text-inherit" ),
-
-				[nameof( AlertSlots.CloseButton )] = new ElementClass()
+				[nameof(AlertSlots.CloseButton)] = new ElementClass()
 					.Add( "relative" )
 					.Add( "text-inherit" )
 					.Add( "translate-x-1" )
 					.Add( "-translate-y-1" ),
-				
-				[nameof( AlertSlots.IconWrapper )] = new ElementClass()
+				[nameof(AlertSlots.IconWrapper)] = new ElementClass()
 					.Add( "flex-none" )
 					.Add( "relative" )
 					.Add( "w-9" )
@@ -74,8 +69,7 @@ internal static class Alert
 					.Add( "rounded-full" )
 					.Add( "grid" )
 					.Add( "place-items-center" ),
-				
-				[nameof( AlertSlots.Icon )] = new ElementClass()
+				[nameof(AlertSlots.Icon)] = new ElementClass()
 					.Add( "fill-current" )
 					.Add( "w-6" )
 					.Add( "absolute" )
@@ -84,68 +78,64 @@ internal static class Alert
 					.Add( "-translate-x-1/2" )
 					.Add( "-translate-y-1/2" )
 			},
-
 			Variants = new VariantCollection
 			{
-				[nameof( LumexAlert.Variant )] = new VariantValueCollection
+				[nameof(LumexAlert.Variant)] = new VariantValueCollection
 				{
-					[nameof( AlertVariant.Solid )] = new SlotCollection(),
-					[nameof( AlertVariant.Outlined )] = new SlotCollection
+					[nameof(AlertVariant.Solid)] = new SlotCollection(),
+					[nameof(AlertVariant.Outlined)] = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = "border bg-transparent"
+						[nameof(AlertSlots.Base)] = "border bg-transparent"
 					},
-					[nameof( AlertVariant.Flat )] = new SlotCollection
+					[nameof(AlertVariant.Flat)] = new SlotCollection
 					{
-						[nameof( AlertSlots.IconWrapper )] = "shadow-small border-1"
+						[nameof(AlertSlots.IconWrapper)] = "shadow-xs border-1"
 					},
-					[nameof( AlertVariant.Faded )] = new SlotCollection
+					[nameof(AlertVariant.Faded)] = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = "border"
+						[nameof(AlertSlots.Base)] = "border",
+						[nameof(AlertSlots.IconWrapper)] = "shadow-xs border-1"
 					}
 				},
-
-				[nameof( LumexAlert.Radius )] = new VariantValueCollection
+				[nameof(LumexAlert.Radius)] = new VariantValueCollection
 				{
-					[nameof( Radius.None )] = new SlotCollection
+					[nameof(Radius.None)] = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = "rounded-none"
+						[nameof(AlertSlots.Base)] = "rounded-none"
 					},
-					[nameof( Radius.Small )] = new SlotCollection
+					[nameof(Radius.Small)] = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = "rounded-small"
+						[nameof(AlertSlots.Base)] = "rounded-small"
 					},
-					[nameof( Radius.Medium )] = new SlotCollection
+					[nameof(Radius.Medium)] = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = "rounded-medium"
+						[nameof(AlertSlots.Base)] = "rounded-medium"
 					},
-					[nameof( Radius.Large )] = new SlotCollection
+					[nameof(Radius.Large)] = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = "rounded-large"
+						[nameof(AlertSlots.Base)] = "rounded-large"
 					},
-					[nameof( Radius.Full )] = new SlotCollection
+					[nameof(Radius.Full)] = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = "rounded-full"
+						[nameof(AlertSlots.Base)] = "rounded-full"
 					}
 				},
-
-				[nameof( LumexAlert.HideIcon )] = new VariantValueCollection
+				[nameof(LumexAlert.HideIcon)] = new VariantValueCollection
 				{
 					[bool.TrueString] = new SlotCollection
 					{
-						[nameof( AlertSlots.IconWrapper )] = "hidden"
+						[nameof(AlertSlots.IconWrapper)] = "hidden"
 					}
 				},
-				
-				[nameof( LumexAlert.HideIconWrapper )] = new VariantValueCollection
+				[nameof(LumexAlert.HideIconWrapper)] = new VariantValueCollection
 				{
 					[bool.TrueString] = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = "gap-x-0",
-						[nameof( AlertSlots.IconWrapper )] = "!bg-transparent !shadow-none !border-none"
+						[nameof(AlertSlots.Base)] = "gap-x-0",
+						[nameof(AlertSlots.IconWrapper)] = "!bg-transparent !shadow-none !border-none"
 					}
 				}
 			},
-
 			CompoundVariants =
 			[
 				// solid & color
@@ -153,86 +143,180 @@ internal static class Alert
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Solid ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Default )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Solid),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Default)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = ColorVariants.Solid[ThemeColor.Default],
-						[nameof( AlertSlots.CloseButton )] = "hover:bg-default-100",
-						[nameof( AlertSlots.Icon )] = "text-default-foreground",
+						[nameof(AlertSlots.Base)] = ColorVariants.Solid[ThemeColor.Default],
+						[nameof(AlertSlots.CloseButton)] = "hover:bg-default-100",
+						[nameof(AlertSlots.Icon)] = "text-default-foreground"
 					}
 				},
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Solid ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Primary )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Solid),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Primary)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = ColorVariants.Solid[ThemeColor.Primary]
+						[nameof(AlertSlots.Base)] = ColorVariants.Solid[ThemeColor.Primary]
 					}
 				},
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Solid ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Secondary )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Solid),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Secondary)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = ColorVariants.Solid[ThemeColor.Secondary]
+						[nameof(AlertSlots.Base)] = ColorVariants.Solid[ThemeColor.Secondary]
 					}
 				},
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Solid ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Success )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Solid),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Success)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = ColorVariants.Solid[ThemeColor.Success]
+						[nameof(AlertSlots.Base)] = ColorVariants.Solid[ThemeColor.Success]
 					}
 				},
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Solid ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Warning )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Solid),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Warning)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = ColorVariants.Solid[ThemeColor.Warning]
+						[nameof(AlertSlots.Base)] = ColorVariants.Solid[ThemeColor.Warning]
 					}
 				},
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Solid ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Danger )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Solid),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Danger)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = ColorVariants.Solid[ThemeColor.Danger]
+						[nameof(AlertSlots.Base)] = ColorVariants.Solid[ThemeColor.Danger]
 					}
 				},
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Solid ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Info )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Solid),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Info)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = ColorVariants.Solid[ThemeColor.Info]
+						[nameof(AlertSlots.Base)] = ColorVariants.Solid[ThemeColor.Info]
+					}
+				},
+				
+				// Outlined & color
+				new CompoundVariant
+				{
+					Conditions = new()
+					{
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Outlined),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Default)
+					},
+					Classes = new SlotCollection
+					{
+						[nameof(AlertSlots.Base)] = ColorVariants.Outlined[ThemeColor.Default],
+						[nameof(AlertSlots.CloseButton)] = "text-default-400",
+						[nameof(AlertSlots.Description)] = "text-default-600"
+					}
+				},
+				new CompoundVariant
+				{
+					Conditions = new()
+					{
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Outlined),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Primary)
+					},
+					Classes = new SlotCollection
+					{
+						[nameof(AlertSlots.Base)] = ColorVariants.Outlined[ThemeColor.Primary],
+						[nameof(AlertSlots.CloseButton)] = "hover:bg-primary-50"
+					}
+				},
+				new CompoundVariant
+				{
+					Conditions = new()
+					{
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Outlined),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Secondary)
+					},
+					Classes = new SlotCollection
+					{
+						[nameof(AlertSlots.Base)] = ColorVariants.Outlined[ThemeColor.Secondary],
+						[nameof(AlertSlots.CloseButton)] = "hover:bg-secondary-50"
+					}
+				},
+				new CompoundVariant
+				{
+					Conditions = new()
+					{
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Outlined),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Success)
+					},
+					Classes = new SlotCollection
+					{
+						[nameof(AlertSlots.Base)] = ColorVariants.Outlined[ThemeColor.Success],
+						[nameof(AlertSlots.CloseButton)] = "hover:bg-success-50"
+					}
+				},
+				new CompoundVariant
+				{
+					Conditions = new()
+					{
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Outlined),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Warning)
+					},
+					Classes = new SlotCollection
+					{
+						[nameof(AlertSlots.Base)] = ColorVariants.Outlined[ThemeColor.Warning],
+						[nameof(AlertSlots.CloseButton)] = "hover:bg-warning-100"
+					}
+				},
+				new CompoundVariant
+				{
+					Conditions = new()
+					{
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Outlined),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Danger)
+					},
+					Classes = new SlotCollection
+					{
+						[nameof(AlertSlots.Base)] = ColorVariants.Outlined[ThemeColor.Danger],
+						[nameof(AlertSlots.CloseButton)] = "hover:bg-danger-50"
+					}
+				},
+				new CompoundVariant
+				{
+					Conditions = new()
+					{
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Outlined),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Info)
+					},
+					Classes = new SlotCollection
+					{
+						[nameof(AlertSlots.Base)] = ColorVariants.Outlined[ThemeColor.Info],
+						[nameof(AlertSlots.CloseButton)] = "hover:bg-info-50"
 					}
 				},
 
@@ -241,229 +325,236 @@ internal static class Alert
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Flat ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Default )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Flat),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Default)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = new ElementClass()
+						[nameof(AlertSlots.Base)] = new ElementClass()
 							.Add( ColorVariants.Flat[ThemeColor.Default] )
 							.Add( "bg-default-100 dark:bg-default-50/50" )
 							.Add( "text-default-foreground" ),
-						[nameof( AlertSlots.Description )] = "text-default-600",
-						[nameof( AlertSlots.CloseButton )] = "text-default-400",
-						[nameof( AlertSlots.IconWrapper )] = "bg-default-50 dark:bg-default-100 border-default-200",
+						[nameof(AlertSlots.Description)] = "text-default-600",
+						[nameof(AlertSlots.CloseButton)] = "text-default-400",
+						[nameof(AlertSlots.IconWrapper)] = "bg-default-50 dark:bg-default-100 border-default-200 shadow-default/40"
 					}
 				},
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Flat ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Primary )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Flat),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Primary)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = new ElementClass()
+						[nameof(AlertSlots.Base)] = new ElementClass()
 							.Add( ColorVariants.Flat[ThemeColor.Primary] )
 							.Add( "bg-primary-50 dark:bg-primary-50/50" ),
-						[nameof( AlertSlots.CloseButton )] = "text-primary-500 hover:bg-primary-200",
-						[nameof( AlertSlots.IconWrapper )] = "bg-primary-50 dark:bg-primary-100 border-primary-100",
+						[nameof(AlertSlots.CloseButton)] = "text-primary-500 hover:bg-primary-200",
+						[nameof(AlertSlots.IconWrapper)] = "bg-primary-50 dark:bg-primary-100 border-primary-100 shadow-primary/40"
 					}
 				},
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Flat ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Secondary )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Flat),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Secondary)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = new ElementClass()
+						[nameof(AlertSlots.Base)] = new ElementClass()
 							.Add( ColorVariants.Flat[ThemeColor.Secondary] )
 							.Add( "bg-secondary-50 dark:bg-secondary-50/50" ),
-						[nameof( AlertSlots.CloseButton )] = "text-secondary-500 hover:bg-secondary-200",
-						[nameof( AlertSlots.IconWrapper )] = "bg-secondary-50 dark:bg-secondary-100 border-secondary-100",
+						[nameof(AlertSlots.CloseButton)] = "text-secondary-500 hover:bg-secondary-200",
+						[nameof(AlertSlots.IconWrapper)] = "bg-secondary-50 dark:bg-secondary-100 border-secondary-100 shadow-secondary/40"
 					}
 				},
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Flat ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Success )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Flat),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Success)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = new ElementClass()
+						[nameof(AlertSlots.Base)] = new ElementClass()
 							.Add( ColorVariants.Flat[ThemeColor.Success] )
 							.Add( "bg-success-50 dark:bg-success-50/50" ),
-						[nameof( AlertSlots.CloseButton )] = "text-success-500 hover:bg-success-200",
-						[nameof( AlertSlots.IconWrapper )] = "bg-success-50 dark:bg-success-100 border-success-100",
+						[nameof(AlertSlots.CloseButton)] = "text-success-500 hover:bg-success-200",
+						[nameof(AlertSlots.IconWrapper)] = "bg-success-50 dark:bg-success-100 border-success-100 shadow-success/40"
 					}
 				},
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Flat ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Warning )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Flat),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Warning)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = new ElementClass()
+						[nameof(AlertSlots.Base)] = new ElementClass()
 							.Add( ColorVariants.Flat[ThemeColor.Warning] )
 							.Add( "bg-warning-50 dark:bg-warning-50/50" ),
-						[nameof( AlertSlots.CloseButton )] = "text-warning-500 hover:bg-warning-200",
-						[nameof( AlertSlots.IconWrapper )] = "bg-warning-50 dark:bg-warning-100 border-warning-100",
+						[nameof(AlertSlots.CloseButton)] = "text-warning-500 hover:bg-warning-200",
+						[nameof(AlertSlots.IconWrapper)] = "bg-warning-50 dark:bg-warning-100 border-warning-100 shadow-warning/40"
 					}
 				},
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Flat ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Danger )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Flat),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Danger)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = new ElementClass()
+						[nameof(AlertSlots.Base)] = new ElementClass()
 							.Add( ColorVariants.Flat[ThemeColor.Danger] )
 							.Add( "bg-danger-50 dark:bg-danger-50/50" ),
-						[nameof( AlertSlots.CloseButton )] = "text-danger-500 hover:bg-danger-200",
-						[nameof( AlertSlots.IconWrapper )] = "bg-danger-50 dark:bg-danger-100 border-danger-100",
+						[nameof(AlertSlots.CloseButton)] = "text-danger-500 hover:bg-danger-200",
+						[nameof(AlertSlots.IconWrapper)] = "bg-danger-50 dark:bg-danger-100 border-danger-100 shadow-danger/40"
 					}
 				},
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Flat ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Info )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Flat),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Info)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = new ElementClass()
+						[nameof(AlertSlots.Base)] = new ElementClass()
 							.Add( ColorVariants.Flat[ThemeColor.Info] )
 							.Add( "bg-info-50 dark:bg-info-50/50" ),
-						[nameof( AlertSlots.CloseButton )] = "text-info-500 hover:bg-info-200",
-						[nameof( AlertSlots.IconWrapper )] = "bg-info-50 dark:bg-info-100 border-info-100",
+						[nameof(AlertSlots.CloseButton)] = "text-info-500 hover:bg-info-200",
+						[nameof(AlertSlots.IconWrapper)] = "bg-info-50 dark:bg-info-100 border-info-100 shadow-info/40"
 					}
 				},
-				
+
 				// faded & color
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Faded ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Default )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Faded),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Default)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = new ElementClass()
+						[nameof(AlertSlots.Base)] = new ElementClass()
+							.Add( ColorVariants.Flat[ThemeColor.Default] )
 							.Add( "border-default-300 dark:border-default-200" )
-							.Add( "bg-default-100 dark:bg-default-50/50"),
-						[nameof( AlertSlots.Description )] = "text-default-600",
-						[nameof( AlertSlots.CloseButton )] = "text-default-400",
-						[nameof( AlertSlots.IconWrapper )] = "bg-default-50 dark:bg-default-100 border-default-200",
+							.Add( "bg-default-100 dark:bg-default-50/50" ),
+						[nameof(AlertSlots.Description)] = "text-default-600",
+						[nameof(AlertSlots.CloseButton)] = "text-default-400",
+						[nameof(AlertSlots.IconWrapper)] = "bg-default-50 dark:bg-default-100 border-default-200 shadow-default/40"
 					}
 				},
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Faded ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Primary )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Faded),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Primary)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = new ElementClass()
+						[nameof(AlertSlots.Base)] = new ElementClass()
+							.Add( ColorVariants.Flat[ThemeColor.Primary] )
 							.Add( "border-primary-200 dark:border-primary-100" )
 							.Add( "bg-primary-50 dark:bg-primary-50/50" ),
-						[nameof( AlertSlots.CloseButton )] = "text-primary-500 hover:bg-primary-200",
-						[nameof( AlertSlots.IconWrapper )] = "bg-primary-50 dark:bg-primary-100 border-primary-100",
+						[nameof(AlertSlots.CloseButton)] = "text-primary-500 hover:bg-primary-200",
+						[nameof(AlertSlots.IconWrapper)] = "bg-primary-50 dark:bg-primary-100 border-primary-100 shadow-primary/40"
 					}
 				},
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Faded ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Secondary )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Faded),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Secondary)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = new ElementClass()
+						[nameof(AlertSlots.Base)] = new ElementClass()
+							.Add( ColorVariants.Flat[ThemeColor.Secondary] )
 							.Add( "border-secondary-200" )
 							.Add( "bg-secondary-50 dark:bg-secondary-50/50" ),
-						[nameof( AlertSlots.CloseButton )] = "text-secondary-500 hover:bg-secondary-200",
-						[nameof( AlertSlots.IconWrapper )] = "bg-secondary-50 dark:bg-secondary-100 border-secondary-100",
+						[nameof(AlertSlots.CloseButton)] = "text-secondary-500 hover:bg-secondary-200",
+						[nameof(AlertSlots.IconWrapper)] = "bg-secondary-50 dark:bg-secondary-100 border-secondary-100 shadow-secondary/40"
 					}
 				},
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Faded ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Success )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Faded),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Success)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = new ElementClass()
+						[nameof(AlertSlots.Base)] = new ElementClass()
+							.Add( ColorVariants.Flat[ThemeColor.Success] )
 							.Add( "border-success-300 dark:border-success-100" )
 							.Add( "bg-success-50 dark:bg-success-50/50" ),
-						[nameof( AlertSlots.CloseButton )] = "text-success-500 hover:bg-success-200",
-						[nameof( AlertSlots.IconWrapper )] = "bg-success-50 dark:bg-success-100 border-success-100",
+						[nameof(AlertSlots.CloseButton)] = "text-success-500 hover:bg-success-200",
+						[nameof(AlertSlots.IconWrapper)] = "bg-success-50 dark:bg-success-100 border-success-100 shadow-success/40"
 					}
 				},
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Faded ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Warning )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Faded),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Warning)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = new ElementClass()
+						[nameof(AlertSlots.Base)] = new ElementClass()
+							.Add( ColorVariants.Flat[ThemeColor.Warning] )
 							.Add( "border-warning-300 dark:border-warning-100" )
 							.Add( "bg-warning-50 dark:bg-warning-50/50" ),
-						[nameof( AlertSlots.CloseButton )] = "text-warning-500 hover:bg-warning-200",
-						[nameof( AlertSlots.IconWrapper )] = "bg-warning-50 dark:bg-warning-100 border-warning-100",
+						[nameof(AlertSlots.CloseButton)] = "text-warning-500 hover:bg-warning-200",
+						[nameof(AlertSlots.IconWrapper)] = "bg-warning-50 dark:bg-warning-100 border-warning-100 shadow-warning/40"
 					}
 				},
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Faded ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Danger )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Faded),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Danger)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = new ElementClass()
+						[nameof(AlertSlots.Base)] = new ElementClass()
+							.Add( ColorVariants.Flat[ThemeColor.Danger] )
 							.Add( "border-danger-200 dark:border-danger-100" )
 							.Add( "bg-danger-50 dark:bg-danger-50/50" ),
-						[nameof( AlertSlots.CloseButton )] = "text-danger-500 hover:bg-danger-200",
-						[nameof( AlertSlots.IconWrapper )] = "bg-danger-50 dark:bg-danger-100 border-danger-100",
+						[nameof(AlertSlots.CloseButton)] = "text-danger-500 hover:bg-danger-200",
+						[nameof(AlertSlots.IconWrapper)] = "bg-danger-50 dark:bg-danger-100 border-danger-100 shadow-danger/40"
 					}
 				},
 				new CompoundVariant
 				{
 					Conditions = new()
 					{
-						[nameof( LumexAlert.Variant )] = nameof( AlertVariant.Faded ),
-						[nameof( LumexAlert.Color )] = nameof( ThemeColor.Info )
+						[nameof(LumexAlert.Variant)] = nameof(AlertVariant.Faded),
+						[nameof(LumexAlert.Color)] = nameof(ThemeColor.Info)
 					},
 					Classes = new SlotCollection
 					{
-						[nameof( AlertSlots.Base )] = new ElementClass()
+						[nameof(AlertSlots.Base)] = new ElementClass()
+							.Add( ColorVariants.Flat[ThemeColor.Info] )
 							.Add( "border-info-200 dark:border-info-100" )
 							.Add( "bg-info-50 dark:bg-info-50/50" ),
-						[nameof( AlertSlots.CloseButton )] = "text-info-500 hover:bg-info-200",
-						[nameof( AlertSlots.IconWrapper )] = "bg-info-50 dark:bg-info-100 border-info-100",
+						[nameof(AlertSlots.CloseButton)] = "text-info-500 hover:bg-info-200",
+						[nameof(AlertSlots.IconWrapper)] = "bg-info-50 dark:bg-info-100 border-info-100 shadow-info/40"
 					}
 				}
 			]
