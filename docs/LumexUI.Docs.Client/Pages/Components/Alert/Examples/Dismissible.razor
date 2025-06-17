@@ -1,17 +1,55 @@
-<LumexAlert Title="This is a dismissible alert" 
-            Color="ThemeColor.Warning"
-            OnClose="@(() => IsAlertClosed = true)"
-/>
-
-@if (IsAlertClosed)
+@foreach (var alert in _alertMessages)
 {
-    <LumexButton>
-        Show Alert Again
+    <LumexAlert Title="Dismissible Alert"
+                Description="@(alert.Value)"
+                Color="@GetColor(alert.Key)"
+                OnClose="@(() => CloseAlert(alert.Key))"
+    />
+}
+
+@if (_alertMessages.Count == 0)
+{
+    <LumexButton Color="ThemeColor.Default"
+                 Variant="Variant.Outlined"
+                 OnClick="@PopulateAlerts">
+        Show Alerts Again
     </LumexButton>
 }
 
 @code{
 
-    public bool IsAlertClosed { get; set; }
+    private Dictionary<int, string> _alertMessages = [];
 
+    private void CloseAlert(int alertId)
+    {
+        Console.WriteLine($"Closing alert with ID: {alertId}");
+        _alertMessages.Remove(alertId);
+        StateHasChanged();
+    }
+
+    private void PopulateAlerts()
+    {
+        _alertMessages = new()
+        {
+            { 1, "This is a dismissible alert" },
+            { 2, "You can close this alert by clicking the close button." },
+            { 3, "Once closed, you can show it again by clicking the button below." }
+        };
+
+        StateHasChanged();
+    }
+
+    protected override void OnInitialized()
+    {
+        PopulateAlerts();
+        base.OnInitialized();
+    }
+
+    private static ThemeColor GetColor(int alertKey) => alertKey switch
+    {
+        1 => ThemeColor.Default,
+        2 => ThemeColor.Secondary,
+        3 => ThemeColor.Primary,
+        _ => ThemeColor.Warning
+    };
 }

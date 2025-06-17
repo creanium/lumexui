@@ -55,7 +55,8 @@ internal class Button
 			.Add( "rounded-none", when: radius is Radius.None )
 			.Add( "rounded-small", when: radius is Radius.Small )
 			.Add( "rounded-medium", when: radius is Radius.Medium )
-			.Add( "rounded-large", when: radius is Radius.Large );
+			.Add( "rounded-large", when: radius is Radius.Large )
+			.Add( "rounded-full", when: radius is Radius.Full );
 	}
 
 	private static ElementClass GetVariantStyles( Variant variant )
@@ -115,6 +116,7 @@ internal class Button
 			.Add( GetVariantStyles( button.Variant ) )
 			.Add( GetColorStyles( button.Variant, button.Color ) )
 			.Add( GetHoverStyles( button.Variant, button.Color ) )
+			.Add( "px-0 !gap-0 !min-w-auto !w-8 !h-8", button.IsIconOnly )
 			.Add( button.Class )
 			.ToString();
 	}

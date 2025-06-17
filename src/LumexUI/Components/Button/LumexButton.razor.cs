@@ -81,6 +81,11 @@ public partial class LumexButton : LumexComponentBase
 	/// Gets or sets a value indicating whether the button is full-width.
 	/// </summary>
 	[Parameter] public bool FullWidth { get; set; }
+	
+	/// <summary>
+	/// Indicates that this button only contains an icon and no text.
+	/// </summary>
+	[Parameter] public bool IsIconOnly { get; set; }
 
     /// <summary>
     /// Gets or sets a callback that is fired whenever the button is clicked.

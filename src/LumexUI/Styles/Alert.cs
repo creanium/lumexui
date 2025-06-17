@@ -89,12 +89,12 @@ internal static class Alert
 					},
 					[nameof(AlertVariant.Flat)] = new SlotCollection
 					{
-						[nameof(AlertSlots.IconWrapper)] = "shadow-xs border-1"
+						[nameof(AlertSlots.IconWrapper)] = "shadow-sm border-1"
 					},
 					[nameof(AlertVariant.Faded)] = new SlotCollection
 					{
 						[nameof(AlertSlots.Base)] = "border",
-						[nameof(AlertSlots.IconWrapper)] = "shadow-xs border-1"
+						[nameof(AlertSlots.IconWrapper)] = "shadow-sm border-1"
 					}
 				},
 				[nameof(LumexAlert.Radius)] = new VariantValueCollection
@@ -138,7 +138,8 @@ internal static class Alert
 			},
 			CompoundVariants =
 			[
-				// solid & color
+				#region Solid & Color
+				
 				new CompoundVariant
 				{
 					Conditions = new()
@@ -226,7 +227,10 @@ internal static class Alert
 					}
 				},
 				
-				// Outlined & color
+				#endregion Solid & Color
+
+				#region Outlined & color
+
 				new CompoundVariant
 				{
 					Conditions = new()
@@ -238,6 +242,7 @@ internal static class Alert
 					{
 						[nameof(AlertSlots.Base)] = ColorVariants.Outlined[ThemeColor.Default],
 						[nameof(AlertSlots.CloseButton)] = "text-default-400",
+						[nameof(AlertSlots.IconWrapper)] = "bg-default-200 dark:bg-default-100",
 						[nameof(AlertSlots.Description)] = "text-default-600"
 					}
 				},
@@ -251,7 +256,8 @@ internal static class Alert
 					Classes = new SlotCollection
 					{
 						[nameof(AlertSlots.Base)] = ColorVariants.Outlined[ThemeColor.Primary],
-						[nameof(AlertSlots.CloseButton)] = "hover:bg-primary-50"
+						[nameof(AlertSlots.CloseButton)] = "hover:bg-primary-50",
+						[nameof(AlertSlots.IconWrapper)] = "bg-primary-100 dark:bg-primary-50"
 					}
 				},
 				new CompoundVariant
@@ -264,7 +270,8 @@ internal static class Alert
 					Classes = new SlotCollection
 					{
 						[nameof(AlertSlots.Base)] = ColorVariants.Outlined[ThemeColor.Secondary],
-						[nameof(AlertSlots.CloseButton)] = "hover:bg-secondary-50"
+						[nameof(AlertSlots.CloseButton)] = "hover:bg-secondary-50",
+						[nameof(AlertSlots.IconWrapper)] = "bg-secondary-100 dark:bg-secondary-50"
 					}
 				},
 				new CompoundVariant
@@ -277,7 +284,8 @@ internal static class Alert
 					Classes = new SlotCollection
 					{
 						[nameof(AlertSlots.Base)] = ColorVariants.Outlined[ThemeColor.Success],
-						[nameof(AlertSlots.CloseButton)] = "hover:bg-success-50"
+						[nameof(AlertSlots.CloseButton)] = "hover:bg-success-50",
+						[nameof(AlertSlots.IconWrapper)] = "bg-success-100 dark:bg-success-50"
 					}
 				},
 				new CompoundVariant
@@ -290,7 +298,8 @@ internal static class Alert
 					Classes = new SlotCollection
 					{
 						[nameof(AlertSlots.Base)] = ColorVariants.Outlined[ThemeColor.Warning],
-						[nameof(AlertSlots.CloseButton)] = "hover:bg-warning-100"
+						[nameof(AlertSlots.CloseButton)] = "hover:bg-warning-100",
+						[nameof(AlertSlots.IconWrapper)] = "bg-warning-100 dark:bg-warning-50"
 					}
 				},
 				new CompoundVariant
@@ -303,7 +312,8 @@ internal static class Alert
 					Classes = new SlotCollection
 					{
 						[nameof(AlertSlots.Base)] = ColorVariants.Outlined[ThemeColor.Danger],
-						[nameof(AlertSlots.CloseButton)] = "hover:bg-danger-50"
+						[nameof(AlertSlots.CloseButton)] = "hover:bg-danger-50",
+						[nameof(AlertSlots.IconWrapper)] = "bg-danger-100 dark:bg-danger-50"
 					}
 				},
 				new CompoundVariant
@@ -316,11 +326,15 @@ internal static class Alert
 					Classes = new SlotCollection
 					{
 						[nameof(AlertSlots.Base)] = ColorVariants.Outlined[ThemeColor.Info],
-						[nameof(AlertSlots.CloseButton)] = "hover:bg-info-50"
+						[nameof(AlertSlots.CloseButton)] = "hover:bg-info-50",
+						[nameof(AlertSlots.IconWrapper)] = "bg-info-100 dark:bg-info-50"
 					}
 				},
 
-				// flat & color
+				#endregion Outlined & color
+
+				#region Flat & Color
+
 				new CompoundVariant
 				{
 					Conditions = new()
@@ -367,7 +381,7 @@ internal static class Alert
 						[nameof(AlertSlots.Base)] = new ElementClass()
 							.Add( ColorVariants.Flat[ThemeColor.Secondary] )
 							.Add( "bg-secondary-50 dark:bg-secondary-50/50" ),
-						[nameof(AlertSlots.CloseButton)] = "text-secondary-500 hover:bg-secondary-200",
+						[nameof(AlertSlots.CloseButton)] = "text-secondary-500 !hover:bg-secondary-200",
 						[nameof(AlertSlots.IconWrapper)] = "bg-secondary-50 dark:bg-secondary-100 border-secondary-100 shadow-secondary/40"
 					}
 				},
@@ -436,7 +450,10 @@ internal static class Alert
 					}
 				},
 
-				// faded & color
+				#endregion Flat & Color
+
+				#region Faded & Color
+
 				new CompoundVariant
 				{
 					Conditions = new()
@@ -557,6 +574,8 @@ internal static class Alert
 						[nameof(AlertSlots.IconWrapper)] = "bg-info-50 dark:bg-info-100 border-info-100 shadow-info/40"
 					}
 				}
+
+				#endregion Faded & Color
 			]
 		} );
 	}
