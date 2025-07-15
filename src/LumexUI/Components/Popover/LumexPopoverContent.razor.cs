@@ -2,12 +2,10 @@
 // LumexUI licenses this file to you under the MIT license
 // See the license here https://github.com/LumexUI/lumexui/blob/main/LICENSE
 
-using System.Diagnostics.CodeAnalysis;
-
 using LumexUI.Common;
+using LumexUI.Motion.Types;
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 
 namespace LumexUI;
 
@@ -15,10 +13,8 @@ namespace LumexUI;
 /// A component representing the content of the <see cref="LumexPopover"/>.
 /// </summary>
 [CompositionComponent( typeof( LumexPopover ) )]
-public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
+public partial class LumexPopoverContent : LumexComponentBase
 {
-	private const string JavaScriptFile = "./_content/LumexUI/js/components/popover.bundle.js";
-
 	/// <summary>
 	/// Gets or sets content to be rendered as the popover content.
 	/// </summary>
@@ -26,64 +22,27 @@ public partial class LumexPopoverContent : LumexComponentBase, IAsyncDisposable
 
 	[CascadingParameter] internal PopoverContext Context { get; set; } = default!;
 
-	[Inject] private IJSRuntime JSRuntime { get; set; } = default!;
-
 	private LumexPopover Popover => Context.Owner;
 
-	private IJSObjectReference _jsModule = default!;
+	private readonly MotionProps _motionProps; 
+
+	/// <summary>
+	/// 
+	/// </summary>
+	public LumexPopoverContent()
+	{
+		_motionProps = new MotionProps
+		{
+			Enter = new
+			{
+				Opacity = new float[] { 0, 1 } // Animate opacity from 0 to 1.
+			}
+		};
+	}
 
 	/// <inheritdoc />
 	protected override void OnInitialized()
 	{
 		ContextNullException.ThrowIfNull( Context, nameof( LumexPopoverContent ) );
-
-		Context.OnTrigger += ShowAsync;
-	}
-
-	/// <inheritdoc />
-	protected override async Task OnAfterRenderAsync( bool firstRender )
-	{
-		if( firstRender )
-		{
-			_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>( "import", JavaScriptFile );
-		}
-	}
-
-	private ValueTask ShowAsync()
-	{
-		// We need to render a popover first.
-		StateHasChanged();
-
-		// Then we initialize the popover on the JS side by:
-		//  1. Adding a 'clickoutside' event handler
-		//  2. Applying a proper positioning
-		return _jsModule.InvokeVoidAsync( "popover.initialize", Context.Owner.Id, Context.Owner.Options );
-	}
-
-	private async ValueTask ClickOutsideAsync()
-	{
-		await Context.Owner.HideAsync();
-		await _jsModule.InvokeVoidAsync( "popover.destroy" );
-	}
-
-	/// <inheritdoc />
-	[ExcludeFromCodeCoverage]
-	public async ValueTask DisposeAsync()
-	{
-		try
-		{
-			if( _jsModule is not null )
-			{
-				await _jsModule.InvokeVoidAsync( "popover.destroy" );
-				await _jsModule.DisposeAsync();
-			}
-
-			Context.OnTrigger -= ShowAsync;
-		}
-		catch( Exception ex ) when( ex is JSDisconnectedException or OperationCanceledException )
-		{
-			// The JSRuntime side may routinely be gone already if the reason we're disposing is that
-			// the client disconnected. This is not an error.
-		}
 	}
 }

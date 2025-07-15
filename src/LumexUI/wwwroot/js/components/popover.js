@@ -26,19 +26,19 @@ async function initialize(id, options) {
         const arrowElement = popover.querySelector('[data-slot=arrow]');
 
         portalTo(popover);
-        destroyOutsideClickHandler = createOutsideClickHandler(popover);
+        destroyOutsideClickHandler = createOutsideClickHandler([ref, popover]);
 
         const {
+            offset: offsetVal,
             placement,
             showArrow,
-            offset: offsetVal,
-            matchRefWidth
+            matchRefWidth,
         } = options;
 
         const middlewares = [
+            offset(offsetVal),
             flip(),
             shift(),
-            offset(offsetVal)
         ];
 
         if (showArrow) {
@@ -59,27 +59,29 @@ async function initialize(id, options) {
 
         const data = await computePosition(ref, popover, {
             placement: placement,
-            middleware: middlewares
+            middleware: middlewares,
         });
 
         positionPopover(popover, data);
 
         if (showArrow) {
-            positionArrow(arrowElement, placement, data);
+            positionArrow(arrowElement, data);
         }
     } catch (error) {
-        console.error('Error in popover.show:', error);
+        console.error('Error in popover.initialize:', error);
     }
 
-    function positionPopover(target, data) {
-        Object.assign(target.style, {
+    function positionPopover(popover, data) {
+        Object.assign(popover.style, {
             left: `${data.x}px`,
             top: `${data.y}px`,
         });
     }
 
-    function positionArrow(target, placement, data) {
-        const { x: arrowX, y: arrowY } = data.middlewareData.arrow;
+    function positionArrow(arrow, data) {
+        const { placement, middlewareData } = data;
+        const { x: arrowX, y: arrowY } = middlewareData.arrow;
+
         const staticSide = {
             top: 'bottom',
             right: 'left',
@@ -87,9 +89,11 @@ async function initialize(id, options) {
             left: 'right',
         }[placement.split('-')[0]];
 
-        Object.assign(target.style, {
+        Object.assign(arrow.style, {
             left: arrowX != null ? `${arrowX}px` : '',
             top: arrowY != null ? `${arrowY}px` : '',
+            right: '',
+            bottom: '',
             [staticSide]: '-4px',
         });
     }

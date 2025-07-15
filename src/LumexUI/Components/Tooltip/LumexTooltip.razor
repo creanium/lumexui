@@ -1,0 +1,36 @@
+﻿@namespace LumexUI
+@inherits LumexComponentBase
+
+<span data-popoverref="@_popoverId"
+      @onmouseenter="@OnMouseEnterAsync"
+      @onmouseleave="@OnMouseLeaveAsync"
+      @onfocusin="@OnFocusInAsync"
+      @onfocusout="@OnFocusOutAsync">
+    @ChildContent
+</span>
+
+<LumexPopover Id="@_popoverId"
+              Open="@Open"
+              Size="@Size"
+              Color="@Color"
+              Radius="@Radius"
+              Shadow="@Shadow"
+              Offset="@Offset"
+              ShowArrow="@ShowArrow"
+              Placement="@GetPlacement()"
+              Class="@Class"
+              Classes="@Classes"
+              Style="@Style"
+              role="tooltip"
+              @attributes="@AdditionalAttributes">
+    <LumexPopoverContent>
+        @if( Content is RenderFragment renderFragment )
+        {
+            @renderFragment
+        }
+        else
+        {
+            @Content
+        }
+    </LumexPopoverContent>
+</LumexPopover>
